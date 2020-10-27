@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>Hexo博客搭建(1)——建站及部署 | 鴻塵</title>
+  <meta name="description" content="摘要：从零开始搭建Hexo博客，包括环境安装、建站写作和部署。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo博客搭建(1)——建站及部署">
+<meta property="og:url" content="https://hwame.top/20200520/hello-hexo-setup-deploy.html">
+<meta property="og:site_name" content="Solitary">
+<meta property="og:description" content="摘要：从零开始搭建Hexo博客，包括环境安装、建站写作和部署。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s1.ax1x.com/2020/08/23/dwT7l9.png">
+<meta property="article:published_time" content="2020-05-19T21:20:52.000Z">
+<meta property="article:modified_time" content="2020-10-24T03:50:49.097Z">
+<meta property="article:author" content="鴻塵">
+<meta property="article:tag" content="Hexo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s1.ax1x.com/2020/08/23/dwT7l9.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://hwame.top/20200520/hello-hexo-setup-deploy.html">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+    <link href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.css" rel="stylesheet">
+  
+  
+<meta name="generator" content="Hexo 5.0.2"></head>
+
+
+<body class="main-center theme-purple" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/hwame" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">鴻塵</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Pythoner, Data Analyst</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> 湖北-武汉</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav menu-highlight">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder-open"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-gallery">
+          <a href="/gallery">
+            
+            <i class="icon icon-delicious"></i>
+            
+            <span class="menu-title">相册</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/hwame" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/hwamei" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://www.zhihu.com/people/hwame" target="_blank" title="Zhihu" data-toggle=tooltip data-placement=top><i class="icon icon-zhihu"></i></a></li>
+        
+        <li><a href="https://segmentfault.com/u/hwame" target="_blank" title="Segmentfault" data-toggle=tooltip data-placement=top><i class="icon icon-segmentfault"></i></a></li>
+        
+        <li><a href="https://gitee.com/hwame" target="_blank" title="Gitee" data-toggle=tooltip data-placement=top><i class="icon icon-gitee"></i></a></li>
+        
+        <li><a href="https://stackoverflow.com/questions" target="_blank" title="Stackoverflow" data-toggle=tooltip data-placement=top><i class="icon icon-stackoverflow"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎来到鴻塵的博客!<br>鴻塵的<u><a target="_blank" rel="noopener" href="https://weibo.com/hwamei" style="color:#E541E5;">微博</a></u>主页，鴻塵的<u><a target="_blank" rel="noopener" href="https://github.com/hwame" style="color:#E541E5;">Github</a></u>主页，如果我可以忘记的<u><a target="_blank" rel="noopener" href="https://www.zhihu.com/people/hwame" style="color:#E541E5;">知乎</a></u>主页。</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/CentOS/" style="font-size: 13px;">CentOS</a> <a href="/tags/Hexo/" style="font-size: 14px;">Hexo</a> <a href="/tags/Linux/" style="font-size: 13.67px;">Linux</a> <a href="/tags/Linux%E9%83%A8%E7%BD%B2/" style="font-size: 13px;">Linux部署</a> <a href="/tags/Spark/" style="font-size: 13px;">Spark</a> <a href="/tags/matplotlib/" style="font-size: 13.33px;">matplotlib</a> <a href="/tags/python/" style="font-size: 14px;">python</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 13px;">大数据</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" style="font-size: 13px;">数据结构与算法</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 13px;">爬虫</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a><span class="archive-list-count">10</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled ">
+        
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20201008/render-matplotlib-figure-to-flaskweb.html" class="thumb">
+    
+    
+        <span style="background-image:url(/images/few-pics/20201008效果预览.png)" alt="如何将matplotlib图像渲染到前端" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/python/">python</a>
+              </p>
+              <p class="item-title">
+                <a href="/20201008/render-matplotlib-figure-to-flaskweb.html" class="title">如何将matplotlib图像渲染到前端</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-10-08T01:06:32.000Z" itemprop="datePublished">2020-10-08</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20200604/shortest-leetcode-python-solutions.html" class="thumb">
+    
+    
+        <span style="background-image:url(/images/post-pics/data-structure-algorithm.png)" alt="力扣简洁优雅的python解法" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a>
+              </p>
+              <p class="item-title">
+                <a href="/20200604/shortest-leetcode-python-solutions.html" class="title">力扣简洁优雅的python解法</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-06-04T13:32:55.000Z" itemprop="datePublished">2020-06-04</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20200527/retry-from-try-clause-when-catch-error-in-python.html" class="thumb">
+    
+    
+        <span style="background-image:url(https://s1.ax1x.com/2020/08/22/daDPfg.png)" alt="Python捕获异常后如何对try语句重试" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/python/">python</a>
+              </p>
+              <p class="item-title">
+                <a href="/20200527/retry-from-try-clause-when-catch-error-in-python.html" class="title">Python捕获异常后如何对try语句重试</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-05-27T02:11:54.000Z" itemprop="datePublished">2020-05-27</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20200525/pycharm-connect-linux-from-windows.html" class="thumb">
+    
+    
+        <span style="background-image:url(/images/post-pics/python-icon.png)" alt="Windows使用PyCharm远程连接Linux的python环境" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/python/">python</a>
+              </p>
+              <p class="item-title">
+                <a href="/20200525/pycharm-connect-linux-from-windows.html" class="title">Windows使用PyCharm远程连接Linux的python环境</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-05-25T05:22:14.000Z" itemprop="datePublished">2020-05-25</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20200523/centos7-environment-variables.html" class="thumb">
+    
+    
+        <span style="background-image:url(/images/post-pics/linux-icon.png)" alt="CentOS7 环境变量详解" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Linux/">Linux</a>
+              </p>
+              <p class="item-title">
+                <a href="/20200523/centos7-environment-variables.html" class="title">CentOS7 环境变量详解</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-05-23T02:39:58.000Z" itemprop="datePublished">2020-05-23</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%BC%80%E7%AF%87%E8%AF%8D"><span class="toc-text">1.开篇词</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E8%83%8C%E6%99%AF"><span class="toc-text">1.1.背景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E8%AF%B4%E6%98%8E"><span class="toc-text">1.2.说明</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A4"><span class="toc-text">2.安装步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E5%AE%89%E8%A3%85Node-js%E5%92%8CGit"><span class="toc-text">2.1.安装Node.js和Git</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E5%AE%89%E8%A3%85Hexo"><span class="toc-text">2.2.安装Hexo</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%BB%BA%E7%AB%99"><span class="toc-text">3.建站</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E5%88%9D%E5%A7%8B%E5%8C%96%E5%8D%9A%E5%AE%A2%E6%96%87%E4%BB%B6"><span class="toc-text">3.1.初始化博客文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E6%96%87%E4%BB%B6%E8%AF%B4%E6%98%8E"><span class="toc-text">3.2.文件说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-text">3.3.启动服务器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-%E5%81%9C%E6%AD%A2%E6%9C%8D%E5%8A%A1"><span class="toc-text">3.4.停止服务</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%BC%80%E5%A7%8B%E5%86%99%E4%BD%9C"><span class="toc-text">4.开始写作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E5%88%9B%E5%BB%BA%E7%AC%AC%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0"><span class="toc-text">4.1.创建第一篇文章</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E8%BF%90%E8%A1%8C%E6%9C%8D%E5%8A%A1"><span class="toc-text">4.2.运行服务</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E9%83%A8%E7%BD%B2%E5%88%B0Github"><span class="toc-text">5.部署到Github</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-%E5%88%9B%E5%BB%BA%E8%B4%A6%E6%88%B7"><span class="toc-text">5.1.创建账户</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-%E5%88%9B%E5%BB%BA%E4%B8%AA%E4%BA%BA%E4%BB%93%E5%BA%93"><span class="toc-text">5.2.创建个人仓库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-%E5%88%9D%E5%A7%8B%E5%8C%96git"><span class="toc-text">5.3.初始化git</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-%E9%85%8D%E7%BD%AESSH%E5%AF%86%E9%92%A5"><span class="toc-text">5.4.配置SSH密钥</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-5-%E9%83%A8%E7%BD%B2Hexo"><span class="toc-text">5.5.部署Hexo</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E7%BB%93%E8%AF%AD"><span class="toc-text">6.结语</span></a></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-hello-hexo-setup-deploy" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Hexo博客搭建(1)——建站及部署
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/20200520/hello-hexo-setup-deploy.html" class="article-date">
+	  <time datetime="2020-05-19T21:20:52.000Z" itemprop="datePublished">2020-05-20</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Hexo/">Hexo</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/Hexo/" rel="tag">Hexo</a>
+  </span>
+
+
+        
+
+	<span class="article-read hidden-xs">
+    	<i class="icon icon-eye-fill" aria-hidden="true"></i>
+    	<span id="/20200520/hello-hexo-setup-deploy.html" class="leancloud_visitors"  data-flag-title="Hexo博客搭建(1)——建站及部署">
+			<span class="leancloud-visitors-count">0</span>
+		</span>
+    </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/20200520/hello-hexo-setup-deploy.html#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2.7k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 10(分)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>摘要：从零开始搭建Hexo博客，包括环境安装、建站写作和部署。<a id="more"></a></p>
+<p><table><tr><td bgcolor=#D7BDE2>温馨提示：点击页面下方 ⚓ 以展开或折叠目录</td></tr></table></p>
+<hr>
+<blockquote>
+<p><font size=5><b>Hexo博客搭建</b></font><br><strong>博客系列：</strong><a href="https://hwame.top/20200520/hello-hexo-setup-deploy.html">Hexo博客搭建(1)——建站及部署</a>，环境搭建并部署至Github。<br><strong>博客系列：</strong><a href="https://hwame.top/20200520/hello-hexo-configuration.html">Hexo博客搭建(2)——主题配置</a>，针对<code>pure</code>主题进行个性化配置。<br><strong>博客系列：</strong><a href="https://hwame.top/20200520/hello-hexo-optimization.html">Hexo博客搭建(3)——优化评论系统</a>，主要对<code>Valine</code>评论系统进行优化。<br><strong>博客系列：</strong><a href="https://hwame.top/20200520/hello-hexo-troubleshooting.html">Hexo博客搭建(4)——常见问题</a>，修复了<code>pure</code>主题的系列小bug。<br><strong>文章作者：</strong><a href="https://hwame.top">鴻塵</a></p>
+</blockquote>
+<h2 id="1-开篇词"><a href="#1-开篇词" class="headerlink" title="1.开篇词"></a>1.开篇词</h2><h3 id="1-1-背景"><a href="#1-1-背景" class="headerlink" title="1.1.背景"></a>1.1.背景</h3><p>很早就有搭建个人博客的想法，因为在平时的学习过程中难免遇到各种问题，记录遇到的问题也是提高自己的一种方式，并且互联网精神就在于分享和交流。<br>由于疫情影响而无法开学，因此就更加坚定了这个想法。更让人惊喜的是，偶然得知了<strong><a target="_blank" rel="noopener" href="https://developer.aliyun.com/adc/college/">《阿里云高校师生计划》</a></strong>，可以白嫖一台服务器，可以免费使用1年：</p>
+<blockquote>
+<p>阿里云配置为：2核，4G，1M带宽，外加40G硬盘<br>我自己的虚拟机配置为：单核，2G，20G硬盘<br>虽然配置不高，但是比我的虚拟机强多了，最关键的是<strong>有公网IP</strong>！</p>
+</blockquote>
+<p>我在5月14日申请到了服务器，前后花了几天时间包括安装系统、数据库、<code>Nginx</code>等，以及<code>Node.js</code>、<code>Hexo</code>等，架设好了完整的服务器。并且根据 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1z7411y7ZR">B站教程</a> 以<code>Nginx</code>部署了一个<a target="_blank" rel="noopener" href="http://39.96.91.131/covid">《国内疫情实时监测》</a>的小项目，目前仍在稳定运行。</p>
+<h3 id="1-2-说明"><a href="#1-2-说明" class="headerlink" title="1.2.说明"></a>1.2.说明</h3><ul>
+<li>本着“能不装就不装、能少装就少装”的原则，打造一个既能满足使用要求又精简轻量的个人博客</li>
+<li>拒绝一切花里胡哨的东西，包括且不限于<code>添加卡通人物</code>，<code>背景图片及特效</code>，<code>鼠标点击特效</code>，<code>页面特效</code>，<code>背景音乐</code>，<code>鸡肋挂件</code>……</li>
+</ul>
+<h2 id="2-安装步骤"><a href="#2-安装步骤" class="headerlink" title="2.安装步骤"></a>2.安装步骤</h2><h3 id="2-1-安装Node-js和Git"><a href="#2-1-安装Node-js和Git" class="headerlink" title="2.1.安装Node.js和Git"></a>2.1.安装<code>Node.js</code>和<code>Git</code></h3><p>我最开始是在Linux下搭建的，由于白嫖来的阿里云服务器配置比较低，并且上面已有多个项目运行，因此后面将其重新迁移到Windows并部署到Github。<br>安装参考<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/#%E5%AE%89%E8%A3%85">【官方中文文档】</a><br><strong>注意：</strong><code>Node.js</code>版本需不低于 10.13，建议使用<code>Node.js</code> 12.0+版本；<br><strong>注意：</strong>Windows下需要注意设置环境变量，完成后重启<strong>命令行</strong>，否则会看到「<code>&#39;xxxx&#39; 不是内部或外部命令，也不是可运行的程序或批处理文件</code>」的报错（但实际上很可能已经安装好了）。</p>
+<h3 id="2-2-安装Hexo"><a href="#2-2-安装Hexo" class="headerlink" title="2.2.安装Hexo"></a>2.2.安装<code>Hexo</code></h3><p>在<code>Node.js</code>和<code>Git</code>安装完成之后即可安装<code>Hexo</code>了，因为<code>Hexo</code>是以<code>npm</code>方式安装，所以没有操作系统的区别了。<br>使用 npm 安装 Hexo的两种方式二选一即可：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g hexo-cli <span class="comment">#完整版Hexo</span></span><br><span class="line">$ npm install hexo        <span class="comment">#精简版Hexo</span></span><br></pre></td></tr></table></figure><br><strong>说明：</strong>推荐安装完整版，可直接使用<code>hexo [command]</code>；如果是精简版Hexo，则所有<code>hexo</code>相关命令都需要加上<code>npx</code>，即<code>npx hexo [command]</code>；<br><strong>说明：</strong>Linux一般自带有<code>Git</code>，无需安装。</p>
+<h2 id="3-建站"><a href="#3-建站" class="headerlink" title="3.建站"></a>3.建站</h2><h3 id="3-1-初始化博客文件"><a href="#3-1-初始化博客文件" class="headerlink" title="3.1.初始化博客文件"></a>3.1.初始化博客文件</h3><p>参考<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/setup">【官方中文文档】</a><br>安装 Hexo 完成后，进入指定文件夹，请执行下列命令，Hexo 将会在指定文件夹中新建所需要的文件。<br>例如我想在<code>G:</code>盘根目录创建名为<code>blog</code>的博客文件夹（注意<code>blog</code>文件夹不需要手动创建，会在<code>init</code>时自动创建），则：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ G:</span><br><span class="line"><span class="comment"># 当前路径为&quot;G:\&quot;</span></span><br><span class="line">$ hexo init blog</span><br><span class="line"><span class="comment"># 等待完成</span></span><br><span class="line">$ <span class="built_in">cd</span> blog</span><br><span class="line"><span class="comment"># 当前路径为&quot;G:\blog&quot;</span></span><br><span class="line">$ npm install</span><br><span class="line"><span class="comment"># 等待完成</span></span><br></pre></td></tr></table></figure><br>新建完成后，指定文件夹的目录如下：<br><figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">+<span class="comment">-- _config.yml</span></span><br><span class="line">+<span class="comment">-- package.json</span></span><br><span class="line">+<span class="comment">-- scaffolds</span></span><br><span class="line">+<span class="comment">-- source</span></span><br><span class="line">|   +<span class="comment">-- _drafts</span></span><br><span class="line">|   +<span class="comment">-- _posts</span></span><br><span class="line">+<span class="comment">-- themes</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="3-2-文件说明"><a href="#3-2-文件说明" class="headerlink" title="3.2.文件说明"></a>3.2.文件说明</h3><ul>
+<li><code>_config.yml</code>，网站的配置信息，可以在此配置大部分的参数。<strong>注意：</strong>此文件称为<strong>站点配置文件</strong>，主题文件夹下也有个同名文件称为<strong>主题配置文件</strong>。</li>
+<li><code>package.json</code>，安装的应用程序的信息，如<code>EJS</code>、<code>Stylus</code> 和 <code>Markdown renderer</code>，可以根据需要自由添加和卸载。</li>
+<li><code>scaffolds</code>，模版文件夹，是指在新建的<code>md</code>文件中默认填充的内容。在每次新建文章或页面时，<code>Hexo</code>会根据<code>scaffolds</code>来建立文件。文章对应于<code>scaffolds/post.md</code>，页面对应于<code>scaffolds/page.md</code>。例如，如果您修改<code>scaffold/post.md</code>中的<code>Front-matter</code>内容，那么每次新建一篇文章时都会包含这个修改。</li>
+<li><code>source</code>，资源文件夹是存放用户资源的地方。除 <code>_posts</code> 文件夹之外，开头命名为 <code>_ (下划线)</code>的文件（夹）和隐藏的文件将会被忽略。<code>Markdown</code> 和 <code>HTML</code> 文件会被解析并放到 <code>public</code> 文件夹，而其他文件会被拷贝过去。</li>
+<li><code>themes</code>，主题文件夹，这是下载的主题存放的位置，默认只有<code>landscape</code>主题。</li>
+</ul>
+<h3 id="3-3-启动服务器"><a href="#3-3-启动服务器" class="headerlink" title="3.3.启动服务器"></a>3.3.启动服务器</h3><p>输入下列命令打开<code>hexo</code>的服务，在浏览器输入<code>http://localhost:4000</code>就可以看到生成的博客了。<br><strong>注意：</strong>如果<code>Hexo</code>安装的是精简版，则应输入<code>npx hexo command</code>；<br><strong>注意：</strong>连续命令以此执行，可以使用<code>&amp;&amp;</code>连接，如下所示；<br><strong>注意：</strong>服务默认端口为4000，若因端口占用等问题需要修改则添加相关参数，如<code>hexo server -p 6666</code>。命令详细用法及参数参考<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/commands">【官方中文文档】</a>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate <span class="comment">#可简写为hexo g</span></span><br><span class="line">$ hexo server   <span class="comment">#可简写为hexo s</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 可将上述命令合并</span></span><br><span class="line">$ hexo g &amp;&amp; hexo s</span><br></pre></td></tr></table></figure>
+<h3 id="3-4-停止服务"><a href="#3-4-停止服务" class="headerlink" title="3.4.停止服务"></a>3.4.停止服务</h3><p>以<code>hexo server</code>方式启动的服务只能用于测试和调试，可以实时看到修改的效果，所以直接<code>Ctrl + C</code>即可停止服务。</p>
+<h2 id="4-开始写作"><a href="#4-开始写作" class="headerlink" title="4.开始写作"></a>4.开始写作</h2><h3 id="4-1-创建第一篇文章"><a href="#4-1-创建第一篇文章" class="headerlink" title="4.1.创建第一篇文章"></a>4.1.创建第一篇文章</h3><p>你可以执行下列命令来创建一篇新文章（<code>[option]</code>表示可选参数）。<br><strong>注意：</strong>默认布局为<code>post</code>，新建文章时无需指定<code>layout</code>，新建页面时则需要显式地指定为<code>page</code>；<br><strong>注意：</strong>标题最好不要有空格，否则生成的<code>md</code>文件名将只包含一个单词，不利于理解和维护；<br><strong>参考：</strong>官方中文文档<a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">写作</a>。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new [layout] <span class="string">&quot;My New Post&quot;</span> <span class="comment">#不推荐标题含空格</span></span><br><span class="line">$ hexo new [layout] <span class="string">&quot;My-New-Post&quot;</span> <span class="comment">#推荐以分割线分隔标题</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="4-2-运行服务"><a href="#4-2-运行服务" class="headerlink" title="4.2.运行服务"></a>4.2.运行服务</h3><p>重新启动服务即可在浏览器中访问<a target="_blank" rel="noopener" href="http://localhost:4000">http://localhost:4000</a>，如果服务已启动则只需要刷新页面。</p>
+<h2 id="5-部署到Github"><a href="#5-部署到Github" class="headerlink" title="5.部署到Github"></a>5.部署到Github</h2><h3 id="5-1-创建账户"><a href="#5-1-创建账户" class="headerlink" title="5.1.创建账户"></a>5.1.创建账户</h3><p>既然要使用GitHub的产品，那当然首先需要一个GitHub账户吧。<br>注册地址：<a target="_blank" rel="noopener" href="https://github.com/">GitHub</a>，全英文界面。</p>
+<h3 id="5-2-创建个人仓库"><a href="#5-2-创建个人仓库" class="headerlink" title="5.2.创建个人仓库"></a>5.2.创建个人仓库</h3><p>注册登录后，在<code>Repositories</code>仓库选项卡中，新建一个仓库，如图所示：<br><strong>注意：</strong>仓库名称必须为<code>&lt;username&gt;.github.io</code>，其中<code>username</code>是GitHub的用户名即图中<code>Owner</code>所对应的。</p>
+<p><img src="https://s1.ax1x.com/2020/08/23/dwT7l9.png" alt="创建个人仓库"></p>
+<h3 id="5-3-初始化git"><a href="#5-3-初始化git" class="headerlink" title="5.3.初始化git"></a>5.3.初始化git</h3><p>在命令行或<code>git bash</code>中运行如下命令，其中<code>username</code>为GitHub用户名，<code>email</code>为GitHub邮箱，并以引号引包裹。<br><strong>注意：</strong>若初次使用Git，应首先进入到博客文件夹运行<code>git init</code>，然后进行接下来的操作。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name &lt;username&gt;</span><br><span class="line">$ git config --global user.email &lt;email&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 可以用以下两条命令检查是否输入正确</span></span><br><span class="line">$ git config user.name</span><br><span class="line">$ git config user.email</span><br></pre></td></tr></table></figure>
+<h3 id="5-4-配置SSH密钥"><a href="#5-4-配置SSH密钥" class="headerlink" title="5.4.配置SSH密钥"></a>5.4.配置SSH密钥</h3><p>创建SSH密钥，输入如下命令，根据提示输入三次回车（<code>email</code>为GitHub邮箱）：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &lt;email&gt;</span><br></pre></td></tr></table></figure><br>完成后会生成一幅圈圈星星图，这个时候就已经生成了<code>.ssh</code>的文件夹，文件一般位于用户文件夹下，即<code>C:\Users\&lt;Administrator&gt;\.ssh</code>，其中<code>&lt;Administrator&gt;</code>为Windows用户名。文件夹内容如下：</p>
+<ul>
+<li><code>id_rsa</code>，私钥。</li>
+<li><code>id_rsa.pub</code>，公钥。</li>
+<li><code>known_hosts</code>，顾名思义，此文件保存着<strong><code>其他主机远程登陆本机</code></strong>的信息。</li>
+</ul>
+<p>先将公钥文件<code>id_rsa.pub</code>以记事本方式打开，复制全部信息到剪切板。</p>
+<p>然后在GitHub<strong>主页的设置Settings</strong>（<strong>不是仓库的设置</strong>）中，页面左侧找到<code>SSH and GPG keys</code>的设置选项，点击右上角<code>New SSH key</code>，把复制的<code>id_rsa.pub</code>内容粘贴到<code>Key</code>中，写个标题，点击<code>Add SSH key</code>即可。</p>
+<p>回到命令行输入如下命令，查看是否成功：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ ssh -T git@github.com</span><br><span class="line"><span class="comment"># 最后一行输出如下信息即为成功</span></span><br><span class="line"><span class="comment"># Hi hwame! You&#x27;ve successfully authenticated...</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="5-5-部署Hexo"><a href="#5-5-部署Hexo" class="headerlink" title="5.5.部署Hexo"></a>5.5.部署Hexo</h3><p>要将hexo生成的文章部署到GitHub上，首先要编辑<strong>站点配置文件</strong>，将hexo和GitHub关联起来，其中<code>username</code>为GitHub用户名。<br>在博客文件夹里，修改<strong>站点配置文件</strong><code>_config.yml</code>，在文件最后加上（已有则修改）：<br><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">deploy</span>:</span><br><span class="line">  <span class="attribute">type</span>: git</span><br><span class="line">  <span class="attribute">repository</span>: <span class="attribute">https</span>:<span class="comment">//github.com/username/username.github.io.git</span></span><br><span class="line">  <span class="attribute">branch</span>: master</span><br><span class="line">  <span class="attribute">message</span>: [description] #此行可省略</span><br><span class="line">  # message为自定义提交信息，默认为Site <span class="attribute">updated</span>: YYYY-MM-DD <span class="attribute">HH</span>:<span class="attribute">mm</span>:ss</span><br></pre></td></tr></table></figure></p>
+<p><strong>注意：</strong>需要先安装Git部署插件，才能用命令部署到GitHub，输入以下命令安装<code>hexo-deployer-git</code>插件。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure></p>
+<p>插件安装完成后，输入以下命令进行部署：<br><strong>注意：</strong>部署时强烈建议先<code>hexo clean</code>，因为有时候当你修改后发现无法生效，那么原因可能就是因为缓存文件（<code>db.json</code>）和静态文件（<code>public</code>）的问题。<br><strong>注意：</strong>部署时可能需要输入用户名和密码，也可能不需要。<strong>更新：此问题参考后文<a href="https://hwame.top/20200520/hello-hexo-troubleshooting.html#10-%E5%85%8D%E5%AF%86%E9%83%A8%E7%BD%B2%E9%97%AE%E9%A2%98">Hexo博客搭建(4)——常见问题之免密部署问题</a>。</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean    <span class="comment">#清除缓存和已生成的静态文件</span></span><br><span class="line">$ hexo generate <span class="comment">#等于hexo g</span></span><br><span class="line">$ hexo deploy   <span class="comment">#等于hexo d</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 可将上述命令合并为“一键三连”</span></span><br><span class="line">$ hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</span><br></pre></td></tr></table></figure>
+<p>当控制台输出下面信息时，则表明部署成功，浏览器中访问<u><strong><code>https://&lt;username&gt;.github.io</code></strong></u>即可看到你的博客了！！<br><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">INFO Deploy done: git</span><br><span class="line"></span><br><span class="line"># 由于Windows字体问题，也可能是这种（问题不大）：</span><br><span class="line">←[<span class="number">32</span>mINFO ←[<span class="number">39</span>m Deploy done: ←[<span class="number">35</span>mgit←[<span class="number">39</span>m</span><br></pre></td></tr></table></figure></p>
+<h2 id="6-结语"><a href="#6-结语" class="headerlink" title="6.结语"></a>6.结语</h2><p>至此，Hexo博客就基本完成了，该有的功能都可以使用。但是页面个性化不够、自定义程度不高，博客的优化及完善留作后篇。</p>
+<ul>
+<li><strong>博客系列：</strong><a href="https://hwame.top/20200520/hello-hexo-setup-deploy.html">Hexo博客搭建(1)——建站及部署</a>，环境搭建并部署至Github。</li>
+<li><strong>博客系列：</strong><a href="https://hwame.top/20200520/hello-hexo-configuration.html">Hexo博客搭建(2)——主题配置</a>，针对<code>pure</code>主题进行个性化配置。</li>
+<li><strong>博客系列：</strong><a href="https://hwame.top/20200520/hello-hexo-optimization.html">Hexo博客搭建(3)——优化评论系统</a>，主要对<code>Valine</code>评论系统进行优化。</li>
+<li><strong>博客系列：</strong><a href="https://hwame.top/20200520/hello-hexo-troubleshooting.html">Hexo博客搭建(4)——常见问题</a>，修复了<code>pure</code>主题的系列小bug。</li>
+</ul>
+<hr>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-license">
+      <strong>文章作者： </strong><a href="https://hwame.top" style="color:#E541E5;"> 鴻塵</a>
+    </li>
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://hwame.top/20200520/hello-hexo-setup-deploy.html" title="Hexo博客搭建(1)——建站及部署" target="_blank" rel="external" style="color:#E541E5;">https://hwame.top/20200520/hello-hexo-setup-deploy.html</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用《<a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external" style="color:#E541E5;"><u>CC BY 4.0 CN协议</u></a>》许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/hwame" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/hwame" target="_blank"><span class="text-dark">鴻塵</span><small class="ml-1x">Pythoner, Data Analyst</small></a></h3>
+        <div>个人简介：处女座不适合做码农。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/20200520/hello-hexo-configuration.html" title="Hexo博客搭建(2)——主题配置"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">
+        <span style="color:#C71585">[&nbsp;</span><span style="color:#C71585">文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span style="color:#C71585">]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,wechat,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipay.jpg" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechat.jpg" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/hwame" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/hwamei" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://www.zhihu.com/people/hwame" target="_blank" title="Zhihu" data-toggle=tooltip data-placement=top><i class="icon icon-zhihu"></i></a></li>
+        
+        <li><a href="https://segmentfault.com/u/hwame" target="_blank" title="Segmentfault" data-toggle=tooltip data-placement=top><i class="icon icon-segmentfault"></i></a></li>
+        
+        <li><a href="https://gitee.com/hwame" target="_blank" title="Gitee" data-toggle=tooltip data-placement=top><i class="icon icon-gitee"></i></a></li>
+        
+        <li><a href="https://stackoverflow.com/questions" target="_blank" title="Stackoverflow" data-toggle=tooltip data-placement=top><i class="icon icon-stackoverflow"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        
+        <div class="publishby">
+            <span id="busuanzi_container_site_pv">
+                <span id="busuanzi_value_site_pv" style="font-family:Courier"></span>访问，
+                <span id="busuanzi_value_site_uv" style="font-family:Courier"></span>访客
+            </span>
+        </div>
+        
+        <!--
+        <div class="publishby">
+            <a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/#/Integrated/recordQuery">鄂ICP备00000000号</a>
+        </div>
+        -->
+
+        <!--
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+        -->
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script src="//cdn.jsdelivr.net/gh/HCLonely/Valine@latest/dist/Valine.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css" />
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  var requiredFields = 'mail';
+  requiredFields = requiredFields.split(',');
+
+  new Valine({
+    el: '#vcomments',
+    appId: 'yLWKiHoPwmx7Izv4YYtC1fW2-MdYXbMMI',
+    appKey: 'h01jve7HXS6MuDLNBF5DeWTz',
+    verify: false,
+    notify: true,
+    placeholder: '🌺🌺留下邮箱才可以收到新消息提醒哦~\n🦚🦚输入QQ号可自动拉取昵称和邮箱~',
+    avatar: 'robohash',
+    meta: meta,
+    pageSize: '10' || 10,
+    enableQQ: 'true',
+    recordIP: 'true',
+    requiredFields: requiredFields,
+    visitor: true,
+    
+    master: 'f86269b0b1850cd62ca22b218aea1780',
+    friends: ['1725648a3566b8841f19423519e0a36e', '87b6f0e96e63727d889bb3653fb5867c', 'b7c8e70dc5b2bbbdbdeca1fc0e71b919'],
+    tagMeta: ['鴻塵', '蜜柚', '访客'],
+    metaPlaceholder: {"nick":"昵称/QQ号","mail":"邮箱(必填)","link":"个人主页"}
+  });
+  </script>
+
+     
+
+
+
+  <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.js"></script>
+  <script>
+  //利用 FancyBox 实现点击图片放大
+  $(document).ready(function() {
+    $('article img').not('[hidden]').not('.panel-body img').each(function() {
+      var $image = $(this);
+      var imageCaption = $image.attr('alt');
+      var $imageWrapLink = $image.parent('a');
+      if ($imageWrapLink.length < 1) {
+        var src = this.getAttribute('src');
+        var idx = src.lastIndexOf('?');
+        if (idx != -1) {
+          src = src.substring(0, idx);
+        }
+        $imageWrapLink = $image.wrap('<a href="' + src + '"></a>').parent('a');
+      }
+      $imageWrapLink.attr('data-fancybox', 'images');
+      if (imageCaption) {
+        $imageWrapLink.attr('data-caption', imageCaption);
+      }
+    });
+    $().fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: true,
+    });
+  });
+  </script>
+
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

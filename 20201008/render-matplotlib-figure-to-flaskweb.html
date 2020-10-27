@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>如何将matplotlib图像渲染到前端 | 鴻塵</title>
+  <meta name="description" content="摘要：matplotlib结合seaborn二维绘图功能强大，可以绘制eCharts画不出的图像，因此考虑直接将matplotlib图像渲染到前端。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何将matplotlib图像渲染到前端">
+<meta property="og:url" content="https://hwame.top/20201008/render-matplotlib-figure-to-flaskweb.html">
+<meta property="og:site_name" content="Solitary">
+<meta property="og:description" content="摘要：matplotlib结合seaborn二维绘图功能强大，可以绘制eCharts画不出的图像，因此考虑直接将matplotlib图像渲染到前端。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://hwame.top/images/few-pics/20201008效果预览.png">
+<meta property="article:published_time" content="2020-10-08T01:06:32.000Z">
+<meta property="article:modified_time" content="2020-10-16T14:33:51.778Z">
+<meta property="article:author" content="鴻塵">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="matplotlib">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hwame.top/images/few-pics/20201008效果预览.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://hwame.top/20201008/render-matplotlib-figure-to-flaskweb.html">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+    <link href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.css" rel="stylesheet">
+  
+  
+<meta name="generator" content="Hexo 5.0.2"></head>
+
+
+<body class="main-center theme-purple" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/hwame" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">鴻塵</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Pythoner, Data Analyst</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> 湖北-武汉</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav menu-highlight">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder-open"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-gallery">
+          <a href="/gallery">
+            
+            <i class="icon icon-delicious"></i>
+            
+            <span class="menu-title">相册</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/hwame" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/hwamei" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://www.zhihu.com/people/hwame" target="_blank" title="Zhihu" data-toggle=tooltip data-placement=top><i class="icon icon-zhihu"></i></a></li>
+        
+        <li><a href="https://segmentfault.com/u/hwame" target="_blank" title="Segmentfault" data-toggle=tooltip data-placement=top><i class="icon icon-segmentfault"></i></a></li>
+        
+        <li><a href="https://gitee.com/hwame" target="_blank" title="Gitee" data-toggle=tooltip data-placement=top><i class="icon icon-gitee"></i></a></li>
+        
+        <li><a href="https://stackoverflow.com/questions" target="_blank" title="Stackoverflow" data-toggle=tooltip data-placement=top><i class="icon icon-stackoverflow"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎来到鴻塵的博客!<br>鴻塵的<u><a target="_blank" rel="noopener" href="https://weibo.com/hwamei" style="color:#E541E5;">微博</a></u>主页，鴻塵的<u><a target="_blank" rel="noopener" href="https://github.com/hwame" style="color:#E541E5;">Github</a></u>主页，如果我可以忘记的<u><a target="_blank" rel="noopener" href="https://www.zhihu.com/people/hwame" style="color:#E541E5;">知乎</a></u>主页。</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/CentOS/" style="font-size: 13px;">CentOS</a> <a href="/tags/Hexo/" style="font-size: 14px;">Hexo</a> <a href="/tags/Linux/" style="font-size: 13.67px;">Linux</a> <a href="/tags/Linux%E9%83%A8%E7%BD%B2/" style="font-size: 13px;">Linux部署</a> <a href="/tags/Spark/" style="font-size: 13px;">Spark</a> <a href="/tags/matplotlib/" style="font-size: 13.33px;">matplotlib</a> <a href="/tags/python/" style="font-size: 14px;">python</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 13px;">大数据</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" style="font-size: 13px;">数据结构与算法</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 13px;">爬虫</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a><span class="archive-list-count">10</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled ">
+        
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20201008/render-matplotlib-figure-to-flaskweb.html" class="thumb">
+    
+    
+        <span style="background-image:url(/images/few-pics/20201008效果预览.png)" alt="如何将matplotlib图像渲染到前端" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/python/">python</a>
+              </p>
+              <p class="item-title">
+                <a href="/20201008/render-matplotlib-figure-to-flaskweb.html" class="title">如何将matplotlib图像渲染到前端</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-10-08T01:06:32.000Z" itemprop="datePublished">2020-10-08</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20200604/shortest-leetcode-python-solutions.html" class="thumb">
+    
+    
+        <span style="background-image:url(/images/post-pics/data-structure-algorithm.png)" alt="力扣简洁优雅的python解法" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a>
+              </p>
+              <p class="item-title">
+                <a href="/20200604/shortest-leetcode-python-solutions.html" class="title">力扣简洁优雅的python解法</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-06-04T13:32:55.000Z" itemprop="datePublished">2020-06-04</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20200527/retry-from-try-clause-when-catch-error-in-python.html" class="thumb">
+    
+    
+        <span style="background-image:url(https://s1.ax1x.com/2020/08/22/daDPfg.png)" alt="Python捕获异常后如何对try语句重试" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/python/">python</a>
+              </p>
+              <p class="item-title">
+                <a href="/20200527/retry-from-try-clause-when-catch-error-in-python.html" class="title">Python捕获异常后如何对try语句重试</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-05-27T02:11:54.000Z" itemprop="datePublished">2020-05-27</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20200525/pycharm-connect-linux-from-windows.html" class="thumb">
+    
+    
+        <span style="background-image:url(/images/post-pics/python-icon.png)" alt="Windows使用PyCharm远程连接Linux的python环境" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/python/">python</a>
+              </p>
+              <p class="item-title">
+                <a href="/20200525/pycharm-connect-linux-from-windows.html" class="title">Windows使用PyCharm远程连接Linux的python环境</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-05-25T05:22:14.000Z" itemprop="datePublished">2020-05-25</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20200523/centos7-environment-variables.html" class="thumb">
+    
+    
+        <span style="background-image:url(/images/post-pics/linux-icon.png)" alt="CentOS7 环境变量详解" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Linux/">Linux</a>
+              </p>
+              <p class="item-title">
+                <a href="/20200523/centos7-environment-variables.html" class="title">CentOS7 环境变量详解</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-05-23T02:39:58.000Z" itemprop="datePublished">2020-05-23</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E8%83%8C%E6%99%AF"><span class="toc-text">一、背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%80%9D%E8%B7%AF"><span class="toc-text">二、思路</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%BF%9D%E5%AD%98%E5%9B%BE%E7%89%87%E5%88%B0%E6%9C%8D%E5%8A%A1%E5%99%A8static%E7%9B%AE%E5%BD%95"><span class="toc-text">1.保存图片到服务器static目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E4%BD%BF%E7%94%A8%E8%AF%B7%E6%B1%82%E7%9A%84%E6%96%B9%E5%BC%8F%E5%B0%86%E5%9B%BE%E5%83%8F%E4%BC%A0%E5%88%B0%E5%89%8D%E7%AB%AF"><span class="toc-text">2.使用请求的方式将图像传到前端</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%B0%86%E5%9B%BE%E5%83%8F%E4%BB%A5Base64%E6%A0%BC%E5%BC%8F%E5%8F%91%E9%80%81%E7%BB%99%E5%89%8D%E7%AB%AF"><span class="toc-text">3.将图像以Base64格式发送给前端</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-text">三、代码实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E6%95%88%E6%9E%9C%E9%A2%84%E8%A7%88"><span class="toc-text">四、效果预览</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E9%83%A8%E7%BD%B2%E9%97%AE%E9%A2%98"><span class="toc-text">五、部署问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%97%A0GUI%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2"><span class="toc-text">1.无GUI图形界面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E4%B8%AD%E6%96%87%E5%AD%97%E4%BD%93%E4%B9%B1%E7%A0%81"><span class="toc-text">2.中文字体乱码</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8E%9F%E5%9B%A0%E5%88%86%E6%9E%90"><span class="toc-text">原因分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text">修改配置文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A0%E9%99%A4matplotlib%E7%BC%93%E5%AD%98"><span class="toc-text">删除matplotlib缓存</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%85%B6%E4%BB%96"><span class="toc-text">3.其他</span></a></li></ol></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-render-matplotlib-figure-to-flaskweb" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      如何将matplotlib图像渲染到前端
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/20201008/render-matplotlib-figure-to-flaskweb.html" class="article-date">
+	  <time datetime="2020-10-08T01:06:32.000Z" itemprop="datePublished">2020-10-08</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/python/">python</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/Linux/" rel="tag">Linux</a>, <a class="article-tag-link-link" href="/tags/matplotlib/" rel="tag">matplotlib</a>, <a class="article-tag-link-link" href="/tags/python/" rel="tag">python</a>
+  </span>
+
+
+        
+
+	<span class="article-read hidden-xs">
+    	<i class="icon icon-eye-fill" aria-hidden="true"></i>
+    	<span id="/20201008/render-matplotlib-figure-to-flaskweb.html" class="leancloud_visitors"  data-flag-title="如何将matplotlib图像渲染到前端">
+			<span class="leancloud-visitors-count">0</span>
+		</span>
+    </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/20201008/render-matplotlib-figure-to-flaskweb.html#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1.6k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 6(分)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>摘要：<code>matplotlib</code>结合<code>seaborn</code>二维绘图功能强大，可以绘制<code>eCharts</code>画不出的图像，因此考虑直接将<code>matplotlib</code>图像渲染到前端。<a id="more"></a></p>
+<p><table><tr><td bgcolor=#D7BDE2>温馨提示：点击页面下方 ⚓ 以展开或折叠目录</td></tr></table></p>
+<hr>
+<blockquote>
+<p><font size=5><b>文章说明</b></font><br><strong>文章说明：</strong>前端绘图一般是用百度<code>eCharts</code>，但其样式不够丰富且可定制化程度不高，有时无法满足需求，因此直接将<code>python</code>的<code>matplotlib</code>数据可视化渲染到前端。<br><strong>另请参考：</strong><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq965194745/article/details/80034291"><code>python</code>将<code>matplotlib</code>输出到web</a><br><strong>另请参考：</strong><a target="_blank" rel="noopener" href="https://xungejiang.com/2018/08/04/matplotlib-html/">如何将<code>Matplotlib</code>图像展示在web页面上</a><br><strong>另请参考：</strong><a target="_blank" rel="noopener" href="https://www.codenong.com/cs106837014/">Mac使用<code>matplotlib.pyplot</code>画图出现中文乱码</a><br><strong>文章作者：</strong>鴻塵<br><strong>文章链接：</strong><a href="https://hwame.top/20201008/render-matplotlib-figure-to-flaskweb.html">https://hwame.top/20201008/render-matplotlib-figure-to-flaskweb.html</a></p>
+</blockquote>
+<h2 id="一、背景"><a href="#一、背景" class="headerlink" title="一、背景"></a>一、背景</h2><p>前端页面的数据可视化一般是用百度<code>eCharts</code>，但其样式不够丰富且可定制化程度不高，有时无法满足需求。<br>最近需要在前端展示相关图（Correlogram），<code>python</code>中可以使用<code>matplotlib</code>结合<code>seaborn</code>轻松实现，但<a target="_blank" rel="noopener" href="https://echarts.apache.org/examples/zh/index.html">eCharts实例</a>中没有类似的样例，因此考虑直接将<code>matplotlib</code>图像渲染到前端。</p>
+<h2 id="二、思路"><a href="#二、思路" class="headerlink" title="二、思路"></a>二、思路</h2><h3 id="1-保存图片到服务器static目录"><a href="#1-保存图片到服务器static目录" class="headerlink" title="1.保存图片到服务器static目录"></a>1.保存图片到服务器<code>static</code>目录</h3><p>将画好的图片保存在服务器的<code>static</code>目录下，前端再从该目录读取图片进行展示。这种思路很直接，是最容易想到的，但是存在以下问题：</p>
+<ul>
+<li>无法判断响应时间。因为图像生成是通过前端用户传递一系列参数，再根据这些参数计算相应的数据，利用计算的数据进行可视化，因此后端生成图片的时间未知，所以只能采用在前端延时展示。</li>
+<li>前端访问<code>static</code>目录不方便。前端<code>VUE</code>＋后端<code>Flask</code>的前后端分离的项目中，前端访问<code>static</code>目录不方便。</li>
+<li>占用服务器内存和带宽。将图片保存在服务器，前端从服务器获取资源时会占用一部分网络带宽，影响到前端资源加载的速度，并且图片累积将会占用服务器内存。</li>
+</ul>
+<h3 id="2-使用请求的方式将图像传到前端"><a href="#2-使用请求的方式将图像传到前端" class="headerlink" title="2.使用请求的方式将图像传到前端"></a>2.使用请求的方式将图像传到前端</h3><p>将图像以请求的方式传到前端，前端只需将<code>&lt;img&gt;</code>标签的<code>src</code>属性赋值为后端的请求路径即可。<br>该方法可以在后端生成完图像后再发送给前端，无需设置延时获取图像。拟采用该方法。</p>
+<h3 id="3-将图像以Base64格式发送给前端"><a href="#3-将图像以Base64格式发送给前端" class="headerlink" title="3.将图像以Base64格式发送给前端"></a>3.将图像以<code>Base64</code>格式发送给前端</h3><p>这种思路和思路2类似，但是区别在于调用<code>savefig</code>方法时不存储为图像，而是存储为二进制格式，二进制格式再转化为<code>Base64</code>字符串格式，并将其发送给前端，前端只需要将<code>&lt;img&gt;</code>标签的<code>src</code>属性赋值为该字符串即可。</p>
+<h2 id="三、代码实现"><a href="#三、代码实现" class="headerlink" title="三、代码实现"></a>三、代码实现</h2><p>对比三种方法，显然思路3为最优解：</p>
+<ul>
+<li>在后端生成完图像后再发送给前端，无需设置延时获取图像；</li>
+<li>只需要往前端发送一次请求，代码更加精简；</li>
+<li>调用了 savefig 方法，可以去除白边。</li>
+</ul>
+<p>接口使用<code>python</code>的<code>flask</code>框架，代码如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib</span><br><span class="line">matplotlib.use(<span class="string">&#x27;Agg&#x27;</span>)  <span class="comment"># 不出现画图的框</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> io <span class="keyword">import</span> BytesIO</span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(&#x27;/correlation&#x27;)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">correlation</span>():</span></span><br><span class="line">    data = df.corr()</span><br><span class="line">    <span class="comment"># 开始画图</span></span><br><span class="line">    plt.figure(figsize=(<span class="number">12</span>, <span class="number">10</span>), dpi=<span class="number">80</span>)</span><br><span class="line">    sns.heatmap(data, xticklabels=data.columns, yticklabels=data.columns, cmap=<span class="string">&#x27;RdYlGn&#x27;</span>, center=<span class="number">0</span>, annot=<span class="literal">True</span>)</span><br><span class="line">    plt.title(<span class="string">&#x27;Correlogram&#x27;</span>, fontsize=<span class="number">22</span>)</span><br><span class="line">    plt.xticks(fontsize=<span class="number">12</span>)</span><br><span class="line">    plt.yticks(fontsize=<span class="number">12</span>)</span><br><span class="line">    <span class="comment"># plt.show()</span></span><br><span class="line">    <span class="comment"># 转成图片的步骤</span></span><br><span class="line">    sio = BytesIO()</span><br><span class="line">    plt.savefig(sio, format=<span class="string">&#x27;png&#x27;</span>, bbox_inches=<span class="string">&#x27;tight&#x27;</span>, pad_inches=<span class="number">0.0</span>)</span><br><span class="line">    data = base64.encodebytes(sio.getvalue()).decode()</span><br><span class="line">    src = <span class="string">&quot;data:image/png;base64,&#123;&#125;&quot;</span>.format(data)</span><br><span class="line">    plt.close()  <span class="comment"># 记得关闭，不然画出来的图是重复的</span></span><br><span class="line">    <span class="keyword">return</span> src</span><br></pre></td></tr></table></figure></p>
+<h2 id="四、效果预览"><a href="#四、效果预览" class="headerlink" title="四、效果预览"></a>四、效果预览</h2><p>前端通过请求获取该<code>src</code>后，只需将其赋值给<code>&lt;img&gt;</code>标签的<code>src</code>属性即可：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&#123;&#123;src&#125;&#125;</span>&gt;</span></span><br></pre></td></tr></table></figure><br>预览图如下：<br><img src="/images/few-pics/20201008效果预览.png" alt="效果预览图"></p>
+<h2 id="五、部署问题"><a href="#五、部署问题" class="headerlink" title="五、部署问题"></a>五、部署问题</h2><h3 id="1-无GUI图形界面"><a href="#1-无GUI图形界面" class="headerlink" title="1.无GUI图形界面"></a>1.无GUI图形界面</h3><p>服务器是不带GUI界面的<code>CentOS 7</code>，但是<code>matplotlib.pyplot</code>是需要<code>tkinter</code>库的支持的：<code>_tkinter.TclError: no display name and no $DISPLAY environment variable</code>。<br>然而，我们并不需要安装<code>tkinter</code>、<code>tcl-devel</code>和<code>tk-devel</code>等，因为<strong>我们并不是需要在<code>Linux</code>上看到画出的图</strong>，只需要改一下后端<code>agg</code>即可【貌似<code>Linux</code>下默认后端已是<code>Agg</code>，从配置文件可以看到】，代码如下：<br><figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib <span class="keyword">as</span> mpl</span><br><span class="line">mpl.use(<span class="string">&#x27;Agg&#x27;</span>)</span><br><span class="line"># 在<span class="keyword">from</span> matplotlib <span class="keyword">import</span> pylot之前添加mpl.use(<span class="string">&#x27;Agg&#x27;</span>)</span><br><span class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> pylot</span><br></pre></td></tr></table></figure></p>
+<h3 id="2-中文字体乱码"><a href="#2-中文字体乱码" class="headerlink" title="2.中文字体乱码"></a>2.中文字体乱码</h3><h4 id="原因分析"><a href="#原因分析" class="headerlink" title="原因分析"></a>原因分析</h4><p>由于<code>matplotlib</code>没有中文字体，直接会报错：<code>RuntimeWarning: Glyph xxxxx missing from current font.</code>，网上有说需要添加两行代码（在缺少字体文件的情况下，这种方法无效），即：<br><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">plt.rcParams[<span class="string">&#x27;font.sans-serif&#x27;</span>] = [<span class="string">&#x27;SimHei&#x27;</span>]</span><br><span class="line"><span class="meta">#设置字体，设置了字体后，负号会变成乱码</span></span><br><span class="line"></span><br><span class="line">plt.rcParams[<span class="string">&#x27;axes.unicode_minus&#x27;</span>] = False</span><br><span class="line"><span class="meta">#让负号的乱码正常显示</span></span><br></pre></td></tr></table></figure></p>
+<p>因为没有<strong>黑体</strong>这个字体，所以仍会报错，因此需要手动下载对应字体。并将其复制到对应位置：<code>./python3.6/site-packages/matplotlib/mpl-data/fonts/ttf/</code>。</p>
+<h4 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h4><p>解决字体缺失的问题后，还需要修改配置文件<code>matplotlibrc</code>，文件位置：<code>./python3.6/site-packages/matplotlib/mpl-data/matplotlibrc</code>。直接修改配置文件的好处是，不需要每次都在程序代码中添加诸如<code>plt.rcParams[&#39;font.sans-serif&#39;] = [&#39;SimHei&#39;]</code>的配置项。</p>
+<ul>
+<li>将<code>#font.family  : sans-serif</code>修改为<code>font.family  : sans-serif</code>（去掉注释）</li>
+<li>将<code>#font.sans-serif  : DejaVu Serif, ...</code>修改为<code>font.sans-serif  : SimHei, DejaVu Serif, ...</code>（去掉注释，添加<code>SimHei</code>）</li>
+<li>将<code>#axes.unicode_minus  : True</code>修改为<code>axes.unicode_minus  : False</code>（去掉注释，属性设置为<code>False</code>）</li>
+</ul>
+<p><strong>说明：</strong>黑体<code>SimHei</code>也可以改为其他字体，最接近宋体和Times New Roman的是<code>STSong</code>，参考<a href="https://hwame.top/20200521/customize-matplotlib-fonts.html">如何使matplotlib同时使用宋体和Times New Roman</a>。</p>
+<h4 id="删除matplotlib缓存"><a href="#删除matplotlib缓存" class="headerlink" title="删除matplotlib缓存"></a>删除<code>matplotlib</code>缓存</h4><p><code>Linux</code>上的<code>matplotlib</code>缓存文件位于用户家目录下的”~/.cache/matplotlib/“，可以看到其下包含了缓存文件<code>fontlist-v310.json</code>及缓存文件夹<code>tex.cache</code>。若不删除缓存，可能看不到配置生效。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -rf ~/.cache/matplotlib/</span><br></pre></td></tr></table></figure></p>
+<h3 id="3-其他"><a href="#3-其他" class="headerlink" title="3.其他"></a>3.其他</h3><p>任何人都没法保证自己写的代码没有bug，而且测试时也不可能考虑到所有的情况。一旦程序部署上线作为服务运行，出现问题用户也只能看到<code>50x</code>的错误，因此要养成善于查看日志的习惯！从日志入手，才能分析问题出现的原因，从而能打补丁、修bug、改代码，使程序更健壮、服务更稳定。</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-license">
+      <strong>文章作者： </strong><a href="https://hwame.top" style="color:#E541E5;"> 鴻塵</a>
+    </li>
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://hwame.top/20201008/render-matplotlib-figure-to-flaskweb.html" title="如何将matplotlib图像渲染到前端" target="_blank" rel="external" style="color:#E541E5;">https://hwame.top/20201008/render-matplotlib-figure-to-flaskweb.html</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用《<a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external" style="color:#E541E5;"><u>CC BY 4.0 CN协议</u></a>》许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/hwame" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/hwame" target="_blank"><span class="text-dark">鴻塵</span><small class="ml-1x">Pythoner, Data Analyst</small></a></h3>
+        <div>个人简介：处女座不适合做码农。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/20200604/shortest-leetcode-python-solutions.html" title="力扣简洁优雅的python解法"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">
+        <span style="color:#C71585">[&nbsp;</span><span style="color:#C71585">文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span style="color:#C71585">]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,wechat,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipay.jpg" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechat.jpg" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/hwame" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/hwamei" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://www.zhihu.com/people/hwame" target="_blank" title="Zhihu" data-toggle=tooltip data-placement=top><i class="icon icon-zhihu"></i></a></li>
+        
+        <li><a href="https://segmentfault.com/u/hwame" target="_blank" title="Segmentfault" data-toggle=tooltip data-placement=top><i class="icon icon-segmentfault"></i></a></li>
+        
+        <li><a href="https://gitee.com/hwame" target="_blank" title="Gitee" data-toggle=tooltip data-placement=top><i class="icon icon-gitee"></i></a></li>
+        
+        <li><a href="https://stackoverflow.com/questions" target="_blank" title="Stackoverflow" data-toggle=tooltip data-placement=top><i class="icon icon-stackoverflow"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        
+        <div class="publishby">
+            <span id="busuanzi_container_site_pv">
+                <span id="busuanzi_value_site_pv" style="font-family:Courier"></span>访问，
+                <span id="busuanzi_value_site_uv" style="font-family:Courier"></span>访客
+            </span>
+        </div>
+        
+        <!--
+        <div class="publishby">
+            <a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/#/Integrated/recordQuery">鄂ICP备00000000号</a>
+        </div>
+        -->
+
+        <!--
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+        -->
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script src="//cdn.jsdelivr.net/gh/HCLonely/Valine@latest/dist/Valine.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css" />
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  var requiredFields = 'mail';
+  requiredFields = requiredFields.split(',');
+
+  new Valine({
+    el: '#vcomments',
+    appId: 'yLWKiHoPwmx7Izv4YYtC1fW2-MdYXbMMI',
+    appKey: 'h01jve7HXS6MuDLNBF5DeWTz',
+    verify: false,
+    notify: true,
+    placeholder: '🌺🌺留下邮箱才可以收到新消息提醒哦~\n🦚🦚输入QQ号可自动拉取昵称和邮箱~',
+    avatar: 'robohash',
+    meta: meta,
+    pageSize: '10' || 10,
+    enableQQ: 'true',
+    recordIP: 'true',
+    requiredFields: requiredFields,
+    visitor: true,
+    
+    master: 'f86269b0b1850cd62ca22b218aea1780',
+    friends: ['1725648a3566b8841f19423519e0a36e', '87b6f0e96e63727d889bb3653fb5867c', 'b7c8e70dc5b2bbbdbdeca1fc0e71b919'],
+    tagMeta: ['鴻塵', '蜜柚', '访客'],
+    metaPlaceholder: {"nick":"昵称/QQ号","mail":"邮箱(必填)","link":"个人主页"}
+  });
+  </script>
+
+     
+
+
+
+  <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.js"></script>
+  <script>
+  //利用 FancyBox 实现点击图片放大
+  $(document).ready(function() {
+    $('article img').not('[hidden]').not('.panel-body img').each(function() {
+      var $image = $(this);
+      var imageCaption = $image.attr('alt');
+      var $imageWrapLink = $image.parent('a');
+      if ($imageWrapLink.length < 1) {
+        var src = this.getAttribute('src');
+        var idx = src.lastIndexOf('?');
+        if (idx != -1) {
+          src = src.substring(0, idx);
+        }
+        $imageWrapLink = $image.wrap('<a href="' + src + '"></a>').parent('a');
+      }
+      $imageWrapLink.attr('data-fancybox', 'images');
+      if (imageCaption) {
+        $imageWrapLink.attr('data-caption', imageCaption);
+      }
+    });
+    $().fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: true,
+    });
+  });
+  </script>
+
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

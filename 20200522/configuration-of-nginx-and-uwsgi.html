@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>Nginx配置与uWSGI配置详解 | 鴻塵</title>
+  <meta name="description" content="摘要：文章介绍了Nginx与uWSGI的知识，并依具体的例子对Web应用进行详细配置。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nginx配置与uWSGI配置详解">
+<meta property="og:url" content="https://hwame.top/20200522/configuration-of-nginx-and-uwsgi.html">
+<meta property="og:site_name" content="Solitary">
+<meta property="og:description" content="摘要：文章介绍了Nginx与uWSGI的知识，并依具体的例子对Web应用进行详细配置。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-05-22T00:18:48.000Z">
+<meta property="article:modified_time" content="2020-10-15T04:06:13.243Z">
+<meta property="article:author" content="鴻塵">
+<meta property="article:tag" content="Linux部署">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://hwame.top/20200522/configuration-of-nginx-and-uwsgi.html">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+    <link href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.css" rel="stylesheet">
+  
+  
+<meta name="generator" content="Hexo 5.0.2"></head>
+
+
+<body class="main-center theme-purple" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/hwame" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">鴻塵</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Pythoner, Data Analyst</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> 湖北-武汉</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav menu-highlight">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder-open"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-gallery">
+          <a href="/gallery">
+            
+            <i class="icon icon-delicious"></i>
+            
+            <span class="menu-title">相册</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/hwame" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/hwamei" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://www.zhihu.com/people/hwame" target="_blank" title="Zhihu" data-toggle=tooltip data-placement=top><i class="icon icon-zhihu"></i></a></li>
+        
+        <li><a href="https://segmentfault.com/u/hwame" target="_blank" title="Segmentfault" data-toggle=tooltip data-placement=top><i class="icon icon-segmentfault"></i></a></li>
+        
+        <li><a href="https://gitee.com/hwame" target="_blank" title="Gitee" data-toggle=tooltip data-placement=top><i class="icon icon-gitee"></i></a></li>
+        
+        <li><a href="https://stackoverflow.com/questions" target="_blank" title="Stackoverflow" data-toggle=tooltip data-placement=top><i class="icon icon-stackoverflow"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎来到鴻塵的博客!<br>鴻塵的<u><a target="_blank" rel="noopener" href="https://weibo.com/hwamei" style="color:#E541E5;">微博</a></u>主页，鴻塵的<u><a target="_blank" rel="noopener" href="https://github.com/hwame" style="color:#E541E5;">Github</a></u>主页，如果我可以忘记的<u><a target="_blank" rel="noopener" href="https://www.zhihu.com/people/hwame" style="color:#E541E5;">知乎</a></u>主页。</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/CentOS/" style="font-size: 13px;">CentOS</a> <a href="/tags/Hexo/" style="font-size: 14px;">Hexo</a> <a href="/tags/Linux/" style="font-size: 13.67px;">Linux</a> <a href="/tags/Linux%E9%83%A8%E7%BD%B2/" style="font-size: 13px;">Linux部署</a> <a href="/tags/Spark/" style="font-size: 13px;">Spark</a> <a href="/tags/matplotlib/" style="font-size: 13.33px;">matplotlib</a> <a href="/tags/python/" style="font-size: 14px;">python</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 13px;">大数据</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" style="font-size: 13px;">数据结构与算法</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 13px;">爬虫</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a><span class="archive-list-count">10</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled ">
+        
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20201008/render-matplotlib-figure-to-flaskweb.html" class="thumb">
+    
+    
+        <span style="background-image:url(/images/few-pics/20201008效果预览.png)" alt="如何将matplotlib图像渲染到前端" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/python/">python</a>
+              </p>
+              <p class="item-title">
+                <a href="/20201008/render-matplotlib-figure-to-flaskweb.html" class="title">如何将matplotlib图像渲染到前端</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-10-08T01:06:32.000Z" itemprop="datePublished">2020-10-08</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20200604/shortest-leetcode-python-solutions.html" class="thumb">
+    
+    
+        <span style="background-image:url(/images/post-pics/data-structure-algorithm.png)" alt="力扣简洁优雅的python解法" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a>
+              </p>
+              <p class="item-title">
+                <a href="/20200604/shortest-leetcode-python-solutions.html" class="title">力扣简洁优雅的python解法</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-06-04T13:32:55.000Z" itemprop="datePublished">2020-06-04</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20200527/retry-from-try-clause-when-catch-error-in-python.html" class="thumb">
+    
+    
+        <span style="background-image:url(https://s1.ax1x.com/2020/08/22/daDPfg.png)" alt="Python捕获异常后如何对try语句重试" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/python/">python</a>
+              </p>
+              <p class="item-title">
+                <a href="/20200527/retry-from-try-clause-when-catch-error-in-python.html" class="title">Python捕获异常后如何对try语句重试</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-05-27T02:11:54.000Z" itemprop="datePublished">2020-05-27</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20200525/pycharm-connect-linux-from-windows.html" class="thumb">
+    
+    
+        <span style="background-image:url(/images/post-pics/python-icon.png)" alt="Windows使用PyCharm远程连接Linux的python环境" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/python/">python</a>
+              </p>
+              <p class="item-title">
+                <a href="/20200525/pycharm-connect-linux-from-windows.html" class="title">Windows使用PyCharm远程连接Linux的python环境</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-05-25T05:22:14.000Z" itemprop="datePublished">2020-05-25</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20200523/centos7-environment-variables.html" class="thumb">
+    
+    
+        <span style="background-image:url(/images/post-pics/linux-icon.png)" alt="CentOS7 环境变量详解" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Linux/">Linux</a>
+              </p>
+              <p class="item-title">
+                <a href="/20200523/centos7-environment-variables.html" class="title">CentOS7 环境变量详解</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-05-23T02:39:58.000Z" itemprop="datePublished">2020-05-23</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81Nginx%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text">一、Nginx配置文件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E6%8C%87%E4%BB%A4"><span class="toc-text">1.指令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E6%8E%A7%E5%88%B6%E5%91%BD%E4%BB%A4"><span class="toc-text">2.控制命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E6%96%87%E4%BB%B6%E8%AF%A6%E6%83%85"><span class="toc-text">3.文件详情</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#nginx-conf"><span class="toc-text">nginx.conf</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#default-conf"><span class="toc-text">default.conf</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81uwsgi%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text">二、uwsgi配置文件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%91%BD%E4%BB%A4"><span class="toc-text">1.命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E6%96%87%E4%BB%B6%E8%AF%A6%E6%83%85"><span class="toc-text">2.文件详情</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2"><span class="toc-text">三、项目部署</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E9%A1%B9%E7%9B%AE%E6%8F%8F%E8%BF%B0"><span class="toc-text">1.项目描述</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E9%85%8D%E7%BD%AE%E5%87%86%E5%A4%87"><span class="toc-text">2.配置准备</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-uWSGI%E9%85%8D%E7%BD%AE"><span class="toc-text">3.uWSGI配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-Nginx%E9%85%8D%E7%BD%AE"><span class="toc-text">4.Nginx配置</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E6%80%BB%E7%BB%93%E5%BB%BA%E8%AE%AE"><span class="toc-text">四、总结建议</span></a></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-configuration-of-nginx-and-uwsgi" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Nginx配置与uWSGI配置详解
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/20200522/configuration-of-nginx-and-uwsgi.html" class="article-date">
+	  <time datetime="2020-05-22T00:18:48.000Z" itemprop="datePublished">2020-05-22</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/Linux%E9%83%A8%E7%BD%B2/" rel="tag">Linux部署</a>
+  </span>
+
+
+        
+
+	<span class="article-read hidden-xs">
+    	<i class="icon icon-eye-fill" aria-hidden="true"></i>
+    	<span id="/20200522/configuration-of-nginx-and-uwsgi.html" class="leancloud_visitors"  data-flag-title="Nginx配置与uWSGI配置详解">
+			<span class="leancloud-visitors-count">0</span>
+		</span>
+    </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/20200522/configuration-of-nginx-and-uwsgi.html#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 3.2k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 13(分)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>摘要：文章介绍了<code>Nginx</code>与<code>uWSGI</code>的知识，并依具体的例子对<code>Web</code>应用进行详细配置。<a id="more"></a></p>
+<p><table><tr><td bgcolor=#D7BDE2>温馨提示：点击页面下方 ⚓ 以展开或折叠目录</td></tr></table></p>
+<hr>
+<blockquote>
+<p><font size=5><b>文章说明</b></font><br><strong>文章作者：</strong><a href="https://hwame.top">鴻塵</a><br><strong>文章链接：</strong><a href="https://hwame.top/20200522/configuration-of-nginx-and-uwsgi.html">https://hwame.top/20200522/configuration-of-nginx-and-uwsgi.html</a></p>
+</blockquote>
+<h3 id="一、Nginx配置文件"><a href="#一、Nginx配置文件" class="headerlink" title="一、Nginx配置文件"></a>一、Nginx配置文件</h3><h4 id="1-指令"><a href="#1-指令" class="headerlink" title="1.指令"></a>1.指令</h4><p>Nginx配置文件包含指定指令控制的模块，指令分为 <strong><em>简单指令</em></strong> 和 <strong><em>块指令</em></strong> ，如果块指令大括号内有其他指令，就被称为一个 <strong><em>上下文</em></strong> ，比如<code>events, http, server, location</code>等。</p>
+<blockquote>
+<p><strong>简单指令</strong>：由名称和参数组成，以空格分隔，并以分号结尾；<br><strong>块指令</strong>：具有和简单指令相同的结构，以大括号包围的一堆附加指令结束。<br><strong>指令</strong>：</p>
+<blockquote>
+<p><code>nginx -t</code>不运行，仅测试配置文件；<br><code>nginx -c config_path</code>从指定路径加载配置文件；<br><code>nginx -t -c config_path</code>测试指定配置文件。</p>
+</blockquote>
+</blockquote>
+<h4 id="2-控制命令"><a href="#2-控制命令" class="headerlink" title="2.控制命令"></a>2.控制命令</h4><p><strong>启动Nginx</strong>：<code>nginx [-c config_path]</code>，默认配置目录为<code>/etc/nginx/nginx.conf</code>。<br><strong>查看信息</strong>：<code>nginx -v</code>，查看版本信息；<code>nginx -V</code>，查看详细信息。<br><strong>查看进程</strong>：<code>ps -ef | grep nginx</code>，利用管道命令查看进程，ps命令用法参见：<a target="_blank" rel="noopener" href="https://man.linuxde.net/ps">【Linux命令大全】</a><br><strong>控制Nginx</strong>：<code>nginx -s signal</code>，参数<code>signal</code>有<code>stop, quit, reload</code>，分别表示快速关闭、优雅关闭、重载配置<br><strong>系统管理</strong>：<code>systemctl option nginx</code>，参数<code>option</code>有<code>status, start, stop, enable, disable</code>，分别表示查看状态、启动服务、关闭服务、设置开机自启、禁止开机自启</p>
+<h4 id="3-文件详情"><a href="#3-文件详情" class="headerlink" title="3.文件详情"></a>3.文件详情</h4><h5 id="nginx-conf"><a href="#nginx-conf" class="headerlink" title="nginx.conf"></a>nginx.conf</h5><p><strong>文件位置</strong>：默认位于<code>/etc/nginx/nginx.conf</code>，此乃默认配置文件，服务启动基于该文件。<br><strong>原文内容</strong>：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">user nginx;</span><br><span class="line">worker_processes 1;</span><br><span class="line"></span><br><span class="line">error_log /var/<span class="built_in">log</span>/nginx/error.log warn;</span><br><span class="line">pid /var/run/nginx.pid;</span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    worker-connections 1024 ;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    include /etc/nginx/mime.types;</span><br><span class="line">    default_type appplication/octet-stream;</span><br><span class="line"></span><br><span class="line">    log_format main <span class="string">&#x27;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &#x27;</span></span><br><span class="line">        <span class="string">&#x27;$status $body_bytes_sent &quot;$http_referer&quot; &#x27;</span></span><br><span class="line">        <span class="string">&#x27;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&#x27;</span>;</span><br><span class="line">    access_log  /var/<span class="built_in">log</span>/nginx/access.log  main;</span><br><span class="line"></span><br><span class="line">    sendfile on;</span><br><span class="line">    <span class="comment">#tcp_nopush on;</span></span><br><span class="line"></span><br><span class="line">    keepalive_timeout 65;</span><br><span class="line"></span><br><span class="line">    <span class="comment">#gzip on;</span></span><br><span class="line"></span><br><span class="line">    include /etc/nginx/conf.d/*.conf;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>文件结构</strong>：</p>
+<p>为结构清晰，特删掉大括号，<code>······</code>处表示块指令。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">main 【全局设置】</span><br><span class="line">events 【指定工作模式，连接配置上限】</span><br><span class="line">    ······</span><br><span class="line">http 【http的配置】</span><br><span class="line">    ······</span><br><span class="line">    upstream xxx 【负载均衡配置】</span><br><span class="line">        ······</span><br><span class="line"><span class="built_in">    server </span>【主机设置】</span><br><span class="line">        ······</span><br><span class="line">        location 【URL匹配】</span><br><span class="line">            ······</span><br></pre></td></tr></table></figure>
+<p><strong>参数详解</strong>：</p>
+<ul>
+<li><strong><em><code>main</code></em></strong></li>
+<li><ul>
+<li><code>user</code>：worker进程运行的用户和组</li>
+</ul>
+</li>
+<li><ul>
+<li><code>worker_processes</code>：指定开启的子进程数，建议设置为与CPU数相等</li>
+</ul>
+</li>
+<li><ul>
+<li><code>error_log</code>：用来定义全局错误日志文件，如原文中路径为<code>/var/log/nginx/error.log</code>，级别<code>level</code>有<code>debug, info, notice, warn, error, crit</code></li>
+</ul>
+</li>
+<li><ul>
+<li><code>pid</code>：指定进程ID的存储文件位置</li>
+</ul>
+</li>
+<li><strong><em><code>events</code></em></strong></li>
+<li><ul>
+<li><code>use</code>：指定Nginx工作模式，①<code>epoll=高效工作模式，Linux，默认</code>，②<code>kqueue=高效工作模式，BSD</code>，③<code>poll=标准模式</code>，④<code>epoll=标准模式</code></li>
+</ul>
+</li>
+<li><ul>
+<li><code>worker_connections</code>：每个进程的最大连接数，其中$正向代理=连接数×进程数$，$反向代理=\frac{1}{4}\times\text{连接数}\times\text{进程数}$<br>【Linux系统限制最多能同时打开$65535=2^{16}$个文件，亦即默认上限，能以<code>ulimit  -n 65535</code>解除】</li>
+</ul>
+</li>
+<li><strong><em><code>http</code></em></strong>最核心的模块，主要负责http服务器相关配置，包含<code>server</code>和<code>upstream</code>子模块，见后文</li>
+<li><ul>
+<li><code>include</code>：第12行<code>include mime.types</code>设置文件的mime类型为<code>/etc/nginx/mime.types</code>所定义的类型，第27行<code>xxx.config</code>包含其他配置文件（分开规划解耦作用）的<code>server</code></li>
+</ul>
+</li>
+<li><ul>
+<li><code>default_type</code>：设置默认类型，当文件类型未知时将使用默认（注：<code>octet-stream=八进制字节流</code>）</li>
+</ul>
+</li>
+<li><ul>
+<li><code>log_format</code>：设置日志格式</li>
+</ul>
+</li>
+<li><ul>
+<li><code>access_log</code>：访问日志，中间为日志路径，最后<code>main</code>为日志格式<code>log_format</code>中的<code>main</code></li>
+</ul>
+</li>
+<li><ul>
+<li><code>sendfile</code>：设置高效文件传输模式</li>
+</ul>
+</li>
+<li><ul>
+<li><code>keepalive_timeout</code>：设置客户端连接活跃超时</li>
+</ul>
+</li>
+<li><ul>
+<li><code>gzip</code>：gzip压缩</li>
+</ul>
+</li>
+</ul>
+<p><strong>核心模块http</strong>：</p>
+<ul>
+<li><strong><em>upstream</em></strong>子模块，负载均衡，多服务器反向代理</li>
+<li><ul>
+<li><code>server ip:port weight=1</code>：指定反向代理服务器及分流权重</li>
+</ul>
+</li>
+<li><strong><em>server</em></strong>子模块，用来指定虚拟主机</li>
+<li><ul>
+<li><code>listen 80;</code>：指定虚拟主机监听的端口，80端口表示http</li>
+</ul>
+</li>
+<li><ul>
+<li><code>server_name localhost;</code>：指定ip地址或域名，多个域名以空格分隔</li>
+</ul>
+</li>
+<li><ul>
+<li><code>charset utf-8</code>：指定网页的默认编码格式</li>
+</ul>
+</li>
+<li><ul>
+<li><code>error_page 500 502 /50x.html;</code>：指定错误页面，见<code>/etc/nginx/conf.d/*.conf</code>即<code>default.conf</code></li>
+</ul>
+</li>
+<li><ul>
+<li><code>access_log xxx main;</code>：指定虚拟主机的<strong>访问日志</strong>存放路径</li>
+</ul>
+</li>
+<li><ul>
+<li><code>error_log xxx main;</code>：指定虚拟主机的<strong>错误日志</strong>存放路径</li>
+</ul>
+</li>
+<li><ul>
+<li><code>root xxx;</code>：指定虚拟主机的根目录</li>
+</ul>
+</li>
+<li><ul>
+<li><code>index xxx;</code>：指定默认主页</li>
+</ul>
+</li>
+<li><ul>
+<li><code>location</code>：核心【server】中的核心【location】，后面主要就是配置这里，支持正则匹配和条件，其主要功能是定位和解析URL、实现动静分离。语法格式：<code>location [modifier] uri &#123;指令 xxx&#125;</code>，<strong>可选修饰符modifier</strong>表示定位URL的方式：①<code>=</code>，使用精确匹配并且终止搜索②<code>~</code>，区分大小写的正则③<code>~*</code>，不区分大小写的正则④<code>^~</code>，最佳匹配通常用来匹配目录（非正则匹配）；<strong>常用指令</strong>为<code>alias</code>，<code>alias</code>定义了<code>location</code>的别名（需要在文件系统中能够找到），如果<code>location</code>指定了正则表达式，<code>alias</code>将会应用正则表达式中的捕获，<code>alias</code>替代<code>location</code>中匹配的部分，没有匹配的部分将在文件系统中搜索</li>
+</ul>
+</li>
+</ul>
+<h5 id="default-conf"><a href="#default-conf" class="headerlink" title="default.conf"></a>default.conf</h5><p><strong>文件位置</strong>：位于<code>/etc/nginx/conf.d/nginx.conf</code>，只包含一个<code>server</code>模块。Nginx服务启动时由<code>nginx.conf</code>通过<code>include /etc/nginx/conf.d/*.conf;</code>引用其内容（即<code>server</code>），从而实现解耦。<br><strong>原文内容</strong>：<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span>       <span class="number">80</span>;</span><br><span class="line">    <span class="attribute">server_name</span>  localhost;</span><br><span class="line"></span><br><span class="line">    <span class="comment">#charset koi8-r;</span></span><br><span class="line">    <span class="comment">#access_log  /var/log/nginx/host.access.log  main;</span></span><br><span class="line"></span><br><span class="line">    <span class="attribute">location</span> / &#123;</span><br><span class="line">        <span class="attribute">root</span>   /usr/share/nginx/html;</span><br><span class="line">        <span class="attribute">index</span>  index.html index.htm;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">#error_page  404              /404.html;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># redirect server error pages to the static page /50x.html</span></span><br><span class="line">    <span class="comment">#</span></span><br><span class="line">    <span class="attribute">error_page</span>   <span class="number">500</span> <span class="number">502</span> <span class="number">503</span> <span class="number">504</span>  /50x.html;</span><br><span class="line">    <span class="attribute">location</span> = /50x.html &#123;</span><br><span class="line">        <span class="attribute">root</span>   /usr/share/nginx/html;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># proxy the PHP scripts to Apache listening on 127.0.0.1:80</span></span><br><span class="line">    <span class="comment">#</span></span><br><span class="line">    <span class="comment">#location ~ \.php$ &#123;</span></span><br><span class="line">    <span class="comment">#    proxy_pass   http://127.0.0.1;</span></span><br><span class="line">    <span class="comment">#&#125;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000</span></span><br><span class="line">    <span class="comment">#</span></span><br><span class="line">    <span class="comment">#location ~ \.php$ &#123;</span></span><br><span class="line">    <span class="comment">#    root           html;</span></span><br><span class="line">    <span class="comment">#    fastcgi_pass   127.0.0.1:9000;</span></span><br><span class="line">    <span class="comment">#    fastcgi_index  index.php;</span></span><br><span class="line">    <span class="comment">#    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;</span></span><br><span class="line">    <span class="comment">#    include        fastcgi_params;</span></span><br><span class="line">    <span class="comment">#&#125;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># deny access to .htaccess files, if Apache&#x27;s document root</span></span><br><span class="line">    <span class="comment"># concurs with nginx&#x27;s one</span></span><br><span class="line">    <span class="comment">#</span></span><br><span class="line">    <span class="comment">#location ~ /\.ht &#123;</span></span><br><span class="line">    <span class="comment">#    deny  all;</span></span><br><span class="line">    <span class="comment">#&#125;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<h3 id="二、uwsgi配置文件"><a href="#二、uwsgi配置文件" class="headerlink" title="二、uwsgi配置文件"></a>二、uwsgi配置文件</h3><h4 id="1-命令"><a href="#1-命令" class="headerlink" title="1.命令"></a>1.命令</h4><p>启动：<code>uwsgi --ini uwsgi.ini</code>，当前目录（项目目录）下新建ini文件<br>停止：<code>uwsgi --stop uwsgi.pid</code>，uWSGI服务器启动后在当前目录自动生成pid文件，无需新建</p>
+<h4 id="2-文件详情"><a href="#2-文件详情" class="headerlink" title="2.文件详情"></a>2.文件详情</h4><p><strong>文件位置</strong>：位于<code>[Project_Dir]/uwsgi.ini</code>，此乃用户建立的配置文件，uwsgi服务启动基于该文件。<br><strong>文件内容</strong>：<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[uwsgi]</span></span><br><span class="line"><span class="comment"># 用于nginx与uwsgi对接时的uwsgi配置</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># (1)使用nginx连接时，使用socket</span></span><br><span class="line"><span class="attr">socket</span> = ip:port</span><br><span class="line"></span><br><span class="line"><span class="comment"># (2)直接作为web服务器使用(相当于测试，(1)(2)二选一)</span></span><br><span class="line"><span class="comment">#http = ip:port</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># (3)配置工程目录，wsgi-file为入口文件，此用于Flask</span></span><br><span class="line"><span class="attr">chdir</span> = [Project_Absolute_dir]</span><br><span class="line"><span class="attr">wsgi-file</span> = app.py</span><br><span class="line"><span class="comment"># router</span></span><br><span class="line"><span class="attr">callable</span> = app_flask_instance</span><br><span class="line"></span><br><span class="line"><span class="comment"># (4)配置项目的wsgi目录，相对于工程目录(3)，此用于Django</span></span><br><span class="line"><span class="comment">#chdir = [Project_Absolute_dir]</span></span><br><span class="line"><span class="comment">#wsgi-file = Project_name/wsgi.py</span></span><br><span class="line"><span class="comment">#<span class="doctag">Note:</span> unlike Flask, wsgi.py generated by Django automaticly</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># (5)配置进程和线程信息</span></span><br><span class="line"><span class="attr">processes</span> = <span class="number">4</span></span><br><span class="line"><span class="attr">threads</span> = <span class="number">10</span></span><br><span class="line"><span class="attr">enable-threads</span> = <span class="literal">True</span></span><br><span class="line"><span class="attr">master</span> = <span class="literal">True</span></span><br><span class="line"><span class="attr">pidfile</span> = uwsgi.pid</span><br><span class="line"><span class="attr">daemonize</span> = uwsgi.log</span><br></pre></td></tr></table></figure></p>
+<h3 id="三、项目部署"><a href="#三、项目部署" class="headerlink" title="三、项目部署"></a>三、项目部署</h3><h4 id="1-项目描述"><a href="#1-项目描述" class="headerlink" title="1.项目描述"></a>1.项目描述</h4><p><strong>项目位置</strong>：位于<code>/usr/local/flask_covid/</code><br><strong>项目文件</strong>：主要包括<code>app.py</code>，<code>spider.py</code>，<code>static/css+js/</code>，<code>templates/main.html</code>，以及测试静态路由的文本文件<code>static/mmdd.md</code>。</p>
+<h4 id="2-配置准备"><a href="#2-配置准备" class="headerlink" title="2.配置准备"></a>2.配置准备</h4><ol>
+<li>将Nginx默认的配置文件<code>/etc/nginx/nginx.conf</code>和<code>/etc/nginx/conf.d/default.conf</code>复制到项目根目录下，<code>default.conf</code>用处不大（只需用到少量内容）</li>
+<li>编辑配置文件<code>/usr/local/flask_covid/nginx.conf</code>【若因非root用户修改而出现权限问题，则需修改文件权限】，将<code>default.conf</code>内容去注释后复制到<code>nginx.conf</code>中的<code>include /etc/nginx/conf.d/*.conf;</code>处【由于将default配置转移过来了，所以不需要<code>include</code>语句来引用，删除之】，<code>nginx.conf</code>内容为：</li>
+</ol>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">···omit text above···</span><br><span class="line"></span><br><span class="line">#<span class="keyword">include</span> <span class="regexp">/etc/</span>nginx<span class="regexp">/conf.d/</span>*.conf;</span><br><span class="line">#<span class="keyword">Copy</span> <span class="string">&quot;server &#123;...&#125;&quot;</span> <span class="keyword">from</span> <span class="keyword">file</span>=<span class="string">&quot;default.conf&quot;</span></span><br><span class="line">server &#123;</span><br><span class="line">    listen       <span class="number">80</span>;</span><br><span class="line">    server_name  localhost;</span><br><span class="line">    #charset koi8-r;</span><br><span class="line">    location / &#123;</span><br><span class="line">        root   <span class="regexp">/usr/</span>share<span class="regexp">/nginx/</span>html;</span><br><span class="line">        index  index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line">    location = /<span class="number">50</span>x.html &#123;</span><br><span class="line">        root   <span class="regexp">/usr/</span>share<span class="regexp">/nginx/</span>html;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">   #<span class="keyword">Copy</span> and replace over.</span><br></pre></td></tr></table></figure>
+<ol>
+<li>继续编辑配置文件<code>/usr/local/flask_covid/nginx.conf</code>，文件如上，修改如下：</li>
+</ol>
+<ul>
+<li>(1)修改字符集：<code>charset utf-8;</code></li>
+<li>(2)将<code>root</code>移动到上一级<code>server</code>下，并修改路径为项目的<strong>绝对路径</strong>：<code>root   /usr/local/flask_covid;</code></li>
+<li>(3)修改URL静态路由的解析：首先将<code>location / &#123;···&#125;</code>修改为<code>location /static &#123;···&#125;</code>，以便于访问<code>./static</code>静态资源【注：ppt18，当client请求发出请求时，由Nginx直接提供静态资源，由uwsgi通过Nginx提供动态资源，后者才是真正意义上的代理】，然后为其内容设置别名<code>alias [Project_Absolute_dir]/static;</code></li>
+<li>(4)由于默认用户为<code>user nginx;</code>时进程<code>master_process = root, worker_process = nginx</code>，为了避免请求静态资源时出现的因权限不够而请求失败的问题，故需修改用户：<code>user root;</code></li>
+<li>此时在项目目录下执行<code>nginx -c /usr/local/flask_covid/nginx.conf</code>启动Nginx服务器，于是可以在浏览器中输入<a target="_blank" rel="noopener" href="http://39.96.91.131/static/mmdd.md">http://ip/static/file_name（不加端口号）</a>访问到静态资源，就如同操作文件夹一样【实测成功，直接下载到了<code>./static/mmdd.md</code>文件，并且<code>./static</code>文件夹下的所有资源皆可访问到】。修改后<code>nginx.conf</code>内容为：</li>
+</ul>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">user root;</span><br><span class="line">worker_processes <span class="number">1</span>;</span><br><span class="line">error_log <span class="regexp">/var/</span>log<span class="regexp">/nginx/</span>error.log warn;</span><br><span class="line">pid <span class="regexp">/var/</span>run/nginx.pid;</span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    worker-connections <span class="number">1024</span> ;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    <span class="keyword">include</span> <span class="regexp">/etc/</span>nginx/mime.types;</span><br><span class="line">    default_type appplication/octet-stream;</span><br><span class="line">    log_format main <span class="string">&#x27;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &#x27;</span></span><br><span class="line">        <span class="string">&#x27;$status $body_bytes_sent &quot;$http_referer&quot; &#x27;</span></span><br><span class="line">        <span class="string">&#x27;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&#x27;</span>;</span><br><span class="line">    access_log  <span class="regexp">/var/</span>log<span class="regexp">/nginx/</span>access.log  main;</span><br><span class="line">    sendfile on;</span><br><span class="line">    #tcp_nopush on;</span><br><span class="line">    keepalive_timeout <span class="number">65</span>;</span><br><span class="line">    #gzip on;</span><br><span class="line"></span><br><span class="line">    #<span class="keyword">include</span> <span class="regexp">/etc/</span>nginx<span class="regexp">/conf.d/</span>*.conf;</span><br><span class="line">    # ********** VERY IMPORTANT PARAGRAPH **********</span><br><span class="line">    #<span class="keyword">Copy</span> <span class="string">&quot;server &#123;...&#125;&quot;</span> <span class="keyword">from</span> <span class="keyword">file</span>=<span class="string">&quot;default.conf&quot;</span></span><br><span class="line">    server &#123;</span><br><span class="line">        listen       <span class="number">80</span>;</span><br><span class="line">        server_name  localhost;</span><br><span class="line">        charset utf-<span class="number">8</span>;</span><br><span class="line">        root   <span class="regexp">/usr/</span>local/flask_covid;</span><br><span class="line">        location /<span class="keyword">static</span> &#123;</span><br><span class="line">            alias <span class="regexp">/usr/</span>local<span class="regexp">/flask_covid/</span><span class="keyword">static</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        error_page   <span class="number">500</span> <span class="number">502</span> <span class="number">503</span> <span class="number">504</span>  /<span class="number">50</span>x.html;</span><br><span class="line">        location = /<span class="number">50</span>x.html &#123;</span><br><span class="line">            root   <span class="regexp">/usr/</span>share<span class="regexp">/nginx/</span>html;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    #<span class="keyword">Copy</span> and replace over.</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>至此测试成功</li>
+</ol>
+<h4 id="3-uWSGI配置"><a href="#3-uWSGI配置" class="headerlink" title="3.uWSGI配置"></a>3.uWSGI配置</h4><ol>
+<li>安装uwsgi：<code>pip install uwsgi</code></li>
+<li>工程目录下创建<code>uwsgi.ini</code>配置文件并添加配置信息，见2.2</li>
+<li>个性化修改如下：</li>
+</ol>
+<ul>
+<li>部署时用(1)，测试时用(2)，ip设置为<code>0.0.0.0</code>保证所有人可以访问，端口号与<code>app.py</code>相同；</li>
+<li>Flask项目用(3)，Django项目用(4)，配置工程目录<code>chdir</code>为项目完整绝对路径，并与<code>nginx.conf</code>的<code>server → root</code>相同：<code>chdir = /usr/local/flask_covid</code>；<code>wsgi-file</code>为项目启动文件【注：Django项目会自动生成<code>./[Project_Name/wsgi.py]</code>】；</li>
+<li>配置进程和线程，其中<code>enable-threads</code>表示线程可用</li>
+</ul>
+<ol>
+<li>修改完成后<code>uwsgi.ini</code>内容为：</li>
+</ol>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[uwsgi]</span></span><br><span class="line"><span class="comment"># 用于nginx与uwsgi对接时的uwsgi配置</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># (1)使用nginx连接时，使用socket</span></span><br><span class="line"><span class="attr">socket</span> = <span class="number">0.0</span>.<span class="number">0.0</span>:<span class="number">5000</span></span><br><span class="line"><span class="comment"># (2)直接作为web服务器使用(相当于测试，部署时与(1)二选一)</span></span><br><span class="line"><span class="comment">#http = 0.0.0.0:5000</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># (3)配置工程目录，wsgi-file为入口文件，callable为flask实例，此用于Flask</span></span><br><span class="line"><span class="attr">chdir</span> = /usr/local/flask_covid</span><br><span class="line"><span class="attr">wsgi-file</span> = app.py</span><br><span class="line"><span class="comment"># router</span></span><br><span class="line"><span class="attr">callable</span> = app</span><br><span class="line"><span class="comment"># (4)配置项目的wsgi目录，相对于工程目录(3)，此用于Django</span></span><br><span class="line"><span class="comment">#chdir = /usr/local/flask_covid</span></span><br><span class="line"><span class="comment">#wsgi-file = flask_covid/wsgi.py</span></span><br><span class="line"><span class="comment">#<span class="doctag">Note:</span> unlike flask, wsgi.py generated by Django automaticly</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># (5)配置进程和线程信息</span></span><br><span class="line"><span class="attr">processes</span> = <span class="number">2</span></span><br><span class="line"><span class="attr">threads</span> = <span class="number">4</span></span><br><span class="line"><span class="attr">enable-threads</span> = <span class="literal">True</span></span><br><span class="line"><span class="attr">master</span> = <span class="literal">True</span></span><br><span class="line"><span class="attr">pidfile</span> = uwsgi.pid</span><br><span class="line"><span class="attr">daemonize</span> = uwsgi.log</span><br></pre></td></tr></table></figure>
+<ol>
+<li>使用uWSGI服务器：</li>
+</ol>
+<ul>
+<li>启动：<code>uwsgi --ini uwsgi.ini</code>，不能加<code>sudo</code></li>
+<li>停止：<code>uwsgi --stop uwsgi.pid</code>，uWSGI服务器启动后在当前目录自动生成pid文件，无需新建</li>
+</ul>
+<ol>
+<li>测试（打开(2)、关闭(1)）：启动 Nginx和uWSGI服务器，出现<code>[uWSGI] getting INI configuration from /usr/local/flask_covid/uwsgi.ini</code>的信息表明 uWSGI配置成功，此时可以在浏览器中输入<a target="_blank" rel="noopener" href="http://39.96.91.131:5000">http://ip:port（加端口号）</a>访问</li>
+<li>部署（打开(1)、关闭(2)）：见3.2</li>
+</ol>
+<h4 id="4-Nginx配置"><a href="#4-Nginx配置" class="headerlink" title="4.Nginx配置"></a>4.Nginx配置</h4><ol>
+<li>首先停止3.3的测试：<code>uwsgi --stop /usr/local/flask_covid/uwsgi.pid</code>【注：如果无法停止并报错：<code>signal_pidfile()/kill(): No such process [core/uwsgi.c line 1693]</code>，首先利用<code>ps -ef | grep uwsgi</code>查询其进程号，然后将<code>uwsgi.pid</code>文件修改为相应进程号，最后执行停止命令】</li>
+<li>部署时，uWSGI与 Nginx的对接依赖于<code>/etc/nginx/uwsgi_params</code>文件，该文件在安装uwsgi时自动生成，其定义了一系列的uwsgi参数</li>
+<li>编辑配置文件<code>/usr/local/flask_covid/nginx.conf</code>，在原来配置好了的静态文件下配置首页目录，<code>location</code>定位和解析的URL<code>/</code>就表示首页，然后利用<code>include</code>去对接<code>uwsgi_params</code>文件，<code>uwsgi_pass</code>去关联<code>localhost</code>【因为uWSGI与 服务器同属一个地方】，端口号<code>port</code>必须与3.3<code>uwsgi.ini</code>的<code>socket</code>一致，如下所示：</li>
+</ol>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">location</span> <span class="title">/static</span> &#123;</span><br><span class="line">    alias xxx/static/;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">location</span> <span class="title">/ &#123;</span></span><br><span class="line"><span class="title">    include</span> /etc/nginx/uwsgi_params;</span><br><span class="line">    uwsgi_pass localhost:<span class="number">5000</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>由于修改了Nginx配置，因此需要先关闭服务<code>nginx -s quit</code>，然后重新启动：<code>nginx -c /usr/local/flask_covid/nginx.conf</code></li>
+<li>启动uWSGI服务器：<code>uwsgi --ini /usr/local/flask_covid/uwsgi.ini</code></li>
+<li>此时nginx与uwsgi便对接成功，可以在浏览器中输入<a target="_blank" rel="noopener" href="http://39.96.91.131">http://ip（不加端口号）</a>进行访问【由于<code>location /&#123;...&#125;</code>下面有<code>uwsgi_pass localhost:8000</code>进行转发代理，自动加上port，因此不能加端口号】</li>
+</ol>
+<h3 id="四、总结建议"><a href="#四、总结建议" class="headerlink" title="四、总结建议"></a>四、总结建议</h3><p>不建议改变Nginx默认的配置文件<code>/etc/nginx/nginx.conf</code>的位置，当部署大型项目时，或有多个服务需要同时运行，则将导致配置文件的混乱，且难以使用系统服务管理工具<code>systemctl</code>，建议的做法是针对具体的项目，在<code>/etc/nginx/conf.d/</code>目录下创建具有标识性的独用于本项目的配置文件<code>myproject.conf</code>，便于维护。</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-license">
+      <strong>文章作者： </strong><a href="https://hwame.top" style="color:#E541E5;"> 鴻塵</a>
+    </li>
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://hwame.top/20200522/configuration-of-nginx-and-uwsgi.html" title="Nginx配置与uWSGI配置详解" target="_blank" rel="external" style="color:#E541E5;">https://hwame.top/20200522/configuration-of-nginx-and-uwsgi.html</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用《<a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external" style="color:#E541E5;"><u>CC BY 4.0 CN协议</u></a>》许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/hwame" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/hwame" target="_blank"><span class="text-dark">鴻塵</span><small class="ml-1x">Pythoner, Data Analyst</small></a></h3>
+        <div>个人简介：处女座不适合做码农。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/20200522/bigdata-cluster-with-hadoop-scala-spark.html" title="Hadoop集群搭建详细步骤"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/20200521/customize-matplotlib-fonts.html" title="如何使matplotlib同时使用宋体和Times New Roman"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">
+        <span style="color:#C71585">[&nbsp;</span><span style="color:#C71585">文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span style="color:#C71585">]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,wechat,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipay.jpg" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechat.jpg" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/hwame" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/hwamei" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://www.zhihu.com/people/hwame" target="_blank" title="Zhihu" data-toggle=tooltip data-placement=top><i class="icon icon-zhihu"></i></a></li>
+        
+        <li><a href="https://segmentfault.com/u/hwame" target="_blank" title="Segmentfault" data-toggle=tooltip data-placement=top><i class="icon icon-segmentfault"></i></a></li>
+        
+        <li><a href="https://gitee.com/hwame" target="_blank" title="Gitee" data-toggle=tooltip data-placement=top><i class="icon icon-gitee"></i></a></li>
+        
+        <li><a href="https://stackoverflow.com/questions" target="_blank" title="Stackoverflow" data-toggle=tooltip data-placement=top><i class="icon icon-stackoverflow"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        
+        <div class="publishby">
+            <span id="busuanzi_container_site_pv">
+                <span id="busuanzi_value_site_pv" style="font-family:Courier"></span>访问，
+                <span id="busuanzi_value_site_uv" style="font-family:Courier"></span>访客
+            </span>
+        </div>
+        
+        <!--
+        <div class="publishby">
+            <a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/#/Integrated/recordQuery">鄂ICP备00000000号</a>
+        </div>
+        -->
+
+        <!--
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+        -->
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script src="//cdn.jsdelivr.net/gh/HCLonely/Valine@latest/dist/Valine.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css" />
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  var requiredFields = 'mail';
+  requiredFields = requiredFields.split(',');
+
+  new Valine({
+    el: '#vcomments',
+    appId: 'yLWKiHoPwmx7Izv4YYtC1fW2-MdYXbMMI',
+    appKey: 'h01jve7HXS6MuDLNBF5DeWTz',
+    verify: false,
+    notify: true,
+    placeholder: '🌺🌺留下邮箱才可以收到新消息提醒哦~\n🦚🦚输入QQ号可自动拉取昵称和邮箱~',
+    avatar: 'robohash',
+    meta: meta,
+    pageSize: '10' || 10,
+    enableQQ: 'true',
+    recordIP: 'true',
+    requiredFields: requiredFields,
+    visitor: true,
+    
+    master: 'f86269b0b1850cd62ca22b218aea1780',
+    friends: ['1725648a3566b8841f19423519e0a36e', '87b6f0e96e63727d889bb3653fb5867c', 'b7c8e70dc5b2bbbdbdeca1fc0e71b919'],
+    tagMeta: ['鴻塵', '蜜柚', '访客'],
+    metaPlaceholder: {"nick":"昵称/QQ号","mail":"邮箱(必填)","link":"个人主页"}
+  });
+  </script>
+
+     
+
+
+
+  <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.js"></script>
+  <script>
+  //利用 FancyBox 实现点击图片放大
+  $(document).ready(function() {
+    $('article img').not('[hidden]').not('.panel-body img').each(function() {
+      var $image = $(this);
+      var imageCaption = $image.attr('alt');
+      var $imageWrapLink = $image.parent('a');
+      if ($imageWrapLink.length < 1) {
+        var src = this.getAttribute('src');
+        var idx = src.lastIndexOf('?');
+        if (idx != -1) {
+          src = src.substring(0, idx);
+        }
+        $imageWrapLink = $image.wrap('<a href="' + src + '"></a>').parent('a');
+      }
+      $imageWrapLink.attr('data-fancybox', 'images');
+      if (imageCaption) {
+        $imageWrapLink.attr('data-caption', imageCaption);
+      }
+    });
+    $().fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: true,
+    });
+  });
+  </script>
+
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

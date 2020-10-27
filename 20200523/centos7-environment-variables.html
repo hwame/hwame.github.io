@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>CentOS7 环境变量详解 | 鴻塵</title>
+  <meta name="description" content="摘要：文章介绍了CentOS7环境变量的相关知识，以及具体配置环境变量时的注意事项及建议。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CentOS7 环境变量详解">
+<meta property="og:url" content="https://hwame.top/20200523/centos7-environment-variables.html">
+<meta property="og:site_name" content="Solitary">
+<meta property="og:description" content="摘要：文章介绍了CentOS7环境变量的相关知识，以及具体配置环境变量时的注意事项及建议。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-05-23T02:39:58.000Z">
+<meta property="article:modified_time" content="2020-10-15T04:07:47.638Z">
+<meta property="article:author" content="鴻塵">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="CentOS">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://hwame.top/20200523/centos7-environment-variables.html">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+    <link href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.css" rel="stylesheet">
+  
+  
+<meta name="generator" content="Hexo 5.0.2"></head>
+
+
+<body class="main-center theme-purple" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/hwame" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">鴻塵</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Pythoner, Data Analyst</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> 湖北-武汉</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav menu-highlight">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder-open"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-gallery">
+          <a href="/gallery">
+            
+            <i class="icon icon-delicious"></i>
+            
+            <span class="menu-title">相册</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/hwame" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/hwamei" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://www.zhihu.com/people/hwame" target="_blank" title="Zhihu" data-toggle=tooltip data-placement=top><i class="icon icon-zhihu"></i></a></li>
+        
+        <li><a href="https://segmentfault.com/u/hwame" target="_blank" title="Segmentfault" data-toggle=tooltip data-placement=top><i class="icon icon-segmentfault"></i></a></li>
+        
+        <li><a href="https://gitee.com/hwame" target="_blank" title="Gitee" data-toggle=tooltip data-placement=top><i class="icon icon-gitee"></i></a></li>
+        
+        <li><a href="https://stackoverflow.com/questions" target="_blank" title="Stackoverflow" data-toggle=tooltip data-placement=top><i class="icon icon-stackoverflow"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎来到鴻塵的博客!<br>鴻塵的<u><a target="_blank" rel="noopener" href="https://weibo.com/hwamei" style="color:#E541E5;">微博</a></u>主页，鴻塵的<u><a target="_blank" rel="noopener" href="https://github.com/hwame" style="color:#E541E5;">Github</a></u>主页，如果我可以忘记的<u><a target="_blank" rel="noopener" href="https://www.zhihu.com/people/hwame" style="color:#E541E5;">知乎</a></u>主页。</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/CentOS/" style="font-size: 13px;">CentOS</a> <a href="/tags/Hexo/" style="font-size: 14px;">Hexo</a> <a href="/tags/Linux/" style="font-size: 13.67px;">Linux</a> <a href="/tags/Linux%E9%83%A8%E7%BD%B2/" style="font-size: 13px;">Linux部署</a> <a href="/tags/Spark/" style="font-size: 13px;">Spark</a> <a href="/tags/matplotlib/" style="font-size: 13.33px;">matplotlib</a> <a href="/tags/python/" style="font-size: 14px;">python</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 13px;">大数据</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" style="font-size: 13px;">数据结构与算法</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 13px;">爬虫</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a><span class="archive-list-count">10</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled ">
+        
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20201008/render-matplotlib-figure-to-flaskweb.html" class="thumb">
+    
+    
+        <span style="background-image:url(/images/few-pics/20201008效果预览.png)" alt="如何将matplotlib图像渲染到前端" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/python/">python</a>
+              </p>
+              <p class="item-title">
+                <a href="/20201008/render-matplotlib-figure-to-flaskweb.html" class="title">如何将matplotlib图像渲染到前端</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-10-08T01:06:32.000Z" itemprop="datePublished">2020-10-08</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20200604/shortest-leetcode-python-solutions.html" class="thumb">
+    
+    
+        <span style="background-image:url(/images/post-pics/data-structure-algorithm.png)" alt="力扣简洁优雅的python解法" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a>
+              </p>
+              <p class="item-title">
+                <a href="/20200604/shortest-leetcode-python-solutions.html" class="title">力扣简洁优雅的python解法</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-06-04T13:32:55.000Z" itemprop="datePublished">2020-06-04</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20200527/retry-from-try-clause-when-catch-error-in-python.html" class="thumb">
+    
+    
+        <span style="background-image:url(https://s1.ax1x.com/2020/08/22/daDPfg.png)" alt="Python捕获异常后如何对try语句重试" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/python/">python</a>
+              </p>
+              <p class="item-title">
+                <a href="/20200527/retry-from-try-clause-when-catch-error-in-python.html" class="title">Python捕获异常后如何对try语句重试</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-05-27T02:11:54.000Z" itemprop="datePublished">2020-05-27</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20200525/pycharm-connect-linux-from-windows.html" class="thumb">
+    
+    
+        <span style="background-image:url(/images/post-pics/python-icon.png)" alt="Windows使用PyCharm远程连接Linux的python环境" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/python/">python</a>
+              </p>
+              <p class="item-title">
+                <a href="/20200525/pycharm-connect-linux-from-windows.html" class="title">Windows使用PyCharm远程连接Linux的python环境</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-05-25T05:22:14.000Z" itemprop="datePublished">2020-05-25</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20200523/centos7-environment-variables.html" class="thumb">
+    
+    
+        <span style="background-image:url(/images/post-pics/linux-icon.png)" alt="CentOS7 环境变量详解" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Linux/">Linux</a>
+              </p>
+              <p class="item-title">
+                <a href="/20200523/centos7-environment-variables.html" class="title">CentOS7 环境变量详解</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-05-23T02:39:58.000Z" itemprop="datePublished">2020-05-23</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-text">一、环境变量的概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E7%9A%84%E5%90%AB%E4%B9%89"><span class="toc-text">1、环境变量的含义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E7%9A%84%E5%88%86%E7%B1%BB"><span class="toc-text">2、环境变量的分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81Linux%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-text">3、Linux环境变量</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%B8%B8%E7%94%A8%E7%9A%84%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-text">二、常用的环境变量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E6%9F%A5%E7%9C%8B%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-text">1、查看环境变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81%E5%B8%B8%E7%94%A8%E7%9A%84%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-text">2、常用的环境变量</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E8%AE%BE%E7%BD%AE%E7%8E%AF%E5%A2%83%E9%87%8F"><span class="toc-text">三、设置环境量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E7%B3%BB%E7%BB%9F%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-text">1、系统环境变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81%E7%94%A8%E6%88%B7%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-text">2、用户环境变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E8%84%9A%E6%9C%AC%E6%96%87%E4%BB%B6%E7%9A%84%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F"><span class="toc-text">3、环境变量脚本文件的执行顺序</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E9%87%8D%E8%A6%81%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E7%9A%84%E8%AF%A6%E8%A7%A3"><span class="toc-text">四、重要环境变量的详解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81PATH%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-text">1、PATH环境变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81LANG%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-text">2、LANG环境变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81LD-LIBRARY-PATH%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-text">3、LD_LIBRARY_PATH环境变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%E3%80%81CLASSPATH"><span class="toc-text">4、CLASSPATH</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E7%9A%84%E7%94%9F%E6%95%88"><span class="toc-text">五、环境变量的生效</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E5%BA%94%E7%94%A8%E7%BB%8F%E9%AA%8C"><span class="toc-text">六、应用经验</span></a></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-centos7-environment-variables" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      CentOS7 环境变量详解
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/20200523/centos7-environment-variables.html" class="article-date">
+	  <time datetime="2020-05-23T02:39:58.000Z" itemprop="datePublished">2020-05-23</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/CentOS/" rel="tag">CentOS</a>, <a class="article-tag-link-link" href="/tags/Linux/" rel="tag">Linux</a>
+  </span>
+
+
+        
+
+	<span class="article-read hidden-xs">
+    	<i class="icon icon-eye-fill" aria-hidden="true"></i>
+    	<span id="/20200523/centos7-environment-variables.html" class="leancloud_visitors"  data-flag-title="CentOS7 环境变量详解">
+			<span class="leancloud-visitors-count">0</span>
+		</span>
+    </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/20200523/centos7-environment-variables.html#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 7(分)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>摘要：文章介绍了<code>CentOS7</code>环境变量的相关知识，以及具体配置环境变量时的注意事项及建议。<a id="more"></a></p>
+<p><table><tr><td bgcolor=#D7BDE2>温馨提示：点击页面下方 ⚓ 以展开或折叠目录</td></tr></table></p>
+<hr>
+<blockquote>
+<p><font size=5><b>参考文章</b></font><br><strong>文章来源：</strong><a target="_blank" rel="noopener" href="http://www.freecplus.net">C语言技术网</a><br><strong>文章作者：</strong>码农有道<br><strong>原文链接：</strong><a target="_blank" rel="noopener" href="https://www.cnblogs.com/wucongzhou/p/12579468.html">https://www.cnblogs.com/wucongzhou/p/12579468.html</a></p>
+</blockquote>
+<h2 id="一、环境变量的概念"><a href="#一、环境变量的概念" class="headerlink" title="一、环境变量的概念"></a>一、环境变量的概念</h2><h3 id="1、环境变量的含义"><a href="#1、环境变量的含义" class="headerlink" title="1、环境变量的含义"></a>1、环境变量的含义</h3><p>程序（操作系统命令和应用程序）的执行都需要运行环境，这个环境是由多个环境变量组成的。</p>
+<h3 id="2、环境变量的分类"><a href="#2、环境变量的分类" class="headerlink" title="2、环境变量的分类"></a>2、环境变量的分类</h3><ol>
+<li>按生效的范围分类。<br><strong><em>系统环境变量</em></strong>：公共的，对全部的用户都生效。<br><strong><em>用户环境变量</em></strong>：用户私有的、自定义的个性化设置，只对该用户生效。</li>
+<li>按生存周期分类。<br><strong><em>永久环境变量</em></strong>：在环境变量脚本文件中配置，用户每次登录时会自动执行这些脚本，相当于永久生效。<br><strong><em>临时环境变量</em></strong>：使用时在<code>Shell</code>中临时定义，退出<code>Shell</code>后失效。</li>
+</ol>
+<h3 id="3、Linux环境变量"><a href="#3、Linux环境变量" class="headerlink" title="3、Linux环境变量"></a>3、Linux环境变量</h3><p><code>Linux</code>环境变量也称之为<code>Shell</code>环境量变，以下划线和字母打头，由下划线、字母（区分大小写）和数字组成，习惯上使用大写字母，例如<code>PATH</code>、<code>HOSTNAME</code>、<code>LANG</code>等。</p>
+<h2 id="二、常用的环境变量"><a href="#二、常用的环境变量" class="headerlink" title="二、常用的环境变量"></a>二、常用的环境变量</h2><h3 id="1、查看环境变量"><a href="#1、查看环境变量" class="headerlink" title="1、查看环境变量"></a>1、查看环境变量</h3><ul>
+<li><code>env</code>命令</li>
+<li><code>echo</code>命令</li>
+</ul>
+<h3 id="2、常用的环境变量"><a href="#2、常用的环境变量" class="headerlink" title="2、常用的环境变量"></a>2、常用的环境变量</h3><ul>
+<li><code>PATH</code>：可执行程序的搜索目录，可执行程序包括<code>Linux</code>系统命令和用户的应用程序，<code>PATH</code>变量的具体用法本文后面的章节中有详细的介绍。</li>
+<li><code>LANG</code>：<code>Linux</code>系统的语言、地区、字符集，<code>LANG</code>变量的具体用法本文后面的章节中有详细的介绍。</li>
+<li><code>HOSTNAME</code>：服务器的主机名。</li>
+<li><code>SHELL</code>：用户当前使用的<code>Shell</code>解析器。</li>
+<li><code>HISTSIZE</code>：保存历史命令的数目。</li>
+<li><code>USER</code>：当前登录用户的用户名。</li>
+<li><code>HOME</code>：当前登录用户的主目录。</li>
+<li><code>PWD</code>：当前工作目录。</li>
+<li><code>LD_LIBRARY_PATH</code>：<code>C/C++</code>语言动态链接库文件搜索的目录，它不是<code>Linux</code>缺省的环境变量，但对<code>C/C++</code>程序员来说非常重要，具体用法本文后面的章节中有详细的介绍。</li>
+<li><code>CLASSPATH</code>：<code>JAVA</code>语言库文件搜索的目录，它也不是<code>Linux</code>缺省的环境变量，但对<code>JAVA</code>程序员来说非常重要，具体用法本文后面的章节中有详细的介绍。</li>
+</ul>
+<h2 id="三、设置环境量"><a href="#三、设置环境量" class="headerlink" title="三、设置环境量"></a>三、设置环境量</h2><p>如果环境变量的值没有空格等特殊符号，可以不用单引号包含。<br>采用<code>export</code>设置的环境变量，在退出<code>Shell</code>后就会失效，下次登录时需要重新设置。如果希望环境变量永久生效，需要在登录脚本文件中配置。</p>
+<h3 id="1、系统环境变量"><a href="#1、系统环境变量" class="headerlink" title="1、系统环境变量"></a>1、系统环境变量</h3><p>系统环境变量对全部的用户生效，设置系统环境变量有三种方法。<br>1）在<code>/etc/profile</code>文件中设置。<br>用户登录时执行<code>/etc/profile</code>文件中设置系统的环境变量。但是，<code>Linux</code><strong>不建议</strong>在<code>/etc/profile</code>文件中设置系统环境变量。<br>2）在<code>/etc/profile.d</code>目录中增加环境变量脚本文件，这是<code>Linux</code>推荐的方法。<br><code>/etc/profile</code>在每次启动时会执行<code>/etc/profile.d</code>下全部的脚本文件。<code>/etc/profile.d</code>比<code>/etc/profile</code>好维护，不想要什么变量直接删除<code>/etc/profile.d</code>下对应的<code>shell</code>脚本即可。<br>3）在<code>/etc/bashrc</code>文件中设置环境变量。<br>该文件配置的环境变量将会影响全部用户使用的<code>bash shell</code>。但是，<code>Linux</code>也不建议在<code>/etc/bashrc</code>文件中设置系统环境变量。</p>
+<h3 id="2、用户环境变量"><a href="#2、用户环境变量" class="headerlink" title="2、用户环境变量"></a>2、用户环境变量</h3><p>用户环境变量只对当前用户生效，设置用户环境变量也有多种方法。<br>在用户的主目录，有几个特别的文件，用<code>ls</code>是看不见的，用<code>ls .bash_*</code>可以看见。<br>1）<code>.bash_profile</code>（推荐首选）<br>当用户登录时执行，每个用户都可以使用该文件来配置专属于自己的环境变量。</p>
+<p>2）<code>.bashrc</code><br>当用户登录时以及每次打开新的<code>Shell</code>时该文件都将被读取，不推荐在里面配置用户专用的环境变量，因为每开一个<code>Shell</code>，该文件都会被读取一次，效率肯定受影响。</p>
+<p>3）<code>.bash_logout</code><br>当每次退出系统（退出<code>bash shell</code>）时执行该文件。</p>
+<p>4）<code>.bash_history</code><br>保存了当前用户使用过的历史命令。</p>
+<h3 id="3、环境变量脚本文件的执行顺序"><a href="#3、环境变量脚本文件的执行顺序" class="headerlink" title="3、环境变量脚本文件的执行顺序"></a>3、环境变量脚本文件的执行顺序</h3><p>环境变量脚本文件的执行顺序（由上到下）如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/etc/profile</span><br><span class="line">/etc/profile.d</span><br><span class="line">/etc/bashrc</span><br><span class="line">用户的.bash_profile</span><br><span class="line">用户的.bashrc</span><br></pre></td></tr></table></figure><br>同名的环境变量，如果在多个脚本中有配置，以最后执行的脚本中的配置为准。<br>还有一个问题需要注意，在<code>/etc/profile</code>中执行了<code>/etc/profile.d</code>的脚本，所以，<code>/etc/profile.d</code>和<code>/etc/profile</code>的执行顺序还要看代码怎么写。代码如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> /etc/profile.d/*.sh ; <span class="keyword">do</span></span><br><span class="line">    <span class="keyword">if</span> [ -r <span class="string">&quot;<span class="variable">$i</span>&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$&#123;-#*i&#125;</span>&quot;</span> != <span class="string">&quot;$-&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">            . <span class="string">&quot;<span class="variable">$i</span>&quot;</span></span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            . <span class="string">&quot;<span class="variable">$i</span>&quot;</span> &gt;/dev/null</span><br><span class="line">        <span class="keyword">fi</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="四、重要环境变量的详解"><a href="#四、重要环境变量的详解" class="headerlink" title="四、重要环境变量的详解"></a>四、重要环境变量的详解</h2><h3 id="1、PATH环境变量"><a href="#1、PATH环境变量" class="headerlink" title="1、PATH环境变量"></a>1、<code>PATH</code>环境变量</h3><p>可执行程序的搜索目录，可执行程序包括<code>Linux</code>系统命令和用户的应用程序。如果可执行程序的目录不在<code>PATH</code>指定的目录中，执行时需要指定目录。<br>1）<code>PATH</code>环境变量存放的是目录列表，目录之间用冒号<code>:</code>分隔，最后的圆点<code>.</code>表示当前目录。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PATH=目录1:目录2:目录3:......目录n:.</span><br></pre></td></tr></table></figure><br>2）<code>PATH</code>缺省包含了<code>Linux</code>系统命令所在的目录<code>/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin</code>，如果不包含这些目录，<code>Linux</code>的常用命令也无法执行（要输入绝对路径才能执行）。<br>3）在用户的<code>.bash_profile</code>文件中，会对<code>PATH</code>进行扩充，如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$HOME</span>/bin</span><br></pre></td></tr></table></figure><br>4）如果<code>PATH</code>变量中没有包含圆点<code>.</code>，执行当前目录下的程序需要加<code>./</code>或使用绝对路径。</p>
+<h3 id="2、LANG环境变量"><a href="#2、LANG环境变量" class="headerlink" title="2、LANG环境变量"></a>2、LANG环境变量</h3><p><code>LANG</code>环境变量存放的是<code>Linux</code>系统的语言、地区、字符集，它不需要系统管理员手工设置，<code>/etc/profile</code>会调用<code>/etc/profile.d/lang.sh</code>脚本完成对<code>PATH</code>的设置。</p>
+<ul>
+<li>CentOS6.x 字符集配置文件在<code>/etc/syscconfig/i18n</code>文件中。</li>
+<li>CentOS7.x 字符集配置文件在<code>/etc/locale.conf</code>文件中，内容如下：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-bash-4.2<span class="comment"># cat /etc/locale. conf</span></span><br><span class="line">LANG=zh_CN.gbk</span><br><span class="line"><span class="comment">#LANG=zh_CN.utf8</span></span><br><span class="line"><span class="comment">#LANG=zh_CN.gb18030</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="3、LD-LIBRARY-PATH环境变量"><a href="#3、LD-LIBRARY-PATH环境变量" class="headerlink" title="3、LD_LIBRARY_PATH环境变量"></a>3、<code>LD_LIBRARY_PATH</code>环境变量</h3><p><code>C/C++</code>语言动态链接库文件搜索的目录，它不是<code>Linux</code>缺省的环境变量，但对<code>C/C++</code>程序员来说非常重要。<br><code>LD_LIBRARY_PATH</code>环境变量存放的也是目录列表，目录之间用冒号<code>:</code>分隔，最后的圆点<code>.</code>表示当前目录，与<code>PATH</code>的格式相同。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> LD_LIBRARY_PATH=目录1:目录2:目录3:......目录n:.</span><br></pre></td></tr></table></figure></p>
+<h3 id="4、CLASSPATH"><a href="#4、CLASSPATH" class="headerlink" title="4、CLASSPATH"></a>4、<code>CLASSPATH</code></h3><p><code>JAVA</code>语言库文件搜索的目录，它也不是<code>Linux</code>缺省的环境变量，但对<code>JAVA</code>程序员来说非常重要。<br><code>CLASSPATH</code>环境变量存放的也是目录列表，目录之间用冒号<code>:</code>分隔，最后的圆点<code>.</code>表示当前目录，与<code>PATH</code>的格式相同。</p>
+<h2 id="五、环境变量的生效"><a href="#五、环境变量的生效" class="headerlink" title="五、环境变量的生效"></a>五、环境变量的生效</h2><p>1）在<code>Shell</code>下，用<code>export</code>设置的环境变量对当前<code>Shell</code>立即生效，<code>Shell</code>退出后失效。<br>2）在脚本文件中设置的环境变量不会立即生效，退出<code>Shell</code>后重新登录时才生效，或者用<code>source</code>命令让它立即生效，例如：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> /etc/profile</span><br></pre></td></tr></table></figure></p>
+<h2 id="六、应用经验"><a href="#六、应用经验" class="headerlink" title="六、应用经验"></a>六、应用经验</h2><p>虽然设置环境变量的方法有多种，但是建议系统环境变量建议在<code>/etc/profile.d</code>目录中配置，用户环境变量在用户的<code>.bash_profile</code>中配置，不建议在其它脚本文件中配置环境变，会增加运维的麻烦，容易出错。</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-license">
+      <strong>文章作者： </strong><a href="https://hwame.top" style="color:#E541E5;"> 鴻塵</a>
+    </li>
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://hwame.top/20200523/centos7-environment-variables.html" title="CentOS7 环境变量详解" target="_blank" rel="external" style="color:#E541E5;">https://hwame.top/20200523/centos7-environment-variables.html</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用《<a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external" style="color:#E541E5;"><u>CC BY 4.0 CN协议</u></a>》许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/hwame" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/hwame" target="_blank"><span class="text-dark">鴻塵</span><small class="ml-1x">Pythoner, Data Analyst</small></a></h3>
+        <div>个人简介：处女座不适合做码农。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/20200525/pycharm-connect-linux-from-windows.html" title="Windows使用PyCharm远程连接Linux的python环境"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/20200522/bigdata-cluster-with-hadoop-scala-spark.html" title="Hadoop集群搭建详细步骤"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">
+        <span style="color:#C71585">[&nbsp;</span><span style="color:#C71585">文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span style="color:#C71585">]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,wechat,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipay.jpg" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechat.jpg" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/hwame" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/hwamei" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://www.zhihu.com/people/hwame" target="_blank" title="Zhihu" data-toggle=tooltip data-placement=top><i class="icon icon-zhihu"></i></a></li>
+        
+        <li><a href="https://segmentfault.com/u/hwame" target="_blank" title="Segmentfault" data-toggle=tooltip data-placement=top><i class="icon icon-segmentfault"></i></a></li>
+        
+        <li><a href="https://gitee.com/hwame" target="_blank" title="Gitee" data-toggle=tooltip data-placement=top><i class="icon icon-gitee"></i></a></li>
+        
+        <li><a href="https://stackoverflow.com/questions" target="_blank" title="Stackoverflow" data-toggle=tooltip data-placement=top><i class="icon icon-stackoverflow"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        
+        <div class="publishby">
+            <span id="busuanzi_container_site_pv">
+                <span id="busuanzi_value_site_pv" style="font-family:Courier"></span>访问，
+                <span id="busuanzi_value_site_uv" style="font-family:Courier"></span>访客
+            </span>
+        </div>
+        
+        <!--
+        <div class="publishby">
+            <a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/#/Integrated/recordQuery">鄂ICP备00000000号</a>
+        </div>
+        -->
+
+        <!--
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+        -->
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script src="//cdn.jsdelivr.net/gh/HCLonely/Valine@latest/dist/Valine.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css" />
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  var requiredFields = 'mail';
+  requiredFields = requiredFields.split(',');
+
+  new Valine({
+    el: '#vcomments',
+    appId: 'yLWKiHoPwmx7Izv4YYtC1fW2-MdYXbMMI',
+    appKey: 'h01jve7HXS6MuDLNBF5DeWTz',
+    verify: false,
+    notify: true,
+    placeholder: '🌺🌺留下邮箱才可以收到新消息提醒哦~\n🦚🦚输入QQ号可自动拉取昵称和邮箱~',
+    avatar: 'robohash',
+    meta: meta,
+    pageSize: '10' || 10,
+    enableQQ: 'true',
+    recordIP: 'true',
+    requiredFields: requiredFields,
+    visitor: true,
+    
+    master: 'f86269b0b1850cd62ca22b218aea1780',
+    friends: ['1725648a3566b8841f19423519e0a36e', '87b6f0e96e63727d889bb3653fb5867c', 'b7c8e70dc5b2bbbdbdeca1fc0e71b919'],
+    tagMeta: ['鴻塵', '蜜柚', '访客'],
+    metaPlaceholder: {"nick":"昵称/QQ号","mail":"邮箱(必填)","link":"个人主页"}
+  });
+  </script>
+
+     
+
+
+
+  <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.js"></script>
+  <script>
+  //利用 FancyBox 实现点击图片放大
+  $(document).ready(function() {
+    $('article img').not('[hidden]').not('.panel-body img').each(function() {
+      var $image = $(this);
+      var imageCaption = $image.attr('alt');
+      var $imageWrapLink = $image.parent('a');
+      if ($imageWrapLink.length < 1) {
+        var src = this.getAttribute('src');
+        var idx = src.lastIndexOf('?');
+        if (idx != -1) {
+          src = src.substring(0, idx);
+        }
+        $imageWrapLink = $image.wrap('<a href="' + src + '"></a>').parent('a');
+      }
+      $imageWrapLink.attr('data-fancybox', 'images');
+      if (imageCaption) {
+        $imageWrapLink.attr('data-caption', imageCaption);
+      }
+    });
+    $().fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: true,
+    });
+  });
+  </script>
+
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

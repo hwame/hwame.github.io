@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>Windows使用PyCharm远程连接Linux的python环境 | 鴻塵</title>
+  <meta name="description" content="摘要：由于开发需要，本地使用IDE编写代码时可能要求不同的Python环境，虚拟环境有时也不是最佳选项，如何在本地pycharm中直接连接远程服务器环境呢？">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Windows使用PyCharm远程连接Linux的python环境">
+<meta property="og:url" content="https://hwame.top/20200525/pycharm-connect-linux-from-windows.html">
+<meta property="og:site_name" content="Solitary">
+<meta property="og:description" content="摘要：由于开发需要，本地使用IDE编写代码时可能要求不同的Python环境，虚拟环境有时也不是最佳选项，如何在本地pycharm中直接连接远程服务器环境呢？">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://hwame.top/images/pycharm-connect-linux/可用编译器以及安装的第三方库.png">
+<meta property="og:image" content="https://hwame.top/images/pycharm-connect-linux/SSH-Interpreter.png">
+<meta property="og:image" content="https://hwame.top/images/pycharm-connect-linux/认证方式.png">
+<meta property="og:image" content="https://hwame.top/images/pycharm-connect-linux/python-interpreter.png">
+<meta property="og:image" content="https://hwame.top/images/pycharm-connect-linux/可用编译器.png">
+<meta property="og:image" content="https://hwame.top/images/pycharm-connect-linux/linux-python-interpreter-location.png">
+<meta property="og:image" content="https://hwame.top/images/pycharm-connect-linux/path-mapping.png">
+<meta property="og:image" content="https://hwame.top/images/pycharm-connect-linux/文件自动上传.png">
+<meta property="article:published_time" content="2020-05-25T05:22:14.000Z">
+<meta property="article:modified_time" content="2020-10-16T14:38:45.287Z">
+<meta property="article:author" content="鴻塵">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hwame.top/images/pycharm-connect-linux/可用编译器以及安装的第三方库.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://hwame.top/20200525/pycharm-connect-linux-from-windows.html">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+    <link href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.css" rel="stylesheet">
+  
+  
+<meta name="generator" content="Hexo 5.0.2"></head>
+
+
+<body class="main-center theme-purple" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/hwame" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">鴻塵</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Pythoner, Data Analyst</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> 湖北-武汉</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav menu-highlight">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder-open"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-gallery">
+          <a href="/gallery">
+            
+            <i class="icon icon-delicious"></i>
+            
+            <span class="menu-title">相册</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/hwame" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/hwamei" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://www.zhihu.com/people/hwame" target="_blank" title="Zhihu" data-toggle=tooltip data-placement=top><i class="icon icon-zhihu"></i></a></li>
+        
+        <li><a href="https://segmentfault.com/u/hwame" target="_blank" title="Segmentfault" data-toggle=tooltip data-placement=top><i class="icon icon-segmentfault"></i></a></li>
+        
+        <li><a href="https://gitee.com/hwame" target="_blank" title="Gitee" data-toggle=tooltip data-placement=top><i class="icon icon-gitee"></i></a></li>
+        
+        <li><a href="https://stackoverflow.com/questions" target="_blank" title="Stackoverflow" data-toggle=tooltip data-placement=top><i class="icon icon-stackoverflow"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎来到鴻塵的博客!<br>鴻塵的<u><a target="_blank" rel="noopener" href="https://weibo.com/hwamei" style="color:#E541E5;">微博</a></u>主页，鴻塵的<u><a target="_blank" rel="noopener" href="https://github.com/hwame" style="color:#E541E5;">Github</a></u>主页，如果我可以忘记的<u><a target="_blank" rel="noopener" href="https://www.zhihu.com/people/hwame" style="color:#E541E5;">知乎</a></u>主页。</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/CentOS/" style="font-size: 13px;">CentOS</a> <a href="/tags/Hexo/" style="font-size: 14px;">Hexo</a> <a href="/tags/Linux/" style="font-size: 13.67px;">Linux</a> <a href="/tags/Linux%E9%83%A8%E7%BD%B2/" style="font-size: 13px;">Linux部署</a> <a href="/tags/Spark/" style="font-size: 13px;">Spark</a> <a href="/tags/matplotlib/" style="font-size: 13.33px;">matplotlib</a> <a href="/tags/python/" style="font-size: 14px;">python</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 13px;">大数据</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" style="font-size: 13px;">数据结构与算法</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 13px;">爬虫</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a><span class="archive-list-count">10</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled ">
+        
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20201008/render-matplotlib-figure-to-flaskweb.html" class="thumb">
+    
+    
+        <span style="background-image:url(/images/few-pics/20201008效果预览.png)" alt="如何将matplotlib图像渲染到前端" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/python/">python</a>
+              </p>
+              <p class="item-title">
+                <a href="/20201008/render-matplotlib-figure-to-flaskweb.html" class="title">如何将matplotlib图像渲染到前端</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-10-08T01:06:32.000Z" itemprop="datePublished">2020-10-08</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20200604/shortest-leetcode-python-solutions.html" class="thumb">
+    
+    
+        <span style="background-image:url(/images/post-pics/data-structure-algorithm.png)" alt="力扣简洁优雅的python解法" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a>
+              </p>
+              <p class="item-title">
+                <a href="/20200604/shortest-leetcode-python-solutions.html" class="title">力扣简洁优雅的python解法</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-06-04T13:32:55.000Z" itemprop="datePublished">2020-06-04</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20200527/retry-from-try-clause-when-catch-error-in-python.html" class="thumb">
+    
+    
+        <span style="background-image:url(https://s1.ax1x.com/2020/08/22/daDPfg.png)" alt="Python捕获异常后如何对try语句重试" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/python/">python</a>
+              </p>
+              <p class="item-title">
+                <a href="/20200527/retry-from-try-clause-when-catch-error-in-python.html" class="title">Python捕获异常后如何对try语句重试</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-05-27T02:11:54.000Z" itemprop="datePublished">2020-05-27</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20200525/pycharm-connect-linux-from-windows.html" class="thumb">
+    
+    
+        <span style="background-image:url(/images/post-pics/python-icon.png)" alt="Windows使用PyCharm远程连接Linux的python环境" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/python/">python</a>
+              </p>
+              <p class="item-title">
+                <a href="/20200525/pycharm-connect-linux-from-windows.html" class="title">Windows使用PyCharm远程连接Linux的python环境</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-05-25T05:22:14.000Z" itemprop="datePublished">2020-05-25</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20200523/centos7-environment-variables.html" class="thumb">
+    
+    
+        <span style="background-image:url(/images/post-pics/linux-icon.png)" alt="CentOS7 环境变量详解" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Linux/">Linux</a>
+              </p>
+              <p class="item-title">
+                <a href="/20200523/centos7-environment-variables.html" class="title">CentOS7 环境变量详解</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-05-23T02:39:58.000Z" itemprop="datePublished">2020-05-23</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E8%83%8C%E6%99%AF"><span class="toc-text">1.背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%93%8D%E4%BD%9C%E6%AD%A5%E9%AA%A4"><span class="toc-text">2.操作步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E8%AE%BE%E7%BD%AEpython%E7%BC%96%E8%AF%91%E5%99%A8%E5%8F%8A%E9%A1%B9%E7%9B%AE%E8%B7%AF%E5%BE%84%E6%98%A0%E5%B0%84"><span class="toc-text">3.设置python编译器及项目路径映射</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%8C%B8pytho%E7%BC%96%E8%AF%91%E5%99%A8"><span class="toc-text">🌸pytho编译器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%8C%B8%E9%A1%B9%E7%9B%AE%E8%B7%AF%E5%BE%84%E6%98%A0%E5%B0%84"><span class="toc-text">🌸项目路径映射</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%8C%B8%E6%96%87%E4%BB%B6%E8%87%AA%E5%8A%A8%E4%B8%8A%E4%BC%A0%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-text">🌸文件自动上传服务器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%8C%B8%E5%85%B3%E4%BA%8E%E9%83%A8%E7%BD%B2%E9%85%8D%E7%BD%AE"><span class="toc-text">🌸关于部署配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E8%BF%90%E8%A1%8C%E5%92%8C%E8%B0%83%E8%AF%95"><span class="toc-text">4.运行和调试</span></a></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-pycharm-connect-linux-from-windows" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Windows使用PyCharm远程连接Linux的python环境
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/20200525/pycharm-connect-linux-from-windows.html" class="article-date">
+	  <time datetime="2020-05-25T05:22:14.000Z" itemprop="datePublished">2020-05-25</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/python/">python</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/Linux/" rel="tag">Linux</a>, <a class="article-tag-link-link" href="/tags/python/" rel="tag">python</a>
+  </span>
+
+
+        
+
+	<span class="article-read hidden-xs">
+    	<i class="icon icon-eye-fill" aria-hidden="true"></i>
+    	<span id="/20200525/pycharm-connect-linux-from-windows.html" class="leancloud_visitors"  data-flag-title="Windows使用PyCharm远程连接Linux的python环境">
+			<span class="leancloud-visitors-count">0</span>
+		</span>
+    </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/20200525/pycharm-connect-linux-from-windows.html#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1.1k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 4(分)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>摘要：由于开发需要，本地使用IDE编写代码时可能要求不同的<code>Python</code>环境，虚拟环境有时也不是最佳选项，如何在本地<code>pycharm</code>中直接连接远程服务器环境呢？<a id="more"></a></p>
+<p><table><tr><td bgcolor=#D7BDE2>温馨提示：点击页面下方 ⚓ 以展开或折叠目录</td></tr></table></p>
+<hr>
+<blockquote>
+<p><font size=5><b>文章说明</b></font><br><strong>文章来源：</strong><a href="https://hwame.top">鴻塵</a><br><strong>文章作者：</strong>鴻塵<br><strong>原文链接：</strong><a href="https://hwame.top/20200525/pycharm-connect-linux-from-windows.html">https://hwame.top/20200525/pycharm-connect-linux-from-windows.html</a></p>
+</blockquote>
+<h2 id="1-背景"><a href="#1-背景" class="headerlink" title="1.背景"></a>1.背景</h2><p>Linux服务器集群搭建在虚拟机中，阿里云服务器配置也很低，所以都没有安装GUI图形界面，要想使项目跑在Linux集群上，必须先将项目代码打包上传，然后才能运行。但是存在以下问题：</p>
+<ul>
+<li>由于硬件和经济的限制，Linux虚拟机和阿里云服务器的配置都不高，没有安装图形界面，更别说IDE了</li>
+<li>而且由于Windows和Linux本身的区别，开发调试过程中会出现不可预料的问题</li>
+<li>Windows打包上传、Linux运行测试，流程繁琐，效率低下</li>
+</ul>
+<p>因此，如果能<font color=purple><b>直接在Windows的IDE中使用Linux环境</b></font>，问题就会迎刃而解。<br><strong>注意：</strong>可能因为PyCharm专业版和社区免费版的原因而无法使用，本文使用的是<code>PyCharm 2019.1 (Professional Edition)</code>。</p>
+<h2 id="2-操作步骤"><a href="#2-操作步骤" class="headerlink" title="2.操作步骤"></a>2.操作步骤</h2><ol>
+<li>虚拟机开机。</li>
+<li>PyCharm中新建或打开一个项目，点击“<code>File</code>”→“<code>Settings</code>”，展开至“<code>Project: xxx</code>”→“<code>Project Interpreter</code>”，可以看到所有可用的编译器以及安装的第三方库，如图所示。其中<code>Project Interpreter</code>为当前项目的编译器，<code>Path mappings</code>为当前项目路径的映射，亦即本地Windows文件与远程Linux文件的路径对应关系。并且可以有多个映射。<br><img src="/images/pycharm-connect-linux/可用编译器以及安装的第三方库.png" alt="可用编译器以及安装的第三方库"></li>
+<li>在配置之前只有<font color=purple><b>本地</b></font>的python环境和虚拟环境，当连接远程服务器后才有Linux的python环境。</li>
+<li>点击<code>Project Interpreter</code>右边的设置按钮，选择<code>Add</code>添加Python Interpreter，可以看到能配置的编译器共有9种，我们选择<code>SSH Interpreter</code>，填写主机IP和用户名，如图所示。<br><img src="/images/pycharm-connect-linux/SSH-Interpreter.png" alt="SSH-Interpreter"></li>
+<li>认证方式可以选择密码或密钥对。填写正确密码或者选择密钥文件后点击next。<br><img src="/images/pycharm-connect-linux/认证方式.png" alt="密码或密钥的认证方式"></li>
+<li>设置python编译器及项目文件夹映射，<code>Interpreter</code>选择需要使用的位于服务器上的python编译器，<code>Sync folders</code>为本地项目路径与远程项目路径的映射关系。详细设置及含义见后文，如图所示。<br><img src="/images/pycharm-connect-linux/python-interpreter.png" alt="python-Interpreter"></li>
+<li>点击完成即可看到添加好的<code>Interpreter</code>。点击<code>Project Interpreter</code>右边的设置按钮，选择<code>Show All...</code>即可查看所有可用编译器，如图所示。<br><img src="/images/pycharm-connect-linux/可用编译器.png" alt="可用编译器"></li>
+<li>选择需要的Interpreter，点击<code>Apply</code>即可愉快的开发了。</li>
+</ol>
+<h2 id="3-设置python编译器及项目路径映射"><a href="#3-设置python编译器及项目路径映射" class="headerlink" title="3.设置python编译器及项目路径映射"></a>3.设置python编译器及项目路径映射</h2><h3 id="🌸pytho编译器"><a href="#🌸pytho编译器" class="headerlink" title="🌸pytho编译器"></a>🌸pytho编译器</h3><p>服务器上运行如下命令以查看pytho编译器的位置，选择需要的：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">which</span> python</span><br><span class="line"><span class="comment"># /usr/bin/python</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">which</span> python3</span><br><span class="line"><span class="comment"># /usr/bin/python3</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">which</span> python2</span><br><span class="line"><span class="comment"># /usr/bin/python2</span></span><br></pre></td></tr></table></figure>
+<p><strong>注意：</strong><code>/usr/bin/python</code>本身也是一个软连接，指向了实际的python可执行文件路径。<br><strong>注意：</strong>`如果需要使用虚拟环境，则需具体到虚拟环境位置及对应的可执行文件。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看python可执行文件路径</span></span><br><span class="line">ls -lh /usr/bin | grep python</span><br><span class="line"></span><br><span class="line"><span class="comment"># 由图可以看到：</span></span><br><span class="line"><span class="comment"># python → python3 → python3.6</span></span><br><span class="line"><span class="comment"># python2 → python2.7 </span></span><br></pre></td></tr></table></figure><br><img src="/images/pycharm-connect-linux/linux-python-interpreter-location.png" alt="linux的python可执行文件路径"><br>因此，只要保证能指向正确的可执行文件即可。</p>
+<h3 id="🌸项目路径映射"><a href="#🌸项目路径映射" class="headerlink" title="🌸项目路径映射"></a>🌸项目路径映射</h3><p><code>Sync folders</code>中的<code>&lt;Project root&gt;</code>为本地项目的根路径，箭头右边为远程项目路径，默认为<code>/tmp/pycharm_project_xxx</code>，点击“右侧文件夹图标”可进行修改，如图所示。<br><img src="/images/pycharm-connect-linux/path-mapping.png" alt="path-mapping"><br><strong>注意：</strong>可添加多对映射。</p>
+<h3 id="🌸文件自动上传服务器"><a href="#🌸文件自动上传服务器" class="headerlink" title="🌸文件自动上传服务器"></a>🌸文件自动上传服务器</h3><p>设置好python编译器和项目路径映射后，勾选“自动上传项目文件至服务器（Automatically upload project files to the server）”。<br>当本地文件有变更时，只要有保存操作就能自动上传服务器，如图所示。<br><img src="/images/pycharm-connect-linux/文件自动上传.png" alt="文件自动上传"></p>
+<h3 id="🌸关于部署配置"><a href="#🌸关于部署配置" class="headerlink" title="🌸关于部署配置"></a>🌸关于部署配置</h3><p>当配置完远程python编译器后，就默认创建了部署环境，在Event Log中可以看到<code>14:35    Deployment configuration to 39.xxx.xxx.xxx has been created.</code><br>点击“<code>File</code>”→“<code>Settings</code>”，展开至“<code>Build, Execution, Deployment</code>”→“<code>Deployment</code>”，可以看到已自动设置好部署环境，可以自行修改或删除。</p>
+<h2 id="4-运行和调试"><a href="#4-运行和调试" class="headerlink" title="4.运行和调试"></a>4.运行和调试</h2><p>运行和调试时，PyCharm会自动ssh连接然后运行：<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ssh:<span class="regexp">//</span>root@<span class="number">192.168</span>.xx.xx:<span class="number">22</span><span class="regexp">/bin/</span>python -u <span class="regexp">/tmp/</span>pycharm_project_xxx/test.py</span><br><span class="line">******</span><br><span class="line"></span><br><span class="line">Process finished with <span class="keyword">exit</span> code <span class="number">0</span></span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-license">
+      <strong>文章作者： </strong><a href="https://hwame.top" style="color:#E541E5;"> 鴻塵</a>
+    </li>
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://hwame.top/20200525/pycharm-connect-linux-from-windows.html" title="Windows使用PyCharm远程连接Linux的python环境" target="_blank" rel="external" style="color:#E541E5;">https://hwame.top/20200525/pycharm-connect-linux-from-windows.html</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用《<a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external" style="color:#E541E5;"><u>CC BY 4.0 CN协议</u></a>》许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/hwame" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/hwame" target="_blank"><span class="text-dark">鴻塵</span><small class="ml-1x">Pythoner, Data Analyst</small></a></h3>
+        <div>个人简介：处女座不适合做码农。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/20200527/retry-from-try-clause-when-catch-error-in-python.html" title="Python捕获异常后如何对try语句重试"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/20200523/centos7-environment-variables.html" title="CentOS7 环境变量详解"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">
+        <span style="color:#C71585">[&nbsp;</span><span style="color:#C71585">文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span style="color:#C71585">]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,wechat,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipay.jpg" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechat.jpg" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/hwame" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/hwamei" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://www.zhihu.com/people/hwame" target="_blank" title="Zhihu" data-toggle=tooltip data-placement=top><i class="icon icon-zhihu"></i></a></li>
+        
+        <li><a href="https://segmentfault.com/u/hwame" target="_blank" title="Segmentfault" data-toggle=tooltip data-placement=top><i class="icon icon-segmentfault"></i></a></li>
+        
+        <li><a href="https://gitee.com/hwame" target="_blank" title="Gitee" data-toggle=tooltip data-placement=top><i class="icon icon-gitee"></i></a></li>
+        
+        <li><a href="https://stackoverflow.com/questions" target="_blank" title="Stackoverflow" data-toggle=tooltip data-placement=top><i class="icon icon-stackoverflow"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        
+        <div class="publishby">
+            <span id="busuanzi_container_site_pv">
+                <span id="busuanzi_value_site_pv" style="font-family:Courier"></span>访问，
+                <span id="busuanzi_value_site_uv" style="font-family:Courier"></span>访客
+            </span>
+        </div>
+        
+        <!--
+        <div class="publishby">
+            <a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/#/Integrated/recordQuery">鄂ICP备00000000号</a>
+        </div>
+        -->
+
+        <!--
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+        -->
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script src="//cdn.jsdelivr.net/gh/HCLonely/Valine@latest/dist/Valine.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css" />
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  var requiredFields = 'mail';
+  requiredFields = requiredFields.split(',');
+
+  new Valine({
+    el: '#vcomments',
+    appId: 'yLWKiHoPwmx7Izv4YYtC1fW2-MdYXbMMI',
+    appKey: 'h01jve7HXS6MuDLNBF5DeWTz',
+    verify: false,
+    notify: true,
+    placeholder: '🌺🌺留下邮箱才可以收到新消息提醒哦~\n🦚🦚输入QQ号可自动拉取昵称和邮箱~',
+    avatar: 'robohash',
+    meta: meta,
+    pageSize: '10' || 10,
+    enableQQ: 'true',
+    recordIP: 'true',
+    requiredFields: requiredFields,
+    visitor: true,
+    
+    master: 'f86269b0b1850cd62ca22b218aea1780',
+    friends: ['1725648a3566b8841f19423519e0a36e', '87b6f0e96e63727d889bb3653fb5867c', 'b7c8e70dc5b2bbbdbdeca1fc0e71b919'],
+    tagMeta: ['鴻塵', '蜜柚', '访客'],
+    metaPlaceholder: {"nick":"昵称/QQ号","mail":"邮箱(必填)","link":"个人主页"}
+  });
+  </script>
+
+     
+
+
+
+  <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.js"></script>
+  <script>
+  //利用 FancyBox 实现点击图片放大
+  $(document).ready(function() {
+    $('article img').not('[hidden]').not('.panel-body img').each(function() {
+      var $image = $(this);
+      var imageCaption = $image.attr('alt');
+      var $imageWrapLink = $image.parent('a');
+      if ($imageWrapLink.length < 1) {
+        var src = this.getAttribute('src');
+        var idx = src.lastIndexOf('?');
+        if (idx != -1) {
+          src = src.substring(0, idx);
+        }
+        $imageWrapLink = $image.wrap('<a href="' + src + '"></a>').parent('a');
+      }
+      $imageWrapLink.attr('data-fancybox', 'images');
+      if (imageCaption) {
+        $imageWrapLink.attr('data-caption', imageCaption);
+      }
+    });
+    $().fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: true,
+    });
+  });
+  </script>
+
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

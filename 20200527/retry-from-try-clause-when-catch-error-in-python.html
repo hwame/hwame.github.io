@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>Python捕获异常后如何对try语句重试 | 鴻塵</title>
+  <meta name="description" content="摘要：开发Python爬虫程序捕获异常后，如何对try语句重试，同时还需要满足对爬取数据 不重不漏 的要求。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python捕获异常后如何对try语句重试">
+<meta property="og:url" content="https://hwame.top/20200527/retry-from-try-clause-when-catch-error-in-python.html">
+<meta property="og:site_name" content="Solitary">
+<meta property="og:description" content="摘要：开发Python爬虫程序捕获异常后，如何对try语句重试，同时还需要满足对爬取数据 不重不漏 的要求。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s1.ax1x.com/2020/08/22/daDPfg.png">
+<meta property="article:published_time" content="2020-05-27T02:11:54.000Z">
+<meta property="article:modified_time" content="2020-10-16T14:34:52.136Z">
+<meta property="article:author" content="鴻塵">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="爬虫">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s1.ax1x.com/2020/08/22/daDPfg.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://hwame.top/20200527/retry-from-try-clause-when-catch-error-in-python.html">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+    <link href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.css" rel="stylesheet">
+  
+  
+<meta name="generator" content="Hexo 5.0.2"></head>
+
+
+<body class="main-center theme-purple" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/hwame" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">鴻塵</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Pythoner, Data Analyst</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> 湖北-武汉</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav menu-highlight">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder-open"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-gallery">
+          <a href="/gallery">
+            
+            <i class="icon icon-delicious"></i>
+            
+            <span class="menu-title">相册</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/hwame" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/hwamei" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://www.zhihu.com/people/hwame" target="_blank" title="Zhihu" data-toggle=tooltip data-placement=top><i class="icon icon-zhihu"></i></a></li>
+        
+        <li><a href="https://segmentfault.com/u/hwame" target="_blank" title="Segmentfault" data-toggle=tooltip data-placement=top><i class="icon icon-segmentfault"></i></a></li>
+        
+        <li><a href="https://gitee.com/hwame" target="_blank" title="Gitee" data-toggle=tooltip data-placement=top><i class="icon icon-gitee"></i></a></li>
+        
+        <li><a href="https://stackoverflow.com/questions" target="_blank" title="Stackoverflow" data-toggle=tooltip data-placement=top><i class="icon icon-stackoverflow"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎来到鴻塵的博客!<br>鴻塵的<u><a target="_blank" rel="noopener" href="https://weibo.com/hwamei" style="color:#E541E5;">微博</a></u>主页，鴻塵的<u><a target="_blank" rel="noopener" href="https://github.com/hwame" style="color:#E541E5;">Github</a></u>主页，如果我可以忘记的<u><a target="_blank" rel="noopener" href="https://www.zhihu.com/people/hwame" style="color:#E541E5;">知乎</a></u>主页。</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/CentOS/" style="font-size: 13px;">CentOS</a> <a href="/tags/Hexo/" style="font-size: 14px;">Hexo</a> <a href="/tags/Linux/" style="font-size: 13.67px;">Linux</a> <a href="/tags/Linux%E9%83%A8%E7%BD%B2/" style="font-size: 13px;">Linux部署</a> <a href="/tags/Spark/" style="font-size: 13px;">Spark</a> <a href="/tags/matplotlib/" style="font-size: 13.33px;">matplotlib</a> <a href="/tags/python/" style="font-size: 14px;">python</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 13px;">大数据</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" style="font-size: 13px;">数据结构与算法</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 13px;">爬虫</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a><span class="archive-list-count">10</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled ">
+        
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20201008/render-matplotlib-figure-to-flaskweb.html" class="thumb">
+    
+    
+        <span style="background-image:url(/images/few-pics/20201008效果预览.png)" alt="如何将matplotlib图像渲染到前端" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/python/">python</a>
+              </p>
+              <p class="item-title">
+                <a href="/20201008/render-matplotlib-figure-to-flaskweb.html" class="title">如何将matplotlib图像渲染到前端</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-10-08T01:06:32.000Z" itemprop="datePublished">2020-10-08</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20200604/shortest-leetcode-python-solutions.html" class="thumb">
+    
+    
+        <span style="background-image:url(/images/post-pics/data-structure-algorithm.png)" alt="力扣简洁优雅的python解法" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a>
+              </p>
+              <p class="item-title">
+                <a href="/20200604/shortest-leetcode-python-solutions.html" class="title">力扣简洁优雅的python解法</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-06-04T13:32:55.000Z" itemprop="datePublished">2020-06-04</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20200527/retry-from-try-clause-when-catch-error-in-python.html" class="thumb">
+    
+    
+        <span style="background-image:url(https://s1.ax1x.com/2020/08/22/daDPfg.png)" alt="Python捕获异常后如何对try语句重试" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/python/">python</a>
+              </p>
+              <p class="item-title">
+                <a href="/20200527/retry-from-try-clause-when-catch-error-in-python.html" class="title">Python捕获异常后如何对try语句重试</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-05-27T02:11:54.000Z" itemprop="datePublished">2020-05-27</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20200525/pycharm-connect-linux-from-windows.html" class="thumb">
+    
+    
+        <span style="background-image:url(/images/post-pics/python-icon.png)" alt="Windows使用PyCharm远程连接Linux的python环境" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/python/">python</a>
+              </p>
+              <p class="item-title">
+                <a href="/20200525/pycharm-connect-linux-from-windows.html" class="title">Windows使用PyCharm远程连接Linux的python环境</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-05-25T05:22:14.000Z" itemprop="datePublished">2020-05-25</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20200523/centos7-environment-variables.html" class="thumb">
+    
+    
+        <span style="background-image:url(/images/post-pics/linux-icon.png)" alt="CentOS7 环境变量详解" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Linux/">Linux</a>
+              </p>
+              <p class="item-title">
+                <a href="/20200523/centos7-environment-variables.html" class="title">CentOS7 环境变量详解</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-05-23T02:39:58.000Z" itemprop="datePublished">2020-05-23</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E9%97%AE%E9%A2%98%E8%83%8C%E6%99%AF"><span class="toc-text">1.问题背景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0"><span class="toc-text">2.题目描述</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%F0%9F%8C%B9%E5%8E%9F%E5%A7%8B%E6%96%B9%E6%A1%88"><span class="toc-text">🌹原始方案</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%F0%9F%8C%B9%E6%94%B9%E8%BF%9B%E6%80%9D%E8%B7%AF"><span class="toc-text">🌹改进思路</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0"><span class="toc-text">3.问题描述</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%F0%9F%8C%B7%E6%80%9D%E8%B7%AF1%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-text">🌷思路1存在的问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%F0%9F%8C%B7%E6%80%9D%E8%B7%AF2%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-text">🌷思路2存在的问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%F0%9F%8C%B7%E9%97%AE%E9%A2%98%E6%8F%90%E7%82%BC"><span class="toc-text">🌷问题提炼</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-text">4.解决方案</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%F0%9F%8D%80%E6%80%9D%E8%B7%AF%E5%8F%8A%E9%80%94%E5%BE%84"><span class="toc-text">🍀思路及途径</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%F0%9F%8D%80%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81"><span class="toc-text">🍀完整代码</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%90%8E%E8%AE%B0"><span class="toc-text">5.后记</span></a></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-retry-from-try-clause-when-catch-error-in-python" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Python捕获异常后如何对try语句重试
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/20200527/retry-from-try-clause-when-catch-error-in-python.html" class="article-date">
+	  <time datetime="2020-05-27T02:11:54.000Z" itemprop="datePublished">2020-05-27</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/python/">python</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/python/" rel="tag">python</a>, <a class="article-tag-link-link" href="/tags/%E7%88%AC%E8%99%AB/" rel="tag">爬虫</a>
+  </span>
+
+
+        
+
+	<span class="article-read hidden-xs">
+    	<i class="icon icon-eye-fill" aria-hidden="true"></i>
+    	<span id="/20200527/retry-from-try-clause-when-catch-error-in-python.html" class="leancloud_visitors"  data-flag-title="Python捕获异常后如何对try语句重试">
+			<span class="leancloud-visitors-count">0</span>
+		</span>
+    </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/20200527/retry-from-try-clause-when-catch-error-in-python.html#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1.4k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 6(分)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>摘要：开发<code>Python</code>爬虫程序捕获异常后，如何对<code>try</code>语句重试，同时还需要满足对爬取数据 <strong>不重不漏</strong> 的要求。<a id="more"></a></p>
+<p><table><tr><td bgcolor=#D7BDE2>温馨提示：点击页面下方 ⚓ 以展开或折叠目录</td></tr></table></p>
+<hr>
+<blockquote>
+<p><font size=5><b>文章说明</b></font><br><strong>文章说明：</strong>本文首发于<a target="_blank" rel="noopener" href="https://segmentfault.com/q/1010000020511872">2019-09-27@segmentfault</a>，更新于<a href="https://hwame.top/20200527/retry-from-try-clause-when-catch-error-in-python.html">2020-05-27@hwame.top</a>。<br><strong>另请参考：</strong><a target="_blank" rel="noopener" href="https://segmentfault.com/q/1010000020511872">segmentfault：Python中try-except出错后如何从try出错地方继续执行？</a><br><strong>另请参考：</strong><a target="_blank" rel="noopener" href="https://segmentfault.com/q/1010000007516583">segmentfault：在python中处理错误时，在执行完except语句下的内容后是否有办法回跳到代码出错的地方继续执行</a><br><strong>文章作者：</strong><a target="_blank" rel="noopener" href="https://segmentfault.com/u/hwame">如果我可以忘记</a><br><strong>创建时间：</strong>2019-09-27<br><strong>更新时间：</strong>2020-05-27</p>
+</blockquote>
+<h3 id="1-问题背景"><a href="#1-问题背景" class="headerlink" title="1.问题背景"></a>1.问题背景</h3><p>最近在写一个爬虫程序，数据和页面很简单，没有乱七八糟的反爬措施，但是数据量很大（每页5条记录，共12w页，总记录达61w），因此会出现网络连接的问题。<br>本着学习的目的，不借助其他爬虫框架，仅使用必需的库，包括：</p>
+<ul>
+<li><code>requests</code>，http请求库；</li>
+<li><code>lxml</code>，用于解析网页内容和结构；</li>
+<li><code>re</code>，正则表达式的Python标准库，处理字符串；</li>
+<li><code>csv</code>，将爬取的数据存入<code>csv</code>文件。</li>
+</ul>
+<h3 id="2-题目描述"><a href="#2-题目描述" class="headerlink" title="2.题目描述"></a>2.题目描述</h3><h4 id="🌹原始方案"><a href="#🌹原始方案" class="headerlink" title="🌹原始方案"></a>🌹原始方案</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> n <span class="keyword">in</span> range(<span class="number">2</span>, pages + <span class="number">1</span>):</span><br><span class="line">    url = base_url + <span class="string">&#x27;?pageSize=10&amp;pageNo=&#123;&#125;&#x27;</span>.format(n)</span><br><span class="line">    text = requests.get(url, headers=header).text</span><br><span class="line">    html = etree.HTML(text)</span><br><span class="line">    <span class="keyword">with</span> open(filename, <span class="string">&quot;a&quot;</span>, newline=<span class="string">&#x27;&#x27;</span>, encoding=<span class="string">&#x27;GB2312&#x27;</span>) <span class="keyword">as</span> file:</span><br><span class="line">        csv_file = csv.DictWriter(file, fieldnames=table_head)</span><br><span class="line">        <span class="keyword">for</span> row <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">6</span>):</span><br><span class="line">            data = html.xpath(<span class="string">&#x27;//tbody/tr[&#x27;</span> + str(row) + <span class="string">&#x27;]/td/@data-value&#x27;</span>)</span><br><span class="line">            csv_file.writerow(&#123;<span class="string">&#x27;key1&#x27;</span>: value1, <span class="string">&#x27;key2&#x27;</span>: value2, <span class="string">&#x27;key3&#x27;</span>: value3,...&#125;)</span><br></pre></td></tr></table></figure>
+<p>这段代码对于少量数据的爬取可以完成，但是本次12w+的页面，没办法在网络断开后重试，因此需要改进。</p>
+<h4 id="🌹改进思路"><a href="#🌹改进思路" class="headerlink" title="🌹改进思路"></a>🌹改进思路</h4><p>为了使其完整爬取12w+的页面，需要使用<code>try—except</code>语句进行异常处理。<br>设想使其在 $[2, \; pages + 1]$ 中的某一页（如 $i=99$ ）出错（即TimeOut连接超时）时，<code>except</code>捕获到这个异常，同时使程序能<strong>正确的重新爬取</strong>这一页（ $i=99$ ）。</p>
+<blockquote>
+<p><strong>思路1：</strong> <code>for</code>循环包括<strong>整个</strong><code>try—except</code>语句<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 思路1</span></span><br><span class="line"><span class="keyword">for</span> n <span class="keyword">in</span> range(<span class="number">2</span>, pages + <span class="number">1</span>):</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        append_data_to_csv(filepath, n)</span><br><span class="line">        print(<span class="string">&quot;Page &#123;&#125; finished...&quot;</span>.format(n))</span><br><span class="line">    <span class="keyword">except</span> TimeoutError <span class="keyword">as</span> err:</span><br><span class="line">        print(<span class="string">&quot;Page &#123;0&#125; failed: &#123;1&#125;&quot;</span>.format(n, err))</span><br></pre></td></tr></table></figure></p>
+<p><strong>思路2：</strong> <code>for</code>循环只在<code>try</code>子句中，函数<code>function_restarting(start_point)</code>中有一个<code>for</code>循环<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 思路2</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">function_restarting</span>(<span class="params">args</span>):</span></span><br><span class="line">    <span class="keyword">for</span> n <span class="keyword">in</span> range(pages + <span class="number">1</span>):</span><br><span class="line">        parse_HTML()</span><br><span class="line">        append_data_to_csv()</span><br><span class="line"></span><br><span class="line">start_point = <span class="number">2</span></span><br><span class="line"><span class="keyword">while</span> start_point &lt; numbers:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        function_restarting(start_point)</span><br><span class="line">    <span class="keyword">except</span> TimeoutError <span class="keyword">as</span> err:</span><br><span class="line">        print(<span class="string">&quot;\tCurrent page failed: &#123;&#125;&quot;</span>.format(err))</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h3 id="3-问题描述"><a href="#3-问题描述" class="headerlink" title="3.问题描述"></a>3.问题描述</h3><h4 id="🌷思路1存在的问题"><a href="#🌷思路1存在的问题" class="headerlink" title="🌷思路1存在的问题"></a>🌷思路1存在的问题</h4><p>如上<strong>思路1</strong>所示，如果<code>for</code>循环包括了<strong>整个</strong><code>try—except</code>语句，那么虽然可以继续循环，但是是从 $i=100$ 开始的， $i=99$ 被跳过了，这将导致爬取数据的缺失，不符合预期。</p>
+<h4 id="🌷思路2存在的问题"><a href="#🌷思路2存在的问题" class="headerlink" title="🌷思路2存在的问题"></a>🌷思路2存在的问题</h4><p>如上<strong>思路2</strong>所示，<code>for</code>循环只在<code>try</code>里面，从起始页（<code>start_point = 2</code>）开始，假设仍在第99页（ $i=99$ ）出错，控制台输出信息如下：<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span>.（省略）<span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span>.</span><br><span class="line">Page 98 collecting<span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span>.</span><br><span class="line">Page 99 collecting<span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span>.</span><br><span class="line">    Current<span class="built_in"> page </span>failed: （省略TimeoutError具体信息）</span><br><span class="line">Page  2 collecting<span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span>.</span><br><span class="line">Page  3 collecting<span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span>.</span><br><span class="line"><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span>.（省略）<span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span>.</span><br></pre></td></tr></table></figure><br>报错打印错误信息后仍从start_point（= 2），相当于重新运行了整个程序，并没有继续从99开始，不符合预期。</p>
+<h4 id="🌷问题提炼"><a href="#🌷问题提炼" class="headerlink" title="🌷问题提炼"></a>🌷问题提炼</h4><p><strong>问题1：怎样让他<font color=red><b>重试一次</b></font> $i=99$ 而不是<font color=red><b>直接跳过</b></font>？</strong><br><strong>问题2：<code>Page 99</code>失败后怎样<font color=red><b>继续</b></font><code>Page 99</code>而不是<font color=red><b>重新开始</b></font>从<code>Page 2</code>运行？</strong></p>
+<hr>
+<h3 id="4-解决方案"><a href="#4-解决方案" class="headerlink" title="4.解决方案"></a>4.解决方案</h3><h4 id="🍀思路及途径"><a href="#🍀思路及途径" class="headerlink" title="🍀思路及途径"></a>🍀思路及途径</h4><font color=purple><b>✉ 如何将发生异常时的页码记录下来并可被使用呢？</b></font><br>
+<font color=purple><b>✉ 将try—except作为函数体、页码值作为返回值！</b></font>
+
+<blockquote>
+<p>当<code>except</code>语句捕获异常时，将此时的页码 $i$ 返回，将再将该返回值赋值给<code>start_point</code>，以此来更新起始页，从而避免<strong>思路2</strong>中的问题。</p>
+<p>完整的程序代码如下。</p>
+</blockquote>
+<h4 id="🍀完整代码"><a href="#🍀完整代码" class="headerlink" title="🍀完整代码"></a>🍀完整代码</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests, re, csv, time</span><br><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line"></span><br><span class="line">head = &#123;<span class="string">&#x27;Cookie&#x27;</span>: <span class="string">&#x27;*&#x27;</span>, <span class="string">&#x27;User-Agent&#x27;</span>: <span class="string">&#x27;*&#x27;</span>&#125;</span><br><span class="line">url = <span class="string">&#x27;http://www.*.cn/**/***&#x27;</span>  <span class="comment"># base URL</span></span><br><span class="line">path = <span class="string">&#x27;D:/data/**.csv&#x27;</span>         <span class="comment"># 爬取数据存储到csv文件的路径</span></span><br><span class="line">pages = <span class="number">122422</span>                  <span class="comment"># 总页数为12w+</span></span><br><span class="line">items = pages * <span class="number">5</span>               <span class="comment"># 每页5条</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">restarting</span>(<span class="params">start_point</span>):</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(start_point, pages + <span class="number">1</span>):</span><br><span class="line">            print(<span class="string">&quot;Page &#123;&#125; collecting............&quot;</span>.format(i))</span><br><span class="line">            urls = url + <span class="string">&#x27;?searchType=simple&amp;rnum=0&amp;pageSize=10&amp;pageNo=&#123;&#125;&#x27;</span>.format(i)</span><br><span class="line">            text = requests.get(urls, headers=head).text</span><br><span class="line">            html = etree.HTML(text)</span><br><span class="line">            <span class="keyword">with</span> open(path, <span class="string">&quot;a&quot;</span>, newline=<span class="string">&#x27;&#x27;</span>, encoding=<span class="string">&#x27;GB2312&#x27;</span>) <span class="keyword">as</span> file:</span><br><span class="line">                tbhead = [<span class="string">&#x27;key1&#x27;</span>, <span class="string">&#x27;key2&#x27;</span>, <span class="string">&#x27;key3&#x27;</span>, ...]</span><br><span class="line">                csv_file = csv.DictWriter(file, fieldnames=tbhead)</span><br><span class="line">                <span class="comment"># 爬取第一个页面时，将表头写入csv文件</span></span><br><span class="line">                <span class="keyword">if</span> i == <span class="number">1</span>:</span><br><span class="line">                    csv_file.writeheader()</span><br><span class="line">                <span class="keyword">for</span> n <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">6</span>):</span><br><span class="line">                    data = html.xpath(<span class="string">&#x27;//tbody/tr[&#x27;</span> + str(n) + <span class="string">&#x27;]/td/@data-value&#x27;</span>)</span><br><span class="line">                    csv_file.writerow(&#123;<span class="string">&#x27;key1&#x27;</span>: value1, <span class="string">&#x27;key2&#x27;</span>: value2, <span class="string">&#x27;key3&#x27;</span>: value3, ...&#125;)</span><br><span class="line">    <span class="keyword">except</span> TimeoutError <span class="keyword">as</span> err:</span><br><span class="line">        <span class="comment"># 打印异常信息，用正则表达式过滤字符串</span></span><br><span class="line">        print(<span class="string">&quot;ERROR info: &quot;</span> + str(re.sub(<span class="string">r&#x27;:\s/[a-z]&#123;5&#125;/.*&gt;&#x27;</span>, <span class="string">&#x27;&#x27;</span>, str(err))))</span><br><span class="line">        print(<span class="string">&quot;Page &#123;&#125; failed, retry in 10 seconds............\n&quot;</span>.format(i))</span><br><span class="line">        <span class="comment"># 避免因短时间内的重试而导致同样的异常</span></span><br><span class="line">        time.sleep(<span class="number">10</span>)</span><br><span class="line">        <span class="comment"># 记录并返回出错的页码</span></span><br><span class="line">        <span class="keyword">return</span> i</span><br><span class="line"></span><br><span class="line"><span class="comment"># main entrance</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    start_point = <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> start_point &lt; pages:</span><br><span class="line">        error_at = restarting(start_point)</span><br><span class="line">        start_point = error_at</span><br></pre></td></tr></table></figure>
+<h3 id="5-后记"><a href="#5-后记" class="headerlink" title="5.后记"></a>5.后记</h3><p>若直接使用爬虫框架，例如<code>scrapy</code>等，其对异常处理有完整的处理机制。<br>本文仅为学习之用，抱着学习的态度提供一种可行的思路。<br>程序运行结果如下，当第10562页出错抛出异常时，能正确地重试，并使得程序继续运行。</p>
+<p><img src="https://s1.ax1x.com/2020/08/22/daDPfg.png" alt="运行结果"></p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-license">
+      <strong>文章作者： </strong><a href="https://hwame.top" style="color:#E541E5;"> 鴻塵</a>
+    </li>
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://hwame.top/20200527/retry-from-try-clause-when-catch-error-in-python.html" title="Python捕获异常后如何对try语句重试" target="_blank" rel="external" style="color:#E541E5;">https://hwame.top/20200527/retry-from-try-clause-when-catch-error-in-python.html</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用《<a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external" style="color:#E541E5;"><u>CC BY 4.0 CN协议</u></a>》许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/hwame" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/hwame" target="_blank"><span class="text-dark">鴻塵</span><small class="ml-1x">Pythoner, Data Analyst</small></a></h3>
+        <div>个人简介：处女座不适合做码农。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/20200604/shortest-leetcode-python-solutions.html" title="力扣简洁优雅的python解法"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/20200525/pycharm-connect-linux-from-windows.html" title="Windows使用PyCharm远程连接Linux的python环境"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">
+        <span style="color:#C71585">[&nbsp;</span><span style="color:#C71585">文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span style="color:#C71585">]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,wechat,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipay.jpg" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechat.jpg" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/hwame" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/hwamei" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://www.zhihu.com/people/hwame" target="_blank" title="Zhihu" data-toggle=tooltip data-placement=top><i class="icon icon-zhihu"></i></a></li>
+        
+        <li><a href="https://segmentfault.com/u/hwame" target="_blank" title="Segmentfault" data-toggle=tooltip data-placement=top><i class="icon icon-segmentfault"></i></a></li>
+        
+        <li><a href="https://gitee.com/hwame" target="_blank" title="Gitee" data-toggle=tooltip data-placement=top><i class="icon icon-gitee"></i></a></li>
+        
+        <li><a href="https://stackoverflow.com/questions" target="_blank" title="Stackoverflow" data-toggle=tooltip data-placement=top><i class="icon icon-stackoverflow"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        
+        <div class="publishby">
+            <span id="busuanzi_container_site_pv">
+                <span id="busuanzi_value_site_pv" style="font-family:Courier"></span>访问，
+                <span id="busuanzi_value_site_uv" style="font-family:Courier"></span>访客
+            </span>
+        </div>
+        
+        <!--
+        <div class="publishby">
+            <a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/#/Integrated/recordQuery">鄂ICP备00000000号</a>
+        </div>
+        -->
+
+        <!--
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+        -->
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script src="//cdn.jsdelivr.net/gh/HCLonely/Valine@latest/dist/Valine.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css" />
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  var requiredFields = 'mail';
+  requiredFields = requiredFields.split(',');
+
+  new Valine({
+    el: '#vcomments',
+    appId: 'yLWKiHoPwmx7Izv4YYtC1fW2-MdYXbMMI',
+    appKey: 'h01jve7HXS6MuDLNBF5DeWTz',
+    verify: false,
+    notify: true,
+    placeholder: '🌺🌺留下邮箱才可以收到新消息提醒哦~\n🦚🦚输入QQ号可自动拉取昵称和邮箱~',
+    avatar: 'robohash',
+    meta: meta,
+    pageSize: '10' || 10,
+    enableQQ: 'true',
+    recordIP: 'true',
+    requiredFields: requiredFields,
+    visitor: true,
+    
+    master: 'f86269b0b1850cd62ca22b218aea1780',
+    friends: ['1725648a3566b8841f19423519e0a36e', '87b6f0e96e63727d889bb3653fb5867c', 'b7c8e70dc5b2bbbdbdeca1fc0e71b919'],
+    tagMeta: ['鴻塵', '蜜柚', '访客'],
+    metaPlaceholder: {"nick":"昵称/QQ号","mail":"邮箱(必填)","link":"个人主页"}
+  });
+  </script>
+
+     
+
+
+
+  <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.js"></script>
+  <script>
+  //利用 FancyBox 实现点击图片放大
+  $(document).ready(function() {
+    $('article img').not('[hidden]').not('.panel-body img').each(function() {
+      var $image = $(this);
+      var imageCaption = $image.attr('alt');
+      var $imageWrapLink = $image.parent('a');
+      if ($imageWrapLink.length < 1) {
+        var src = this.getAttribute('src');
+        var idx = src.lastIndexOf('?');
+        if (idx != -1) {
+          src = src.substring(0, idx);
+        }
+        $imageWrapLink = $image.wrap('<a href="' + src + '"></a>').parent('a');
+      }
+      $imageWrapLink.attr('data-fancybox', 'images');
+      if (imageCaption) {
+        $imageWrapLink.attr('data-caption', imageCaption);
+      }
+    });
+    $().fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: true,
+    });
+  });
+  </script>
+
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

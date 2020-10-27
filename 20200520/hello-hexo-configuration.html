@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>Hexo博客搭建(2)——主题配置 | 鴻塵</title>
+  <meta name="description" content="摘要：博客搭建完成后，对其进行个性化的配置，由于pure主题教程偏少且文档过于简洁，因此记录下详细的优化完善过程。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo博客搭建(2)——主题配置">
+<meta property="og:url" content="https://hwame.top/20200520/hello-hexo-configuration.html">
+<meta property="og:site_name" content="Solitary">
+<meta property="og:description" content="摘要：博客搭建完成后，对其进行个性化的配置，由于pure主题教程偏少且文档过于简洁，因此记录下详细的优化完善过程。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://hwame.top/images/hexo/20201013leancloud应用.png">
+<meta property="og:image" content="https://hwame.top/images/hexo/20201024文章阅读量问题.png">
+<meta property="article:published_time" content="2020-05-20T03:11:11.000Z">
+<meta property="article:modified_time" content="2020-10-26T04:49:20.019Z">
+<meta property="article:author" content="鴻塵">
+<meta property="article:tag" content="Hexo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hwame.top/images/hexo/20201013leancloud应用.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://hwame.top/20200520/hello-hexo-configuration.html">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+    <link href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.css" rel="stylesheet">
+  
+  
+<meta name="generator" content="Hexo 5.0.2"></head>
+
+
+<body class="main-center theme-purple" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/hwame" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">鴻塵</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Pythoner, Data Analyst</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> 湖北-武汉</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav menu-highlight">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder-open"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-gallery">
+          <a href="/gallery">
+            
+            <i class="icon icon-delicious"></i>
+            
+            <span class="menu-title">相册</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/hwame" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/hwamei" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://www.zhihu.com/people/hwame" target="_blank" title="Zhihu" data-toggle=tooltip data-placement=top><i class="icon icon-zhihu"></i></a></li>
+        
+        <li><a href="https://segmentfault.com/u/hwame" target="_blank" title="Segmentfault" data-toggle=tooltip data-placement=top><i class="icon icon-segmentfault"></i></a></li>
+        
+        <li><a href="https://gitee.com/hwame" target="_blank" title="Gitee" data-toggle=tooltip data-placement=top><i class="icon icon-gitee"></i></a></li>
+        
+        <li><a href="https://stackoverflow.com/questions" target="_blank" title="Stackoverflow" data-toggle=tooltip data-placement=top><i class="icon icon-stackoverflow"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎来到鴻塵的博客!<br>鴻塵的<u><a target="_blank" rel="noopener" href="https://weibo.com/hwamei" style="color:#E541E5;">微博</a></u>主页，鴻塵的<u><a target="_blank" rel="noopener" href="https://github.com/hwame" style="color:#E541E5;">Github</a></u>主页，如果我可以忘记的<u><a target="_blank" rel="noopener" href="https://www.zhihu.com/people/hwame" style="color:#E541E5;">知乎</a></u>主页。</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/CentOS/" style="font-size: 13px;">CentOS</a> <a href="/tags/Hexo/" style="font-size: 14px;">Hexo</a> <a href="/tags/Linux/" style="font-size: 13.67px;">Linux</a> <a href="/tags/Linux%E9%83%A8%E7%BD%B2/" style="font-size: 13px;">Linux部署</a> <a href="/tags/Spark/" style="font-size: 13px;">Spark</a> <a href="/tags/matplotlib/" style="font-size: 13.33px;">matplotlib</a> <a href="/tags/python/" style="font-size: 14px;">python</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 13px;">大数据</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" style="font-size: 13px;">数据结构与算法</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 13px;">爬虫</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a><span class="archive-list-count">10</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled ">
+        
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20201008/render-matplotlib-figure-to-flaskweb.html" class="thumb">
+    
+    
+        <span style="background-image:url(/images/few-pics/20201008效果预览.png)" alt="如何将matplotlib图像渲染到前端" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/python/">python</a>
+              </p>
+              <p class="item-title">
+                <a href="/20201008/render-matplotlib-figure-to-flaskweb.html" class="title">如何将matplotlib图像渲染到前端</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-10-08T01:06:32.000Z" itemprop="datePublished">2020-10-08</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20200604/shortest-leetcode-python-solutions.html" class="thumb">
+    
+    
+        <span style="background-image:url(/images/post-pics/data-structure-algorithm.png)" alt="力扣简洁优雅的python解法" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a>
+              </p>
+              <p class="item-title">
+                <a href="/20200604/shortest-leetcode-python-solutions.html" class="title">力扣简洁优雅的python解法</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-06-04T13:32:55.000Z" itemprop="datePublished">2020-06-04</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20200527/retry-from-try-clause-when-catch-error-in-python.html" class="thumb">
+    
+    
+        <span style="background-image:url(https://s1.ax1x.com/2020/08/22/daDPfg.png)" alt="Python捕获异常后如何对try语句重试" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/python/">python</a>
+              </p>
+              <p class="item-title">
+                <a href="/20200527/retry-from-try-clause-when-catch-error-in-python.html" class="title">Python捕获异常后如何对try语句重试</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-05-27T02:11:54.000Z" itemprop="datePublished">2020-05-27</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20200525/pycharm-connect-linux-from-windows.html" class="thumb">
+    
+    
+        <span style="background-image:url(/images/post-pics/python-icon.png)" alt="Windows使用PyCharm远程连接Linux的python环境" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/python/">python</a>
+              </p>
+              <p class="item-title">
+                <a href="/20200525/pycharm-connect-linux-from-windows.html" class="title">Windows使用PyCharm远程连接Linux的python环境</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-05-25T05:22:14.000Z" itemprop="datePublished">2020-05-25</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20200523/centos7-environment-variables.html" class="thumb">
+    
+    
+        <span style="background-image:url(/images/post-pics/linux-icon.png)" alt="CentOS7 环境变量详解" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Linux/">Linux</a>
+              </p>
+              <p class="item-title">
+                <a href="/20200523/centos7-environment-variables.html" class="title">CentOS7 环境变量详解</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-05-23T02:39:58.000Z" itemprop="datePublished">2020-05-23</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%89%8D%E8%A8%80"><span class="toc-text">一、前言</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%83%8C%E6%99%AF"><span class="toc-text">1.背景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E"><span class="toc-text">2.配置说明</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%AE%89%E8%A3%85%E5%90%AF%E7%94%A8%E4%B8%BB%E9%A2%98"><span class="toc-text">二、安装启用主题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE"><span class="toc-text">三、主题配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%AE%BE%E7%BD%AE%E8%AF%AD%E8%A8%80"><span class="toc-text">1.设置语言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%AF%BC%E8%88%AA%E8%8F%9C%E5%8D%95"><span class="toc-text">2.导航菜单</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E7%AB%99%E7%82%B9%E4%BF%A1%E6%81%AF"><span class="toc-text">3.站点信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E4%B8%BB%E9%A2%98%E4%B8%AA%E6%80%A7%E9%85%8D%E7%BD%AE"><span class="toc-text">4.主题个性配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F"><span class="toc-text">5.评论系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E5%85%B6%E4%BB%96"><span class="toc-text">6.其他</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E4%B8%AA%E4%BA%BA%E4%BF%A1%E6%81%AFprofile"><span class="toc-text">7.个人信息profile</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E7%AB%99%E7%82%B9%E9%85%8D%E7%BD%AE"><span class="toc-text">四、站点配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%BD%91%E7%AB%99"><span class="toc-text">1.网站</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E7%BD%91%E5%9D%80"><span class="toc-text">2.网址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E7%9B%AE%E5%BD%95-%E6%96%87%E7%AB%A0"><span class="toc-text">3.目录&#x2F;文章</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E9%A6%96%E9%A1%B5%E5%88%86%E9%A1%B5"><span class="toc-text">4.首页分页</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%85%B6%E4%BB%96"><span class="toc-text">5.其他</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E5%BD%92%E6%A1%A3%E5%88%86%E9%A1%B5"><span class="toc-text">6.归档分页</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E6%89%A9%E5%B1%95"><span class="toc-text">7.扩展</span></a></li></ol></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-hello-hexo-configuration" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Hexo博客搭建(2)——主题配置
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/20200520/hello-hexo-configuration.html" class="article-date">
+	  <time datetime="2020-05-20T03:11:11.000Z" itemprop="datePublished">2020-05-20</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Hexo/">Hexo</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/Hexo/" rel="tag">Hexo</a>
+  </span>
+
+
+        
+
+	<span class="article-read hidden-xs">
+    	<i class="icon icon-eye-fill" aria-hidden="true"></i>
+    	<span id="/20200520/hello-hexo-configuration.html" class="leancloud_visitors"  data-flag-title="Hexo博客搭建(2)——主题配置">
+			<span class="leancloud-visitors-count">0</span>
+		</span>
+    </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/20200520/hello-hexo-configuration.html#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2.5k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 9(分)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>摘要：博客搭建完成后，对其进行个性化的配置，由于<code>pure</code>主题教程偏少且文档过于简洁，因此记录下详细的优化完善过程。<a id="more"></a></p>
+<p><table><tr><td bgcolor=#D7BDE2>温馨提示：点击页面下方 ⚓ 以展开或折叠目录</td></tr></table></p>
+<hr>
+<blockquote>
+<p><font size=5><b>Hexo博客搭建</b></font><br><strong>博客系列：</strong><a href="https://hwame.top/20200520/hello-hexo-setup-deploy.html">Hexo博客搭建(1)——建站及部署</a>，环境搭建并部署至Github。<br><strong>博客系列：</strong><a href="https://hwame.top/20200520/hello-hexo-configuration.html">Hexo博客搭建(2)——主题配置</a>，针对<code>pure</code>主题进行个性化配置。<br><strong>博客系列：</strong><a href="https://hwame.top/20200520/hello-hexo-optimization.html">Hexo博客搭建(3)——优化评论系统</a>，主要对<code>Valine</code>评论系统进行优化。<br><strong>博客系列：</strong><a href="https://hwame.top/20200520/hello-hexo-troubleshooting.html">Hexo博客搭建(4)——常见问题</a>，修复了<code>pure</code>主题的系列小bug。<br><strong>文章作者：</strong><a href="https://hwame.top">鴻塵</a></p>
+</blockquote>
+<h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><h3 id="1-背景"><a href="#1-背景" class="headerlink" title="1.背景"></a>1.背景</h3><p>本博客使用的<a target="_blank" rel="noopener" href="https://github.com/cofess/hexo-theme-pure">hexo-pure主题</a>——<code>hexo-theme-pure</code>，由于该主题较为小众，使用人数不多，难以找到靠谱的参考文章，且不论是<a target="_blank" rel="noopener" href="https://github.com/cofess/hexo-theme-pure/blob/master/README.cn.md">中文文档</a>、<a target="_blank" rel="noopener" href="https://github.com/cofess/hexo-theme-pure/blob/master/README.md">英文文档</a>，还是<a target="_blank" rel="noopener" href="https://blog.cofess.com/2017/11/01/hexo-blog-theme-pure-usage-description.html">Hexo博客主题pure使用说明</a>，都不够详细，实际动手过程中仍有许多问题。<br>因此，将该主题的配置过程详细地记录下来。<br><strong>说明：</strong>主题配置大部分仍然是参考上述文档。</p>
+<h3 id="2-配置说明"><a href="#2-配置说明" class="headerlink" title="2.配置说明"></a>2.配置说明</h3><p>在 Hexo 中有两份主要的配置文件，其名称都是 <code>_config.yml</code>。 其中，一份位于站点根目录下，主要包含 Hexo 本身的配置；另一份位于主题目录下，这份配置由主题作者提供，主要用于配置主题相关的选项。为了描述方便，在以下说明中，将前者称为<strong>站点配置文件</strong>（<code>./_config.yml</code>）， 后者称为<strong>主题配置文件</strong>（<code>./themes/pure/_config.yml</code>）。</p>
+<h2 id="二、安装启用主题"><a href="#二、安装启用主题" class="headerlink" title="二、安装启用主题"></a>二、安装启用主题</h2><p>首先在博客根目录下运行以下命令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/cofess/hexo-theme-pure.git themes/pure</span><br><span class="line"><span class="built_in">cd</span> ./themes/pure</span><br><span class="line">git pull</span><br></pre></td></tr></table></figure></p>
+<p>然后打开站点配置文件，找到<code>theme</code>字段，将其值更改为<code>pure</code>即可。<br>到此，主题安装完成。然后启动Hexo服务验证主题是否正确启用。<br><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">hexo s</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="三、主题配置"><a href="#三、主题配置" class="headerlink" title="三、主题配置"></a>三、主题配置</h2><h3 id="1-设置语言"><a href="#1-设置语言" class="headerlink" title="1.设置语言"></a>1.设置语言</h3><p>打开<strong>站点配置文件</strong>, 将<code>language</code>设置成你所需要的语言。建议明确设置你所需要的语言,可选值对应<code>themes\pure\languages</code>目录下语言文件，简体中文配置如下：<br><figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">language:</span> <span class="built_in">zh</span>-CN</span><br></pre></td></tr></table></figure></p>
+<h3 id="2-导航菜单"><a href="#2-导航菜单" class="headerlink" title="2.导航菜单"></a>2.导航菜单</h3><p><code>menu</code>和<code>menu_icons</code>默认即可，其中<code>menu</code>为页面左侧导航菜单，<code>menu_icons</code>为导航菜单图标，若需更改，参考<a target="_blank" rel="noopener" href="http://blog.cofess.com/hexo-theme-pure/iconfont/demo_fontclass.html">这里</a>。<br><code>rss</code>订阅用不上直接设置<code>false</code>即可~</p>
+<h3 id="3-站点信息"><a href="#3-站点信息" class="headerlink" title="3.站点信息"></a>3.站点信息</h3><p>此部分只需要关注网站logo头像<code>favicon</code>的图片路径，将需要使用的logo图片放在<code>./themes/pure/source/favicon.png</code>，然后设置为<code>favicon: /favicon.png</code>即可。<br>站点公告可用<code>HTML</code>格式，例如<code>&lt;br&gt;</code>换行、<code>&lt;a href=&quot;xxx&quot; styly=&quot;xxx&quot;&gt;</code>标签等进行配置。</p>
+<h3 id="4-主题个性配置"><a href="#4-主题个性配置" class="headerlink" title="4.主题个性配置"></a>4.主题个性配置</h3><ul>
+<li><code>config</code>：此部分对照注释配置即可。</li>
+<li><code>pagination</code>：分页设置，默认即可。</li>
+<li><code>sidebar</code>：右侧，默认即可。</li>
+<li><code>widgets</code>：右侧边栏小部件，根据需要展示，不需要注释掉即可。</li>
+<li><code>index_widgets</code>：默认注释掉，不知道是什么，取消注释也没反应。</li>
+<li><p><code>fancybox</code>：实现点击图片放大的部件，默认关闭，打开后会导致友链打不开（解决办法参考后文<a href="https://hwame.top/20200520/hello-hexo-troubleshooting.html#6-%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E7%82%B9%E5%87%BB%E5%9B%BE%E7%89%87%E6%94%BE%E5%A4%A7">Hexo博客搭建(4)——常见问题之如何实现点击图片放大</a>）。</p>
+</li>
+<li><p><code>search</code>：分为站内搜索<code>insight</code>和百度搜索<code>baidu</code>，两者至多开启一个。站内搜索需要先安装<code>hexo-generator-json-content</code>插件，百度搜索则需要先被百度收录。</p>
+</li>
+<li><code>donate</code>：打赏功能只需要将<code>./themes/pure/source/images/donate/xxx.jpg</code>替换为自己的。</li>
+<li><code>share</code>：<code>*sites</code>属性值为英文逗号分隔且无空格。</li>
+<li><code>github</code>：填写Github用户名，以正确获取仓库信息及Github主页。</li>
+</ul>
+<h3 id="5-评论系统"><a href="#5-评论系统" class="headerlink" title="5.评论系统"></a>5.评论系统</h3><p>博客采用<code>Valine</code>评论系统，此部分配置较为繁琐，此处配置仅针对<strong>主题配置文件</strong>的配置项，详细配置及源码修改分布详见后文<a href="https://hwame.top/20200520/hello-hexo-optimization.html">Hexo博客搭建(3)——优化评论系统</a>。<br>以下配置中的<code>enableQQ</code>和<code>requiredFields</code>设置了也不会生效，因为评论样式文件<code>./themes/pure/layout/_script/_comment/valine.js</code>并没有包含这两个部分，所以需要修改源码。<br><strong>相关说明：</strong></p>
+<ul>
+<li><code>valine</code>：需要先将<code>type</code>设置为<code>valine</code>，表示启用<code>Valine</code>评论系统<ul>
+<li><code>appid</code>和<code>appkey</code>：leancloud应用的专属<code>appid</code>和<code>appkey</code>，leancloud应用如图：<img src="/images/hexo/20201013leancloud应用.png" alt="leancloud应用"></li>
+<li><code>notify</code>和<code>verify</code>：该选项已被弃用</li>
+<li><code>placeholder</code>：评论框占位符，可自定义，换行符为<code>\n</code></li>
+<li><code>avatar</code>：评论头像，参考<a target="_blank" rel="noopener" href="https://valine.js.org/configuration.html#avatar">valine配置项之avatar</a>和<a target="_blank" rel="noopener" href="https://valine.js.org/avatar.html">valine头像配置</a></li>
+<li><code>meta</code>：评论框表头，默认显示「昵称」、「邮箱」、「网址」</li>
+<li><code>pageSize</code>：评论区分页</li>
+<li><code>visitor</code>：leancloud自带的文章阅读量统计（<del>站长可随意修改</del>），若开启则需关闭「不蒜子」，否则会显示两个阅读量，如图所示：<br><img src="/images/hexo/20201024文章阅读量问题.png" alt="文章阅读量显示问题"></li>
+<li><code>enableQQ</code>：是否启用昵称框自动获取QQ昵称和QQ头像, 默认关闭，需站长主动启用，启用后还需要<a href="https://hwame.top/20200520/hello-hexo-optimization.html">修改源码</a></li>
+<li><code>recordIP</code>：是否记录访问者IP</li>
+<li><code>requiredFields</code>：设置必填项，需要<a href="https://hwame.top/20200520/hello-hexo-optimization.html">修改源码</a></li>
+</ul>
+</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">comment:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">valine</span></span><br><span class="line">  <span class="attr">valine:</span></span><br><span class="line">    <span class="attr">appid:</span> <span class="string">*********************************</span></span><br><span class="line">    <span class="attr">appkey:</span> <span class="string">************************</span></span><br><span class="line">    <span class="attr">notify:</span> <span class="literal">true</span> <span class="comment"># mail notifier , https://github.com/xCss/Valine/wiki</span></span><br><span class="line">    <span class="attr">verify:</span> <span class="literal">false</span> <span class="comment"># Verification code（notify和verify已废弃）</span></span><br><span class="line">    <span class="attr">placeholder:</span> <span class="string">留下邮箱才可以收到新消息提醒哦~</span></span><br><span class="line">    <span class="attr">avatar:</span> <span class="string">robohash</span> <span class="comment"># gravatar style https://valine.js.org/configuration.html#avatar</span></span><br><span class="line">    <span class="attr">meta:</span> <span class="string">nick,mail,link</span> <span class="comment"># custom comment header</span></span><br><span class="line">    <span class="attr">pageSize:</span> <span class="number">10</span> <span class="comment"># pagination size</span></span><br><span class="line">    <span class="attr">visitor:</span> <span class="literal">true</span> <span class="comment"># Article reading statistic https://valine.js.org/visitor.html</span></span><br><span class="line">    <span class="attr">enableQQ:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">recordIP:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">requiredFields:</span> [<span class="string">&#x27;mail&#x27;</span>,] <span class="comment"># Nick必填则需3+字符</span></span><br></pre></td></tr></table></figure>
+<h3 id="6-其他"><a href="#6-其他" class="headerlink" title="6.其他"></a>6.其他</h3><ul>
+<li>豆瓣书单：因为没有豆瓣的账号，此页面拟改为「相册」，因此此处关于「豆瓣」的全部注释掉了</li>
+<li><code>pv</code>：文章阅读量统计，由于<code>Valine</code>评论自带有阅读量统计，故此处<code>busuanzi</code>和<code>leancloud</code>直接设置为<code>false</code>禁用</li>
+<li><code>postCount</code>：文章字数及阅读时长统计，需要安装``插件<ul>
+<li><code>enable</code>：启用<code>postCount</code>，设置为<code>true</code></li>
+<li><code>wordcount</code>：启用文章字数统计，设置为<code>true</code></li>
+<li><code>min2read</code>：启用阅读时长预计，设置为<code>true</code></li>
+</ul>
+</li>
+<li><code>plugins</code>：插件，暂不需要，可根据自身实际配置</li>
+<li><code>Miscellaneous</code>：杂项（包括twitter，Google+，Facebook），暂不需要，可根据自身实际配置</li>
+</ul>
+<h3 id="7-个人信息profile"><a href="#7-个人信息profile" class="headerlink" title="7.个人信息profile"></a>7.个人信息<code>profile</code></h3><p>此处配置主要是在页面左侧个人信息，以及「关于」页面右侧边栏的展示。<code>labels</code>、<code>skills</code>、<code>links</code>、<code>works</code>和<code>projects</code>显示在「关于」页面右侧边栏，配置格式为键值对形式，参考模板即可。</p>
+<ul>
+<li><code>enabled</code>：是否启用</li>
+<li><code>avatar</code>：个人头像，替换<code>./themes/pure/source/images/avatar.jpg</code>即可，路径设置为<code>images/avatar.jpg</code></li>
+<li><code>gravatar</code>：gravatar头像，属性值为Gravatar账户邮箱地址，<strong>将会覆盖上面的<code>avatar</code>配置</strong></li>
+<li><code>author</code>：昵称</li>
+<li><code>author_title</code>：略（当做职业描述了…）</li>
+<li><code>author_description</code>：个人简介</li>
+<li><code>location</code>：位置</li>
+<li><code>follow</code>：关注我的主页</li>
+<li><code>social</code>：社交平台链接，以图标形式显示在各页面的左下方<ul>
+<li><code>links</code>：各个社交平台的连接可选值参考<a target="_blank" rel="noopener" href="http://blog.cofess.com/hexo-theme-pure/iconfont/demo_fontclass.html">IconFont图标</a>，一般有<font color=red>「Github」</font>、<font color=red>「微博」</font>、<font color=red>「twitter」</font>、<font color=red>「facebook」</font>、<font color=red>「知乎」</font>、<font color=red>「领英」</font>、<font color=red>「花瓣」</font>、<font color=red>「思否」</font>、<font color=red>「码云」</font>、<font color=red>「QQ/空间」</font>、<font color=red>「邮箱」</font>、<font color=red>「掘金」</font>、<font color=red>「微信」</font>、<font color=red>「stackoverflow」</font>、<font color=red>「支付宝」</font>等，一般展示以4~6个为宜，参考后文<a href="https://hwame.top/20200520/hello-hexo-troubleshooting.html#2-%E5%A6%82%E4%BD%95%E6%9B%B4%E6%94%B9%E5%B7%A6%E4%BE%A7IconFont-%E5%9B%BE%E6%A0%87">Hexo博客搭建(4)——常见问题之如何更改左侧IconFont 图标</a></li>
+<li><code>link_tooltip</code>：建议设置为<code>true</code></li>
+</ul>
+</li>
+<li><code>labels</code>：个人标签，显示在「关于」页面右侧边栏</li>
+<li><code>skills</code>：技能，显示在「关于」页面右侧边栏</li>
+<li><code>links</code>：个人链接，显示在「关于」页面右侧边栏</li>
+<li><code>works</code>：个人作品，显示在「关于」页面右侧边栏</li>
+<li><code>projects</code>：个人项目，显示在「关于」页面右侧边栏</li>
+</ul>
+<h2 id="四、站点配置"><a href="#四、站点配置" class="headerlink" title="四、站点配置"></a>四、站点配置</h2><p>站点配置参考：<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/configuration">官方文档配置</a></p>
+<h3 id="1-网站"><a href="#1-网站" class="headerlink" title="1.网站"></a>1.网站</h3><ul>
+<li><code>title</code>：网站标题</li>
+<li><code>subtitle</code>：网站副标题</li>
+<li><code>description</code>：描述</li>
+<li><code>keywords</code>：关键字</li>
+<li><code>author</code>：作者</li>
+<li><code>language</code>：站点语言，第三步已配置</li>
+<li><code>timezone</code>：时区，默认即可</li>
+</ul>
+<h3 id="2-网址"><a href="#2-网址" class="headerlink" title="2.网址"></a>2.网址</h3><ul>
+<li><code>url</code>：主页URL，例如<a href="https://hwame.top">https://hwame.top</a></li>
+<li><code>root</code>：网站根路径，需与<code>url</code>对应，如果站点位于子目录，则<code>url</code>为<code>http://yoursite.com/child</code>且<strong>同时</strong>设置<code>root</code>为<code>/child</code></li>
+<li><code>permalink</code>：文章链接，个人认为以日期为路由分隔即可：<code>:year:month:day/:title.html</code>，此项默认值为<code>:year/:month/:day/:title/</code></li>
+<li><code>permalink_defaults</code>：各部分的默认值，留空即可</li>
+<li><code>pretty_urls</code>：如果设置为<code>false</code>则会去掉尾部的<code>index.html</code>或<code>.html</code></li>
+</ul>
+<h3 id="3-目录-文章"><a href="#3-目录-文章" class="headerlink" title="3.目录/文章"></a>3.目录/文章</h3><p>默认即可，或者参考<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/configuration">官方文档配置</a></p>
+<h3 id="4-首页分页"><a href="#4-首页分页" class="headerlink" title="4.首页分页"></a>4.首页分页</h3><p>首页分页<code>index_generator</code>有一个小bug，即当最后一页只有一篇文章时，会直接打开那篇文章（如果设置了Read More，则显示到「摘要」），这个问题还未解决。</p>
+<ul>
+<li><code>path</code>：主页的路径，默认为<code>&#39;&#39;</code></li>
+<li><code>per_page</code>：每页展示数量，设置为0则禁用分页</li>
+<li><code>order_by</code>：默认按时间倒序排序</li>
+</ul>
+<h3 id="5-其他"><a href="#5-其他" class="headerlink" title="5.其他"></a>5.其他</h3><ul>
+<li><code>Category &amp; Tag</code>：默认分类<code>default_category</code>的默认值为<code>uncategorized</code>，<code>pure</code>主题已改为<code>categories</code>，其他默认即可。</li>
+<li><code>Metadata elements</code>：<code>meta_generator</code>不知道是什么，默认即可。</li>
+<li><code>Date / Time format</code>：日期时间格式默认即可。</li>
+</ul>
+<h3 id="6-归档分页"><a href="#6-归档分页" class="headerlink" title="6.归档分页"></a>6.归档分页</h3><p>此处配置为「归档」的分页，不同于「首页」的分页</p>
+<ul>
+<li><code>per_page</code>：每页显示的文章数量 ，默认值为10，设置为0则表示关闭分页功能</li>
+<li><code>pagination_dir</code>：分页目录，保持为默认值<code>page</code>即可</li>
+</ul>
+<h3 id="7-扩展"><a href="#7-扩展" class="headerlink" title="7.扩展"></a>7.扩展</h3><ul>
+<li><code>Include / Exclude file(s)</code>：包括或不包括目录和文件，<code>include</code>/<code>exclude</code>仅应用于<code>source/</code>目录，而<code>ignore</code>将应用于所有目录。一般默认即可。</li>
+<li><code>theme</code>：应用的主题，第二部分已设置为<code>pure</code>。</li>
+<li><code>Deployment</code>：部署部分详见前文<a href="https://hwame.top/20200520/hello-hexo-setup-deploy.html#5-5-%E9%83%A8%E7%BD%B2Hexo">Hexo博客搭建(1)——建站及部署之部署Hexo</a>。此处有个小问题，如果按之前配置：<code>repository: https://github.com/username/username.github.io.git</code>，则会有时候需要手动输入Github用户名密码，更好的方式是配置为<code>repository: git@github.com:username/username.github.io.git</code>，参考后文<a href="https://hwame.top/20200520/hello-hexo-troubleshooting.html#10-%E5%85%8D%E5%AF%86%E9%83%A8%E7%BD%B2%E9%97%AE%E9%A2%98">Hexo博客搭建(4)——常见问题之免密部署问题</a>。</li>
+<li><code>mathjax</code>：数学公式支持。<code>pure</code>主题默认不支持<code>mathjax</code>，此处开启该选项，具体配置见后文<a href="https://hwame.top/20200520/hello-hexo-troubleshooting.html#1-%E5%A6%82%E4%BD%95%E4%BD%BF%E5%85%B6%E6%94%AF%E6%8C%81Mathjax">Hexo博客搭建(4)——常见问题之如何使其支持Mathjax</a>。</li>
+</ul>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-license">
+      <strong>文章作者： </strong><a href="https://hwame.top" style="color:#E541E5;"> 鴻塵</a>
+    </li>
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://hwame.top/20200520/hello-hexo-configuration.html" title="Hexo博客搭建(2)——主题配置" target="_blank" rel="external" style="color:#E541E5;">https://hwame.top/20200520/hello-hexo-configuration.html</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用《<a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external" style="color:#E541E5;"><u>CC BY 4.0 CN协议</u></a>》许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/hwame" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/hwame" target="_blank"><span class="text-dark">鴻塵</span><small class="ml-1x">Pythoner, Data Analyst</small></a></h3>
+        <div>个人简介：处女座不适合做码农。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/20200520/hello-hexo-optimization.html" title="Hexo博客搭建(3)——优化评论系统"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/20200520/hello-hexo-setup-deploy.html" title="Hexo博客搭建(1)——建站及部署"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">
+        <span style="color:#C71585">[&nbsp;</span><span style="color:#C71585">文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span style="color:#C71585">]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,wechat,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipay.jpg" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechat.jpg" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/hwame" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/hwamei" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://www.zhihu.com/people/hwame" target="_blank" title="Zhihu" data-toggle=tooltip data-placement=top><i class="icon icon-zhihu"></i></a></li>
+        
+        <li><a href="https://segmentfault.com/u/hwame" target="_blank" title="Segmentfault" data-toggle=tooltip data-placement=top><i class="icon icon-segmentfault"></i></a></li>
+        
+        <li><a href="https://gitee.com/hwame" target="_blank" title="Gitee" data-toggle=tooltip data-placement=top><i class="icon icon-gitee"></i></a></li>
+        
+        <li><a href="https://stackoverflow.com/questions" target="_blank" title="Stackoverflow" data-toggle=tooltip data-placement=top><i class="icon icon-stackoverflow"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        
+        <div class="publishby">
+            <span id="busuanzi_container_site_pv">
+                <span id="busuanzi_value_site_pv" style="font-family:Courier"></span>访问，
+                <span id="busuanzi_value_site_uv" style="font-family:Courier"></span>访客
+            </span>
+        </div>
+        
+        <!--
+        <div class="publishby">
+            <a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/#/Integrated/recordQuery">鄂ICP备00000000号</a>
+        </div>
+        -->
+
+        <!--
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+        -->
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script src="//cdn.jsdelivr.net/gh/HCLonely/Valine@latest/dist/Valine.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css" />
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  var requiredFields = 'mail';
+  requiredFields = requiredFields.split(',');
+
+  new Valine({
+    el: '#vcomments',
+    appId: 'yLWKiHoPwmx7Izv4YYtC1fW2-MdYXbMMI',
+    appKey: 'h01jve7HXS6MuDLNBF5DeWTz',
+    verify: false,
+    notify: true,
+    placeholder: '🌺🌺留下邮箱才可以收到新消息提醒哦~\n🦚🦚输入QQ号可自动拉取昵称和邮箱~',
+    avatar: 'robohash',
+    meta: meta,
+    pageSize: '10' || 10,
+    enableQQ: 'true',
+    recordIP: 'true',
+    requiredFields: requiredFields,
+    visitor: true,
+    
+    master: 'f86269b0b1850cd62ca22b218aea1780',
+    friends: ['1725648a3566b8841f19423519e0a36e', '87b6f0e96e63727d889bb3653fb5867c', 'b7c8e70dc5b2bbbdbdeca1fc0e71b919'],
+    tagMeta: ['鴻塵', '蜜柚', '访客'],
+    metaPlaceholder: {"nick":"昵称/QQ号","mail":"邮箱(必填)","link":"个人主页"}
+  });
+  </script>
+
+     
+
+
+
+  <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.js"></script>
+  <script>
+  //利用 FancyBox 实现点击图片放大
+  $(document).ready(function() {
+    $('article img').not('[hidden]').not('.panel-body img').each(function() {
+      var $image = $(this);
+      var imageCaption = $image.attr('alt');
+      var $imageWrapLink = $image.parent('a');
+      if ($imageWrapLink.length < 1) {
+        var src = this.getAttribute('src');
+        var idx = src.lastIndexOf('?');
+        if (idx != -1) {
+          src = src.substring(0, idx);
+        }
+        $imageWrapLink = $image.wrap('<a href="' + src + '"></a>').parent('a');
+      }
+      $imageWrapLink.attr('data-fancybox', 'images');
+      if (imageCaption) {
+        $imageWrapLink.attr('data-caption', imageCaption);
+      }
+    });
+    $().fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: true,
+    });
+  });
+  </script>
+
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>
