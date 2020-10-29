@@ -75,3 +75,16 @@ $(function() {
     $menuList[activeIndex] && $($menuList[activeIndex]).addClass('active');
   }
 });
+
+// 2020-10-29代码块添加「复制」功能
+function addLoadEvent(func) {
+	var oldonload = window.onload;
+	if (typeof window.onload != 'function') {
+		window.onload = func;
+	} else {
+		window.onload = function() {
+			oldonload();
+			func();
+		}
+	}
+}
