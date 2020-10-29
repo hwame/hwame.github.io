@@ -9240,3 +9240,20 @@ img.vimg:hover {
   -o-transform: rotate(360deg);
   -ms-transform: rotate(360deg);
 }
+
+/* 隐藏powered by valine */
+.txt-right{
+	display: none;
+}
+/* 自己调整左侧菜单高度 */
+.menu-item{
+	height: 35px;
+}
+
+
+
+
+
+
+
+
