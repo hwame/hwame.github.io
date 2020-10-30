@@ -9245,8 +9245,12 @@ img.vimg:hover {
 .txt-right{
 	display: none;
 }
-/* 自己调整左侧菜单高度 */
+/* 自己调整左侧菜单高度，重叠问题解决 */
 .menu-item{
+	height: 35px;
+}
+.menu-item a{
+	display: block;
 	height: 35px;
 }
 

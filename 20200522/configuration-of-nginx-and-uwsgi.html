@@ -797,21 +797,20 @@
 
     <div class="copyright">
     	
+        &copy; 2020 鴻塵
         
-        <div class="publishby">
+        
+        <div class="publishby" style="font-family:Courier">
             <span id="busuanzi_container_site_pv">
                 👆<span id="busuanzi_value_site_pv" style="font-family:Courier"></span>&nbsp;
                 👽<span id="busuanzi_value_site_uv" style="font-family:Courier"></span>
             </span>
+            <!--
+            <br>✯<a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/" style="color:#0FFFAA">鄂ICP备2020019329号</a>
+            -->
             <br>🕗<span id="sitetime" style="font-family:Courier"></span>
         </div>
         
-        <!--
-        <div class="publishby">
-            <a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/#/Integrated/recordQuery">鄂ICP备00000000号</a>
-        </div>
-        -->
-
         <!--
         <div class="publishby">
         	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
@@ -864,6 +863,39 @@
   <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
 <script>
 window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<div id="go-top"></div>
+<style type="text/css">
+#go-top {
+ width:40px;height:40px;
+ background-color:#DDA0DD;
+ position:relative;
+ border-radius:20px;
+ position:fixed;right:20px;bottom:50px;
+ cursor:pointer;display:none;
+}
+#go-top:after {
+ content:" ";
+ position:absolute;left:14px;top:14px;
+ border-top:2px solid #fff;border-right:2px solid #fff;
+ width:12px;height:12px;
+ transform:rotate(-45deg);
+}
+#go-top:hover {
+ background-color:#8A2BE2;
+}
+</style>
+<script>
+$(function () {
+  var top=$("#go-top");
+  $(window).scroll(function () {
+    ($(window).scrollTop() > 300) ? top.show(300) : top.hide(200);
+    $("#go-top").click(function () {
+      $('body,html').animate({scrollTop:0});
+      return false();
+    })
+  });
+});
 </script>
 
 <script src="/js/plugin.min.js"></script>
