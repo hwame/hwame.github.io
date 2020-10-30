@@ -639,7 +639,7 @@ $(function () {
     ($(window).scrollTop() > 300) ? top.show(300) : top.hide(200);
     $("#go-top").click(function () {
       $('body,html').animate({scrollTop:0});
-      return false;
+      return false();
     })
   });
 });
