@@ -26,7 +26,7 @@
 <meta property="og:description" content="摘要：一般论文要求中文宋体、西文Times New Roman，因此为了规范排版，有必要解决它。然而对于matplotlib的绘图网上并没有完美的解决方案，所谓的办法都是清一色的「黑体」，因此本文寻求了一种替代方案作为折中。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-05-21T02:38:22.000Z">
-<meta property="article:modified_time" content="2020-10-15T03:59:05.649Z">
+<meta property="article:modified_time" content="2020-10-31T05:25:37.836Z">
 <meta property="article:author" content="鴻塵">
 <meta property="article:tag" content="matplotlib">
 <meta property="article:tag" content="python">
@@ -446,19 +446,18 @@
         <span class="post-comment"><i class="icon icon-comment"></i> <a href="/20200521/customize-matplotlib-fonts.html#comments" class="article-comment-link">评论</a></span>
         
 	
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2.9k(字)</span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2.8k(字)</span>
 	
 	
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 11(分)</span>
 	
 
       </div>
+      <table><tr><td bgcolor="#D7BDE2" style="border-radius:10px">温馨提示：点击页面下方 ⚓ 以展开或折叠目录</td></tr></table>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
         <p>摘要：一般论文要求中文宋体、西文Times New Roman，因此为了规范排版，有必要解决它。然而对于<code>matplotlib</code>的绘图网上并没有完美的解决方案，所谓的办法都是清一色的「黑体」，因此本文寻求了一种替代方案作为折中。<a id="more"></a></p>
-<p><table><tr><td bgcolor=#D7BDE2>温馨提示：点击页面下方 ⚓ 以展开或折叠目录</td></tr></table></p>
-<hr>
 <blockquote>
 <p><font size=5><b>文章说明</b></font><br><strong>文章说明：</strong>本文首发于<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/344490568/answer/936561524">2019-12-15@知乎</a>，更新于<a href="https://hwame.top/20200521/customize-matplotlib-fonts.html">2020-05-21@GitPages</a>。<br><strong>另请参考：</strong><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/344490568/answer/936561524">知乎：用Python的matplotlib画图，怎么保证xlabel中中文用宋体，英文用新罗马？</a><br><strong>另请参考：</strong><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/118601703">知乎：Matplotlib 中英文及公式字体设置</a>——【文章作者：<a target="_blank" rel="noopener" href="https://www.zhihu.com/people/cherichy-chi">cherichy@知乎</a>】<br><strong>文章作者：</strong><a target="_blank" rel="noopener" href="https://www.zhihu.com/people/hwame">如果我可以忘记</a><br><strong>创建时间：</strong>2019-12-15<br><strong>更新时间：</strong>2020-05-21</p>
 </blockquote>
@@ -703,8 +702,8 @@
         
         <div class="publishby" style="font-family:Courier">
             <span id="busuanzi_container_site_pv">
-                👆<span id="busuanzi_value_site_pv" style="font-family:Courier"></span>&nbsp;
-                👽<span id="busuanzi_value_site_uv" style="font-family:Courier"></span>
+                <i class="icon icon-eye"></i><span id="busuanzi_value_site_pv" style="font-family:Courier"></span>&nbsp;
+                <i class="icon icon-users"></i><span id="busuanzi_value_site_uv" style="font-family:Courier"></span>
             </span>
             <!--
             <br>✯<a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/" style="color:#0FFFAA">鄂ICP备2020019329号</a>
@@ -743,7 +742,7 @@
         minutes - 0-59之间的整数，做为date对象的分钟数
         seconds - 0-59之间的整数，做为date对象的秒数
         microseconds - 0-999之间的整数，做为date对象的毫秒数 */
-        var t1 = Date.UTC(2020,05,23,08,12,24); //建站时间
+        var t1 = Date.UTC(2020,05,19,21,20,52); //建站时间
         var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
         var diff = t2-t1;
         var diffYears = Math.floor(diff/years);

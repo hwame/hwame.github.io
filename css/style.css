@@ -8719,10 +8719,12 @@ body.okayNav-loaded {
   .visible-xs-inline-block {
     display: inline-block !important;
   }
-
+  
+  /* 手机上会隐藏「本文链接」，注释掉即可
   .hidden-xs {
     display: none !important;
   }
+  */
 
   body {
     padding-top: 53px;

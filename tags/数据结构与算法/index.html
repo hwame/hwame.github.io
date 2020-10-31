@@ -477,8 +477,8 @@
         
         <div class="publishby" style="font-family:Courier">
             <span id="busuanzi_container_site_pv">
-                👆<span id="busuanzi_value_site_pv" style="font-family:Courier"></span>&nbsp;
-                👽<span id="busuanzi_value_site_uv" style="font-family:Courier"></span>
+                <i class="icon icon-eye"></i><span id="busuanzi_value_site_pv" style="font-family:Courier"></span>&nbsp;
+                <i class="icon icon-users"></i><span id="busuanzi_value_site_uv" style="font-family:Courier"></span>
             </span>
             <!--
             <br>✯<a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/" style="color:#0FFFAA">鄂ICP备2020019329号</a>
@@ -517,7 +517,7 @@
         minutes - 0-59之间的整数，做为date对象的分钟数
         seconds - 0-59之间的整数，做为date对象的秒数
         microseconds - 0-999之间的整数，做为date对象的毫秒数 */
-        var t1 = Date.UTC(2020,05,23,08,12,24); //建站时间
+        var t1 = Date.UTC(2020,05,19,21,20,52); //建站时间
         var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
         var diff = t2-t1;
         var diffYears = Math.floor(diff/years);
