@@ -19,18 +19,26 @@
   <meta name="google-site-verification" content="-5hl8eC4wfapGZhZouwMVUcKG0iaynijVRJbqVlzXm4" />
   
   
-  <title>友情链接 | 鴻塵</title>
-  <meta property="og:type" content="website">
-<meta property="og:title" content="友情链接">
-<meta property="og:url" content="https://hwame.top/links/index.html">
+  <title>搭建Github图床并利用jsDelivr加速 | 鴻塵</title>
+  <meta name="description" content="摘要：之前都是将博文图片直接放在images文件夹下，图片加载较慢，故搭建Github图床并利用jsDelivr加速。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="搭建Github图床并利用jsDelivr加速">
+<meta property="og:url" content="https://hwame.top/20201125/github-pics-with-jsdelivr.html">
 <meta property="og:site_name" content="Solitary">
+<meta property="og:description" content="摘要：之前都是将博文图片直接放在images文件夹下，图片加载较慢，故搭建Github图床并利用jsDelivr加速。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-08-21T03:21:11.000Z">
-<meta property="article:modified_time" content="2020-08-21T06:18:44.650Z">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201125新建仓库.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201125上传文件.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201125配置token.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201125访问令牌.png">
+<meta property="article:published_time" content="2020-11-25T03:13:37.000Z">
+<meta property="article:modified_time" content="2020-11-25T03:13:37.000Z">
 <meta property="article:author" content="鴻塵">
+<meta property="article:tag" content="Hexo">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201125新建仓库.png">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://hwame.top/links/index.html">
+  <link rel="canonical" href="https://hwame.top/20201125/github-pics-with-jsdelivr.html">
   
     <link rel="alternate" href="true" title="Solitary" type="application/atom+xml">
   
@@ -388,154 +396,286 @@
 </aside>
 
   
-  <main class="main" role="main">
-  <article class="article article-links article-type-list" itemscope="">
-  <header class="article-header">
-    <h1 itemprop="title">友情链接</h1>
-    <p class="text-muted">
-      欢迎交换链接，可在当前页面留言
-    </p>
-  </header>
-  <div class="article-body">
-    <div class="row">
+  
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%90%AD%E5%BB%BAGithub%E5%9B%BE%E5%BA%8A"><span class="toc-text">1.搭建Github图床</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E6%96%B0%E5%BB%BA%E4%BB%93%E5%BA%93"><span class="toc-text">1.1.新建仓库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87"><span class="toc-text">1.2.上传图片</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-%E4%BD%BF%E7%94%A8%E5%9B%BE%E7%89%87"><span class="toc-text">1.3.使用图片</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E4%BD%BF%E7%94%A8PicGo%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87"><span class="toc-text">2.使用PicGo上传图片</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E8%AF%B4%E6%98%8E"><span class="toc-text">2.1.说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E7%94%9F%E6%88%90%E4%BB%A4%E7%89%8C"><span class="toc-text">2.2.生成令牌</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-PicGo%E9%85%8D%E7%BD%AE"><span class="toc-text">2.3.PicGo配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-PicGo%E4%BD%BF%E7%94%A8"><span class="toc-text">2.4.PicGo使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%9B%BE%E5%BA%8A%E8%BF%81%E7%A7%BB"><span class="toc-text">3.图床迁移</span></a></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-github-pics-with-jsdelivr" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
       
         
-          <div class="col-sm-6 col-md-4">
-            <div class="panel panel-default hover-shadow hover-grow">
-              <figure class="media media-middle">
-                <div class="media-left pr-no">
-                  <a href="https://cdn.jsdelivr.net/gh/hwame/pics@main/avatar.jpg" target="_blank" class="img-burn thumb-md media-middle">
-                    <img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/avatar.jpg" class="w-full" alt="处女座不适合做码农">
-                  </a>
-                </div>
-                <div class="media-body p-0x">
-                  <h4 class="media-heading"><a href="https://hwame.top" target="_blank">
-					  <span style="color:#9932CC" title="点击跳转">鴻塵</span></a>
-                  </h4>
-                  <div class="text-muted">
-                    处女座不适合做码农
-                  </div>
-                </div>
-              </figure>
-            </div>
-          </div>
-          
-        
-          <div class="col-sm-6 col-md-4">
-            <div class="panel panel-default hover-shadow hover-grow">
-              <figure class="media media-middle">
-                <div class="media-left pr-no">
-                  <a href="https://www.chen-yuan-yuan.icu/images/avatar.jpg" target="_blank" class="img-burn thumb-md media-middle">
-                    <img src="https://www.chen-yuan-yuan.icu/images/avatar.jpg" class="w-full" alt="关注前端，追逐技术，热爱设计，喜欢代码">
-                  </a>
-                </div>
-                <div class="media-body p-0x">
-                  <h4 class="media-heading"><a href="https://www.chen-yuan-yuan.icu" target="_blank">
-					  <span style="color:#9932CC" title="点击跳转">陈园园</span></a>
-                  </h4>
-                  <div class="text-muted">
-                    关注前端，追逐技术，热爱设计，喜欢代码
-                  </div>
-                </div>
-              </figure>
-            </div>
-          </div>
-          
-        
-          <div class="col-sm-6 col-md-4">
-            <div class="panel panel-default hover-shadow hover-grow">
-              <figure class="media media-middle">
-                <div class="media-left pr-no">
-                  <a href="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-imgbed/239d6485-022d-41da-817e-5b52f209857d.jpg?v=1.02" target="_blank" class="img-burn thumb-md media-middle">
-                    <img src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-imgbed/239d6485-022d-41da-817e-5b52f209857d.jpg?v=1.02" class="w-full" alt="想成为全栈的前端工程师">
-                  </a>
-                </div>
-                <div class="media-body p-0x">
-                  <h4 class="media-heading"><a href="https://imzsh.com/" target="_blank">
-					  <span style="color:#9932CC" title="点击跳转">张舒涵</span></a>
-                  </h4>
-                  <div class="text-muted">
-                    想成为全栈的前端工程师
-                  </div>
-                </div>
-              </figure>
-            </div>
-          </div>
-          
-        
-          <div class="col-sm-6 col-md-4">
-            <div class="panel panel-default hover-shadow hover-grow">
-              <figure class="media media-middle">
-                <div class="media-left pr-no">
-                  <a href="https://lxb.wiki/images/head.jpeg" target="_blank" class="img-burn thumb-md media-middle">
-                    <img src="https://lxb.wiki/images/head.jpeg" class="w-full" alt="啥也不会">
-                  </a>
-                </div>
-                <div class="media-body p-0x">
-                  <h4 class="media-heading"><a href="https://lxb.wiki" target="_blank">
-					  <span style="color:#9932CC" title="点击跳转">Xiaobin.Liu</span></a>
-                  </h4>
-                  <div class="text-muted">
-                    啥也不会
-                  </div>
-                </div>
-              </figure>
-            </div>
-          </div>
-          
-        
-          <div class="col-sm-6 col-md-4">
-            <div class="panel panel-default hover-shadow hover-grow">
-              <figure class="media media-middle">
-                <div class="media-left pr-no">
-                  <a href="https://tiarmor1.github.io/images/author.jpg" target="_blank" class="img-burn thumb-md media-middle">
-                    <img src="https://tiarmor1.github.io/images/author.jpg" class="w-full" alt="IT小白的成长之旅">
-                  </a>
-                </div>
-                <div class="media-body p-0x">
-                  <h4 class="media-heading"><a href="https://tiarmor1.github.io" target="_blank">
-					  <span style="color:#9932CC" title="点击跳转">Li-Yudong</span></a>
-                  </h4>
-                  <div class="text-muted">
-                    IT小白的成长之旅
-                  </div>
-                </div>
-              </figure>
-            </div>
-          </div>
-          
-        
-          <div class="col-sm-6 col-md-4">
-            <div class="panel panel-default hover-shadow hover-grow">
-              <figure class="media media-middle">
-                <div class="media-left pr-no">
-                  <a href="https://blog.cofess.com/images/avatar.jpg" target="_blank" class="img-burn thumb-md media-middle">
-                    <img src="https://blog.cofess.com/images/avatar.jpg" class="w-full" alt="Pure主题作者">
-                  </a>
-                </div>
-                <div class="media-body p-0x">
-                  <h4 class="media-heading"><a href="https://blog.cofess.com" target="_blank">
-					  <span style="color:#9932CC" title="点击跳转">Cofess</span></a>
-                  </h4>
-                  <div class="text-muted">
-                    Pure主题作者
-                  </div>
-                </div>
-              </figure>
-            </div>
-          </div>
-          
-    </div>
-  </div>
-</article>
-
   
+    <h1 class="article-title" itemprop="name">
+      搭建Github图床并利用jsDelivr加速
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar"></i>
+	<a href="/20201125/github-pics-with-jsdelivr.html" class="article-date">
+	  发布于 <time datetime="2020-11-25T03:13:37.000Z" itemprop="datePublished">2020-11-25</time>
+	</a>
+</span>
+<span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/20201125/github-pics-with-jsdelivr.html" class="article-date">
+	  更新于 <time datetime="2020-11-25T03:13:37.000Z" itemprop="dateUpdated">2020-11-25</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Hexo/">Hexo</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/Hexo/" rel="tag">Hexo</a>
+  </span>
+
+
+        
+
+	<span class="article-read hidden-xs">
+    	<i class="icon icon-eye-fill" aria-hidden="true"></i>
+    	<span id="/20201125/github-pics-with-jsdelivr.html" class="leancloud_visitors"  data-flag-title="搭建Github图床并利用jsDelivr加速">
+			<span class="leancloud-visitors-count">0</span>
+		</span>
+    </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/20201125/github-pics-with-jsdelivr.html#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1.3k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 4(分)</span>
+	
+
+      </div>
+      <div style="background-color:#D7BDE2;border:1px solid #D7BDE2;border-radius:10px;padding:5px">
+          <b>温馨提示</b>：点击页面下方<i style="color:red" class="icon icon-anchor"></i>以展开或折叠目录
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>摘要：之前都是将博文图片直接放在<code>images</code>文件夹下，图片加载较慢，故搭建<code>Github</code>图床并利用<code>jsDelivr</code>加速。<a id="more"></a></p>
+<blockquote>
+<p><font size=5><b>文章说明</b></font><br><strong>文章作者：</strong><a href="https://hwame.top">鴻塵</a><br><strong>文章链接：</strong><a href="https://hwame.top/20201125/github-pics-with-jsdelivr.html">https://hwame.top/20201125/github-pics-with-jsdelivr.html</a></p>
+</blockquote>
+<h2 id="1-搭建Github图床"><a href="#1-搭建Github图床" class="headerlink" title="1.搭建Github图床"></a>1.搭建Github图床</h2><h3 id="1-1-新建仓库"><a href="#1-1-新建仓库" class="headerlink" title="1.1.新建仓库"></a>1.1.新建仓库</h3><p>登陆<code>Github</code>账户，新建仓库【或直接点击<a target="_blank" rel="noopener" href="https://github.com/new">https://github.com/new</a>】，按如下设置后点击<code>Create repository</code>，如图所示：</p>
+<ul>
+<li><code>Repository name</code>：仓库名称（英文），即图床名；</li>
+<li><code>Description</code>：描述；</li>
+<li><code>Public/Private</code>：选择公开；</li>
+<li><code>Add a README file</code>：使用<code>README.md</code>初始化，可选。</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201125新建仓库.png" alt="新建仓库"></p>
+<h3 id="1-2-上传图片"><a href="#1-2-上传图片" class="headerlink" title="1.2.上传图片"></a>1.2.上传图片</h3><p>仓库创建完成后，就已经可以直接使用了。<br>可以直接在网页端点击<code>Add file</code>→<code>Upload files</code>即可上传文件/文件夹，如图所示：<br><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201125上传文件.png" alt="上传图片"></p>
+<p>也可以使用其他软件，如PicGo等【需要访问令牌，见下文】。</p>
+<h3 id="1-3-使用图片"><a href="#1-3-使用图片" class="headerlink" title="1.3.使用图片"></a>1.3.使用图片</h3><p>对于仓库中的文件（图片），有以下两种方式：<br><strong>说明：</strong>使用<code>jsDelivr</code>的<code>CDN</code>加速服务，它可以加速Github仓库的文件，免费且无需注册、无需额外配置，只需要一个正确的<code>URL</code>即可。<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># 直接引用</span></span><br><span class="line">![<span class="string">图片描述</span>](<span class="link">https://raw.githubusercontent.com/username/repos/branch/path/xxx.png</span>)</span><br><span class="line"></span><br><span class="line"><span class="section"># 使用CDN加速</span></span><br><span class="line">![<span class="string">图片描述</span>](<span class="link">https://cdn.jsdelivr.net/gh/username/repos@version/path/xxx.png</span>)</span><br></pre></td></tr></table></figure><br>以下是两种方式使用效果，感受一下加载速度的区别：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/hwame/pics/main/avatar.jpg">https://raw.githubusercontent.com/hwame/pics/main/avatar.jpg</a></li>
+<li><a target="_blank" rel="noopener" href="https://cdn.jsdelivr.net/gh/hwame/pics@main/avatar.jpg">https://cdn.jsdelivr.net/gh/hwame/pics@main/avatar.jpg</a></li>
+</ul>
+<hr>
+<h2 id="2-使用PicGo上传图片"><a href="#2-使用PicGo上传图片" class="headerlink" title="2.使用PicGo上传图片"></a>2.使用PicGo上传图片</h2><h3 id="2-1-说明"><a href="#2-1-说明" class="headerlink" title="2.1.说明"></a>2.1.说明</h3><p><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/PicGo">PicGo</a>是一个用于快速上传图片并获取图片<code>URL</code>链接的开源工具，使用它可以解放写作双手、提高生产力。使用PicGo的原因仅仅是因为能够方便地将上传图片到Github，并直接获取jsDelivr的加速后的图片地址。</p>
+<p>下载地址：<a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/PicGo/releases">https://github.com/Molunerfinn/PicGo/releases</a></p>
+<p><strong>说明：</strong>由于使用PicGo上传文件需要获取控制仓库的权限，因此需要访问令牌，如果不需要借助第三方工具上传，则无需此步骤，自行取舍（比如我还是喜欢自己动动手）。<br><strong>说明：</strong>由于我未使用第三方工具，此部分主要目的是解释一下token并不是必须的，内容参考<a target="_blank" rel="noopener" href="https://blog.iljw.me/">如风蒹葭</a>的文章<a target="_blank" rel="noopener" href="https://blog.iljw.me/2019/05/jsdelivr-cdn-github.html">使用 jsDelivr CDN 加速 Github 仓库的图片，以作为博客的图床</a>。</p>
+<h3 id="2-2-生成令牌"><a href="#2-2-生成令牌" class="headerlink" title="2.2.生成令牌"></a>2.2.生成令牌</h3><p>以此点击头像→<code>Settings</code>→<code>Developer settings</code>→<code>Personal access tokens</code>【或直接点击<a target="_blank" rel="noopener" href="https://github.com/settings/tokens">https://github.com/settings/tokens</a>】，可以看到已有的访问令牌，但是口令只显示一次，所以不可复用，需要重新生成。<br>点击<code>Generate new token</code>，可能需要输入密码，在    <code>New personal access token</code>中填写备注、勾选<code>repo</code>整个复选框，如图所示。<br><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201125配置token.png" alt="配置token"></p>
+<p>最后点击<code>Generate token</code>即可，将生成的<code>token</code>【图中打码处】复制保存，<strong>只显示一次，否则需要重新生成</strong>，如图所示。<br><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201125访问令牌.png" alt="访问令牌"></p>
+<h3 id="2-3-PicGo配置"><a href="#2-3-PicGo配置" class="headerlink" title="2.3.PicGo配置"></a>2.3.PicGo配置</h3><p>下载安装好以后，配置「Github图床」：</p>
+<ul>
+<li>设定仓库名：Github仓库，格式为<code>username/repos</code>，示例：<code>hwame/pics</code>。</li>
+<li>设定分支名：Github仓库的分支，格式为<code>branch</code>，示例：<code>main</code>。<blockquote>
+<p><strong>注意：</strong>由于众所周知的原因，Github新创建的仓库默认分支已不再是<code>master</code>而是<code>main</code>了！！</p>
+</blockquote>
+</li>
+<li>设定<code>Token</code>：即上一步生成的访问令牌。</li>
+<li>指定存储路径：可选。不填则为仓库根目录，建议按图片分类放在不同文件夹下。</li>
+<li>设定自定义域名：此即<code>jsDelivr</code>的配置，格式为<code>https://cdn.jsdelivr.net/gh/username/repos@branch</code>，示例：<code>https://cdn.jsdelivr.net/gh/hwame/pics@main</code><ul>
+<li><code>gh</code>：表示来自<code>Github</code>的内容；</li>
+<li><code>username</code>：Github用户名；</li>
+<li><code>repos</code>：Github仓库；</li>
+<li><code>branch</code>：仓库分支，注意是<code>master</code>还是<code>main</code>。</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-4-PicGo使用"><a href="#2-4-PicGo使用" class="headerlink" title="2.4.PicGo使用"></a>2.4.PicGo使用</h3><p>PicGo配置完成后即可使用了，它支持拖拽、点击、剪贴板上传，上传后，图片链接直接复制的你的剪贴板中，极大地提高了生产效率。</p>
+<hr>
+<h2 id="3-图床迁移"><a href="#3-图床迁移" class="headerlink" title="3.图床迁移"></a>3.图床迁移</h2><p>截至目前，博客使用的「图床」共有以下几种：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://imgchr.com/hwamei">路过图床</a>：<ul>
+<li>优点：免费且稳定，可创建多相册，图片可标记</li>
+<li>缺点：需要额外使用邮箱注册账号，内容不易维护</li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://www.aliyun.com/">阿里云服务器</a>：<ul>
+<li>优点：对文件拥有绝对权限，可定制程度高，任何部分都可以随心所欲地配置（<del>只要你有钞能力</del>）</li>
+<li>缺点：价格与网络带宽直接挂钩，有使用期限，服务器到期后文件迁移及博客内容更新耗时费力，最主要还是<strong>贵</strong>！</li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com">直接引用Github图片</a>：<ul>
+<li>直接引用只在「文章缩略图」作为图标引用的，例如<a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/hexojs/logo/master/hexo-logo-avatar.png">Hexo Logo</a>，图标文件一般较小，因此没必要放到图床上，不必迁移</li>
+</ul>
+</li>
+<li>直接放在「本地」，和博客文件放在一起：<ul>
+<li>优点：静态文件都在一个地方，管理较为方便</li>
+<li>缺点：<strong>慢！</strong></li>
+</ul>
+</li>
+</ul>
+<p>基于以上因素，我决定将所有图片都放在Github图床上，并使用jsDelivr加速，迁移内容主要有：</p>
+<ul>
+<li>文章图片；</li>
+<li>相册图片；</li>
+<li>最新文章缩略图；</li>
+</ul>
+<p>目前看来体验还不错。最主要的是，Hexo博客的文件和图片文件都托管在Github上了，管理起来很方便，不用担心服务器挂掉或者到期，也不用担心其他图床失效，而且通过jsDelivr加速后图片资源加载速度有明显改善，网站浏览体验满分~</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-license">
+      <strong>文章作者： </strong><a href="https://hwame.top" style="color:#E541E5;"> 鴻塵</a>
+    </li>
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://hwame.top/20201125/github-pics-with-jsdelivr.html" title="搭建Github图床并利用jsDelivr加速" target="_blank" rel="external" style="color:#E541E5;">https://hwame.top/20201125/github-pics-with-jsdelivr.html</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用《<a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external" style="color:#E541E5;"><u>CC BY 4.0 CN协议</u></a>》许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/hwame" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/hwame" target="_blank"><span class="text-dark">鴻塵</span><small class="ml-1x">Pythoner, Data Analyst</small></a></h3>
+        <div>个人简介：处女座不适合做码农。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
   <section id="comments">
   	
       <div id="vcomments"></div>
     
   </section>
 
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/20201008/render-matplotlib-figure-to-flaskweb.html" title="如何将matplotlib图像渲染到前端"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">
+        <span style="color:#C71585">[&nbsp;</span><span style="color:#C71585">文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span style="color:#C71585">]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,wechat,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipay.jpg" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechat.jpg" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 
@@ -691,6 +831,10 @@ $(function () {
 
 
 
+
+
+
+   
 
 
 
