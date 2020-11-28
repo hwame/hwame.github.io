@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  <!-- 谷歌收录 -->
+  <meta name="google-site-verification" content="-5hl8eC4wfapGZhZouwMVUcKG0iaynijVRJbqVlzXm4" />
+  
+  
+  <title>循环中的lambda函数产生的作用域及闭包问题 | 鴻塵</title>
+  <meta name="description" content="摘要：在Python循环中定义函数时涉及到的作用域和闭包等问题。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="循环中的lambda函数产生的作用域及闭包问题">
+<meta property="og:url" content="https://hwame.top/20201020/python-lambda-in-a-for-loop.html">
+<meta property="og:site_name" content="Solitary">
+<meta property="og:description" content="摘要：在Python循环中定义函数时涉及到的作用域和闭包等问题。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/few-pics/20201127functools.partial.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/few-pics/20201128164732.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/few-pics/20201128164854.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/few-pics/20201128164953.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/few-pics/20201128165128.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/few-pics/20201128165223.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/few-pics/20201128165328.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/few-pics/20201128165433.png">
+<meta property="article:published_time" content="2020-10-20T08:45:08.000Z">
+<meta property="article:modified_time" content="2020-11-27T06:17:30.000Z">
+<meta property="article:author" content="鴻塵">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/few-pics/20201127functools.partial.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://hwame.top/20201020/python-lambda-in-a-for-loop.html">
+  
+    <link rel="alternate" href="true" title="Solitary" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    <link href="//cdn.jsdelivr.net/npm/katex@0.9.0/dist/katex.min.css" rel="stylesheet">
+  
+  
+  
+    <link href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.css" rel="stylesheet">
+  
+  
+<meta name="generator" content="Hexo 5.0.2"></head>
+
+
+<body class="main-center theme-purple" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/hwame" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">鴻塵</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Pythoner, Data Analyst</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> 湖北-武汉</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav menu-highlight">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder-open"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-gallery">
+          <a href="/gallery">
+            
+            <i class="icon icon-delicious"></i>
+            
+            <span class="menu-title">相册</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/hwame" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/hwamei" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://www.zhihu.com/people/hwame" target="_blank" title="Zhihu" data-toggle=tooltip data-placement=top><i class="icon icon-zhihu"></i></a></li>
+        
+        <li><a href="https://segmentfault.com/u/hwame" target="_blank" title="Segmentfault" data-toggle=tooltip data-placement=top><i class="icon icon-segmentfault"></i></a></li>
+        
+        <li><a href="https://gitee.com/hwame" target="_blank" title="Gitee" data-toggle=tooltip data-placement=top><i class="icon icon-gitee"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎来到鴻塵的博客!<br>鴻塵的<u><a target="_blank" rel="noopener" href="https://weibo.com/hwamei" style="color:#E541E5;">微博</a></u>主页，鴻塵的<u><a target="_blank" rel="noopener" href="https://github.com/hwame" style="color:#E541E5;">Github</a></u>主页，如果我可以忘记的<u><a target="_blank" rel="noopener" href="https://www.zhihu.com/people/hwame" style="color:#E541E5;">知乎</a></u>主页。</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/CentOS/" style="font-size: 13px;">CentOS</a> <a href="/tags/Hexo/" style="font-size: 14px;">Hexo</a> <a href="/tags/Linux/" style="font-size: 13.67px;">Linux</a> <a href="/tags/Linux%E9%83%A8%E7%BD%B2/" style="font-size: 13px;">Linux部署</a> <a href="/tags/Spark/" style="font-size: 13px;">Spark</a> <a href="/tags/matplotlib/" style="font-size: 13.33px;">matplotlib</a> <a href="/tags/python/" style="font-size: 14px;">python</a> <a href="/tags/shell/" style="font-size: 13px;">shell</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 13px;">大数据</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" style="font-size: 13px;">数据结构与算法</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 13px;">爬虫</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a><span class="archive-list-count">10</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled ">
+        
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20201127/learning-linux-shell-script.html" class="thumb">
+    
+    
+        <span style="background-image:url(https://cdn.jsdelivr.net/gh/hwame/pics@main/post-pics/linux-icon.png)" alt="Linux下shell脚本编程学习" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Linux/">Linux</a>
+              </p>
+              <p class="item-title">
+                <a href="/20201127/learning-linux-shell-script.html" class="title">Linux下shell脚本编程学习</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-11-27T06:19:03.000Z" itemprop="datePublished">2020-11-27</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20201125/github-pics-with-jsdelivr.html" class="thumb">
+    
+    
+        <span style="background-image:url(https://raw.githubusercontent.com/hexojs/logo/master/hexo-logo-avatar.png)" alt="搭建Github图床并利用jsDelivr加速" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Hexo/">Hexo</a>
+              </p>
+              <p class="item-title">
+                <a href="/20201125/github-pics-with-jsdelivr.html" class="title">搭建Github图床并利用jsDelivr加速</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-11-25T03:13:37.000Z" itemprop="datePublished">2020-11-25</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20201020/python-lambda-in-a-for-loop.html" class="thumb">
+    
+    
+        <span style="background-image:url(https://cdn.jsdelivr.net/gh/hwame/pics@main/post-pics/python-icon.png)" alt="循环中的lambda函数产生的作用域及闭包问题" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/python/">python</a>
+              </p>
+              <p class="item-title">
+                <a href="/20201020/python-lambda-in-a-for-loop.html" class="title">循环中的lambda函数产生的作用域及闭包问题</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-10-20T08:45:08.000Z" itemprop="datePublished">2020-10-20</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20201008/render-matplotlib-figure-to-flaskweb.html" class="thumb">
+    
+    
+        <span style="background-image:url(https://cdn.jsdelivr.net/gh/hwame/pics@main/few-pics/20201008效果预览.png)" alt="如何将matplotlib图像渲染到前端" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/python/">python</a>
+              </p>
+              <p class="item-title">
+                <a href="/20201008/render-matplotlib-figure-to-flaskweb.html" class="title">如何将matplotlib图像渲染到前端</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-10-08T01:06:32.000Z" itemprop="datePublished">2020-10-08</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20200604/shortest-leetcode-python-solutions.html" class="thumb">
+    
+    
+        <span style="background-image:url(https://cdn.jsdelivr.net/gh/hwame/pics@main/post-pics/data-structure-algorithm.png)" alt="力扣简洁优雅的python解法" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a>
+              </p>
+              <p class="item-title">
+                <a href="/20200604/shortest-leetcode-python-solutions.html" class="title">力扣简洁优雅的python解法</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-06-04T13:32:55.000Z" itemprop="datePublished">2020-06-04</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E8%83%8C%E6%99%AF"><span class="toc-text">1.背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0"><span class="toc-text">2.问题描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%8E%9F%E5%9B%A0%E5%88%86%E6%9E%90"><span class="toc-text">3.原因分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E9%97%AE%E9%A2%98%E5%BC%95%E5%85%A5"><span class="toc-text">3.1.问题引入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E5%8E%9F%E5%9B%A0%E8%A7%A3%E9%87%8A"><span class="toc-text">3.2.原因解释</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%92%8C%E9%97%AD%E5%8C%85"><span class="toc-text">3.3.作用域和闭包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-text">3.4.解决方案</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%A1%88%E4%B8%80%EF%BC%9A%E5%B8%A6%E9%BB%98%E8%AE%A4%E5%80%BC%E7%9A%84%E5%8F%82%E6%95%B0"><span class="toc-text">方案一：带默认值的参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%A1%88%E4%BA%8C%EF%BC%9A%E4%BD%BF%E5%86%85%E9%83%A8%E5%87%BD%E6%95%B0%E6%88%90%E4%B8%BA%E9%97%AD%E5%8C%85"><span class="toc-text">方案二：使内部函数成为闭包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%A1%88%E4%B8%89%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0partial"><span class="toc-text">方案三：使用标准库函数partial</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-%E8%AF%B4%E6%98%8E"><span class="toc-text">3.5.说明</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%AE%9E%E9%99%85%E9%97%AE%E9%A2%98%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95"><span class="toc-text">4.实际问题的解决办法</span></a></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-python-lambda-in-a-for-loop" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      循环中的lambda函数产生的作用域及闭包问题
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar"></i>
+	<a href="/20201020/python-lambda-in-a-for-loop.html" class="article-date">
+	  发布于 <time datetime="2020-10-20T08:45:08.000Z" itemprop="datePublished">2020-10-20</time>
+	</a>
+</span>
+<span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/20201020/python-lambda-in-a-for-loop.html" class="article-date">
+	  更新于 <time datetime="2020-11-27T06:17:30.000Z" itemprop="dateUpdated">2020-11-27</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/python/">python</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/python/" rel="tag">python</a>
+  </span>
+
+
+        
+
+	<span class="article-read hidden-xs">
+    	<i class="icon icon-eye-fill" aria-hidden="true"></i>
+    	<span id="/20201020/python-lambda-in-a-for-loop.html" class="leancloud_visitors"  data-flag-title="循环中的lambda函数产生的作用域及闭包问题">
+			<span class="leancloud-visitors-count">0</span>
+		</span>
+    </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/20201020/python-lambda-in-a-for-loop.html#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2.4k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 10(分)</span>
+	
+
+      </div>
+      <div style="background-color:#D7BDE2;border:1px solid #D7BDE2;border-radius:10px;padding:5px">
+          <b>温馨提示</b>：点击页面下方<i style="color:red" class="icon icon-anchor"></i>以展开或折叠目录
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>摘要：在Python循环中定义函数时涉及到的作用域和闭包等问题。<a id="more"></a></p>
+<blockquote>
+<p><font size=5><b>文章说明</b></font><br><strong>文章作者：</strong><a href="https://hwame.top">鴻塵</a><br><strong>参考内容：</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3/faq/programming.html#why-do-lambdas-defined-in-a-loop-with-different-values-all-return-the-same-result">为什么在具有不同值的循环中定义的lambdas都返回相同的结果？</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/4aad4c6baeb1">Python经典的大坑问题：lambda和循环作用域问题</a></li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/19837486/python-lambda-in-a-loop">Python Lambda in a loop</a></li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/2295290/what-do-lambda-function-closures-capture">What do lambda function closures capture?</a></li>
+</ul>
+<p><strong>文章链接：</strong><a href="https://hwame.top/20201020/python-lambda-in-a-for-loop.html">https://hwame.top/20201020/python-lambda-in-a-for-loop.html</a></p>
+</blockquote>
+<h2 id="1-背景"><a href="#1-背景" class="headerlink" title="1.背景"></a>1.背景</h2><p>最近有同学问我一个使用<code>scipy</code>进行参数优化的问题，目标函数：</p>
+<script type="math/tex; mode=display">f(x) = \frac{a + x_1}{b + x_2} - c \times x_3 + d \times x_4</script><p>由于涉及到较多的参数和约束条件，因此考虑使用<code>for</code>循环，程序主要代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> scipy.optimize <span class="keyword">import</span> minimize</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun</span>(<span class="params">args</span>):</span></span><br><span class="line">    <span class="comment"># 目标函数及系数</span></span><br><span class="line">    a, b, c, d = args</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">lambda</span> x: (a + x[<span class="number">0</span>]) / (b + x[<span class="number">1</span>]) - c * x[<span class="number">0</span>] + d * x[<span class="number">2</span>]</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cons</span>():</span></span><br><span class="line">    <span class="comment"># 约束条件constraints，暂时略过</span></span><br><span class="line">    cons = [fun1, fun2, fun3, fun4, fun5, fun6]</span><br><span class="line">    <span class="keyword">return</span> cons</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    args = (<span class="number">2</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">4</span>)               <span class="comment"># 定义常量值a, b, c, d</span></span><br><span class="line">    cons = cons()                     <span class="comment"># 生成约束</span></span><br><span class="line">    x0 = np.asarray((<span class="number">0.5</span>, <span class="number">0.5</span>, <span class="number">0.5</span>))  <span class="comment"># 设置初始猜测值</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 开始优化</span></span><br><span class="line">    res = minimize(fun(args), x0, method=<span class="string">&#x27;SLSQP&#x27;</span>, constraints=cons)</span><br><span class="line">    </span><br><span class="line">    print(res.fun)      <span class="comment"># 优化结果，即最优目标函数值</span></span><br><span class="line">    print(res.success)  <span class="comment"># 优化状态，即是否成功</span></span><br><span class="line">    print(res.x)        <span class="comment"># 优化结果，即x的最优解</span></span><br></pre></td></tr></table></figure>
+<p>对于约束函数的生成，由于每个 $x$ 分量都有一个上界和下界，范围为$[0.1, 0.9]$，所以约束条件会随分量的增多呈线性增长，因此写死是不现实的，考虑用<code>for</code>循环：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 直接把所有情况写死</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cons</span>():</span></span><br><span class="line">    cons = (&#123;<span class="string">&#x27;type&#x27;</span>: <span class="string">&#x27;ineq&#x27;</span>, <span class="string">&#x27;fun&#x27;</span>: <span class="keyword">lambda</span> x:  x[<span class="number">0</span>] - <span class="number">0.1</span>&#125;,</span><br><span class="line">            &#123;<span class="string">&#x27;type&#x27;</span>: <span class="string">&#x27;ineq&#x27;</span>, <span class="string">&#x27;fun&#x27;</span>: <span class="keyword">lambda</span> x: -x[<span class="number">0</span>] + <span class="number">0.9</span>&#125;,</span><br><span class="line">            &#123;<span class="string">&#x27;type&#x27;</span>: <span class="string">&#x27;ineq&#x27;</span>, <span class="string">&#x27;fun&#x27;</span>: <span class="keyword">lambda</span> x:  x[<span class="number">1</span>] - <span class="number">0.1</span>&#125;,</span><br><span class="line">            &#123;<span class="string">&#x27;type&#x27;</span>: <span class="string">&#x27;ineq&#x27;</span>, <span class="string">&#x27;fun&#x27;</span>: <span class="keyword">lambda</span> x: -x[<span class="number">1</span>] + <span class="number">0.9</span>&#125;,</span><br><span class="line">            &#123;<span class="string">&#x27;type&#x27;</span>: <span class="string">&#x27;ineq&#x27;</span>, <span class="string">&#x27;fun&#x27;</span>: <span class="keyword">lambda</span> x:  x[<span class="number">2</span>] - <span class="number">0.1</span>&#125;,</span><br><span class="line">            &#123;<span class="string">&#x27;type&#x27;</span>: <span class="string">&#x27;ineq&#x27;</span>, <span class="string">&#x27;fun&#x27;</span>: <span class="keyword">lambda</span> x: -x[<span class="number">2</span>] + <span class="number">0.9</span>&#125;)</span><br><span class="line">    <span class="keyword">return</span> cons</span><br><span class="line"></span><br><span class="line"><span class="comment"># 借助for循环</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cons</span>():</span></span><br><span class="line">    cons = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">3</span>):</span><br><span class="line">        b = &#123;<span class="string">&#x27;type&#x27;</span>: <span class="string">&#x27;ineq&#x27;</span>, <span class="string">&#x27;fun&#x27;</span>: <span class="keyword">lambda</span> x: x[i] - <span class="number">0.1</span>&#125;</span><br><span class="line">        c = &#123;<span class="string">&#x27;type&#x27;</span>: <span class="string">&#x27;ineq&#x27;</span>, <span class="string">&#x27;fun&#x27;</span>: <span class="keyword">lambda</span> x: <span class="number">0.9</span> - x[i]&#125;</span><br><span class="line">        cons.append(b)</span><br><span class="line">        cons.append(c)</span><br><span class="line">    <span class="keyword">return</span> cons</span><br></pre></td></tr></table></figure></p>
+<h2 id="2-问题描述"><a href="#2-问题描述" class="headerlink" title="2.问题描述"></a>2.问题描述</h2><p>显然，使用循环的方式便于程序的拓展，而且也省时，但是会出一个问题：<strong>生成的<code>cons</code>约束函数只有最后一个生效，且所有函数都相同</strong>。</p>
+<p>这个问题我曾经遇到过，第一反应就确定了问题出在循环上。尽管当时解决了却并没有完全弄懂它，以致于再次遇到还是一脸懵逼，因此查阅了详细的资料，在此记录下来。</p>
+<h2 id="3-原因分析"><a href="#3-原因分析" class="headerlink" title="3.原因分析"></a>3.原因分析</h2><h3 id="3-1-问题引入"><a href="#3-1-问题引入" class="headerlink" title="3.1.问题引入"></a>3.1.问题引入</h3><blockquote>
+<p>借助<a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3/faq/programming.html#why-do-lambdas-defined-in-a-loop-with-different-values-all-return-the-same-result">官方文档</a>中一个简单的例子来说明。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">func = []</span><br><span class="line"><span class="keyword">for</span> myx <span class="keyword">in</span> range(<span class="number">4</span>):</span><br><span class="line">    func.append(<span class="keyword">lambda</span>: myx**<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用函数</span></span><br><span class="line">func[<span class="number">0</span>](), func[<span class="number">1</span>](), func[<span class="number">2</span>](), func[<span class="number">3</span>]()</span><br><span class="line"><span class="comment"># 预期结果：(0, 1, 4, 9)</span></span><br><span class="line"><span class="comment"># 实际结果：(9, 9, 9, 9)</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-2-原因解释"><a href="#3-2-原因解释" class="headerlink" title="3.2.原因解释"></a>3.2.原因解释</h3><p>来自<a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3/faq/programming.html#why-do-lambdas-defined-in-a-loop-with-different-values-all-return-the-same-result">官方文档</a>的解释：</p>
+<blockquote>
+<p>发生这种情况是因为<code>myx</code>不是<code>lambdas</code>的内部变量，而是在<strong>外部作用域</strong>中定义，并且在<strong>调用</strong><code>lambda</code>时访问它——而不是在<strong>定义</strong>它时。<br>当循环结束时，<code>myx</code>的值是3，所以所有的函数现在返回<code>3**2</code>，即9。你可以通过更改<code>myx</code>的值来验证这一点，即使退出了循环，列表中的函数仍然发生了变化且是suooyu并查看<code>lambdas</code>的结果如何变化:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">myx = <span class="number">8</span></span><br><span class="line">func[<span class="number">1</span>]()</span><br><span class="line"><span class="comment"># 输出：64，且func[0](), func[2](), func[3]()皆输出64</span></span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h3 id="3-3-作用域和闭包"><a href="#3-3-作用域和闭包" class="headerlink" title="3.3.作用域和闭包"></a>3.3.作用域和闭包</h3><p>来自<a target="_blank" rel="noopener" href="https://stackoverflow.com/users/181765/max-shawabkeh">Max Shawabkeh</a>的解释，<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/2295290/what-do-lambda-function-closures-capture/2295368#2295368">原文链接</a>：</p>
+<blockquote>
+<p>Scoping in Python is dynamic and lexical. A closure will always remember the name and scope of the variable, not the object it’s pointing to. Since all the functions in your example are created in the same scope and use the same variable name, they always refer to the same variable.</p>
+<p><strong>翻译：</strong>Python的作用域是动态且词汇丰富的。闭包将始终记住变量的名称和范围，而不是其指向的对象。由于示例中的所有函数都是在同一作用域中创建的，并且使用相同的变量名称，因此它们始终引用相同的变量。</p>
+</blockquote>
+<hr>
+<p>来自<a target="_blank" rel="noopener" href="https://stackoverflow.com/users/15055/claudiu">Claudiu</a>的解释：</p>
+<blockquote>
+<p>Python has static scoping, not dynamic scoping.. it’s just all variables are references, so when you set a variable to a new object, the variable itself (the reference) has the same location, but it points to something else.</p>
+<p><strong>翻译：</strong>Python具有静态作用域，而不是动态作用域。它只是所有变量都是引用，因此当您将变量设置为新对象时，变量本身（引用）具有相同的位置，但指向其他对象。</p>
+</blockquote>
+<hr>
+<p>来自<a target="_blank" rel="noopener" href="https://www.jianshu.com/u/04c94aef17d6">欢喜明</a>的解释，<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/4aad4c6baeb1">原文链接</a>：</p>
+<blockquote>
+<p>函数在定义的时候，并没有分配内存空间用来保存任何变量的值，只有在执行的时候才会分配空间保存变量的值。</p>
+<p>Python的作用域由<code>def</code>、<code>class</code>、<code>lambda</code>等语句产生，而<code>if</code>、<code>try</code>、<code>for</code>等语句并不会产生新的作用域。</p>
+<p>Python变量名引用的查找顺序为：</p>
+<ul>
+<li>①<strong>本地作用域（Local）</strong>；</li>
+<li>②<strong>外围作用域</strong>，即当前作用域是一个内嵌作用域（Enclosing Locals）；</li>
+<li>③<strong>全局/模块作用域（Global）</strong>，即模块内的作用域，其作用范围是单一文件内；</li>
+<li>④<strong>内置作用域（Built-in）</strong>。</li>
+</ul>
+</blockquote>
+<hr>
+<p>来自<a target="_blank" rel="noopener" href="https://www.zhihu.com/people/wudikucha">千山飞雪</a>的解释，<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/22229197">原文链接</a>：</p>
+<blockquote>
+<p>在一个内部函数中，对外部作用域的变量进行引用，(并且一般外部函数的返回值为内部函数)，那么内部函数就被认为是闭包。</p>
+<p>闭包无法修改外部函数的局部变量；python循环中不包含域的概念。</p>
+</blockquote>
+<hr>
+<p>来自<a target="_blank" rel="noopener" href="https://stackoverflow.com/users/197325/walter-mundt">Walter Mundt</a>的解释，<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/11408515/about-python-closure/11408601#11408601">原文链接</a>：</p>
+<blockquote>
+<p>The corollary is that the outer function can change <code>i</code> but the inner function cannot (since that would make <code>i</code> a local instead of a closure based on Python’s syntactic rules).</p>
+<p><strong>翻译：</strong>结论是外部函数可以更改<code>i</code>，而内部函数则不能（因为这将使<code>i</code>成为局部变量，而不是基于Python语法规则的闭包）。</p>
+</blockquote>
+<h3 id="3-4-解决方案"><a href="#3-4-解决方案" class="headerlink" title="3.4.解决方案"></a>3.4.解决方案</h3><blockquote>
+<p>以上文所举的<a href="#3-1-%E9%97%AE%E9%A2%98%E5%BC%95%E5%85%A5">一个简单的例子</a>来说明。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 一个简单的例子</span></span><br><span class="line">func = []</span><br><span class="line"><span class="keyword">for</span> myx <span class="keyword">in</span> range(<span class="number">4</span>):</span><br><span class="line">    func.append(<span class="keyword">lambda</span>: myx**<span class="number">2</span>)</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h4 id="方案一：带默认值的参数"><a href="#方案一：带默认值的参数" class="headerlink" title="方案一：带默认值的参数"></a>方案一：带默认值的参数</h4><p><strong>①</strong>使用具有默认值的参数来强制捕获变量，即<a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3/faq/programming.html#why-do-lambdas-defined-in-a-loop-with-different-values-all-return-the-same-result">官方文档</a>所谓之<strong>「将值保存在<code>lambdas</code>的局部变量中」</strong>：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">func = []</span><br><span class="line"><span class="keyword">for</span> myx <span class="keyword">in</span> range(<span class="number">4</span>):</span><br><span class="line">    func.append(<span class="keyword">lambda</span> tmp=myx: tmp**<span class="number">2</span>)</span><br></pre></td></tr></table></figure><br><strong>②</strong>上述方法①等价的写法：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">func = []</span><br><span class="line"><span class="keyword">for</span> myx <span class="keyword">in</span> range(<span class="number">4</span>):</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">myfunc</span>(<span class="params">tmp=myx</span>):</span></span><br><span class="line">        <span class="keyword">return</span> tmp**<span class="number">2</span></span><br><span class="line">    func.append(myfunc)</span><br></pre></td></tr></table></figure></p>
+<h4 id="方案二：使内部函数成为闭包"><a href="#方案二：使内部函数成为闭包" class="headerlink" title="方案二：使内部函数成为闭包"></a>方案二：使内部函数成为闭包</h4><p><strong>①</strong>创建一个外部函数包裹内部函数，使内部函数成为闭包，<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">func = []</span><br><span class="line"><span class="keyword">for</span> myx <span class="keyword">in</span> range(<span class="number">4</span>):</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">makefunc</span>(<span class="params">myx</span>):</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">myfunc</span>():</span></span><br><span class="line">            <span class="keyword">return</span> myx**<span class="number">2</span></span><br><span class="line">        <span class="keyword">return</span> myfunc</span><br><span class="line">    func.append(makefunc(myx))</span><br></pre></td></tr></table></figure><br><strong>②</strong>上述方法①可以简化为使用单个的<code>makefunc()</code>函数：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">makefunc</span>(<span class="params">myx</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">myfunc</span>():</span></span><br><span class="line">        <span class="keyword">return</span> myx**<span class="number">2</span></span><br><span class="line">    <span class="keyword">return</span> myfunc</span><br><span class="line"></span><br><span class="line">func = []</span><br><span class="line"><span class="keyword">for</span> myx <span class="keyword">in</span> range(<span class="number">4</span>):</span><br><span class="line">    func.append(makefunc(myx))</span><br></pre></td></tr></table></figure><br><strong>③</strong>当内部函数较为简单时，可以使用<code>lambda</code>简化代码：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">makefunc</span>(<span class="params">param</span>):</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">lambda</span>: param**<span class="number">2</span></span><br><span class="line"></span><br><span class="line">func = []</span><br><span class="line"><span class="keyword">for</span> myx <span class="keyword">in</span> range(<span class="number">4</span>):</span><br><span class="line">    func.append(makefunc(myx))</span><br></pre></td></tr></table></figure><br><strong>④</strong>同样，可以使用<strong>嵌套</strong>的<code>lambda</code>函数简化上述方法①的代码，这可能看起来不太直观：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">func = []</span><br><span class="line"><span class="keyword">for</span> myx <span class="keyword">in</span> range(<span class="number">4</span>):</span><br><span class="line">    func.append((<span class="keyword">lambda</span> myx: <span class="keyword">lambda</span>: myx**<span class="number">2</span>)(myx))</span><br></pre></td></tr></table></figure></p>
+<h4 id="方案三：使用标准库函数partial"><a href="#方案三：使用标准库函数partial" class="headerlink" title="方案三：使用标准库函数partial"></a>方案三：使用标准库函数<code>partial</code></h4><p>Python的<code>functools</code>模块提供了「偏函数<code>partial</code>」，其返回一个新的「<code>partial</code>对象」（<a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3/library/functools.html#partial-objects">参考这里</a>），它会被「冻结了」一部分函数参数和/或关键字的部分函数应用所使用，从而得到一个具有简化签名的新对象。<a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3/library/functools.html#functools.partial">官方文档</a>如图所示：<br><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/few-pics/20201127functools.partial.png" alt="偏函数functools.partial官方文档"> </p>
+<p>其他参考资料：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/wiki/1016959663602400/1017454145929440">廖雪峰的官方网站之偏函数</a>；</li>
+<li><a target="_blank" rel="noopener" href="https://wiki.jikexueyuan.com/project/explore-python/Functional/partial.html">极客学院之Python的partial函数</a>；</li>
+<li><a target="_blank" rel="noopener" href="https://www.runoob.com/w3cnote/python-partial.html">菜鸟教程之Python偏函数</a>；</li>
+</ul>
+<p>方案三代码：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> partial</span><br><span class="line">func = []</span><br><span class="line"><span class="keyword">for</span> myx <span class="keyword">in</span> range(<span class="number">4</span>):</span><br><span class="line">    func.append(partial(<span class="keyword">lambda</span> param: param**<span class="number">2</span>, myx))</span><br></pre></td></tr></table></figure></p>
+<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/users/7851470/georgy">Georgy</a>认为，<code>lambda</code>可以使用<code>functools.partial</code>来代替，这是一种语法更简单的方法。以下是一个便于理解的例子，<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/19837486/python-lambda-in-a-loop/57288183#57288183">原文链接</a>：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">nums = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"></span><br><span class="line">lambdas = [<span class="keyword">lambda</span>: print(i) <span class="keyword">for</span> i <span class="keyword">in</span> nums]</span><br><span class="line">binding = [<span class="keyword">lambda</span> i=i: print(i) <span class="keyword">for</span> i <span class="keyword">in</span> nums]</span><br><span class="line">partials = [partial(<span class="keyword">print</span>, i) <span class="keyword">for</span> i <span class="keyword">in</span> nums]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> function <span class="keyword">in</span> lambdas:</span><br><span class="line">    function()  <span class="comment"># 输出：3 3 3</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> function <span class="keyword">in</span> binding:</span><br><span class="line">    function()  <span class="comment"># 输出：1 2 3</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> function <span class="keyword">in</span> partials:</span><br><span class="line">    function()  <span class="comment"># 输出：1 2 3</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="3-5-说明"><a href="#3-5-说明" class="headerlink" title="3.5.说明"></a>3.5.说明</h3><ul>
+<li>上述各例中的函数调用时是不需要传参的，这对于需要传参的函数没什么区别。</li>
+<li>本文以循环中的<code>lambda</code>函数引入作用域及闭包问题，但需注意的是<strong>这种行为并不是<code>lambda</code>所特有的，也适用于常规函数</strong>。</li>
+</ul>
+<p>上述各种方案运行结果如下：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">方案名</th>
+<th style="text-align:center">描述</th>
+<th style="text-align:center">运行结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">方案一①</td>
+<td style="text-align:center">带默认值的参数，<br>使用<code>lambda</code></td>
+<td style="text-align:center"><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/few-pics/20201128164732.png" alt="方案一①结果"></td>
+</tr>
+<tr>
+<td style="text-align:center">方案一②</td>
+<td style="text-align:center">带默认值的参数，<br>不使用<code>lambda</code></td>
+<td style="text-align:center"><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/few-pics/20201128164854.png" alt="方案一②结果"></td>
+</tr>
+<tr>
+<td style="text-align:center">方案二①</td>
+<td style="text-align:center">使内部函数成为闭包，<br>函数置于循环中</td>
+<td style="text-align:center"><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/few-pics/20201128164953.png" alt="方案二①结果"></td>
+</tr>
+<tr>
+<td style="text-align:center">方案二②</td>
+<td style="text-align:center">使内部函数成为闭包，<br>使用单个的<code>makefunc()</code>函数</td>
+<td style="text-align:center"><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/few-pics/20201128165128.png" alt="方案二②结果"></td>
+</tr>
+<tr>
+<td style="text-align:center">方案二③</td>
+<td style="text-align:center">使内部函数成为闭包，<br>使用<code>lambda</code>的单个函数</td>
+<td style="text-align:center"><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/few-pics/20201128165223.png" alt="方案二③结果"></td>
+</tr>
+<tr>
+<td style="text-align:center">方案二④</td>
+<td style="text-align:center">使内部函数成为闭包，<br>使用嵌套的<code>lambda</code>的函数</td>
+<td style="text-align:center"><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/few-pics/20201128165328.png" alt="方案二④结果"></td>
+</tr>
+<tr>
+<td style="text-align:center">方案三</td>
+<td style="text-align:center">使用标准库函数<br><code>functools.partial</code></td>
+<td style="text-align:center"><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/few-pics/20201128165433.png" alt="方案三结果"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="4-实际问题的解决办法"><a href="#4-实际问题的解决办法" class="headerlink" title="4.实际问题的解决办法"></a>4.实际问题的解决办法</h2><p>至此，解决方案很简单了，只需要绑定外部变量到<code>lambda</code>函数中即可，就像在函数中设置默认值一样<code>def myfunc(x, tmp=i)</code>：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cons</span>():</span></span><br><span class="line">    cons = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">3</span>):</span><br><span class="line">        b = &#123;<span class="string">&#x27;type&#x27;</span>: <span class="string">&#x27;ineq&#x27;</span>, <span class="string">&#x27;fun&#x27;</span>: <span class="keyword">lambda</span> x, tmp=i: x[tmp] - <span class="number">0.1</span>&#125;</span><br><span class="line">        c = &#123;<span class="string">&#x27;type&#x27;</span>: <span class="string">&#x27;ineq&#x27;</span>, <span class="string">&#x27;fun&#x27;</span>: <span class="keyword">lambda</span> x, tmp=i: <span class="number">0.9</span> - x[tmp]&#125;</span><br><span class="line">        cons.append(b)</span><br><span class="line">        cons.append(c)</span><br><span class="line">    <span class="keyword">return</span> cons</span><br></pre></td></tr></table></figure><br>当然，也可以使用上文提到的另外的方法。</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-license">
+      <strong>文章作者： </strong><a href="https://hwame.top" style="color:#E541E5;"> 鴻塵</a>
+    </li>
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://hwame.top/20201020/python-lambda-in-a-for-loop.html" title="循环中的lambda函数产生的作用域及闭包问题" target="_blank" rel="external" style="color:#E541E5;">https://hwame.top/20201020/python-lambda-in-a-for-loop.html</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用《<a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external" style="color:#E541E5;"><u>CC BY 4.0 CN协议</u></a>》许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/hwame" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/hwame" target="_blank"><span class="text-dark">鴻塵</span><small class="ml-1x">Pythoner, Data Analyst</small></a></h3>
+        <div>个人简介：处女座不适合做码农。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/20201125/github-pics-with-jsdelivr.html" title="搭建Github图床并利用jsDelivr加速"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/20201008/render-matplotlib-figure-to-flaskweb.html" title="如何将matplotlib图像渲染到前端"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">
+        <span style="color:#C71585">[&nbsp;</span><span style="color:#C71585">文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span style="color:#C71585">]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,wechat,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipay.jpg" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechat.jpg" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/hwame" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/hwamei" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://www.zhihu.com/people/hwame" target="_blank" title="Zhihu" data-toggle=tooltip data-placement=top><i class="icon icon-zhihu"></i></a></li>
+        
+        <li><a href="https://segmentfault.com/u/hwame" target="_blank" title="Segmentfault" data-toggle=tooltip data-placement=top><i class="icon icon-segmentfault"></i></a></li>
+        
+        <li><a href="https://gitee.com/hwame" target="_blank" title="Gitee" data-toggle=tooltip data-placement=top><i class="icon icon-gitee"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        &copy; 2020 鴻塵
+        
+        
+        <div class="publishby" style="font-family:Courier">
+            <span id="busuanzi_container_site_pv">
+                <i class="icon icon-eye"></i><span id="busuanzi_value_site_pv" style="font-family:Courier"></span>&nbsp;
+                <i class="icon icon-users"></i><span id="busuanzi_value_site_uv" style="font-family:Courier"></span>
+            </span>
+            <!--
+            <br>✯<a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/" style="color:#0FFFAA">鄂ICP备2020019329号</a>
+            -->
+            <br><i class="icon icon-clock" style="transform:rotate(90deg)"></i><span id="sitetime" style="font-family:Courier"></span>
+        </div>
+        
+        <!--
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+        -->
+    </div>
+    
+</footer>
+<script>
+    function siteTime(){
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth()+1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+        var t1 = Date.UTC(2020,05,19,21,20,52); //建站时间
+        var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+        var diff = t2-t1;
+        var diffYears = Math.floor(diff/years);
+        var diffDays = Math.floor((diff/days)-diffYears*365);
+        var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+        var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+        var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+        // 将「数字」转「补零字符串」
+        var y = diffYears.toString()
+        var d = diffDays.toString().padStart(3, '0')
+        var h = diffHours.toString().padStart(2, '0')
+        var m = diffMinutes.toString().padStart(2, '0')
+        var s = diffSeconds.toString().padStart(2, '0')
+        document.getElementById("sitetime").innerHTML=y+":"+d+":"+h+":"+m+":"+s;
+    }
+    siteTime();
+</script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<div id="go-top"></div>
+<style type="text/css">
+#go-top {
+ width:40px;height:40px;
+ background-color:#DDA0DD;
+ position:relative;
+ border-radius:20px;
+ position:fixed;right:20px;bottom:50px;
+ cursor:pointer;display:none;
+}
+#go-top:after {
+ content:" ";
+ position:absolute;left:14px;top:14px;
+ border-top:2px solid #fff;border-right:2px solid #fff;
+ width:12px;height:12px;
+ transform:rotate(-45deg);
+}
+#go-top:hover {
+ background-color:#8A2BE2;
+}
+</style>
+<script>
+$(function () {
+  var top=$("#go-top");
+  $(window).scroll(function () {
+    ($(window).scrollTop() > 300) ? top.show(300) : top.hide(200);
+    $("#go-top").click(function () {
+      $('body,html').animate({scrollTop:0});
+      return false();
+    })
+  });
+});
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script src="//cdn.jsdelivr.net/gh/HCLonely/Valine@latest/dist/Valine.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css" />
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  var requiredFields = 'mail';
+  requiredFields = requiredFields.split(',');
+
+  new Valine({
+    el: '#vcomments',
+    appId: 'yLWKiHoPwmx7Izv4YYtC1fW2-MdYXbMMI',
+    appKey: 'h01jve7HXS6MuDLNBF5DeWTz',
+    verify: false,
+    notify: true,
+    placeholder: '🌺🌺留下邮箱才可以收到新消息提醒哦~\n🦚🦚输入QQ号可自动拉取昵称和邮箱~',
+    avatar: 'robohash',
+    meta: meta,
+    pageSize: '10' || 10,
+    enableQQ: 'true',
+    recordIP: 'true',
+    requiredFields: requiredFields,
+    visitor: true,
+    
+    master: 'f86269b0b1850cd62ca22b218aea1780',
+    friends: ['1725648a3566b8841f19423519e0a36e', '87b6f0e96e63727d889bb3653fb5867c', 'b7c8e70dc5b2bbbdbdeca1fc0e71b919'],
+    tagMeta: ['鴻塵', '蜜柚', '访客'],
+    metaPlaceholder: {"nick":"昵称/QQ号","mail":"邮箱(必填)","link":"个人主页"}
+  });
+  </script>
+
+     
+
+
+
+  <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.js"></script>
+  <script>
+  //利用 FancyBox 实现点击图片放大
+  $(document).ready(function() {
+    $('article img').not('[hidden]').not('.panel-body img').each(function() {
+      var $image = $(this);
+      var imageCaption = $image.attr('alt');
+      var $imageWrapLink = $image.parent('a');
+      if ($imageWrapLink.length < 1) {
+        var src = this.getAttribute('src');
+        var idx = src.lastIndexOf('?');
+        if (idx != -1) {
+          src = src.substring(0, idx);
+        }
+        $imageWrapLink = $image.wrap('<a href="' + src + '"></a>').parent('a');
+      }
+      $imageWrapLink.attr('data-fancybox', 'images');
+      if (imageCaption) {
+        $imageWrapLink.attr('data-caption', imageCaption);
+      }
+    });
+    $().fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: true,
+    });
+  });
+  </script>
+
+
+
+
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+      z-index: 2;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+        .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  
+  <script>
+    addLoadEvent(()=>{
+      $('.highlight').each(function (i, e) {
+        var $wrap = $('<div>').addClass('highlight-wrap')
+        $(e).after($wrap)
+        $wrap.append($('<button>').addClass('copy-btn').append('一键复制').on('click', function (e) {
+          var code = $(this).parent().find(".code")[0].innerText
+          
+          var ta = document.createElement('textarea')
+          document.body.appendChild(ta)
+          ta.style.position = 'absolute'
+          ta.style.top = '0px'
+          ta.style.left = '0px'
+          ta.value = code
+          ta.select()
+          ta.focus()
+          var result = document.execCommand('copy')
+          document.body.removeChild(ta)
+          
+            if(result)$(this).text('复制成功')
+            else $(this).text('复制失败')
+          
+          $(this).blur()
+        })).on('mouseleave', function (e) {
+          var $b = $(this).find('.copy-btn')
+          setTimeout(function () {
+            $b.text('一键复制')
+          }, 300)
+        }).append(e)
+      })
+    })
+  </script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>
