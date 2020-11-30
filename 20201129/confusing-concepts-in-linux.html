@@ -19,16 +19,21 @@
   <meta name="google-site-verification" content="-5hl8eC4wfapGZhZouwMVUcKG0iaynijVRJbqVlzXm4" />
   
   
-  <title>归档: 2020/6 | 鴻塵</title>
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Solitary">
-<meta property="og:url" content="https://hwame.top/archives/2020/06/index.html">
+  <title>Linux中易混淆的概念 | 鴻塵</title>
+  <meta name="description" content="摘要：学习Linux shell过程中的记录。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux中易混淆的概念">
+<meta property="og:url" content="https://hwame.top/20201129/confusing-concepts-in-linux.html">
 <meta property="og:site_name" content="Solitary">
+<meta property="og:description" content="摘要：学习Linux shell过程中的记录。">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-11-29T05:52:55.000Z">
+<meta property="article:modified_time" content="2020-11-29T05:52:55.000Z">
 <meta property="article:author" content="鴻塵">
+<meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://hwame.top/archives/2020/06/index.html">
+  <link rel="canonical" href="https://hwame.top/20201129/confusing-concepts-in-linux.html">
   
     <link rel="alternate" href="true" title="Solitary" type="application/atom+xml">
   
@@ -38,6 +43,8 @@
   
 <link rel="stylesheet" href="/css/style.css">
 
+  
+    <link href="//cdn.jsdelivr.net/npm/katex@0.9.0/dist/katex.min.css" rel="stylesheet">
   
   
   
@@ -388,49 +395,301 @@
 
   
   
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%8D%95%E5%BC%95%E5%8F%B7%E3%80%81%E5%8F%8C%E5%BC%95%E5%8F%B7%E5%92%8C%E5%8F%8D%E5%BC%95%E5%8F%B7"><span class="toc-text">1.单引号、双引号和反引号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E9%87%8D%E5%AE%9A%E5%90%91%E5%92%8C%E7%AE%A1%E9%81%93"><span class="toc-text">2.重定向和管道</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E9%80%80%E5%87%BA%E7%8A%B6%E6%80%81%E7%A0%81"><span class="toc-text">3.退出状态码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%BE%85%E7%BB%AD"><span class="toc-text">4.待续</span></a></li></ol>
+    </nav>
+  </div>
+</aside>
+
 <main class="main" role="main">
-  	<article class="content article article-archives article-type-list" itemscope="">
-	    <header class="article-header">
-	      <h1 itemprop="title">归档: 2020/6</h1>
-	      <p class="text-muted">共 1 篇文章</p>
-	    </header>
-	    <div class="article-body">
-	      
+  <div class="content">
+  <article id="post-confusing-concepts-in-linux" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
   
+    <h1 class="article-title" itemprop="name">
+      Linux中易混淆的概念
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar"></i>
+	<a href="/20201129/confusing-concepts-in-linux.html" class="article-date">
+	  发布于 <time datetime="2020-11-29T05:52:55.000Z" itemprop="datePublished">2020-11-29</time>
+	</a>
+</span>
+<span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/20201129/confusing-concepts-in-linux.html" class="article-date">
+	  更新于 <time datetime="2020-11-29T05:52:55.000Z" itemprop="dateUpdated">2020-11-29</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/Linux/" rel="tag">Linux</a>
+  </span>
+
+
+        
+
+	<span class="article-read hidden-xs">
+    	<i class="icon icon-eye-fill" aria-hidden="true"></i>
+    	<span id="/20201129/confusing-concepts-in-linux.html" class="leancloud_visitors"  data-flag-title="Linux中易混淆的概念">
+			<span class="leancloud-visitors-count">0</span>
+		</span>
+    </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/20201129/confusing-concepts-in-linux.html#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 983(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 3(分)</span>
+	
+
+      </div>
+      <div style="background-color:#D7BDE2;border:1px solid #D7BDE2;border-radius:10px;padding:5px">
+          <b>温馨提示</b>：点击页面下方<i style="color:red" class="icon icon-anchor"></i>以展开或折叠目录
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>摘要：学习Linux shell过程中的记录。<a id="more"></a></p>
+<blockquote>
+<p><font size=5><b>文章说明</b></font><br><strong>文章作者：</strong><a href="https://hwame.top">鴻塵</a><br><strong>文章说明：</strong>学习<code>Linux</code> <code>shell</code>过程中的记录，参考书籍主要有《Linux命令行与shell脚本编程大全（第3版）》，《鸟哥的Linux私房菜（第三版）》系列和《快乐的 Linux 命令行》，参考资料主要有<a target="_blank" rel="noopener" href="https://man.linuxde.net/">Linux命令大全</a>等。<br><strong>文章链接：</strong><a href="https://hwame.top/20201129/confusing-concepts-in-linux.html">https://hwame.top/20201129/confusing-concepts-in-linux.html</a></p>
+</blockquote>
+<h2 id="1-单引号、双引号和反引号"><a href="#1-单引号、双引号和反引号" class="headerlink" title="1.单引号、双引号和反引号"></a>1.单引号、双引号和反引号</h2><p><strong>①</strong><code>echo</code>命令可用单引号或双引号来划定文本字符串。如果在字符串中用到了它们，你需要在文本中使用其中一种引号，而用另外一种来将字符串划定起来。</p>
+<ul>
+<li>单引号字符串的限制：<ul>
+<li>单引号里的任何字符都会原样输出，单引号字符串中的变量是无效的；</li>
+<li>单引号字串中不能出现单独一个的单引号（对单引号使用转义符后也不行），但可成对出现，作为字符串拼接使用。</li>
+</ul>
+</li>
+<li>双引号的优点：<ul>
+<li>双引号里可以有变量</li>
+<li>双引号里可以出现转义字符</li>
+</ul>
+</li>
+</ul>
+<p><strong>②</strong>反引号<code>ˋ</code>用于从命令输出中提取信息，将命令输出赋给变量，另一种格式是<code>$()</code>，例如：</p>
+<p><strong>注意：</strong>赋值等号和命令替换字符之间没有空格。<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">testing</span>=`date`</span><br><span class="line"><span class="attr">testing</span>=$(date)</span><br></pre></td></tr></table></figure></p>
+<h2 id="2-重定向和管道"><a href="#2-重定向和管道" class="headerlink" title="2.重定向和管道"></a>2.重定向和管道</h2><ul>
+<li>输出重定向（<code>&gt;</code>）：将命令的输出发送到一个文件中，其中单大于号（<code>&gt;</code>）会覆盖文件内容，双大于号（<code>&gt;&gt;</code>）用以向文件追加数据。</li>
+<li>输入重定向（<code>&lt;</code>）：将文件的内容重定向到命令，与输出重定向正好相反。</li>
+<li>内联输入重定向（<code>&lt;&lt;</code>）：输入重定向的另一种方法，这种方法无需使用文件进行重定向，只需要在命令行中指定用于输入重定向的数据就可以了。必须指定一个文本标记来划分输入数据的开始和结尾。任何字符串都可作为文本标记，但在数据的开始和结尾文本标记必须一致。<blockquote>
+<p><strong>记忆方法：</strong>在命令行上，命令总是在左侧，而重定向符号「指向」数据流动的方向。小于号说明数据正在从输入文件流向命令。</p>
+</blockquote>
+</li>
+<li>管道（<code>|</code>）：将一个命令的输出作为另一个命令的输入（虽然可以用重定向来实现，但是有些笨拙）。<blockquote>
+<p><strong>注意：</strong></p>
+<ul>
+<li><strong>①</strong>不要以为由管道串起的两个命令会依次执行。 Linux系统实际上会同时运行这两个命令，在系统内部将它们连接起来。在第一个命令产生输出的同时，输出会被立即送给第二个命令。数据传输不会用到任何中间文件或缓冲区。</li>
+<li><strong>②</strong>可以在一条命令中使用任意多条管道。</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<h2 id="3-退出状态码"><a href="#3-退出状态码" class="headerlink" title="3.退出状态码"></a>3.退出状态码</h2><p>shell中运行的每个命令都使用退出状态码（exit status）告诉shell它已经运行完毕。</p>
+<p>按照惯例，<strong>一个成功结束的命令的退出状态码是0</strong>。如果一个命令结束时有错误，退出状态码就是一个正数值。</p>
+<p>退出状态码是一个<code>0～255</code>的整数值，在命令结束运行时由命令传给shell，可以使用变量<code>$?</code>捕获这个值（上个已执行命令的退出状态码）并在脚本中使用。<br>自定义退出状态码（<code>exit n</code>）时，若<code>n</code>超出<code>0~255</code>区间则对<code>256</code>取余。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">状态码</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>0</code></td>
+<td style="text-align:left">命令成功结束</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>1</code></td>
+<td style="text-align:left">一般性未知错误</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>2</code></td>
+<td style="text-align:left">不适合的shell命令</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>126</code></td>
+<td style="text-align:left">命令不可执行</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>127</code></td>
+<td style="text-align:left">没找到命令</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>128</code></td>
+<td style="text-align:left">无效的退出参数</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>128+x</code></td>
+<td style="text-align:left">与Linux信号<code>x</code>相关的严重错误</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>130</code></td>
+<td style="text-align:left">通过<code>Ctrl+C</code>终止的命令</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>255</code></td>
+<td style="text-align:left">正常范围之外的退出状态码</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="4-待续"><a href="#4-待续" class="headerlink" title="4.待续"></a>4.待续</h2>
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-license">
+      <strong>文章作者： </strong><a href="https://hwame.top" style="color:#E541E5;"> 鴻塵</a>
+    </li>
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://hwame.top/20201129/confusing-concepts-in-linux.html" title="Linux中易混淆的概念" target="_blank" rel="external" style="color:#E541E5;">https://hwame.top/20201129/confusing-concepts-in-linux.html</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用《<a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external" style="color:#E541E5;"><u>CC BY 4.0 CN协议</u></a>》许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/hwame" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/hwame" target="_blank"><span class="text-dark">鴻塵</span><small class="ml-1x">Pythoner, Data Analyst</small></a></h3>
+        <div>个人简介：处女座不适合做码农。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
   
     
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
     
-      
-      
-      <section class="panel panel-default b-no">
-        <div class="panel-heading" role="tab">
-          <h3 class="panel-title">
-            <a data-toggle="collapse" href="#collapse2020" aria-expanded="true">
-              <i class="icon icon-calendar-plus text-active"></i><i class="icon icon-calendar-minus text"></i>
-              2020
-            </a>
-            <!-- <a href="/archives/2020" class="archive-year">2020</a> -->
-          </h3>
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/20201129/rules-of-linux.html" title="Linux世界的规则"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">
+        <span style="color:#C71585">[&nbsp;</span><span style="color:#C71585">文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span style="color:#C71585">]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,wechat,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipay.jpg" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechat.jpg" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
         </div>
-        <div id="collapse2020" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading2020">
-        <div class="panel-body">
-          <div class="collection">
-    
-    
-<a href="/20200604/shortest-leetcode-python-solutions.html" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2020-06-04T13:32:55.000Z" itemprop="datePublished">2020-06-04</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> 力扣简洁优雅的python解法
-</a>
+      </div>
+    </div>
+  </div>
+</div>
 
 
-  
-  
-    </div></div></div></section>
-  
 
-	    </div>
-  	</article>
-  	 	
 </main>
 
   <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -585,6 +844,50 @@ $(function () {
 
 
 
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script src="//cdn.jsdelivr.net/gh/HCLonely/Valine@latest/dist/Valine.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css" />
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  var requiredFields = 'mail';
+  requiredFields = requiredFields.split(',');
+
+  new Valine({
+    el: '#vcomments',
+    appId: 'yLWKiHoPwmx7Izv4YYtC1fW2-MdYXbMMI',
+    appKey: 'h01jve7HXS6MuDLNBF5DeWTz',
+    verify: false,
+    notify: true,
+    placeholder: '🌺🌺留下邮箱才可以收到新消息提醒哦~\n🦚🦚输入QQ号可自动拉取昵称和邮箱~',
+    avatar: 'robohash',
+    meta: meta,
+    pageSize: '10' || 10,
+    enableQQ: 'true',
+    recordIP: 'true',
+    requiredFields: requiredFields,
+    visitor: true,
+    
+    master: 'f86269b0b1850cd62ca22b218aea1780',
+    friends: ['1725648a3566b8841f19423519e0a36e', '87b6f0e96e63727d889bb3653fb5867c', 'b7c8e70dc5b2bbbdbdeca1fc0e71b919'],
+    tagMeta: ['鴻塵', '蜜柚', '访客'],
+    metaPlaceholder: {"nick":"昵称/QQ号","mail":"邮箱(必填)","link":"个人主页"}
+  });
+  </script>
+
+     
 
 
 

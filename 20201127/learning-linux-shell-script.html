@@ -20,18 +20,20 @@
   
   
   <title>Linux下shell脚本编程学习 | 鴻塵</title>
-  <meta name="description" content="文章说明文章作者：鴻塵文章说明：学习shell过程中的记录，参考书籍主要有《Linux命令行与shell脚本编程大全（第3版）》，《鸟哥的Linux私房菜（第三版）》系列和《快乐的 Linux 命令行》，参考资料主要有Linux命令大全等。文章链接：https:&#x2F;&#x2F;hwame.top&#x2F;20201127&#x2F;learning-linux-shell-script.html  1.2.3.">
+  <meta name="description" content="文章说明文章作者：鴻塵文章说明：学习shell过程中的记录，参考书籍主要有《Linux命令行与shell脚本编程大全（第3版）》，《鸟哥的Linux私房菜（第三版）》系列和《快乐的 Linux 命令行》，参考资料主要有Linux命令大全等。文章链接：https:&#x2F;&#x2F;hwame.top&#x2F;20201127&#x2F;learning-linux-shell-script.html  1.构建基本脚本1.1.创">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux下shell脚本编程学习">
 <meta property="og:url" content="https://hwame.top/20201127/learning-linux-shell-script.html">
 <meta property="og:site_name" content="Solitary">
-<meta property="og:description" content="文章说明文章作者：鴻塵文章说明：学习shell过程中的记录，参考书籍主要有《Linux命令行与shell脚本编程大全（第3版）》，《鸟哥的Linux私房菜（第三版）》系列和《快乐的 Linux 命令行》，参考资料主要有Linux命令大全等。文章链接：https:&#x2F;&#x2F;hwame.top&#x2F;20201127&#x2F;learning-linux-shell-script.html  1.2.3.">
+<meta property="og:description" content="文章说明文章作者：鴻塵文章说明：学习shell过程中的记录，参考书籍主要有《Linux命令行与shell脚本编程大全（第3版）》，《鸟哥的Linux私房菜（第三版）》系列和《快乐的 Linux 命令行》，参考资料主要有Linux命令大全等。文章链接：https:&#x2F;&#x2F;hwame.top&#x2F;20201127&#x2F;learning-linux-shell-script.html  1.构建基本脚本1.1.创">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/shell/20201130多个测试命令.png">
 <meta property="article:published_time" content="2020-11-27T06:19:03.000Z">
-<meta property="article:modified_time" content="2020-11-28T09:22:24.601Z">
+<meta property="article:modified_time" content="2020-11-30T13:50:49.510Z">
 <meta property="article:author" content="鴻塵">
 <meta property="article:tag" content="shell">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/shell/20201130多个测试命令.png">
   <!-- Canonical links -->
   <link rel="canonical" href="https://hwame.top/20201127/learning-linux-shell-script.html">
   
@@ -54,6 +56,7 @@
 <meta name="generator" content="Hexo 5.0.2"></head>
 
 
+<script src="https://cdn.jsdelivr.net/gh/bobcn/hexo_resize_image.js@master/hexo_resize_image.js"></script>
 <body class="main-center theme-purple" itemscope itemtype="http://schema.org/WebPage">
   <header class="header" itemscope itemtype="http://schema.org/WPHeader">
   <div class="slimContent">
@@ -227,7 +230,7 @@
   <div class="widget">
     <h3 class="widget-title">标签云</h3>
     <div class="widget-body tagcloud">
-      <a href="/tags/CentOS/" style="font-size: 13px;">CentOS</a> <a href="/tags/Hexo/" style="font-size: 14px;">Hexo</a> <a href="/tags/Linux/" style="font-size: 13.67px;">Linux</a> <a href="/tags/Linux%E9%83%A8%E7%BD%B2/" style="font-size: 13px;">Linux部署</a> <a href="/tags/Spark/" style="font-size: 13px;">Spark</a> <a href="/tags/matplotlib/" style="font-size: 13.33px;">matplotlib</a> <a href="/tags/python/" style="font-size: 14px;">python</a> <a href="/tags/shell/" style="font-size: 13px;">shell</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 13px;">大数据</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" style="font-size: 13px;">数据结构与算法</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 13px;">爬虫</a>
+      <a href="/tags/CentOS/" style="font-size: 13px;">CentOS</a> <a href="/tags/Hexo/" style="font-size: 14px;">Hexo</a> <a href="/tags/Linux/" style="font-size: 14px;">Linux</a> <a href="/tags/Linux%E9%83%A8%E7%BD%B2/" style="font-size: 13px;">Linux部署</a> <a href="/tags/Spark/" style="font-size: 13px;">Spark</a> <a href="/tags/matplotlib/" style="font-size: 13.5px;">matplotlib</a> <a href="/tags/python/" style="font-size: 14px;">python</a> <a href="/tags/shell/" style="font-size: 13px;">shell</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 13px;">大数据</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" style="font-size: 13px;">数据结构与算法</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 13px;">爬虫</a>
     </div>
   </div>
 
@@ -236,7 +239,7 @@
   <div class="widget">
     <h3 class="widget-title">分类</h3>
     <div class="widget-body">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -246,7 +249,7 @@
   <div class="widget">
     <h3 class="widget-title">归档</h3>
     <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a><span class="archive-list-count">10</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a><span class="archive-list-count">10</span></li></ul>
     </div>
   </div>
 
@@ -258,6 +261,56 @@
     <div class="widget-body">
       <ul class="recent-post-list list-unstyled ">
         
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20201129/confusing-concepts-in-linux.html" class="thumb">
+    
+    
+        <span style="background-image:url(https://cdn.jsdelivr.net/gh/hwame/pics@main/post-pics/linux-icon.png)" alt="Linux中易混淆的概念" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Linux/">Linux</a>
+              </p>
+              <p class="item-title">
+                <a href="/20201129/confusing-concepts-in-linux.html" class="title">Linux中易混淆的概念</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-11-29T05:52:55.000Z" itemprop="datePublished">2020-11-29</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20201129/rules-of-linux.html" class="thumb">
+    
+    
+        <span style="background-image:url(https://cdn.jsdelivr.net/gh/hwame/pics@main/post-pics/linux-icon.png)" alt="Linux世界的规则" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Linux/">Linux</a>
+              </p>
+              <p class="item-title">
+                <a href="/20201129/rules-of-linux.html" class="title">Linux世界的规则</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-11-29T05:51:52.000Z" itemprop="datePublished">2020-11-29</time>
+              </p>
+            </div>
+          </li>
+          
           <li>
             
             <div class="item-thumb">
@@ -333,56 +386,6 @@
             </div>
           </li>
           
-          <li>
-            
-            <div class="item-thumb">
-              <a href="/20201008/render-matplotlib-figure-to-flaskweb.html" class="thumb">
-    
-    
-        <span style="background-image:url(https://cdn.jsdelivr.net/gh/hwame/pics@main/few-pics/20201008效果预览.png)" alt="如何将matplotlib图像渲染到前端" class="thumb-image"></span>
-    
-</a>
-
-            </div>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                <a class="category-link" href="/categories/python/">python</a>
-              </p>
-              <p class="item-title">
-                <a href="/20201008/render-matplotlib-figure-to-flaskweb.html" class="title">如何将matplotlib图像渲染到前端</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2020-10-08T01:06:32.000Z" itemprop="datePublished">2020-10-08</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-thumb">
-              <a href="/20200604/shortest-leetcode-python-solutions.html" class="thumb">
-    
-    
-        <span style="background-image:url(https://cdn.jsdelivr.net/gh/hwame/pics@main/post-pics/data-structure-algorithm.png)" alt="力扣简洁优雅的python解法" class="thumb-image"></span>
-    
-</a>
-
-            </div>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                <a class="category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a>
-              </p>
-              <p class="item-title">
-                <a href="/20200604/shortest-leetcode-python-solutions.html" class="title">力扣简洁优雅的python解法</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2020-06-04T13:32:55.000Z" itemprop="datePublished">2020-06-04</time>
-              </p>
-            </div>
-          </li>
-          
       </ul>
     </div>
   </div>
@@ -398,7 +401,7 @@
   <div class="slimContent">
     <nav id="toc" class="article-toc">
       <h3 class="toc-title">文章目录</h3>
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1"><span class="toc-text">1.</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2"><span class="toc-text">2.</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3"><span class="toc-text">3.</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%9E%84%E5%BB%BA%E5%9F%BA%E6%9C%AC%E8%84%9A%E6%9C%AC"><span class="toc-text">1.构建基本脚本</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E5%88%9B%E5%BB%BAshell%E8%84%9A%E6%9C%AC%E6%96%87%E4%BB%B6"><span class="toc-text">1.1.创建shell脚本文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E8%BF%90%E8%A1%8C%E8%84%9A%E6%9C%AC"><span class="toc-text">1.2.运行脚本</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E4%BD%BF%E7%94%A8%E7%BB%93%E6%9E%84%E5%8C%96%E5%91%BD%E4%BB%A4"><span class="toc-text">2.使用结构化命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E4%BD%BF%E7%94%A8if-then%E8%AF%AD%E5%8F%A5"><span class="toc-text">2.1.使用if-then语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E4%BD%BF%E7%94%A8if-then-else%E8%AF%AD%E5%8F%A5"><span class="toc-text">2.2.使用if-then-else语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E4%BD%BF%E7%94%A8%E5%B5%8C%E5%A5%97%E7%9A%84if%E8%AF%AD%E5%8F%A5"><span class="toc-text">2.3.使用嵌套的if语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-test%E5%91%BD%E4%BB%A4"><span class="toc-text">2.4.test命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E5%80%BC%E6%AF%94%E8%BE%83"><span class="toc-text">数值比较</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%AF%94%E8%BE%83"><span class="toc-text">字符串比较</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E6%AF%94%E8%BE%83"><span class="toc-text">文件比较</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-%E5%A4%8D%E5%90%88%E6%9D%A1%E4%BB%B6%E6%B5%8B%E8%AF%95"><span class="toc-text">2.5.复合条件测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-6-if-then%E7%9A%84%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7"><span class="toc-text">2.6.if-then的高级特性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-7-case%E5%91%BD%E4%BB%A4"><span class="toc-text">2.7.case命令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5"><span class="toc-text">3.循环语句</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-for%E5%91%BD%E4%BB%A4"><span class="toc-text">3.1.for命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-C%E8%AF%AD%E8%A8%80%E9%A3%8E%E6%A0%BC%E7%9A%84for%E5%91%BD%E4%BB%A4"><span class="toc-text">3.2.C语言风格的for命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-while%E5%91%BD%E4%BB%A4"><span class="toc-text">3.3.while命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-until%E5%91%BD%E4%BB%A4"><span class="toc-text">3.4.until命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-%E5%B5%8C%E5%A5%97%E5%BE%AA%E7%8E%AF"><span class="toc-text">3.5.嵌套循环</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6-%E5%BE%AA%E7%8E%AF%E5%A4%84%E7%90%86%E6%96%87%E4%BB%B6%E6%95%B0%E6%8D%AE"><span class="toc-text">3.6.循环处理文件数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-7-%E6%8E%A7%E5%88%B6%E5%BE%AA%E7%8E%AF"><span class="toc-text">3.7.控制循环</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-8-%E5%A4%84%E7%90%86%E5%BE%AA%E7%8E%AF%E7%9A%84%E8%BE%93%E5%87%BA"><span class="toc-text">3.8.处理循环的输出</span></a></li></ol></li></ol>
     </nav>
   </div>
 </aside>
@@ -427,7 +430,7 @@
 <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/20201127/learning-linux-shell-script.html" class="article-date">
-	  更新于 <time datetime="2020-11-28T09:22:24.601Z" itemprop="dateUpdated">2020-11-28</time>
+	  更新于 <time datetime="2020-11-30T13:50:49.510Z" itemprop="dateUpdated">2020-11-30</time>
 	</a>
 </span>
         
@@ -455,10 +458,10 @@
         <span class="post-comment"><i class="icon icon-comment"></i> <a href="/20201127/learning-linux-shell-script.html#comments" class="article-comment-link">评论</a></span>
         
 	
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 93(字)</span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 4k(字)</span>
 	
 	
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1(分)</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 14(分)</span>
 	
 
       </div>
@@ -471,7 +474,218 @@
         <blockquote>
 <p><font size=5><b>文章说明</b></font><br><strong>文章作者：</strong><a href="https://hwame.top">鴻塵</a><br><strong>文章说明：</strong>学习<code>shell</code>过程中的记录，参考书籍主要有《Linux命令行与shell脚本编程大全（第3版）》，《鸟哥的Linux私房菜（第三版）》系列和《快乐的 Linux 命令行》，参考资料主要有<a target="_blank" rel="noopener" href="https://man.linuxde.net/">Linux命令大全</a>等。<br><strong>文章链接：</strong><a href="https://hwame.top/20201127/learning-linux-shell-script.html">https://hwame.top/20201127/learning-linux-shell-script.html</a></p>
 </blockquote>
-<h2 id="1"><a href="#1" class="headerlink" title="1."></a>1.</h2><h2 id="2"><a href="#2" class="headerlink" title="2."></a>2.</h2><h2 id="3"><a href="#3" class="headerlink" title="3."></a>3.</h2>
+<h2 id="1-构建基本脚本"><a href="#1-构建基本脚本" class="headerlink" title="1.构建基本脚本"></a>1.构建基本脚本</h2><h3 id="1-1-创建shell脚本文件"><a href="#1-1-创建shell脚本文件" class="headerlink" title="1.1.创建shell脚本文件"></a>1.1.创建shell脚本文件</h3><p>创建shell脚本文件时，必须在文件的<strong>第一行</strong>指定要使用的shell。其格式为：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br></pre></td></tr></table></figure><br>在指定了shell之后，就可以在文件的每一行中输入命令，然后加一个回车符。</p>
+<p>在通常的shell脚本中，井号（<code>#</code>）用作注释行。shell不会解释以<code>#</code>#开头的行（除了以<code>#!</code>开头的第一行）。</p>
+<h3 id="1-2-运行脚本"><a href="#1-2-运行脚本" class="headerlink" title="1.2.运行脚本"></a>1.2.运行脚本</h3><p><strong>①作为可执行程序</strong><br>首先需要具有执行权限：<code>chmod +x ./myfile</code>，然后在脚本所在目录输入<code>./myfile</code>执行脚本。<br><strong>注意：</strong>若直接输入<code>myfile</code>则会报错「命令未找到」，因为shell会通过<code>PATH</code>环境变量来查找命令，所以可以采取两种方法：</p>
+<ul>
+<li>将shell脚本文件所处的目录添加到<code>PATH</code>环境变量中；</li>
+<li>用绝对或相对文件路径来引用shell脚本文件，如上使用相对路径。</li>
+</ul>
+<p><strong>②作为解释器参数</strong><br>直接运行解释器，其参数就是shell脚本的文件名。例如<code>/bin/sh myfile</code>。注意，Linux下的可执行文件不需要拓展名，只需要拥有执行权限即可，因此文件名为<code>myfile</code>或<code>myfile.sh</code>都行。</p>
+<h2 id="2-使用结构化命令"><a href="#2-使用结构化命令" class="headerlink" title="2.使用结构化命令"></a>2.使用结构化命令</h2><h3 id="2-1-使用if-then语句"><a href="#2-1-使用if-then语句" class="headerlink" title="2.1.使用if-then语句"></a>2.1.使用<code>if-then</code>语句</h3><p>最基本的结构化命令就是<code>if-then</code>语句。<code>if-then</code>语句有如下格式：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="built_in">command</span></span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">    commands</span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure><br><strong>注意：</strong>在其他编程语言中，<code>if</code>语句之后的对象是一个等式，这个等式的求值结果为<code>TRUE</code>或<code>FALSE</code>，条件为真时才执行<code>then</code>部分。bash shell的<code>if</code>语句会运行<code>if</code>后面的那个命令，如果该命令的退出状态码是0（即该命令成功运行），位于<code>then</code>部分的命令就会被执行。如果该命令的退出状态码是其他值，<code>then</code>部分的命令就不会被执行。<br><strong>注意：</strong>再说一遍，<code>command</code>一定会执行！<br><strong>注意：</strong><code>if-then</code>语句的另一种形式如下，通过把分号放在待求值的命令尾部，就可以将<code>then</code>语句放在同一行上了，这样看起来更像其他编程语言中的<code>if-then</code>语句。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="built_in">command</span>; <span class="keyword">then</span></span><br><span class="line">    commands</span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="2-2-使用if-then-else语句"><a href="#2-2-使用if-then-else语句" class="headerlink" title="2.2.使用if-then-else语句"></a>2.2.使用<code>if-then-else</code>语句</h3><p>当<code>if</code>语句中的命令返回退出状态码0时，<code>then</code>部分中的命令会被执行，这跟普通的<code>if-then</code>语句一样。当<code>if</code>语句中的命令返回非零退出状态码时，bash shell会执行<code>else</code>部分中的命令。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="built_in">command</span></span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">    commands1</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    commands2</span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="2-3-使用嵌套的if语句"><a href="#2-3-使用嵌套的if语句" class="headerlink" title="2.3.使用嵌套的if语句"></a>2.3.使用嵌套的<code>if</code>语句</h3><p>有时你需要检查脚本代码中的多种条件。对此，可以使用嵌套的<code>if-then</code>语句。<br>书写多个<code>if-then</code>语句会使代码不易阅读，很难理清逻辑流程，因此可以使用<code>else</code>部分的另一种形式：<strong><code>elif</code></strong>。</p>
+<p>这样就不用再书写多个<code>if-then</code>语句了。<code>elif</code>使用另一个<code>if-then</code>语句延续<code>else</code>部分。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> command1</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">    commands1</span><br><span class="line"><span class="keyword">elif</span> command2</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">    commands2</span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="2-4-test命令"><a href="#2-4-test命令" class="headerlink" title="2.4.test命令"></a>2.4.<code>test</code>命令</h3><p><code>test</code>命令提供了在<code>if-then</code>语句中测试不同条件的途径，可以测试命令退出状态码之外的条件。</p>
+<p>如果<code>test</code>命令中列出的条件成立，<code>test</code>命令就会退出并返回退出状态码0。这样<code>if-then</code>语句就与其他编程语言中的<code>if-then</code>语句以类似的方式工作了。如果条件不成立，<code>test</code>命令就会退出并返回非零的退出状态码，这使得<code>if-then</code>语句不会再被执行。<code>test</code>命令的格式非常简单：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">test</span> condition</span><br><span class="line"><span class="comment"># condition是test命令要测试的一系列参数和值</span></span><br></pre></td></tr></table></figure><br><strong>注意：</strong>如果不写<code>test</code>命令的<code>condition</code>部分，它会以非零的退出状态码退出，并执行<code>else</code>语句块。<br><strong>注意：</strong>bash shell提供了另一种条件测试方法，无需在<code>if-then</code>语句中声明<code>test</code>命令，即使用方括号定义测试条件，如<code>if [ condition ]</code><strong>注意，第一个方括号之后和第二个方括号之前必须加上一个空格，否则就会报错</strong>。</p>
+<p><code>test</code>命令判断三类条件：①<strong>数值比较</strong>；②<strong>字符串比较</strong>；③<strong>文件比较</strong>。</p>
+<h4 id="数值比较"><a href="#数值比较" class="headerlink" title="数值比较"></a>数值比较</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">比较</th>
+<th style="text-align:center">含义</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>n1 -eq n2</code></td>
+<td style="text-align:center"><code>equal</code></td>
+<td style="text-align:left">检查n1是否与n2<strong>相等</strong></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>n1 -ge n2</code></td>
+<td style="text-align:center"><code>greater or equal</code></td>
+<td style="text-align:left">检查n1是否<strong>大于或等于</strong>n2</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>n1 -gt n2</code></td>
+<td style="text-align:center"><code>greater than</code></td>
+<td style="text-align:left">检查n1是否<strong>大于</strong>n2</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>n1 -le n2</code></td>
+<td style="text-align:center"><code>less or equal</code></td>
+<td style="text-align:left">检查n1是否<strong>小于或等于</strong>n2</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>n1 -lt n2</code></td>
+<td style="text-align:center"><code>less than</code></td>
+<td style="text-align:left">检查n1是否<strong>小于</strong>n2</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>n1 -ne n2</code></td>
+<td style="text-align:center"><code>not equal</code></td>
+<td style="text-align:left">检查n1是否<strong>不等于</strong>n2</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>注意：</strong>bash shell只能处理整数，不能在<code>test</code>命令中使用浮点值。</p>
+<h4 id="字符串比较"><a href="#字符串比较" class="headerlink" title="字符串比较"></a>字符串比较</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">比较</th>
+<th style="text-align:center">描述</th>
+<th style="text-align:center">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>str1 = str2</code></td>
+<td style="text-align:center">检查str1是否和str2<strong>相同</strong></td>
+<td style="text-align:center">考虑标点和大小写情况</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>str1 != str2</code></td>
+<td style="text-align:center">检查str1是否和str2<strong>不同</strong></td>
+<td style="text-align:center">考虑标点和大小写情况</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>str1 &lt; str2</code></td>
+<td style="text-align:center">检查str1是否比str2<strong>小</strong></td>
+<td style="text-align:center">需转义，注意顺序</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>str1 &gt; str2</code></td>
+<td style="text-align:center">检查str1是否比str2<strong>大</strong></td>
+<td style="text-align:center">需转义，注意顺序</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>-n str1</code></td>
+<td style="text-align:center">检查str1是否<strong>长度非0</strong></td>
+<td style="text-align:center">「非0」和「为0」恰好相反</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>-z str1</code></td>
+<td style="text-align:center">检查str1是否<strong>长度为0</strong></td>
+<td style="text-align:center">空的和未初始化的变量长度为0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>注意：</strong>比较字符串的大小时，大于号和小于号必须转义，否则shell会把它们当作重定向符号，把字符串值当作文件名。<br><strong>注意：</strong>比较字符串的大小时，大于和小于顺序和<code>sort</code>命令所采用的不同：在比较测试中，大写字母被认为是小于小写字母的，但<code>sort</code>命令恰好相反。<br><strong>注意：</strong>空的和未初始化的变量会对shell脚本测试造成灾难性的影响。如果不是很确定一个变量的内容，最好在将其用于数值或字符串比较之前先通过<code>-n</code>或<code>-z</code>来测试一下变量是否含有值。</p>
+<h4 id="文件比较"><a href="#文件比较" class="headerlink" title="文件比较"></a>文件比较</h4><p>文件比较很有可能是shell编程中最为强大、也是用得最多的比较形式。它允许你测试Linux文件系统上文件和目录的状态。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">比较</th>
+<th style="text-align:center">含义</th>
+<th style="text-align:left">描述</th>
+<th style="text-align:left">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>-d file</code></td>
+<td style="text-align:center"><code>directory</code></td>
+<td style="text-align:left">检查file是否存在并是一个目录</td>
+<td style="text-align:left">——</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>-e file</code></td>
+<td style="text-align:center"><code>exist</code></td>
+<td style="text-align:left">检查file是否存在</td>
+<td style="text-align:left">可用于文件和目录</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>-f file</code></td>
+<td style="text-align:center"><code>file</code></td>
+<td style="text-align:left">检查file是否存在并是一个文件</td>
+<td style="text-align:left">——</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>-r file</code></td>
+<td style="text-align:center"><code>readable</code></td>
+<td style="text-align:left">检查file是否存在并可读</td>
+<td style="text-align:left">——</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>-s file</code></td>
+<td style="text-align:center">——</td>
+<td style="text-align:left">检查file是否存在并非空</td>
+<td style="text-align:left">状态码0说明有数据</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>-w file</code></td>
+<td style="text-align:center"><code>writable</code></td>
+<td style="text-align:left">检查file是否存在并可写</td>
+<td style="text-align:left">判断你对文件是否有可写权限</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>-x file</code></td>
+<td style="text-align:center"><code>executable</code></td>
+<td style="text-align:left">检查file是否存在并可执行</td>
+<td style="text-align:left">——</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>-O file</code></td>
+<td style="text-align:center"><code>Owner</code></td>
+<td style="text-align:left">检查file是否存在并属当前用户所有</td>
+<td style="text-align:left">测试你是否是文件的属主</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>-G file</code></td>
+<td style="text-align:center"><code>Group</code></td>
+<td style="text-align:left">检查file是否存在并且默认组与当前用户相同</td>
+<td style="text-align:left">检查文件的默认组<br>非用户所属所有组</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>file1 -nt file2</code></td>
+<td style="text-align:center"><code>new than</code></td>
+<td style="text-align:left">检查file1是否比file2新</td>
+<td style="text-align:left">指创建日期，越早创建越旧</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>file1 -ot file2</code></td>
+<td style="text-align:center"><code>old than</code></td>
+<td style="text-align:left">检查file1是否比file2旧</td>
+<td style="text-align:left">指创建日期，越早创建越旧</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>注意：</strong>在使用<code>-nt</code>或<code>-ot</code>比较文件之前，必须先确认文件是存在的，因为他们都不会先检查文件是否存在，所以会导致直接运行了<code>else</code>部分。</p>
+<h3 id="2-5-复合条件测试"><a href="#2-5-复合条件测试" class="headerlink" title="2.5.复合条件测试"></a>2.5.复合条件测试</h3><p><code>if-then</code>语句允许使用<strong>布尔逻辑</strong>来组合测试，布尔逻辑是一种能够将可能的返回值简化为<code>TRUE</code>或<code>FALSE</code>的方法。有<code>AND</code>和<code>OR</code>两种布尔运算符可用：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[ condition1 ] &amp;&amp; [ condition2 ]</span><br><span class="line">[ condition1 ] || [ condition2 ]</span><br></pre></td></tr></table></figure></p>
+<h3 id="2-6-if-then的高级特性"><a href="#2-6-if-then的高级特性" class="headerlink" title="2.6.if-then的高级特性"></a>2.6.<code>if-then</code>的高级特性</h3><p>bash shell提供了两项可在<code>if-then</code>语句中使用的高级特性：</p>
+<ul>
+<li>①用于<strong>数学表达式</strong>的双括号<code>(( expression ))</code>。<code>expression</code>可以是任意的数学赋值或比较表达式。除了<code>test</code>命令使用的标准数学运算符，双括号命令中会用到的其他运算符还有：<code>val++</code>，后增；<code>val--</code>，后减；<code>++val</code>，先增；<code>--val</code>，先减；<code>!</code>，逻辑求反；<code>~</code>，位求反；<code>**</code>，幂运算；<code>&lt;&lt;</code>，左位移；<code>&gt;&gt;</code>，右位移；<code>&amp;</code>，位布尔和；<code>|</code>，位布尔或；<code>&amp;&amp;</code>，逻辑和；<code>||</code>，逻辑或。<br><strong>注意⑴：</strong>可以在<code>if</code>语句中用双括号命令，也可以在脚本中的普通命令里使用来赋值。<br><strong>注意⑵：</strong>不需要将双括号中表达式里的大于号转义，这是双括号命令提供的另一个高级特性。</li>
+<li>②用于<strong>高级字符串处理功能</strong>的双方括号<code>[[ expression ]]</code>，注意<strong>不是所有的shell都支持双方括号</strong>。与<code>test</code>命令相比主要是指「<strong>模式匹配</strong>（pattern matching）」，例如：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># using pattern matching</span></span><br><span class="line"><span class="keyword">if</span> [[ <span class="variable">$USER</span> == h* ]]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;Hello <span class="variable">$USER</span>.&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;Sorry, I do not know you.&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+在上例中我们使用了双等号（<code>==</code>）将右边的字符串（<code>r*</code>）视为一个模式，并应用模式匹配规则。运行该脚本将输出「<code>Hello hwame.</code>」。</li>
+</ul>
+<h3 id="2-7-case命令"><a href="#2-7-case命令" class="headerlink" title="2.7.case命令"></a>2.7.<code>case</code>命令</h3><p><code>case</code>命令采用列表格式来检查单个变量的多个值，而不需要再写出所有的<code>elif</code>语句来不停地检查同一个变量的值了：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">case</span> variable <span class="keyword">in</span></span><br><span class="line">pattern1 | pattern2) commands1;;</span><br><span class="line">           pattern3) commands2;;</span><br><span class="line">                  *) commands_default;;</span><br><span class="line"><span class="keyword">esac</span></span><br></pre></td></tr></table></figure><br><code>case</code>命令提供了一个更清晰的方法来为变量每个可能的值指定不同的选项，将指定的变量与不同模式进行比较。</p>
+<p>如果变量和模式是匹配的，那么shell会执行为该模式指定的命令。可以通过<strong>单竖线操作符</strong>在一行中分隔出多个模式模式。<strong>星号</strong>会捕获所有与已知模式不匹配的值。</p>
+<h2 id="3-循环语句"><a href="#3-循环语句" class="headerlink" title="3.循环语句"></a>3.循环语句</h2><h3 id="3-1-for命令"><a href="#3-1-for命令" class="headerlink" title="3.1.for命令"></a>3.1.<code>for</code>命令</h3><p>重复执行一系列命令在编程中很常见，<code>for</code>循环不用说，基本格式如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> var <span class="keyword">in</span> list</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    commands</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure><br><code>for</code>命令读取值的方式有：①<strong>从列表中读取值</strong>；②<strong>从变量读取列表</strong>；③<strong>从命令读取值</strong>；④<strong>用通配符读取目录</strong>。</p>
+<p><strong>注意：</strong>列表中各值按空格依次排列，不需要括号。<br><strong>注意：</strong>考虑下例，第2行输出将两个单引号间的部分<strong>拼接</strong>到<code>don</code>和<code>ll</code>中间了。这种问题可以采用①使用转义字符<code>\</code>将单引号转义；②使用双引号来定义用到单引号的值。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="keyword">for</span> <span class="built_in">test</span> <span class="keyword">in</span> I don<span class="string">&#x27;t know if this&#x27;</span>ll work; <span class="keyword">do</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;word:<span class="variable">$test</span>&quot;</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 以下为输出：</span></span><br><span class="line">word:I</span><br><span class="line">word:dont know <span class="keyword">if</span> thisll</span><br><span class="line">word:work</span><br></pre></td></tr></table></figure><br><strong>注意：</strong><code>for</code>循环假定每个值都是用空格分割的。如果在单独的数据值中有空格，就必须用双引号将这些值圈起来。<br><strong>注意：</strong>在某个值两边使用双引号时，shell并不会将双引号当成值的一部分。</p>
+<p>通常shell脚本遇到的情况是，你将一系列值都集中存储在了一个变量中，然后需要遍历变量中的整个列表。也可以通过<code>for</code>命令完成这个任务，例如：<br>注意，代码还是用了另一个赋值语句向<code>$list</code>变量包含的已有列表中添加（或者说是<strong>拼接</strong>）了一个值。这是向变量中存储的已有文本字符串尾部添加文本的一个常用方法：<code>list=$list&quot; Connecticut&quot;</code>。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">list=<span class="string">&quot;Alabama Alaska Arizona Arkansas Colorado&quot;</span></span><br><span class="line">list=<span class="variable">$list</span><span class="string">&quot; Connecticut&quot;</span></span><br><span class="line"><span class="keyword">for</span> state <span class="keyword">in</span> <span class="variable">$list</span></span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;Have you ever visited <span class="variable">$state</span>?&quot;</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure></p>
+<p>上述代码中，shell以空格分隔列表，事实上是由特殊的环境变量<code>IFS</code>（Internal Field Separator，内部字段分隔符）控制。默认情况下， bash shell会将「<strong>空格</strong>」、「<strong>制表符</strong>」、「<strong>换行符</strong>」当作字段分隔符。<br>如果需要临时使用新的字段分隔符，可以先保存旧值，使用完新值后再还原：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">IFS.OLD=<span class="variable">$IFS</span></span><br><span class="line">IFS=$<span class="string">&#x27;\n&#x27;</span></span><br><span class="line">&lt;在代码中使用新的IFS值&gt;</span><br><span class="line">IFS=<span class="variable">$IFS</span>.OLD</span><br></pre></td></tr></table></figure></p>
+<p>如果要指定多个<code>IFS</code>字符，只要将它们<strong>在赋值行串起来</strong>就行：<code>IFS=$&#39;\n&#39;:;&quot;</code>，这个赋值会将换行符、冒号、分号和双引号作为字段分隔符。如何使用<code>IFS</code>字符解析数据没有任何限制。</p>
+<p>可以用<code>for</code>命令来自动遍历目录中的文件。进行此操作时，必须在文件名或路径名中使用通配符。它会强制shell使用文件扩展匹配。文件扩展匹配是生成匹配指定通配符的文件名或路径名的过程。<br>也可以在<code>for</code>命令中列出多个目录通配符，将目录查找和列表合并进同一个<code>for</code>语句。<br><strong>注意：</strong>在Linux中，目录名和文件名中包含空格当然是合法的。要适应这种情况，应该将<code>$file</code>变量用双引号圈起来：<code>if [ -d &quot;$file&quot; ]</code>。如果不这么做，遇到含有空格的目录名或文件名时就会有错误产生：<code>[: too many arguments</code>，在<code>test</code>命令中，bash shell会将额外的单词当作参数，进而造成错误。</p>
+<h3 id="3-2-C语言风格的for命令"><a href="#3-2-C语言风格的for命令" class="headerlink" title="3.2.C语言风格的for命令"></a>3.2.C语言风格的<code>for</code>命令</h3><p>下面为C语言代码：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;The next number is %d\n&quot;</span>, i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>以下是bash中C语言风格的<code>for</code>循环的基本格式：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (( variable assignment ; condition ; iteration process ))</span><br><span class="line"><span class="keyword">for</span> (( a = 1; a &lt; 10; a++ ))</span><br></pre></td></tr></table></figure><br>注意，有些部分并没有遵循bash shell标准的<code>for</code>命令：</p>
+<ul>
+<li>变量赋值可以有空格；</li>
+<li>条件中的变量不以美元符开头；</li>
+<li>迭代过程的算式未用expr命令格式。</li>
+</ul>
+<p>C语言风格的<code>for</code>命令也允许为迭代使用多个变量。循环会单独处理每个变量，你可以为每个变量定义不同的迭代过程。尽管可以使用多个变量，但你只能在<code>for</code>循环中定义<strong>一种</strong>条件，例如<code>for (( a=1, b=10; a &lt;= 10; a++, b-- ))</code>。</p>
+<h3 id="3-3-while命令"><a href="#3-3-while命令" class="headerlink" title="3.3.while命令"></a>3.3.<code>while</code>命令</h3><p><code>while</code>命令某种意义上是<code>if-then</code>语句和<code>for</code>循环的混杂体：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> test_command</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    commands</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure><br><code>while</code>命令中定义的<code>test_command</code>和<code>if-then</code>语句中的格式一模一样。可以使用任何普通的bash shell命令，或者用<code>test</code>命令进行条件测试，比如测试变量值。<code>while</code>命令的关键在于所指定的<code>test_command</code>的退出状态码必须随着循环中运行的命令而改变。如果退出状态码不发生变化，<code>while</code>循环就将一直不停地进行下去从而陷入无限循环。</p>
+<p>最常见的<code>test_command</code>的用法是用方括号来检查循环命令中用到的shell变量的值，<code>while</code>命令定义了每次迭代时检查的测试条件。</p>
+<p><code>while</code>命令允许你在<code>while</code>语句行定义多个测试命令。<strong>只有最后一个测试命令的退出状态码会被用来决定什么时候结束循环</strong>，见下例。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">var1=10</span><br><span class="line"><span class="keyword">while</span> <span class="built_in">echo</span> <span class="variable">$var1</span></span><br><span class="line">      [ <span class="variable">$var1</span> -ge 0 ]</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;This is inside the loop&quot;</span></span><br><span class="line">    var1=$[ <span class="variable">$var1</span> - 1 ]</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure><br>运行结果如图：<br><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/shell/20201130多个测试命令.png" alt="多个测试命令导致的结果"><br><code>while</code>循环会在<code>var1</code>变量等于<code>0</code>时执行<code>echo</code>语句，然后将<code>var1</code>变量的值减一。接下来再次执行测试命令，用于下一次迭代。<code>echo</code>测试命令被执行并显示了<code>var</code>变量的值（现在小于<code>0</code>了）。直到shell执行<code>test</code>测试命令，<code>while</code>循环才会停止。</p>
+<p>这说明在含有多个命令的<code>while</code>语句中，在每次迭代中所有的测试命令都会被执行，包括测试命令失败的最后一次迭代。要留心这种用法。另一处要留意的是该如何指定多个测试命令。注意，<strong>每个测试命令都出现在单独的一行上</strong>。</p>
+<h3 id="3-4-until命令"><a href="#3-4-until命令" class="headerlink" title="3.4.until命令"></a>3.4.<code>until</code>命令</h3><h3 id="3-5-嵌套循环"><a href="#3-5-嵌套循环" class="headerlink" title="3.5.嵌套循环"></a>3.5.嵌套循环</h3><h3 id="3-6-循环处理文件数据"><a href="#3-6-循环处理文件数据" class="headerlink" title="3.6.循环处理文件数据"></a>3.6.循环处理文件数据</h3><h3 id="3-7-控制循环"><a href="#3-7-控制循环" class="headerlink" title="3.7.控制循环"></a>3.7.控制循环</h3><h3 id="3-8-处理循环的输出"><a href="#3-8-处理循环的输出" class="headerlink" title="3.8.处理循环的输出"></a>3.8.处理循环的输出</h3>
       
     </div>
     <div class="article-footer">
@@ -528,6 +742,10 @@
   <div class="bar-inner">
   
   <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/20201129/rules-of-linux.html" title="Linux世界的规则"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
     
     
     <li class="next">
