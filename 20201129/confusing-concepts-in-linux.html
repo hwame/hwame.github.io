@@ -20,12 +20,12 @@
   
   
   <title>Linux中易混淆的概念 | 鴻塵</title>
-  <meta name="description" content="摘要：学习Linux shell过程中的记录。">
+  <meta name="description" content="文章说明文章作者：鴻塵文章说明：学习Linux shell过程中的记录，参考书籍主要有《Linux命令行与shell脚本编程大全（第3版）》，《鸟哥的Linux私房菜（第三版）》系列和《快乐的 Linux 命令行》，参考资料主要有Linux命令大全等。文章链接：https:&#x2F;&#x2F;hwame.top&#x2F;20201129&#x2F;confusing-concepts-in-linux.html  1.单引号、双">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux中易混淆的概念">
 <meta property="og:url" content="https://hwame.top/20201129/confusing-concepts-in-linux.html">
 <meta property="og:site_name" content="Solitary">
-<meta property="og:description" content="摘要：学习Linux shell过程中的记录。">
+<meta property="og:description" content="文章说明文章作者：鴻塵文章说明：学习Linux shell过程中的记录，参考书籍主要有《Linux命令行与shell脚本编程大全（第3版）》，《鸟哥的Linux私房菜（第三版）》系列和《快乐的 Linux 命令行》，参考资料主要有Linux命令大全等。文章链接：https:&#x2F;&#x2F;hwame.top&#x2F;20201129&#x2F;confusing-concepts-in-linux.html  1.单引号、双">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-11-29T05:52:55.000Z">
 <meta property="article:modified_time" content="2020-11-29T05:52:55.000Z">
@@ -399,7 +399,7 @@
   <div class="slimContent">
     <nav id="toc" class="article-toc">
       <h3 class="toc-title">文章目录</h3>
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%8D%95%E5%BC%95%E5%8F%B7%E3%80%81%E5%8F%8C%E5%BC%95%E5%8F%B7%E5%92%8C%E5%8F%8D%E5%BC%95%E5%8F%B7"><span class="toc-text">1.单引号、双引号和反引号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E9%87%8D%E5%AE%9A%E5%90%91%E5%92%8C%E7%AE%A1%E9%81%93"><span class="toc-text">2.重定向和管道</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E9%80%80%E5%87%BA%E7%8A%B6%E6%80%81%E7%A0%81"><span class="toc-text">3.退出状态码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%BE%85%E7%BB%AD"><span class="toc-text">4.待续</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%8D%95%E5%BC%95%E5%8F%B7%E3%80%81%E5%8F%8C%E5%BC%95%E5%8F%B7%E5%92%8C%E5%8F%8D%E5%BC%95%E5%8F%B7"><span class="toc-text">1.单引号、双引号和反引号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%90%84%E7%A7%8D%E6%8B%AC%E5%8F%B7%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-text">2.各种括号的作用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E5%B0%8F%E6%8B%AC%E5%8F%B7-%E5%9C%86%E6%8B%AC%E5%8F%B7"><span class="toc-text">2.1.小括号&#x2F;圆括号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E4%B8%AD%E6%8B%AC%E5%8F%B7-%E6%96%B9%E6%8B%AC%E5%8F%B7"><span class="toc-text">2.2.中括号&#x2F;方括号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E5%A4%A7%E6%8B%AC%E5%8F%B7-%E8%8A%B1%E6%8B%AC%E5%8F%B7"><span class="toc-text">2.3.大括号&#x2F;花括号</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%B4%E5%B8%B8%E8%A7%84%E7%94%A8%E6%B3%95"><span class="toc-text">⑴常规用法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%B5%E5%87%A0%E7%A7%8D%E7%89%B9%E6%AE%8A%E7%9A%84%E6%9B%BF%E6%8D%A2%E7%BB%93%E6%9E%84"><span class="toc-text">⑵几种特殊的替换结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%B6%E5%9B%9B%E7%A7%8D%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D%E6%9B%BF%E6%8D%A2%E7%BB%93%E6%9E%84"><span class="toc-text">⑶四种模式匹配替换结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%B7%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%8F%90%E5%8F%96%E5%92%8C%E6%9B%BF%E6%8D%A2"><span class="toc-text">⑷字符串提取和替换</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-%E7%AC%A6%E5%8F%B7-%E5%90%8E%E7%9A%84%E6%8B%AC%E5%8F%B7"><span class="toc-text">2.4.符号$后的括号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-%E4%BD%BF%E7%94%A8%E6%8B%AC%E5%8F%B7%E5%B0%86%E5%A4%9A%E6%9D%A1%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C"><span class="toc-text">2.5.使用括号将多条命令执行</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E9%87%8D%E5%AE%9A%E5%90%91%E5%92%8C%E7%AE%A1%E9%81%93"><span class="toc-text">3.重定向和管道</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E9%80%80%E5%87%BA%E7%8A%B6%E6%80%81%E7%A0%81"><span class="toc-text">4.退出状态码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E5%BE%85%E7%BB%AD"><span class="toc-text">5.待续</span></a></li></ol>
     </nav>
   </div>
 </aside>
@@ -456,10 +456,10 @@
         <span class="post-comment"><i class="icon icon-comment"></i> <a href="/20201129/confusing-concepts-in-linux.html#comments" class="article-comment-link">评论</a></span>
         
 	
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 983(字)</span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 3.6k(字)</span>
 	
 	
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 3(分)</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 13(分)</span>
 	
 
       </div>
@@ -469,8 +469,7 @@
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <p>摘要：学习Linux shell过程中的记录。<a id="more"></a></p>
-<blockquote>
+        <blockquote>
 <p><font size=5><b>文章说明</b></font><br><strong>文章作者：</strong><a href="https://hwame.top">鴻塵</a><br><strong>文章说明：</strong>学习<code>Linux</code> <code>shell</code>过程中的记录，参考书籍主要有《Linux命令行与shell脚本编程大全（第3版）》，《鸟哥的Linux私房菜（第三版）》系列和《快乐的 Linux 命令行》，参考资料主要有<a target="_blank" rel="noopener" href="https://man.linuxde.net/">Linux命令大全</a>等。<br><strong>文章链接：</strong><a href="https://hwame.top/20201129/confusing-concepts-in-linux.html">https://hwame.top/20201129/confusing-concepts-in-linux.html</a></p>
 </blockquote>
 <h2 id="1-单引号、双引号和反引号"><a href="#1-单引号、双引号和反引号" class="headerlink" title="1.单引号、双引号和反引号"></a>1.单引号、双引号和反引号</h2><p><strong>①</strong><code>echo</code>命令可用单引号或双引号来划定文本字符串。如果在字符串中用到了它们，你需要在文本中使用其中一种引号，而用另外一种来将字符串划定起来。</p>
@@ -488,7 +487,88 @@
 </ul>
 <p><strong>②</strong>反引号<code>ˋ</code>用于从命令输出中提取信息，将命令输出赋给变量，另一种格式是<code>$()</code>，例如：</p>
 <p><strong>注意：</strong>赋值等号和命令替换字符之间没有空格。<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">testing</span>=`date`</span><br><span class="line"><span class="attr">testing</span>=$(date)</span><br></pre></td></tr></table></figure></p>
-<h2 id="2-重定向和管道"><a href="#2-重定向和管道" class="headerlink" title="2.重定向和管道"></a>2.重定向和管道</h2><ul>
+<h2 id="2-各种括号的作用"><a href="#2-各种括号的作用" class="headerlink" title="2.各种括号的作用"></a>2.各种括号的作用</h2><blockquote>
+<p>本部分<a href="#2-%E5%90%84%E7%A7%8D%E6%8B%AC%E5%8F%B7%E7%9A%84%E4%BD%9C%E7%94%A8">各种括号的作用</a>内容参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/taiyang1987912/article/details/39551385">shell中各种括号的作用()、(())、[]、[[]]、{}</a></p>
+</blockquote>
+<h3 id="2-1-小括号-圆括号"><a href="#2-1-小括号-圆括号" class="headerlink" title="2.1.小括号/圆括号"></a>2.1.小括号/圆括号</h3><ul>
+<li>单小括号<code>()</code><ul>
+<li>①<strong>命令组</strong>。括号中的命令将会新开一个子shell顺序执行，所以括号中的变量不能够被脚本余下的部分使用。括号中多个命令之间用分号隔开，最后一个命令可以没有分号，各命令和括号之间不必有空格。</li>
+<li>②<strong>命令替换</strong>。等同于<code>cmd</code>，shell扫描一遍命令行，发现了<code>$( cmd )</code>结构，便将<code>$( cmd )</code>中的<code>cmd</code>执行一次，得到其标准输出，再将此输出放到原来命令。有些shell不支持，如tcsh。</li>
+<li>③<strong>初始化数组</strong>。如：<code>array=(a b c d)</code>。</li>
+</ul>
+</li>
+<li>双小括号<code>(( ))</code><ul>
+<li>①<strong>整数扩展</strong>。这种扩展计算是整数型的计算，不支持浮点型。<code>((exp))</code>结构扩展并计算一个算术表达式的值，如果表达式的结果为<code>0</code>，那么返回的退出状态码为<code>1</code>（或者是「假」），而一个非零值的表达式所返回的退出状态码将为<code>0</code>（或者是「真」）。若是逻辑判断，表达式<code>exp</code>为真则为<code>1</code>，假则为<code>0</code>。</li>
+<li>②<strong>C语言运算规则</strong>。只要括号中的运算符、表达式符合C语言运算规则，都可用在<code>$(( exp ))</code>中，甚至是三目运算符。作不同进位(如二进制、八进制、十六进制)运算时，输出结果全都自动转化成了十进制。如：<code>echo $(( 16#5f ))</code>结果为<code>95</code>(16进位转十进制)。</li>
+<li>③单纯用 (( )) 也可<strong>重定义变量值</strong>，比如<code>a=5; (( a++ ))</code>可将<code>$a</code>重定义为<code>6</code>。</li>
+<li>④常用于<strong>算术运算比较</strong>，双括号中的变量可以不使用<code>$</code>符号前缀。括号内支持多个表达式用逗号分开。 只要括号中的表达式符合C语言运算规则，比如可以直接使用<code>for (( i = 0; i &lt; 5; i++ ))</code>，如果不使用双括号，则为<code>for i in ˋseq 0 4ˋ</code>或者<code>for i in &#123;0..4&#125;</code>。再如可以直接使用<code>if (($i&lt;5))</code>，如果不使用双括号，则为<code>if [ $i -lt 5 ]</code>。</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-2-中括号-方括号"><a href="#2-2-中括号-方括号" class="headerlink" title="2.2.中括号/方括号"></a>2.2.中括号/方括号</h3><ul>
+<li>单中括号<code>[]</code><ul>
+<li>①bash的<strong>内部命令</strong>，<code>[</code>和<code>test</code>是等同的。如果我们不用绝对路径指明，通常我们用的都是bash自带的命令。<code>if/test</code>结构中的左中括号是调用<code>test</code>的命令标识，右中括号是关闭条件判断的。这个命令把它的参数作为<strong>比较表达式</strong>或者作为<strong>文件测试</strong>，并且根据比较的结果来返回一个退出状态码。<code>if/test</code>结构中并不是必须右中括号，但是新版的Bash中要求必须这样。</li>
+<li>②<code>test</code>和<code>[]</code>中可用的比较运算符只有<code>==</code>和<code>!=</code>，两者都是用于字符串比较的，不可用于整数比较，整数比较只能使用<code>-eq</code>、<code>-gt</code>这种形式。无论是字符串比较还是整数比较都不支持大于号小于号。如果实在想用，对于字符串比较可以使用转义形式，例如：<code>[ ab \&lt; bc ]</code>，结果为真，也就是返回状态为<code>0</code>。<code>[ ]</code>中的逻辑与和逻辑或使用<code>-a</code>和<code>-o</code>表示。</li>
+<li>③<strong>字符范围</strong>。用作正则表达式的一部分，描述一个匹配的字符范围，作为<code>test</code>用途的中括号内不能使用正则。</li>
+<li>④在一个<code>array</code>结构的上下文中，中括号用来<strong>引用数组中每个元素的编号</strong>。</li>
+</ul>
+</li>
+<li>双中括号<code>[[ ]]</code><ul>
+<li>①<code>[[</code>是bash程序语言的<strong>关键字</strong>，并不是一个命令，<code>[[ ]]</code>结构比<code>[ ]</code>结构更加通用。在<code>[[</code>和<code>]]</code>之间所有的字符都不会发生文件名扩展或者单词分割，但是会发生参数扩展和命令替换。</li>
+<li>②支持字符串的<strong>模式匹配</strong>，使用<code>=~</code>操作符时甚至支持shell的正则表达式。字符串比较时可以把右边的作为一个模式，而不仅仅是一个字符串，比如<code>[[ hello == hell? ]]</code>，结果为真。<code>[[ ]]</code>中匹配字符串或通配符，不需要引号。</li>
+<li>③使用<code>[[ ... ]]</code>条件判断结构而非<code>[ ... ]</code>，能够防止脚本中的许多逻辑错误。比如，<code>&amp;&amp;</code>、<code>||</code>、<code>&lt;</code>和<code>&gt;</code>操作符能够正常存在于<code>[[ ]]</code>条件判断结构中，但是如果出现在<code>[ ]</code>结构中的话会报错。比如可以直接使用<code>if [[ $a != 1 &amp;&amp; $a != 2 ]]</code>，如果不使用双括号则为<code>if [ $a -ne 1] &amp;&amp; [ $a != 2 ]</code>或者<code>if [ $a -ne 1 -a $a != 2 ]</code>。</li>
+<li>④bash把双中括号中的表达式看作一个单独的元素，并返回一个退出状态码。</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-3-大括号-花括号"><a href="#2-3-大括号-花括号" class="headerlink" title="2.3.大括号/花括号"></a>2.3.大括号/花括号</h3><h4 id="⑴常规用法"><a href="#⑴常规用法" class="headerlink" title="⑴常规用法"></a>⑴常规用法</h4><ul>
+<li><strong>大括号拓展</strong>。通配（globbing）将对大括号中的文件名做扩展。在大括号中，不允许有空白，除非这个空白被引用或转义。<ul>
+<li>第一种：对大括号中的以逗号分割的文件列表进行拓展。如<code>touch &#123;a,b&#125;.txt</code>结果为<code>a.txt b.txt</code>。</li>
+<li>第二种：对大括号中以点点<code>..</code>分割的顺序文件列表起拓展作用，如：<code>touch &#123;a..d&#125;.txt</code>结果为<code>a.txt b.txt c.txt d.txt</code>。</li>
+<li><strong>注：</strong>在参考文章关于<a target="_blank" rel="noopener" href="https://blog.csdn.net/taiyang1987912/article/details/39551385#t6">大括号拓展</a>举例中，<code>ls &#123;ex[1-3],ex4&#125;.sh</code>可以扩展，但<code>touch &#123;ex[1-3],ex4&#125;.sh</code>只创建了两个文件。</li>
+</ul>
+</li>
+<li><strong>代码块</strong>，又被称为内部组，这个结构事实上创建了一个匿名函数。与小括号中的命令不同，<strong>大括号内的命令不会新开一个子shell运行</strong>，即脚本余下部分仍可使用括号内变量。括号内的命令间用分号隔开，最后一个也必须有分号。<code>&#123;&#125;</code>的第一个命令和左括号之间必须要有一个空格。</li>
+</ul>
+<h4 id="⑵几种特殊的替换结构"><a href="#⑵几种特殊的替换结构" class="headerlink" title="⑵几种特殊的替换结构"></a>⑵几种特殊的替换结构</h4><ul>
+<li>①<code>$&#123;var:-string&#125;</code>：若变量<code>var</code>为空，则用在命令行中用<code>string</code>来替换<code>$&#123;var:-string&#125;</code>；变量<code>var</code>不为空时，则用变量<code>var</code>的值来替换<code>$&#123;var:-string&#125;</code>。</li>
+<li>②<code>$&#123;var:=string&#125;</code>：替换规则和①相同，所不同之处是<code>$&#123;var:=string&#125;</code>若<code>var</code>为空时，用<code>string</code>替换<code>$&#123;var:=string&#125;</code>的同时还把<code>string</code>赋给变量<code>var</code>。<code>$&#123;var:=string&#125;</code>很常用的一种用法是，判断某个变量是否赋值，没有的话则给它赋上一个默认值。</li>
+<li>②<code>$&#123;var:+string&#125;</code>的替换规则和上面①②相反，即只有当<code>var</code>不是空的时候才替换成<code>string</code>，若<code>var</code>为空时则不替换或者说是替换成变量<code>var</code>即空值。</li>
+<li>③<code>$&#123;var:?string&#125;</code>替换规则为：若变量<code>var</code>不为空，则用变量<code>var</code>的值来替换<code>$&#123;var:?string&#125;</code>；若变量<code>var</code>为空，则把<code>string</code>输出到标准错误中，并从脚本中退出。我们可利用此特性来检查是否设置了变量的值。</li>
+</ul>
+<p>补充扩展：在上面的替换结构中<code>string</code>不一定是常值的，可用另外一个变量的值或是一种命令的输出。</p>
+<h4 id="⑶四种模式匹配替换结构"><a href="#⑶四种模式匹配替换结构" class="headerlink" title="⑶四种模式匹配替换结构"></a>⑶四种模式匹配替换结构</h4><blockquote>
+<p>模式匹配记忆方法：</p>
+<ul>
+<li><code>#</code>是去掉左边(在键盘上#在$之左边)</li>
+<li><code>%</code>是去掉右边(在键盘上%在$之右边)</li>
+<li><code>#</code>和<code>%</code>中的单一符号是最小匹配，两个相同符号是最大匹配</li>
+</ul>
+</blockquote>
+<ul>
+<li>第一种模式：<code>$&#123;variable%pattern&#125;</code>。shell在<code>variable</code>中查找，看它是否以给的模式<code>pattern</code>结尾，如果是，就从命令行把<code>variable</code>中的内容去掉<strong>右边最短</strong>的匹配模式；</li>
+<li>第二种模式：<code>$&#123;variable%%pattern&#125;</code>。shell在<code>variable</code>中查找，看它是否以给的模式<code>pattern</code>结尾，如果是，就从命令行把<code>variable</code>中的内容去掉<strong>右边最长</strong>的匹配模式；</li>
+<li>第三种模式：<code>$&#123;variable#pattern&#125;</code>。shell在<code>variable</code>中查找，看它是否以给的模式<code>pattern</code>开始，如果是，就从命令行把<code>variable</code>中的内容去掉<strong>左边最短</strong>的匹配模式；</li>
+<li>第四种模式：<code>$&#123;variable##pattern&#125;</code>。shell在<code>variable</code>中查找，看它是否以给的模式<code>pattern</code>结尾，如果是，就从命令行把<code>variable</code>中的内容去掉<strong>左边最长</strong>的匹配模式。</li>
+</ul>
+<p>这四种模式中都不会改变<code>variable</code>的值，其中，只有在<code>pattern</code>中使用了<code>*</code>匹配符号时，<code>%</code>和<code>%%</code>、<code>#</code>和<code>##</code>才有区别。结构中的<code>pattern</code>支持通配符，<code>*</code>表示零个或多个任意字符，<code>?</code>表示仅与一个任意字符匹配，<code>[...]</code>表示匹配中括号里面的字符，<code>[!...]</code>表示不匹配中括号里面的字符 。</p>
+<h4 id="⑷字符串提取和替换"><a href="#⑷字符串提取和替换" class="headerlink" title="⑷字符串提取和替换"></a>⑷字符串提取和替换</h4><ul>
+<li>第一种模式：<code>$&#123;var:num&#125;</code>。shell在<code>var</code>中提取第<code>num</code>个字符到末尾的所有字符。若<code>num</code>为正数，从左边<code>0</code>处开始；若<code>num</code>为负数，从右边开始提取字串，但必须<strong>在冒号后面加空格或一个数字或整个<code>num</code>加上括号</strong>，如<code>$&#123;var: -2&#125;</code>、<code>$&#123;var:1-3&#125;</code>或<code>$&#123;var:(-2)&#125;</code>。</li>
+<li>第二种模式：<code>$&#123;var:num1:num2&#125;</code>。<code>num1</code>是位置，<code>num2</code>是长度。表示从<code>$var</code>字符串的第<code>$num1</code>个位置开始提取长度为<code>$num2</code>的子串。不能为负数。</li>
+<li>第三种模式：<code>$&#123;var/pattern/pattern&#125;</code>。将<code>var</code>字符串的<strong>第一个匹配</strong>的<code>pattern</code>替换为另一个<code>pattern</code>。</li>
+<li>第四种模式：<code>$&#123;var//pattern/pattern&#125;</code>。将<code>var</code>字符串中的<strong>所有能匹配</strong>的<code>pattern</code>替换为另一个<code>pattern</code>。</li>
+</ul>
+<h3 id="2-4-符号-后的括号"><a href="#2-4-符号-后的括号" class="headerlink" title="2.4.符号$后的括号"></a>2.4.符号<code>$</code>后的括号</h3><ul>
+<li>（1）<code>$&#123;a&#125;</code>：变量<code>a</code>的值，在不引起歧义的情况下可以省略大括号。</li>
+<li>（2）<code>$(cmd)</code>：命令替换，和<code>cmd</code>效果相同，结果为<code>cmd</code>命令的输出，不过某些Shell版本不支持<code>$()</code>形式的命令替换，如tcsh。</li>
+<li>（3）<code>$((expression))</code>：效果和<code>expr expression</code>相同，计算数学表达式<code>expression</code>的数值，其中<code>expression</code>只要符合C语言的运算规则即可，甚至三目运算符和逻辑表达式都可以计算。</li>
+</ul>
+<h3 id="2-5-使用括号将多条命令执行"><a href="#2-5-使用括号将多条命令执行" class="headerlink" title="2.5.使用括号将多条命令执行"></a>2.5.使用括号将多条命令执行</h3><ul>
+<li>（1）单小括号：<code>(cmd1; cmd2; cmd3)</code>。新开一个子shell顺序执行命令<code>cmd1, cmd2, cmd3</code>，各命令之间用分号隔开，最后一个命令后可以没有分号。</li>
+<li>（2）单大括号：<code>&#123; cmd1; cmd2; cmd3;&#125;</code>。在当前shell顺序执行命令<code>cmd1, cmd2, cmd3</code>，各命令之间用分号隔开，最后一个命令后必须有分号，第一条命令和左括号之间必须用空格隔开。</li>
+</ul>
+<p><strong>注意：</strong>对<code>&#123;&#125;</code>和<code>()</code>而言，括号中的重定向符只影响该条命令， 而括号外的重定向符影响到括号中的所有命令。</p>
+<h2 id="3-重定向和管道"><a href="#3-重定向和管道" class="headerlink" title="3.重定向和管道"></a>3.重定向和管道</h2><ul>
 <li>输出重定向（<code>&gt;</code>）：将命令的输出发送到一个文件中，其中单大于号（<code>&gt;</code>）会覆盖文件内容，双大于号（<code>&gt;&gt;</code>）用以向文件追加数据。</li>
 <li>输入重定向（<code>&lt;</code>）：将文件的内容重定向到命令，与输出重定向正好相反。</li>
 <li>内联输入重定向（<code>&lt;&lt;</code>）：输入重定向的另一种方法，这种方法无需使用文件进行重定向，只需要在命令行中指定用于输入重定向的数据就可以了。必须指定一个文本标记来划分输入数据的开始和结尾。任何字符串都可作为文本标记，但在数据的开始和结尾文本标记必须一致。<blockquote>
@@ -504,7 +584,7 @@
 </blockquote>
 </li>
 </ul>
-<h2 id="3-退出状态码"><a href="#3-退出状态码" class="headerlink" title="3.退出状态码"></a>3.退出状态码</h2><p>shell中运行的每个命令都使用退出状态码（exit status）告诉shell它已经运行完毕。</p>
+<h2 id="4-退出状态码"><a href="#4-退出状态码" class="headerlink" title="4.退出状态码"></a>4.退出状态码</h2><p>shell中运行的每个命令都使用退出状态码（exit status）告诉shell它已经运行完毕。</p>
 <p>按照惯例，<strong>一个成功结束的命令的退出状态码是0</strong>。如果一个命令结束时有错误，退出状态码就是一个正数值。</p>
 <p>退出状态码是一个<code>0～255</code>的整数值，在命令结束运行时由命令传给shell，可以使用变量<code>$?</code>捕获这个值（上个已执行命令的退出状态码）并在脚本中使用。<br>自定义退出状态码（<code>exit n</code>）时，若<code>n</code>超出<code>0~255</code>区间则对<code>256</code>取余。</p>
 <div class="table-container">
@@ -555,7 +635,7 @@
 </tbody>
 </table>
 </div>
-<h2 id="4-待续"><a href="#4-待续" class="headerlink" title="4.待续"></a>4.待续</h2>
+<h2 id="5-待续"><a href="#5-待续" class="headerlink" title="5.待续"></a>5.待续</h2>
       
     </div>
     <div class="article-footer">
