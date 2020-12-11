@@ -29,7 +29,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/few-pics/20201024不想上班.jpg">
 <meta property="article:published_time" content="2020-05-24T07:57:00.000Z">
-<meta property="article:modified_time" content="2020-11-25T08:23:53.983Z">
+<meta property="article:modified_time" content="2020-12-11T11:45:05.600Z">
 <meta property="article:author" content="鴻塵">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/few-pics/20201024不想上班.jpg">
@@ -491,7 +491,7 @@
 
 <hr>
 <p><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/few-pics/20201024不想上班.jpg" alt="我的状态"></p>
-<p align="center">点击这个神奇的按钮👉<a target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=GisrIywuIy0vKChaa2s0eXV3" style="text-decoration:none;color:#FF00FF;background:#D3D3D3">📧吐槽一下📧</a>👈</p>
+<p align="center">点击这个神奇的按钮👉<a target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=GnJte3d-Y1prazR5dXc" style="text-decoration:none;color:#FF00FF;background:#D3D3D3">📧吐槽一下📧</a>👈</p>
 
   </div>
 </article>
@@ -655,35 +655,7 @@ $(function () {
 
 
 
-
-  <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.js"></script>
-  <script>
-  //利用 FancyBox 实现点击图片放大
-  $(document).ready(function() {
-    $('article img').not('[hidden]').not('.panel-body img').each(function() {
-      var $image = $(this);
-      var imageCaption = $image.attr('alt');
-      var $imageWrapLink = $image.parent('a');
-      if ($imageWrapLink.length < 1) {
-        var src = this.getAttribute('src');
-        var idx = src.lastIndexOf('?');
-        if (idx != -1) {
-          src = src.substring(0, idx);
-        }
-        $imageWrapLink = $image.wrap('<a href="' + src + '"></a>').parent('a');
-      }
-      $imageWrapLink.attr('data-fancybox', 'images');
-      if (imageCaption) {
-        $imageWrapLink.attr('data-caption', imageCaption);
-      }
-    });
-    $().fancybox({
-      selector: '[data-fancybox="images"]',
-      hash: false,
-      loop: true,
-    });
-  });
-  </script>
+<!-- 20201211添加判断 -->
 
 
 
