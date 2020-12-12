@@ -4731,9 +4731,10 @@ a.label:focus {
 }
 
 .panel {
-  margin-bottom: 21px;
-  background-color: #fff;
-  border: 1px solid #f2f2f2;
+	margin-bottom: 21px;
+    background-color: #fbf2ff;
+    border: 1px solid #f1d1ff;
+    border-radius: 8px;
 }
 
 .panel .article-title {
@@ -9218,7 +9219,8 @@ body.okayNav-loaded {
 }
 
 /* valine评论系统美化 */
-#vcomments .vcards .vcard {
+#vcomments .vcards .vcard,#vcomments .vpanel .vwrap {
+	background-color: #f9f9f9;
 	padding: 15px 20px 0 20px;
 	border-radius: 10px;
 	margin-bottom: 15px;
@@ -9232,6 +9234,21 @@ body.okayNav-loaded {
 	border: none;
 	box-shadow: none;
 }
+#vcomments .vsubmit.vbtn {
+	color: black;border: none;background:#e0c4d8;
+}
+#vcomments .vsubmit.vbtn:hover {
+	background:#e941e5;
+}
+/* 以下为nick,mail,link的样式 */
+#vcomments .vheader .vnick,#vcomments .vheader .vmail,#vcomments .vheader .vlink {
+      width: 33%;
+      background-color: #F0FFFF;
+      border: 2px solid #dedede;
+      padding-left: 10px;
+      padding-right: 10px;
+      border-radius: 5px
+}
 img.vimg {
   transition: all 1s   /* 旋转时间为 1s */
 }
@@ -9242,7 +9259,6 @@ img.vimg:hover {
   -o-transform: rotate(360deg);
   -ms-transform: rotate(360deg);
 }
-
 /* 隐藏powered by valine */
 .txt-right{
 	display: none;
