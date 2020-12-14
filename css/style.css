@@ -3983,9 +3983,10 @@ svg {
   border: 1px solid #ddd;
 }
 
+/*
 .b-no {
   border: none !important;
-}
+}*/
 
 /*----------------------------------------------------
  * border-radius
@@ -4801,8 +4802,8 @@ a.label:focus {
  */
 
 .panel.b-no {
-  border: 0;
-  margin-bottom: 0;
+  /* border: 0; */
+  margin-bottom: 5px;
 }
 
 .panel.b-no .panel-heading,
