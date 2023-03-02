@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  <!-- 谷歌收录 -->
+  <meta name="google-site-verification" content="-5hl8eC4wfapGZhZouwMVUcKG0iaynijVRJbqVlzXm4" />
+  
+  
+  <title>命令行帮助文档语法格式详解 | 鴻塵</title>
+  <meta name="description" content="摘要：了解命令行帮助文档的语法格式有助于正确使用其命令，但是命令选项参数难懂难记，因此做以记录。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="命令行帮助文档语法格式详解">
+<meta property="og:url" content="https://hwame.top/20210112/command-line-description.html">
+<meta property="og:site_name" content="鴻塵">
+<meta property="og:description" content="摘要：了解命令行帮助文档的语法格式有助于正确使用其命令，但是命令选项参数难懂难记，因此做以记录。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/few-pics/20210412接口描述.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/few-pics/20210414vim命令.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/few-pics/20210414cat部分命令.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/few-pics/20210414rm部分命令.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/few-pics/20210414chmod命令.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/few-pics/20210414who命令.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/few-pics/20210415ssh命令.png">
+<meta property="article:published_time" content="2021-01-12T12:40:13.000Z">
+<meta property="article:modified_time" content="2021-04-15T06:43:04.000Z">
+<meta property="article:author" content="鴻塵">
+<meta property="article:tag" content="Linux">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/few-pics/20210412接口描述.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://hwame.top/20210112/command-line-description.html">
+  
+    <link rel="alternate" href="true" title="鴻塵" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+    <link href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css" rel="stylesheet">
+  
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<script src="https://cdn.jsdelivr.net/gh/bobcn/hexo_resize_image.js@master/hexo_resize_image.js"></script>
+<body class="main-center theme-purple" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://hwame.top" target="_blank">
+          <img class="img-circle img-rotate" src="https://cdn.jsdelivr.net/gh/hwame/pics@main/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">鴻塵</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Pythoner, Data Analyst</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> 湖北-武汉</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav menu-highlight">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder-open"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">资源</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-gallery">
+          <a href="/gallery">
+            
+            <i class="icon icon-delicious"></i>
+            
+            <span class="menu-title">相册</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/hwame" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/hwamei" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://www.zhihu.com/people/hwame" target="_blank" title="Zhihu" data-toggle=tooltip data-placement=top><i class="icon icon-zhihu"></i></a></li>
+        
+        <li><a href="https://segmentfault.com/u/hwame" target="_blank" title="Segmentfault" data-toggle=tooltip data-placement=top><i class="icon icon-segmentfault"></i></a></li>
+        
+        <li><a href="https://gitee.com/hwame" target="_blank" title="Gitee" data-toggle=tooltip data-placement=top><i class="icon icon-gitee"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title"><i style="color:#9400D3" class="icon icon-stackexchange"></i>公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎来到鴻塵的博客!<br>鴻塵的<u><a target="_blank" rel="noopener" href="https://weibo.com/hwamei" style="color:#E541E5;">微博</a></u>主页，鴻塵的<u><a target="_blank" rel="noopener" href="https://github.com/hwame" style="color:#E541E5;">Github</a></u>主页，如果我可以忘记的<u><a target="_blank" rel="noopener" href="https://www.zhihu.com/people/hwame" style="color:#E541E5;">知乎</a></u>主页。</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title"><i style="color:#9400D3" class="icon icon-tags"></i>标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/CentOS/" style="font-size: 13px; color: #fff">CentOS</a> <a href="/tags/Go/" style="font-size: 13.2px; color: #fff">Go</a> <a href="/tags/Hexo/" style="font-size: 13.8px; color: #fff">Hexo</a> <a href="/tags/Linux/" style="font-size: 14px; color: #fff">Linux</a> <a href="/tags/Linux%E9%83%A8%E7%BD%B2/" style="font-size: 13px; color: #fff">Linux部署</a> <a href="/tags/MongoDB/" style="font-size: 13.4px; color: #fff">MongoDB</a> <a href="/tags/Spark/" style="font-size: 13px; color: #fff">Spark</a> <a href="/tags/matplotlib/" style="font-size: 13.2px; color: #fff">matplotlib</a> <a href="/tags/miscellanea/" style="font-size: 13.6px; color: #fff">miscellanea</a> <a href="/tags/python/" style="font-size: 14px; color: #fff">python</a> <a href="/tags/shell/" style="font-size: 13.6px; color: #fff">shell</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 13px; color: #fff">大数据</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" style="font-size: 13px; color: #fff">数据结构与算法</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 13px; color: #fff">爬虫</a>
+    </div>
+  </div>
+
+<script type="text/javascript">
+    var everytag=document.getElementsByClassName("widget-body tagcloud")[0].children;
+    for (var i = everytag.length - 1; i >= 0; i--) {
+    	var r=Math.floor(Math.random()*255);
+        var g=Math.floor(Math.random()*255);
+        var b=Math.floor(Math.random()*255);
+        everytag[i].style.background = "rgb("+r+","+g+","+b+")";
+    }
+</script>
+    
+      
+  <div class="widget">
+    <h3 class="widget-title"><i style="color:#9400D3" class="icon icon-folder-open"></i>分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Go/">Go</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MongoDB/">MongoDB</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/miscellanea/">miscellanea</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title"><i style="color:#9400D3" class="icon icon-archives-fill"></i>归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">17</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title"><i style="color:#9400D3" class="icon icon-shu-fill"></i>最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled ">
+        
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20220327/channel-and-goroutine-in-go.html" class="thumb">
+    
+    
+        <span style="background-image:url(https://cdn.jsdelivr.net/gh/hwame/pics@main/post-pics/icon-golang.jpeg)" alt="Go语言中的通道" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Go/">Go</a>
+              </p>
+              <p class="item-title">
+                <a href="/20220327/channel-and-goroutine-in-go.html" class="title">Go语言中的通道</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-27T11:06:16.000Z" itemprop="datePublished">2022-03-27</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20220323/when-to-use-pointer-in-go.html" class="thumb">
+    
+    
+        <span style="background-image:url(https://cdn.jsdelivr.net/gh/hwame/pics@main/post-pics/icon-golang.jpeg)" alt="Go语言什么时候使用指针" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Go/">Go</a>
+              </p>
+              <p class="item-title">
+                <a href="/20220323/when-to-use-pointer-in-go.html" class="title">Go语言什么时候使用指针</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-23T12:49:57.000Z" itemprop="datePublished">2022-03-23</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20220228/awesome-images-in-markdown.html" class="thumb">
+    
+    
+        <span style="background-image:url(https://cdn.jsdelivr.net/gh/hwame/pics@main/avatar.jpg)" alt="Markdown中图片的高级用法" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/miscellanea/">miscellanea</a>
+              </p>
+              <p class="item-title">
+                <a href="/20220228/awesome-images-in-markdown.html" class="title">Markdown中图片的高级用法</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-02-28T15:27:50.000Z" itemprop="datePublished">2022-02-28</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20220116/shell-regular-expression.html" class="thumb">
+    
+    
+        <span style="background-image:url(https://cdn.jsdelivr.net/gh/hwame/pics@main/post-pics/linux-icon.png)" alt="Shell正则表达式" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Linux/">Linux</a>
+              </p>
+              <p class="item-title">
+                <a href="/20220116/shell-regular-expression.html" class="title">Shell正则表达式</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-01-16T14:13:05.000Z" itemprop="datePublished">2022-01-16</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20211009/install-linux-on-android-phone.html" class="thumb">
+    
+    
+        <span style="background-image:url(https://cdn.jsdelivr.net/gh/hwame/pics@main/avatar.jpg)" alt="如何在安卓手机上安装Linux发行版" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/miscellanea/">miscellanea</a>
+              </p>
+              <p class="item-title">
+                <a href="/20211009/install-linux-on-android-phone.html" class="title">如何在安卓手机上安装Linux发行版</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-10-09T15:16:37.000Z" itemprop="datePublished">2021-10-09</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E8%83%8C%E6%99%AF"><span class="toc-number">1.</span> <span class="toc-text">1.背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91"><span class="toc-number">2.</span> <span class="toc-text">2.文档翻译</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%95%8C%E9%9D%A2%E6%8F%8F%E8%BF%B0%E8%AF%AD%E8%A8%80%EF%BC%88%E6%A6%82%E8%BF%B0%EF%BC%89"><span class="toc-number">2.1.</span> <span class="toc-text">2.1.命令行界面描述语言（概述）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E4%BD%BF%E7%94%A8%E6%A8%A1%E5%BC%8F%EF%BC%88usage-patterns%EF%BC%89"><span class="toc-number">2.2.</span> <span class="toc-text">2.2.使用模式（usage patterns）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A0%E5%8F%82%E6%95%B0-lt-argument-gt-ARGUMENT"><span class="toc-number">2.2.1.</span> <span class="toc-text">①参数&lt;argument&gt; ARGUMENT</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A1%E9%80%89%E9%A1%B9-o-option"><span class="toc-number">2.2.2.</span> <span class="toc-text">②选项-o --option</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A2%E5%91%BD%E4%BB%A4command"><span class="toc-number">2.2.3.</span> <span class="toc-text">③命令command</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A3%E5%8F%AF%E9%80%89%E5%85%83%E7%B4%A0-optional-elements"><span class="toc-number">2.2.4.</span> <span class="toc-text">④可选元素[optional elements]</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A4%E5%BF%85%E9%80%89%E5%85%83%E7%B4%A0-required-elements"><span class="toc-number">2.2.5.</span> <span class="toc-text">⑤必选元素(required elements)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A5%E4%BA%92%E6%96%A5%E5%85%83%E7%B4%A0element-another"><span class="toc-number">2.2.6.</span> <span class="toc-text">⑥互斥元素element | another</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A6%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0element"><span class="toc-number">2.2.7.</span> <span class="toc-text">⑦重复元素element...</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A7%E9%80%89%E9%A1%B9%E7%AE%80%E5%86%99-options"><span class="toc-number">2.2.8.</span> <span class="toc-text">⑧选项简写[options]</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A8%E9%80%89%E9%A1%B9%E5%8F%82%E6%95%B0%E5%88%86%E9%9A%94%E7%AC%A6"><span class="toc-number">2.2.9.</span> <span class="toc-text">⑨选项参数分隔符[--]</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A9%E5%A4%84%E7%90%86%E6%A0%87%E5%87%86%E8%BE%93%E5%85%A5"><span class="toc-number">2.2.10.</span> <span class="toc-text">⑩处理标准输入[-]</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E9%80%89%E9%A1%B9%E6%8F%8F%E8%BF%B0"><span class="toc-number">2.3.</span> <span class="toc-text">2.3.选项描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-%E5%85%B6%E4%BB%96"><span class="toc-number">2.4.</span> <span class="toc-text">2.4.其他</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">3.</span> <span class="toc-text">3.注意事项</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%85%B3%E4%BA%8E%E3%80%8C%E5%91%BD%E4%BB%A4%E3%80%8D"><span class="toc-number">3.0.1.</span> <span class="toc-text">(1)关于「命令」</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%85%B3%E4%BA%8E%E3%80%8C%E5%8F%82%E6%95%B0%E3%80%8D"><span class="toc-number">3.0.2.</span> <span class="toc-text">(2)关于「参数」</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E5%85%B3%E4%BA%8E%E3%80%8C%E9%80%89%E9%A1%B9%E3%80%8D%E5%8F%8A%E6%AD%A7%E4%B9%89"><span class="toc-number">3.0.3.</span> <span class="toc-text">(3)关于「选项」及歧义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E5%85%B3%E4%BA%8E%E3%80%8C%E5%8F%AF%E9%80%89%E5%85%83%E7%B4%A0%E3%80%8D"><span class="toc-number">3.0.4.</span> <span class="toc-text">(4)关于「可选元素」</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E5%85%B3%E4%BA%8E%E3%80%8C%E8%BF%9E%E5%AD%97%E7%AC%A6%E3%80%8D"><span class="toc-number">3.0.5.</span> <span class="toc-text">(5)关于「连字符」</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-%E5%85%B3%E4%BA%8E%E3%80%8C%E7%BA%A6%E5%AE%9A%E6%83%AF%E4%BE%8B%E3%80%8D"><span class="toc-number">3.0.6.</span> <span class="toc-text">(6)关于「约定惯例」</span></a></li></ol></li></ol></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-command-line-description" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      命令行帮助文档语法格式详解
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar"></i>
+	<a href="/20210112/command-line-description.html" class="article-date">
+	  发布于 <time datetime="2021-01-12T12:40:13.000Z" itemprop="datePublished">2021-01-12</time>
+	</a>
+</span>
+<span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/20210112/command-line-description.html" class="article-date">
+	  更新于 <time datetime="2021-04-15T06:43:04.000Z" itemprop="dateUpdated">2021-04-15</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/Linux/" rel="tag">Linux</a>
+  </span>
+
+
+        
+
+	<span class="article-read hidden-xs">
+    	<i class="icon icon-eye-fill" aria-hidden="true"></i>
+    	<span id="/20210112/command-line-description.html" class="leancloud_visitors"  data-flag-title="命令行帮助文档语法格式详解">
+			<span class="leancloud-visitors-count">0</span>
+		</span>
+    </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/20210112/command-line-description.html#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 4.2k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 15(分)</span>
+	
+
+      </div>
+      <div style="background-color:#D7BDE2;border:1px solid #D7BDE2;border-radius:10px;padding:5px">
+          <b>温馨提示</b>：点击页面下方<i style="color:red" class="icon icon-anchor"></i>以展开或折叠目录
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>摘要：了解命令行帮助文档的语法格式有助于正确使用其命令，但是命令选项参数难懂难记，因此做以记录。<span id="more"></span></p>
+<blockquote>
+<p><font size=5><b>文章说明</b></font><br><strong>文章作者：</strong><a href="https://hwame.top">鴻塵</a><br><strong>参考内容：</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://docopt.org/">DOCOPT: Command-line interface description language</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/wq6ylg08/article/details/88919530">Linux命令行帮助文档命令语法公式格式详解和Git命令语法格式解读</a></li>
+</ul>
+<p><strong>文章链接：</strong><a href="https://hwame.top/20210112/command-line-description.html">https://hwame.top/20210112/command-line-description.html</a></p>
+</blockquote>
+<h2 id="1-背景"><a href="#1-背景" class="headerlink" title="1.背景"></a>1.背景</h2><p>在终端下查看某个命令的用法时，通常会出现一大堆的<strong><em>选项</em></strong> 和<strong><em>参数</em></strong>，了解掌握其语法格式就无需某度某歌了，工作效率也会upup。</p>
+<p>本文主要翻译自<a target="_blank" rel="noopener" href="http://docopt.org/">DOCOPT: Command-line interface description language</a>，并参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/wq6ylg08/article/details/88919530">Linux命令行帮助文档命令语法公式格式详解和Git命令语法格式解读</a>。</p>
+<h2 id="2-文档翻译"><a href="#2-文档翻译" class="headerlink" title="2.文档翻译"></a>2.文档翻译</h2><h3 id="2-1-命令行界面描述语言（概述）"><a href="#2-1-命令行界面描述语言（概述）" class="headerlink" title="2.1.命令行界面描述语言（概述）"></a>2.1.命令行界面描述语言（概述）</h3><p><code>docopt</code>可用于为命令行应用定义接口，并且自动生成解析器。</p>
+<p><code>docopt</code>基于已使用数十年的惯例，用于描述程序接口的帮助信息（help messages）和手册页（man pages）。<code>docopt</code>中正式的接口描述如下例所示：<br><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/few-pics/20210412接口描述.png" alt="接口描述帮助信息"></p>
+<p>上图中的例子描述了可执行程序<code>naval_fate</code>（海军命运）的调用接口，可由<strong>命令（commands）</strong>、<strong>选项（options）</strong>和<strong>位置参数（positional arguments）</strong>三者的不同组合来使用：</p>
+<ul>
+<li>命令（commands）：<code>ship</code>，<code>new</code>，<code>move</code>等。</li>
+<li>选项（options）：<code>-h</code>，<code>--help</code>，<code>--speed=&lt;kn&gt;</code>等。</li>
+<li>位置参数（positional arguments）：<code>&lt;name&gt;</code>，<code>&lt;x&gt;</code>，<code>&lt;y&gt;</code>等。</li>
+</ul>
+<p>该示例使用<strong>方括号<code>[]</code></strong>、<strong>圆括号<code>()</code></strong>、<strong>管道符<code>|</code></strong>和<strong>省略号<code>...</code></strong>分别描述<strong>可选</strong>、<strong>必需</strong>、<strong>互斥</strong>和<strong>重复</strong>的元素。这些元素组成了有效的<strong>使用模式（usage patterns）</strong>，每个使用模式都以程序的名称<code>naval_fate</code>开始。</p>
+<p>使用模式下方为带有描述的选项列表，它们描述了一个选项是否有 <strong>短格式（例如<code>-h</code>）或长格式（例如<code>-–help</code>）</strong> 、是否有一个参数（例如<code>–speed=&lt;kn&gt;</code>），以及该参数是否有默认值（例如<code>[default: 10]</code>）。</p>
+<p>一个<strong>「<code>docopt</code>实现」</strong>将提取所有上述信息并生成命令行参数解析器，当使用<code>-h</code>或<code>-–help</code>选项调用程序时，界面描述的文本将作为帮助消息显示。</p>
+<h3 id="2-2-使用模式（usage-patterns）"><a href="#2-2-使用模式（usage-patterns）" class="headerlink" title="2.2.使用模式（usage patterns）"></a>2.2.使用模式（usage patterns）</h3><p>位于<strong><em>关键字<code>usage:</code></em></strong>（不分大小写）和<strong><em>明显空行</em></strong> 之间的文本将被解释为<strong>使用模式列表</strong>，<strong><em>关键字<code>usage:</code></em></strong>后的第一个单词将被解释为<strong>程序名称</strong>。下面是一个无需命令行参数程序的最小示例：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">Usage:</span> <span class="string">my_program</span></span><br></pre></td></tr></table></figure><br>程序可以有多个使用模式，以各种元素列出来描述该使用模式：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">Usage:</span></span><br><span class="line">    <span class="string">my_program</span> <span class="string">command</span> <span class="string">--option</span> <span class="string">&lt;argument&gt;</span></span><br><span class="line">    <span class="string">my_program</span> [<span class="string">&lt;optional-argument&gt;</span>]</span><br><span class="line">    <span class="string">my_program</span> <span class="string">--another-option=&lt;with-argument&gt;</span></span><br><span class="line">    <span class="string">my_program</span> <span class="string">(--either-that-option</span> <span class="string">|</span> <span class="string">&lt;--or-this-argument&gt;)</span></span><br><span class="line">    <span class="string">my_program</span> <span class="string">&lt;repeating-argument&gt;</span> <span class="string">&lt;repeating-argument&gt;</span> <span class="string">...</span></span><br></pre></td></tr></table></figure><br>每个元素和结构将在下文介绍，用<code>word</code>表示一个由<strong>「空格」</strong>、<strong>「字符串<code>[]()|</code>」之一</strong>或<strong>「<code>...</code>」</strong>分隔的序列。</p>
+<h4 id="①参数-lt-argument-gt-ARGUMENT"><a href="#①参数-lt-argument-gt-ARGUMENT" class="headerlink" title="①参数&lt;argument&gt; ARGUMENT"></a>①参数<code>&lt;argument&gt;</code> <code>ARGUMENT</code></h4><p>以<code>&lt;</code>开头且<code>&gt;</code>结尾的单词和大写单词将被解释为<strong>位置参数</strong>（positional arguments）：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">Usage:</span> <span class="string">my_program</span> <span class="string">&lt;host&gt;</span> <span class="string">&lt;port&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="②选项-o-option"><a href="#②选项-o-option" class="headerlink" title="②选项-o --option"></a>②选项<code>-o</code> <code>--option</code></h4><p>以单连字符<code>-</code>或双连字符<code>--</code>开头的<strong><em>单词</em></strong> 将被分别解释为<strong>短格式选项</strong>（一个字母的「单词」）和<strong>长格式选项</strong>，除了<code>-</code>和<code>--</code>本身之外【特殊含义详见下文<a href="#%E2%91%A8%E9%80%89%E9%A1%B9%E5%8F%82%E6%95%B0%E5%88%86%E9%9A%94%E7%AC%A6">选项参数分隔符</a>和<a href="#%E2%91%A9%E5%A4%84%E7%90%86%E6%A0%87%E5%87%86%E8%BE%93%E5%85%A5">处理标准输入</a>】。</p>
+<ul>
+<li>短格式选项可以<strong>堆叠</strong>，这意味着<code>-abc</code>和<code>-a -b -c</code>是等价的；</li>
+<li>长格式选项可以有位于<code>空格</code>或<code>等号＝</code>之后的指定的参数，即<code>--input=ARG</code>与<code>--input ARG</code>等价；</li>
+<li>短格式选项可以有位于<strong>可选的</strong><code>空格</code>之后的指定的参数，即<code>-f FILE</code>与<code>-fFILE</code>等价；</li>
+</ul>
+<p><strong>注1：</strong><code>--input ARG</code>【而非<code>--input=ARG</code>】这种写法语义模棱两可，因为不知道<code>ARG</code>到底是<strong>选项参数</strong>还是<strong>位置参数</strong>。在使用模式中，只有提供了「<a href="#2-3-%E9%80%89%E9%A1%B9%E6%8F%8F%E8%BF%B0">选项描述</a>」时才会被解释为带参数的选项，否则将会被解释为一个选项和独立的位置参数。<br><strong>注2：</strong>同样会引起歧义的是<code>-f FILE</code>和<code>-fFILE</code>，因为后者不知道是多个堆叠的短格式选项（<code>-f -F -I -L -E</code>）还是带参数的单个选项（<code>-f</code>为选项，<code>FILE</code>为对应参数）。只有提供了选项描述时，后者这种写法才会被解释为带参数的单个选项。</p>
+<h4 id="③命令command"><a href="#③命令command" class="headerlink" title="③命令command"></a>③命令<code>command</code></h4><p>所有不遵循上述①②约定（即参数<code>&lt;argument&gt;</code>和选项<code>--option</code>）的「单词」，都将被解释为命令或子命令。</p>
+<h4 id="④可选元素-optional-elements"><a href="#④可选元素-optional-elements" class="headerlink" title="④可选元素[optional elements]"></a>④可选元素<code>[optional elements]</code></h4><p>包含在方括号<code>[]</code>中的<strong>元素</strong>（选项、参数、命令）被标为「可选」。元素是否包含在相同或不同的括号内并不重要，例如下面两种写法是等价的：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">Usage:</span> <span class="string">my_program</span> [<span class="string">command</span> <span class="string">--option</span> <span class="string">&lt;argument&gt;</span>]</span><br><span class="line"></span><br><span class="line"><span class="attr">Usage:</span> <span class="string">my_program</span> [<span class="string">command</span>] [<span class="string">--option</span>] [<span class="string">&lt;argument&gt;</span>]</span><br></pre></td></tr></table></figure></p>
+<h4 id="⑤必选元素-required-elements"><a href="#⑤必选元素-required-elements" class="headerlink" title="⑤必选元素(required elements)"></a>⑤必选元素<code>(required elements)</code></h4><p>如果不在方括号<code>[]</code>里，那么默认情况下所有元素都是必选的。但是有时候需要用圆括号<code>()</code>将必选元素显式地标出，例如需要对互斥元素（见下节<a href="#%E2%91%A5%E4%BA%92%E6%96%A5%E5%85%83%E7%B4%A0element-another">互斥元素</a>）分组的时候：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">Usage:</span> <span class="string">my_program</span> <span class="string">(--either-this</span> <span class="string">&lt;and-that&gt;</span> <span class="string">|</span> <span class="string">&lt;or-this&gt;)</span></span><br></pre></td></tr></table></figure><br>另一种用法是，当你需要制定如果有一个元素存在，那么就需要另一个元素，则可以这样实现：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">Usage:</span> <span class="string">my_program</span> [<span class="string">(&lt;one-argument&gt;</span> <span class="string">&lt;another-argument&gt;)</span>]</span><br></pre></td></tr></table></figure><br>在这种情况下，有效的程序调用要么没有参数，要么就有两个参数。</p>
+<h4 id="⑥互斥元素element-another"><a href="#⑥互斥元素element-another" class="headerlink" title="⑥互斥元素element | another"></a>⑥互斥元素<code>element | another</code></h4><p>互斥元素以管道符<code>|</code>进行分隔：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">Usage:</span> <span class="string">my_program</span> <span class="string">go</span> <span class="string">(--up</span> <span class="string">|</span> <span class="string">--down</span> <span class="string">|</span> <span class="string">--left</span> <span class="string">|</span> <span class="string">--right)</span></span><br></pre></td></tr></table></figure><br>在各个互斥情况下，当有一个为必选时使用圆括号<code>()</code>对元素进行分组，当没有必选时使用方括号<code>[]</code>对元素进行分组：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">Usage:</span> <span class="string">my_program</span> <span class="string">go</span> [<span class="string">--up</span> <span class="string">|</span> <span class="string">--down</span> <span class="string">|</span> <span class="string">--left</span> <span class="string">|</span> <span class="string">--right</span>]</span><br></pre></td></tr></table></figure><br><strong>注意：</strong>指定多个使用模式的运行恰如管道符<code>|</code>，这就是说以下两者写法是等价的：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">Usage:</span> <span class="string">my_program</span> <span class="string">run</span> [<span class="string">--fast</span>]</span><br><span class="line">       <span class="string">my_program</span> <span class="string">jump</span> [<span class="string">--high</span>]</span><br><span class="line"></span><br><span class="line"><span class="attr">Usage:</span> <span class="string">my_program</span> <span class="string">(run</span> [<span class="string">--fast</span>] <span class="string">|</span> <span class="string">jump</span> [<span class="string">--high</span>]<span class="string">)</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="⑦重复元素element"><a href="#⑦重复元素element" class="headerlink" title="⑦重复元素element..."></a>⑦重复元素<code>element...</code></h4><p>使用省略号<code>...</code>表示左边的一个或一组参数可被重复一次或多次：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">Usage:</span> <span class="string">my_program</span> <span class="string">open</span> <span class="string">&lt;file&gt;...</span></span><br><span class="line">       <span class="string">my_program</span> <span class="string">move</span> <span class="string">(&lt;from&gt;</span> <span class="string">&lt;to&gt;)...</span></span><br></pre></td></tr></table></figure><br>可以灵活地指定必需参数的数量，例如：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 零个或多个必选参数（3种冗余的方法）：</span></span><br><span class="line"><span class="attr">Usage:</span> <span class="string">my_program</span> [<span class="string">&lt;file&gt;...</span>]</span><br><span class="line">       <span class="string">my_program</span> [<span class="string">&lt;file&gt;</span>]<span class="string">...</span></span><br><span class="line">       <span class="string">my_program</span> [<span class="string">&lt;file&gt;</span> [<span class="string">&lt;file&gt;</span> <span class="string">...</span>]]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 一个或多个必选参数：</span></span><br><span class="line"><span class="attr">Usage:</span> <span class="string">my_program</span> <span class="string">&lt;file&gt;...</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 两个或多个必选参数：</span></span><br><span class="line"><span class="attr">Usage:</span> <span class="string">my_program</span> <span class="string">&lt;file&gt;</span> <span class="string">&lt;file&gt;...</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 诸如此类...</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="⑧选项简写-options"><a href="#⑧选项简写-options" class="headerlink" title="⑧选项简写[options]"></a>⑧选项简写<code>[options]</code></h4><p>「<strong><code>[options]</code></strong>」是一种选项的简写方式，该方式可以避免在使用模式中列出所有的选项（从带有描述的选项列表中）。例如以下两种写法是等价的：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 简写</span></span><br><span class="line"><span class="attr">Usage:</span> <span class="string">my_program</span> [<span class="string">options</span>] <span class="string">&lt;path&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="string">--all</span>             <span class="string">List</span> <span class="string">everything.</span></span><br><span class="line"><span class="string">--long</span>            <span class="string">Long</span> <span class="string">output.</span></span><br><span class="line"><span class="string">--human-readable</span>  <span class="string">Display</span> <span class="string">in</span> <span class="string">human-readable</span> <span class="string">format.</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 非简写</span></span><br><span class="line"><span class="attr">Usage:</span> <span class="string">my_program</span> [<span class="string">--all</span> <span class="string">--long</span> <span class="string">--human-readable</span>] <span class="string">&lt;path&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="string">--all</span>             <span class="string">List</span> <span class="string">everything.</span></span><br><span class="line"><span class="string">--long</span>            <span class="string">Long</span> <span class="string">output.</span></span><br><span class="line"><span class="string">--human-readable</span>  <span class="string">Display</span> <span class="string">in</span> <span class="string">human-readable</span> <span class="string">format.</span></span><br></pre></td></tr></table></figure><br>如果有很多选项，并且它们都适用于其中一种使用模式，那么这种简写将很有用。或者，如果同时具有短格式和长格式两种版本的选项（详见<a href="#2-3-%E9%80%89%E9%A1%B9%E6%8F%8F%E8%BF%B0">选项描述</a>部分），则可以在一个使用模式中列出其中之一：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">Usage:</span> <span class="string">my_program</span> [<span class="string">-alh</span>] <span class="string">&lt;path&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="string">-a,</span> <span class="string">--all</span>             <span class="string">List</span> <span class="string">everything.</span></span><br><span class="line"><span class="string">-l,</span> <span class="string">--long</span>            <span class="string">Long</span> <span class="string">output.</span></span><br><span class="line"><span class="string">-h,</span> <span class="string">--human-readable</span>  <span class="string">Display</span> <span class="string">in</span> <span class="string">human-readable</span> <span class="string">format.</span></span><br></pre></td></tr></table></figure><br>关于如何书写「选项描述」将在下文介绍。</p>
+<h4 id="⑨选项参数分隔符"><a href="#⑨选项参数分隔符" class="headerlink" title="⑨选项参数分隔符[--]"></a>⑨选项参数分隔符<code>[--]</code></h4><p>双连字符<code>--</code>在不属于选项的一部分时，按照惯例通常用于分隔选项和位置参数，以便处理诸如将文件名误认为是选项的情况。为了支持该约定，只需在使用模式的位置参数前加上<code>[--]</code>即可：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">Usage:</span> <span class="string">my_program</span> [<span class="string">options</span>] [<span class="string">--</span>] <span class="string">&lt;file&gt;...</span></span><br></pre></td></tr></table></figure><br>除此之外，<code>--</code>只是一个普通的命令，因此可应用于任何前述操作，譬如去掉方括号<code>[]</code>使其成为必选。</p>
+<h4 id="⑩处理标准输入"><a href="#⑩处理标准输入" class="headerlink" title="⑩处理标准输入[-]"></a>⑩处理标准输入<code>[-]</code></h4><p>单连字符<code>-</code>在不属于选项的一部分时，按照惯例通常表示程序用于处理标准输入<code>stdin</code>而非文件。如果要遵循该约定，只需将<code>[-]</code>添加到使用模式中。<code>-</code>自身仅仅是一个普通命令，可赋予任何意义。</p>
+<h3 id="2-3-选项描述"><a href="#2-3-选项描述" class="headerlink" title="2.3.选项描述"></a>2.3.选项描述</h3><p>选项描述是位于使用模式下面的一系列选项。如果使用模式不存在歧义（详见上文<a href="#%E2%91%A1%E9%80%89%E9%A1%B9-o-option">选项option</a>），则可以选择指定它们。</p>
+<p>一个选项描述允许指定：</p>
+<ul>
+<li>某些短格式和长格式选项为同义词；</li>
+<li>一个选项有一个参数；</li>
+<li>选项的参数提供默认值。</li>
+</ul>
+<p>这些规则遵循：以不计空格的以<code>-</code>或<code>--</code>开头的每一行都将视为选项描述。例如：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">Options:</span></span><br><span class="line">  <span class="string">--verbose</span>   <span class="comment"># GOOD，以「--」开头</span></span><br><span class="line">  <span class="string">-o</span> <span class="string">FILE</span>     <span class="comment"># GOOD，以「-」开头</span></span><br><span class="line"><span class="attr">Other:</span> <span class="string">--bad</span>  <span class="comment"># BAD，不以「-」开头</span></span><br></pre></td></tr></table></figure></p>
+<p>若要明确指定一个选项带有一个参数，则需：</p>
+<ol>
+<li>在空格或等号<code>=</code>后放一个描述该参数的词，如下所示。</li>
+<li>选项参数遵循尖括号<code>&lt;argument&gt;</code>或全大写<code>ARGUMENT</code>的约定。</li>
+<li>如果有必要，可以使用逗号<code>,</code>分隔选项。</li>
+</ol>
+<p>尽管下例中的两行都是有效的，但是建议坚持使用单一风格而不要混着用：<br>【注：根据下文分析中的<a href="#3-%E5%85%B3%E4%BA%8E%E3%80%8C%E9%80%89%E9%A1%B9%E3%80%8D%E5%8F%8A%E6%AD%A7%E4%B9%89">规范书写命令第4点</a>，推荐使用全大写而非尖括号】</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-o FILE --output=FILE       # 有等号、全大写、无逗号（推荐）</span><br><span class="line">-i &lt;file&gt;, --input &lt;file&gt;   # 无等号、尖括号、有逗号（不推荐）</span><br></pre></td></tr></table></figure>
+<p>用（至少）两个空格来分隔选项和它们的非正式描述【如果只用一个空格，可能会将描述的首个词当做选项的参数】：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">--verbose</span> <span class="string">MORE</span> <span class="string">text.</span>    <span class="comment"># BAD，将被视为选项verbose有一个参数MORE，</span></span><br><span class="line">                        <span class="comment"># 故需使用两个空格</span></span><br><span class="line"><span class="string">-q</span>        <span class="string">Quit.</span>         <span class="comment"># GOOD，8空格</span></span><br><span class="line"><span class="string">-o</span> <span class="string">FILE</span>   <span class="string">Output</span> <span class="string">file.</span>  <span class="comment"># GOOD，3空格</span></span><br><span class="line"><span class="string">--stdout</span>  <span class="string">Use</span> <span class="string">stdout.</span>   <span class="comment"># GOOD，2空格</span></span><br></pre></td></tr></table></figure><br>如果要为带有参数的选项设置默认值，则使用<code>[default: the-default-value]</code>的形式将其放到选项描述中：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">--coefficient=K</span>  <span class="string">The</span> <span class="string">K</span> <span class="string">coefficient</span> [<span class="attr">default:</span> <span class="number">2.95</span>]</span><br><span class="line"><span class="string">--output=FILE</span>    <span class="string">Output</span> <span class="string">file</span> [<span class="attr">default:</span> <span class="string">test.txt</span>]</span><br><span class="line"><span class="string">--directory=DIR</span>  <span class="string">Some</span> <span class="string">directory</span> [<span class="attr">default:</span> <span class="string">./</span>]</span><br></pre></td></tr></table></figure></p>
+<h3 id="2-4-其他"><a href="#2-4-其他" class="headerlink" title="2.4.其他"></a>2.4.其他</h3><ul>
+<li>在浏览器中体验<code>docopt</code>：<a target="_blank" rel="noopener" href="http://try.docopt.org/">Try docopt</a>。</li>
+<li><code>docopt</code>可用于多种编程语言，其官方实现列在<a target="_blank" rel="noopener" href="https://github.com/docopt">GitHub上的docopt组织</a>中。</li>
+</ul>
+<h2 id="3-注意事项"><a href="#3-注意事项" class="headerlink" title="3.注意事项"></a>3.注意事项</h2><blockquote>
+<p>为了和<a target="_blank" rel="noopener" href="http://docopt.org/">docopt文档</a>原有结构保持一致，本文第二章<a href="#2-%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91">文档翻译</a>没有在对应位置添加注释，故此列出各个注意事项。</p>
+</blockquote>
+<h4 id="1-关于「命令」"><a href="#1-关于「命令」" class="headerlink" title="(1)关于「命令」"></a>(1)关于「命令」</h4><p>在本文中使用模式格式为<code>my_program command --option &lt;argument&gt;</code>，各元素依次称为<code>程序</code>、<code>命令</code>、<code>选项</code>和<code>参数</code>；而一般Linux命令中将这里的<code>程序</code>也称为<code>命令</code>，在这种条件下<code>my_program command --option &lt;argument&gt;</code>中各元素依次称为<code>命令</code>、<code>子命令</code>、<code>选项</code>和<code>参数</code>，例如<code>yum install package_name -y</code>。<strong>注意：</strong>「子命令」不一定总有，例如<code>du -h ./</code>。</p>
+<p>由于Linux中都是称<code>cd</code>、<code>ls</code>等为「命令」，因此个人倾向于「<code>命令</code> <code>子命令</code>」的说法，而非「<code>程序</code> <code>命令</code>」。</p>
+<h4 id="2-关于「参数」"><a href="#2-关于「参数」" class="headerlink" title="(2)关于「参数」"></a>(2)关于「参数」</h4><p><a target="_blank" rel="noopener" href="http://docopt.org/">docopt文档</a>对某些名词和概念没有具体解释，容易让人误解，尤其是翻译的时候<strong>名词的形容词化</strong>。</p>
+<blockquote>
+<p><strong><code>parameter</code>和<code>argument</code>的区别：</strong><br>The term <strong><em>parameter</em></strong> is used to describe the names for values that are expected to be supplied.<br>The term <strong><em>argument</em></strong> is used for the values provided for each parameter.</p>
+<p><code>parameter</code>指函数定义中的形式参数（Formal Parameter）。<br><code>argument</code>指函数调用时的实际参数（Actual Argument）。</p>
+</blockquote>
+<p>在本文中只有实际参数（因为只需调用程序嘛），但参数又分为<a href="#%E2%91%A0%E5%8F%82%E6%95%B0-lt-argument-gt-ARGUMENT">位置参数</a>和<a href="#%E2%91%A1%E9%80%89%E9%A1%B9-o-option">选项参数</a>：</p>
+<ul>
+<li><strong>位置参数</strong>是指包含于尖括号<code>&lt;&gt;</code>中的单词和大写单词；</li>
+<li><strong>选项参数</strong>是指紧跟在选项后的参数，用于指定选项的惭怍对象，如<code>-o argument</code>或<code>--option=argument</code>中的「<code>argument</code>」即选项参数。</li>
+</ul>
+<h4 id="3-关于「选项」及歧义"><a href="#3-关于「选项」及歧义" class="headerlink" title="(3)关于「选项」及歧义"></a>(3)关于「选项」及歧义</h4><p>「选项」主要用于改变命令执行动作的类型。一般而言，短格式选项是长格式选项的缩写，也就是一个短格式选项会有对应的长格式选项。当然也有例外，比如<code>ls</code>命令的短格式选项<code>-l</code>就没有对应的长格式选项。</p>
+<p>上文<a href="#%E2%91%A1%E9%80%89%E9%A1%B9-o-option">选项option</a>一节注解中提到的歧义问题：</p>
+<ul>
+<li>长格式选项<code>--input ARG</code>中的<code>ARG</code>是<font color=purple><b>选项参数</b></font>还是<font color=purple><b>位置参数</b></font>？</li>
+<li>短格式选项<code>-f FILE</code>中的<code>FILE</code>是<font color=purple><b>选项参数</b></font>还是<font color=purple><b>位置参数</b></font>？</li>
+<li>短格式选项<code>-fFILE</code>是由<code>-f -F -I -L -E</code>堆叠的<font color=purple><b>多个选项</b></font>还是带参数<code>FILE</code>的<font color=purple><b>单个选项</b></font><code>-f</code>？</li>
+</ul>
+<p>为了避免引起上述歧义，最好规范书写命令，如下所示：</p>
+<ul>
+<li>1.书写带参数的短格式选项命令时，最好写成带空格的形式<code>-f FILE</code>；</li>
+<li>2.书写带参数的长格式选项命令时，最好写成带等号的形式<code>--input=ARG</code>；</li>
+<li>3.事实上，带空格的形式<code>-f FILE</code>仍然存在歧义【<code>FILE</code>是<font color=purple><b>选项参数</b></font>还是<font color=purple><b>位置参数</b></font>】，这是不可避免的，唯有开发者在帮助文档中用<code>-f FILE</code>和<code>-f &lt;FILE&gt;</code>分别表示选项参数和位置参数，才能使使用者更明确。</li>
+<li>4.尽管文档中<a href="#%E2%91%A0%E5%8F%82%E6%95%B0-lt-argument-gt-ARGUMENT">参数argument</a>将<code>&lt;argument&gt;</code>和<code>ARGUMENT</code>统称为「位置参数」，但如果将其分别表示位置参数和选项参数则可消除该歧义。</li>
+</ul>
+<h4 id="4-关于「可选元素」"><a href="#4-关于「可选元素」" class="headerlink" title="(4)关于「可选元素」"></a>(4)关于「可选元素」</h4><p>由于<a href="#%E2%91%A3%E5%8F%AF%E9%80%89%E5%85%83%E7%B4%A0-optional-elements">可选元素</a>是否包含在相同或不同的括号内并不重要，因此<code>my_program [command --option &lt;argument&gt;]</code>中的3个元素共有8种组合而不是2种：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 错误的「所有可能性」：</span></span><br><span class="line"><span class="string">my_program</span></span><br><span class="line"><span class="string">my_program</span> <span class="string">command</span> <span class="string">--option</span> <span class="string">argument</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 正确的「所有可能性」：</span></span><br><span class="line"><span class="string">my_program</span></span><br><span class="line"><span class="string">my_program</span> <span class="string">command</span></span><br><span class="line"><span class="string">my_program</span> <span class="string">--option</span></span><br><span class="line"><span class="string">my_program</span> <span class="string">argument</span></span><br><span class="line"><span class="string">my_program</span> <span class="string">command</span> <span class="string">--option</span></span><br><span class="line"><span class="string">my_program</span> <span class="string">command</span> <span class="string">argument</span></span><br><span class="line"><span class="string">my_program</span> <span class="string">--option</span> <span class="string">argument</span></span><br><span class="line"><span class="string">my_program</span> <span class="string">command</span> <span class="string">--option</span> <span class="string">argument</span></span><br></pre></td></tr></table></figure><br>如果将其改写为它的等价形式<code>my_program [command] [--option] [&lt;argument&gt;]</code>则很容易理解，难的是理解两者为何等价。</p>
+<h4 id="5-关于「连字符」"><a href="#5-关于「连字符」" class="headerlink" title="(5)关于「连字符」"></a>(5)关于「连字符」</h4><p><a href="#%E2%91%A8%E9%80%89%E9%A1%B9%E5%8F%82%E6%95%B0%E5%88%86%E9%9A%94%E7%AC%A6">双连字符</a>和<a href="#%E2%91%A9%E5%A4%84%E7%90%86%E6%A0%87%E5%87%86%E8%BE%93%E5%85%A5">单连字符</a>除去上文特殊含义外<font color=purple><b>「仅仅是一个普通命令，可赋予任何意义」</b></font>。</p>
+<p>文档没有对这句话进行解释，我的理解是<code>my_program command</code>也可以写作<code>my_program --</code>或者<code>my_program -</code>，如果该命令是可选的，那么<code>my_program [--]</code>岂不是又会有到底是<font color=purple><b>选项参数分隔符</b></font>还是<font color=purple><b>命令</b></font>的歧义了。</p>
+<p>所以说，最好还是将它们限制在<a href="#%E2%91%A8%E9%80%89%E9%A1%B9%E5%8F%82%E6%95%B0%E5%88%86%E9%9A%94%E7%AC%A6">选项参数分隔符</a>和<a href="#%E2%91%A9%E5%A4%84%E7%90%86%E6%A0%87%E5%87%86%E8%BE%93%E5%85%A5">处理标准输入</a>的特定含义吧。</p>
+<h4 id="6-关于「约定惯例」"><a href="#6-关于「约定惯例」" class="headerlink" title="(6)关于「约定惯例」"></a>(6)关于「约定惯例」</h4><p>约定或惯例（convention）只是为了方便彼此交流和理解而形成的规定，并不是一项带强制性的标准，因此并非所有帮助信息都遵循了这些规定，所以更多时候需要结合具体情况来推断。</p>
+<p>以下列举几个例子：<br><strong>①<code>vim</code>命令。</strong>包括「命令的简要描述」、「使用模式」和「选项描述」三个部分，如图（截图不完整）。<br><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/few-pics/20210414vim命令.png" alt="vim命令"></p>
+<p>图中将「选项」写作「Arguments」，需要根据该帮助信息来推断各元素的含义。<br>其中，<font color=purple><b>紫色框中</b></font>以单连字符<code>-</code>表示从标准输入<code>stdin</code>读取文本，双连字符<code>--</code>表示后面的参数为文件。</p>
+<p>同理，在<code>cat</code>命令中单连字符<code>-</code>含义与此相同，如图所示（截图为<code>cat --help</code>的部分内容）：<br><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/few-pics/20210414cat部分命令.png" alt="cat部分命令"></p>
+<p>双连字符<code>--</code>在<code>rm</code>命令中还可以标识以单连字符<code>-</code>开头的文件，例如删除当前文件夹下名为<code>-foo</code>的文件，可以使用<code>rm -- -foo</code>或<code>rm ./-foo</code>，如图所示（截图为<code>rm --help</code>的部分内容）：<br><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/few-pics/20210414rm部分命令.png" alt="rm部分命令"></p>
+<p><strong>②<code>chmod</code>命令。</strong>包括「使用模式」、「命令描述」、「选项描述」以及「补充信息」四个部分，如图所示。<br><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/few-pics/20210414chmod命令.png" alt="chmod命令"></p>
+<p>注意<code>chmod</code>命令第一种使用模式中<code>MODE[,MODE]...</code>的<a href="#%E2%91%A6%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0element">重复元素</a>写法。</p>
+<p><strong>③<code>who</code>命令</strong>包括「使用模式」、「命令描述」、「选项描述」以及「补充信息」四个部分，如图所示。<br><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/few-pics/20210414who命令.png" alt="who命令"></p>
+<p>注意<code>who</code>命令使用模式中<code>[FILE | ARG1 ARG2]</code>的<code>FILE</code>和<code>ARG1 ARG2</code>这对<a href="#%E2%91%A5%E4%BA%92%E6%96%A5%E5%85%83%E7%B4%A0element-another">互斥元素</a>实际上包含了两种使用模式，这在后面的「补充信息」中也有说明即：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">Usage:</span> <span class="string">who</span> [<span class="string">option</span>]<span class="string">...</span> [<span class="string">FILE</span>]</span><br><span class="line"><span class="attr">Usage:</span> <span class="string">who</span> [<span class="string">option</span>]<span class="string">...</span> [<span class="string">(ARG1</span> <span class="string">ARG2)</span>]</span><br></pre></td></tr></table></figure></p>
+<p>同时，上文<a href="#3-%E5%85%B3%E4%BA%8E%E3%80%8C%E9%80%89%E9%A1%B9%E3%80%8D%E5%8F%8A%E6%AD%A7%E4%B9%89">关于「选项」及歧义</a>中指出：<font color=purple><b>一般而言，短格式选项是长格式选项的缩写，也就是一个短格式选项会有对应的长格式选项。</b></font>从上面的例子可以看出，一个选项可以只有短格式选项（如<code>-m</code>），可以只有长格式选项（如<code>--version</code>），也可以同时都有（如<code>-a，--all</code>）。</p>
+<hr>
+<p><strong>注意：</strong>尽管大多数命令都有<a href="#2-3-%E9%80%89%E9%A1%B9%E6%8F%8F%E8%BF%B0">选项描述</a>，因此上述提到的歧义都将解释为带参数的单个选项。但是也有一些命令没有<a href="#2-3-%E9%80%89%E9%A1%B9%E6%8F%8F%E8%BF%B0">选项描述</a>，例如<code>ssh</code>命令。<br><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/few-pics/20210415ssh命令.png" alt="ssh命令"></p>
+<p>在这种情况下，诸如<code>-b bind_address</code>中的<code>address</code>将被解释为独立的位置参数【而不是<code>-b</code>的选项参数】。然而此处这两种理解的运行效果没有分别，因此尽管在理论上会存在歧义，但实际上开发者会避免掉歧义情况的出现。</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-license">
+      <strong>文章作者： </strong><a href="https://hwame.top" style="color:#E541E5;"> 鴻塵</a>
+    </li>
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://hwame.top/20210112/command-line-description.html" title="命令行帮助文档语法格式详解" target="_blank" rel="external" style="color:#E541E5;">https://hwame.top/20210112/command-line-description.html</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用《<a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external" style="color:#E541E5;"><u>CC BY 4.0 CN协议</u></a>》许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://hwame.top" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://hwame.top" target="_blank"><span class="text-dark">鴻塵</span><small class="ml-1x">Pythoner, Data Analyst</small></a></h3>
+        <div>个人简介：处女座不适合做码农。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/20210610/flatten-a-nested-list.html" title="如何将嵌套列表展开为一维"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/20201129/confusing-concepts-in-linux.html" title="Linux中易混淆的概念"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">
+        <span style="color:#C71585">[&nbsp;</span><span style="color:#C71585">文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span style="color:#C71585">]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,wechat,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/hwame" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/hwamei" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://www.zhihu.com/people/hwame" target="_blank" title="Zhihu" data-toggle=tooltip data-placement=top><i class="icon icon-zhihu"></i></a></li>
+        
+        <li><a href="https://segmentfault.com/u/hwame" target="_blank" title="Segmentfault" data-toggle=tooltip data-placement=top><i class="icon icon-segmentfault"></i></a></li>
+        
+        <li><a href="https://gitee.com/hwame" target="_blank" title="Gitee" data-toggle=tooltip data-placement=top><i class="icon icon-gitee"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        &copy; 2023 鴻塵
+        
+        
+        <div class="publishby" style="font-family:Courier">
+            <span id="busuanzi_container_site_pv">
+                <i class="icon icon-eye"></i><span id="busuanzi_value_site_pv" style="font-family:Courier"></span>&nbsp;
+                <i class="icon icon-users"></i><span id="busuanzi_value_site_uv" style="font-family:Courier"></span>
+            </span>
+            <!--
+            <br>✯<a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/" style="color:#0FFFAA">鄂ICP备2020019329号</a>
+            -->
+            <br><i class="icon icon-clock" style="transform:rotate(90deg)"></i><span id="sitetime" style="font-family:Courier"></span>
+        </div>
+        
+        <!--
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+        -->
+    </div>
+    
+</footer>
+<script>
+    function siteTime(){
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth()+1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+        var t1 = Date.UTC(2020,05,19,21,20,52); //建站时间
+        var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+        var diff = t2-t1;
+        var diffYears = Math.floor(diff/years);
+        var diffDays = Math.floor((diff/days)-diffYears*365);
+        var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+        var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+        var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+        // 将「数字」转「补零字符串」
+        var y = diffYears.toString()
+        var d = diffDays.toString().padStart(3, '0')
+        var h = diffHours.toString().padStart(2, '0')
+        var m = diffMinutes.toString().padStart(2, '0')
+        var s = diffSeconds.toString().padStart(2, '0')
+        document.getElementById("sitetime").innerHTML=y+":"+d+":"+h+":"+m+":"+s;
+    }
+    siteTime();
+</script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<div id="go-top"></div>
+<style type="text/css">
+#go-top {
+ width:40px;height:40px;
+ background-color:#DDA0DD;
+ position:relative;
+ border-radius:20px;
+ position:fixed;right:20px;bottom:50px;
+ cursor:pointer;display:none;
+}
+#go-top:after {
+ content:" ";
+ position:absolute;left:14px;top:14px;
+ border-top:2px solid #fff;border-right:2px solid #fff;
+ width:12px;height:12px;
+ transform:rotate(-45deg);
+}
+#go-top:hover {
+ background-color:#8A2BE2;
+}
+</style>
+<script>
+$(function () {
+  var top=$("#go-top");
+  $(window).scroll(function () {
+    ($(window).scrollTop() > 300) ? top.show(300) : top.hide(200);
+    $("#go-top").click(function () {
+      $('body,html').animate({scrollTop:0});
+      return false();
+    })
+  });
+});
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//code.bdstatic.com/npm/leancloud-storage@latest/dist/av-min.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css" />
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  var requiredFields = 'mail';
+  requiredFields = requiredFields.split(',');
+  
+  new Valine({
+    el: '#vcomments',
+    appId: 'yLWKiHoPwmx7Izv4YYtC1fW2-MdYXbMMI',
+    appKey: 'h01jve7HXS6MuDLNBF5DeWTz',
+    verify: false,
+    notify: true,
+    placeholder: '🌺🌺留下邮箱才可以收到新消息提醒哦~\n🦚🦚输入QQ号可自动拉取昵称和邮箱~',
+    avatar: 'robohash',
+    meta: meta,
+    pageSize: '10' || 10,
+    enableQQ: 'true',
+    recordIP: 'true',
+    requiredFields: requiredFields,
+    visitor: true,
+    serverURLs: 'https://valine.hwame.top',
+    
+    master: 'f86269b0b1850cd62ca22b218aea1780',
+    friends: ['1725648a3566b8841f19423519e0a36e', '87b6f0e96e63727d889bb3653fb5867c', 'b7c8e70dc5b2bbbdbdeca1fc0e71b919'],
+    tagMeta: ['鴻塵', '蜜柚', '访客'],
+    metaPlaceholder: {"nick":"昵称/QQ号","mail":"邮箱(必填)","link":"个人主页"}, 
+    emojiCDN: "https://cdn.jsdelivr.net/gh/MiniValine/MiniValine@master/imgs/alus/",
+    emojiMaps: {
+        "emoji_001": "0000.png",
+        "emoji_002": "0010.png",
+        "emoji_003": "0020.png",
+        "emoji_004": "0030.png",
+        "emoji_005": "0040.png",
+        "emoji_006": "0050.png",
+        "emoji_007": "0060.png",
+        "emoji_008": "0070.png",
+        "emoji_009": "0080.png",
+        "emoji_010": "0090.png",
+        "emoji_011": "0100.png",
+        "emoji_012": "0110.png",
+        "emoji_013": "0120.png",
+        "emoji_014": "0130.png",
+        "emoji_015": "0140.png",
+        "emoji_016": "0150.png",
+        "emoji_017": "0160.png",
+        "emoji_018": "0170.png",
+        "emoji_019": "0171.png",
+        "emoji_020": "0180.png",
+        "emoji_021": "0181.png",
+        "emoji_022": "0190.png",
+        "emoji_023": "0200.png",
+        "emoji_024": "0210.png",
+        "emoji_025": "0220.png",
+        "emoji_026": "0230.png",
+        "emoji_027": "0240.png",
+        "emoji_028": "0241.png",
+        "emoji_029": "0250.png",
+        "emoji_030": "0260.png",
+        "emoji_031": "0270.png",
+        "emoji_032": "0280.png",
+        "emoji_033": "0290.png",
+        "emoji_034": "0300.png",
+        "emoji_035": "0310.png",
+        "emoji_036": "0320.png",
+        "emoji_037": "0330.png",
+        "emoji_038": "0331.png",
+        "emoji_039": "0340.png",
+        "emoji_040": "0350.png",
+        "emoji_041": "0360.png",
+        "emoji_042": "0370.png",
+        "emoji_043": "0380.png",
+        "emoji_044": "0390.png",
+        "emoji_045": "0391.png",
+        "emoji_046": "0400.png",
+        "emoji_047": "0410.png",
+        "emoji_048": "0420.png",
+        "emoji_049": "0430.png",
+        "emoji_050": "0431.png",
+        "emoji_051": "0440.png",
+        "emoji_052": "0450.png",
+        "emoji_053": "0451.png",
+        "emoji_054": "0460.png",
+        "emoji_055": "0461.png",
+        "emoji_056": "0462.png",
+        "emoji_057": "0470.png",
+        "emoji_058": "0480.png",
+        "emoji_059": "0490.png",
+        "emoji_060": "0500.png",
+        "emoji_061": "0510.png",
+        "emoji_062": "0520.png",
+        "emoji_063": "0530.png",
+        "emoji_064": "0540.png",
+        "emoji_065": "0550.png",
+        "emoji_066": "0560.png",
+        "emoji_067": "0570.png",
+        "emoji_068": "0580.png",
+        "emoji_069": "0590.png",
+        "emoji_070": "0600.png",
+        "emoji_071": "0610.png",
+        "emoji_072": "0620.png",
+        "emoji_073": "1010.png",
+        "emoji_074": "1011.png",
+        "emoji_075": "1020.png",
+        "emoji_076": "1030.png",
+        "emoji_077": "1040.png",
+        "emoji_078": "1050.png",
+        "emoji_079": "1060.png",
+        "emoji_080": "1070.png",
+        "emoji_081": "1080.png",
+        "emoji_082": "2010.png",
+        "emoji_083": "2020.png",
+        "emoji_084": "2030.png",
+        "emoji_085": "2040.png",
+        "emoji_086": "2050.png",
+        "emoji_087": "2060.png",
+        "emoji_088": "2070.png",
+        "emoji_089": "2080.png",
+        "emoji_090": "2090.png",
+        "emoji_091": "2100.png",
+        "emoji_092": "2101.png",
+        "emoji_093": "2110.png",
+        "emoji_094": "2120.png",
+        "emoji_095": "2130.png",
+        "emoji_096": "2140.png",
+        "emoji_097": "2141.png",
+        "emoji_098": "2145.png",
+        "emoji_099": "2150.png",
+        "emoji_100": "2151.png",
+        "emoji_101": "2152.png",
+        "emoji_102": "2160.png",
+        "emoji_103": "2161.png",
+        "emoji_104": "2165.png",
+        "emoji_105": "2170.png",
+        "emoji_106": "2171.png",
+        "emoji_107": "3010.png",
+        "emoji_108": "3011.png",
+        "emoji_109": "3020.png",
+        "emoji_110": "3030.png",
+        "emoji_111": "3040.png",
+        "emoji_112": "3050.png",
+        "emoji_113": "3060.png",
+        "emoji_114": "3061.png",
+        "emoji_115": "4010.png",
+        "emoji_116": "4020.png",
+        "emoji_117": "4021.png",
+        "emoji_118": "4022.png",
+        "emoji_119": "4023.png",
+        "emoji_120": "4024.png",
+        "emoji_121": "4025.png",
+        "emoji_122": "4030.png",
+        "emoji_123": "4031.png",
+        "emoji_124": "4040.png",
+        "emoji_125": "4041.png",
+        "emoji_126": "4042.png",
+        "emoji_127": "4100.png",
+        "emoji_128": "4110.png",
+        "emoji_129": "4111.png",
+        "emoji_130": "4112.png",
+        "emoji_131": "4113.png",
+        "emoji_132": "4114.png",
+        "emoji_133": "4115.png",
+        "emoji_134": "4120.png",
+        "emoji_135": "4121.png",
+        "emoji_136": "4130.png",
+        "emoji_137": "4140.png",
+        "emoji_138": "4200.png",
+        "emoji_139": "4201.png",
+        "emoji_140": "4210.png",
+        "emoji_141": "4211.png",
+        "emoji_142": "4212.png",
+        "emoji_143": "4213.png",
+        "emoji_144": "4220.png",
+        "emoji_145": "4300.png",
+        "emoji_146": "4301.png",
+        "emoji_147": "4302.png",
+        "emoji_148": "4303.png",
+        "emoji_149": "4304.png",
+        "emoji_150": "4310.png",
+        "emoji_151": "5000.png",
+        "emoji_152": "5001.png",
+        "emoji_153": "5002.png",
+        "emoji_154": "5003.png",
+        "emoji_155": "5010.png",
+        "emoji_156": "5020.png",
+        "emoji_157": "5030.png",
+        "emoji_158": "5040.png",
+        "emoji_159": "5050.png",
+        "emoji_160": "5060.png",
+        "emoji_161": "5069.png",
+        "emoji_162": "5070.png",
+        "emoji_163": "5080.png",
+        "emoji_164": "5090.png",
+        "emoji_165": "5091.png",
+        "emoji_166": "5100.png",
+        "emoji_167": "5110.png",
+        "emoji_168": "5120.png",
+        "emoji_169": "5130.png",
+        "emoji_170": "5131.png",
+        "emoji_171": "5140.png",
+        "emoji_172": "5141.png",
+        "emoji_173": "5150.png",
+        "emoji_174": "5151.png",
+        "emoji_175": "5160.png",
+        "emoji_176": "5161.png",
+        "emoji_177": "5170.png",
+        "emoji_178": "5180.png",
+        "emoji_179": "5190.png",
+        "emoji_180": "5200.png",
+        "emoji_181": "5210.png",
+        "emoji_182": "5220.png",
+        "emoji_183": "5230.png",
+        "emoji_184": "6000.png",
+        "emoji_185": "6001.png",
+        "emoji_186": "6010.png",
+        "emoji_187": "6020.png",
+        "emoji_188": "6030.png",
+        "emoji_189": "6040.png",
+        "emoji_190": "6050.png",
+        "emoji_191": "6051.png",
+        "emoji_192": "6060.png",
+        "emoji_193": "6061.png",
+        "emoji_194": "6070.png",
+        "emoji_195": "6080.png",
+        "emoji_196": "6090.png",
+        "emoji_197": "6091.png",
+        "emoji_198": "6092.png",
+        "emoji_199": "6100.png",
+        "emoji_200": "6110.png",
+        "emoji_201": "6120.png",
+        "emoji_202": "6121.png",
+        "emoji_203": "6130.png",
+        "emoji_204": "6131.png",
+        "emoji_205": "6132.png",
+        "emoji_206": "6140.png",
+        "emoji_207": "6150.png",
+        "emoji_208": "6151.png",
+        "emoji_209": "6160.png",
+        "emoji_210": "6500.png",
+        "emoji_211": "6510.png",
+        "emoji_212": "6520.png",
+        "emoji_213": "6530.png",
+        "emoji_214": "7000.png",
+        "emoji_215": "7010.png",
+        "emoji_216": "7011.png",
+        "emoji_217": "7012.png",
+        "emoji_218": "7020.png",
+        "emoji_219": "7021.png",
+        "emoji_220": "7030.png",
+        "emoji_221": "7040.png",
+        "emoji_222": "7045.png",
+        "emoji_223": "7046.png",
+        "emoji_224": "7050.png",
+        "emoji_225": "7051.png",
+        "emoji_226": "7052.png",
+        "emoji_227": "7053.png",
+        "emoji_228": "7054.png",
+        "emoji_229": "7060.png",
+        "emoji_230": "7061.png",
+        "emoji_231": "7062.png",
+        "emoji_232": "7070.png",
+        "emoji_233": "7071.png",
+        "emoji_234": "7080.png",
+        "emoji_235": "7081.png",
+        "emoji_236": "7090.png",
+        "emoji_237": "7100.png",
+        "emoji_238": "7110.png",
+        "emoji_239": "7111.png",
+        "emoji_240": "7112.png",
+        "emoji_241": "7113.png",
+        "emoji_242": "7200.png",
+        "emoji_243": "7201.png",
+        "emoji_244": "7210.png",
+        "emoji_245": "7220.png",
+        "emoji_246": "7230.png",
+        "emoji_247": "8000.png",
+        "emoji_248": "8001.png",
+        "emoji_249": "8010.png",
+        "emoji_250": "8020.png",
+        "emoji_251": "8021.png",
+        "emoji_252": "8030.png",
+        "emoji_253": "8040.png",
+        "emoji_254": "8041.png",
+        "emoji_255": "8042.png",
+        "emoji_256": "8050.png",
+        "emoji_257": "8051.png",
+        "emoji_258": "8060.png",
+        "emoji_259": "8062.png",
+        "emoji_260": "8070.png",
+        "emoji_261": "8071.png",
+        "emoji_262": "8072.png",
+        "emoji_263": "8080.png",
+        "emoji_264": "8081.png",
+        "emoji_265": "8082.png",
+        "emoji_266": "8083.png",
+        "emoji_267": "8084.png",
+        "emoji_268": "8085.png",
+        "emoji_269": "8090.png",
+        "emoji_270": "8091.png",
+        "emoji_271": "8092.png",
+        "emoji_272": "8100.png",
+        "emoji_273": "8101.png",
+        "emoji_274": "8102.png",
+        "emoji_275": "8103.png",
+        "emoji_276": "8110.png",
+        "emoji_277": "8111.png",
+        "emoji_278": "x010.png",
+        "emoji_279": "x011.png",
+        "emoji_280": "x012.png",
+        "emoji_281": "x013.png",
+        "emoji_282": "x014.png",
+        "emoji_283": "x021.png",
+        "emoji_284": "x022.png",
+        "emoji_285": "x031.png",
+        "emoji_286": "x032.png",
+        "emoji_287": "x041.png",
+        "emoji_288": "x042.png",
+        "emoji_289": "x050.png",
+        "emoji_290": "x060.png",
+        "emoji_291": "x061.png",
+        "emoji_292": "x062.png",
+        "emoji_293": "x063.png",
+        "emoji_294": "x069.png",
+        "emoji_295": "x070.png",
+        "emoji_296": "x071.png",
+        "emoji_297": "x080.png",
+        "emoji_298": "x081.png",
+        "emoji_299": "x082.png",
+        "emoji_300": "x083.png",
+        "emoji_301": "x090.png",
+        "emoji_302": "x091.png",
+        "emoji_303": "x092.png",
+        "emoji_304": "x093.png",
+        "emoji_305": "x094.png",
+        "emoji_306": "x099.png",
+        "emoji_307": "不出所料.png",
+        "emoji_308": "不说话.png",
+        "emoji_309": "不高兴.png",
+        "emoji_310": "中刀.png",
+        "emoji_311": "中指.png",
+        "emoji_312": "中枪.png",
+        "emoji_313": "亲亲.png",
+        "emoji_314": "便便.png",
+        "emoji_315": "内伤.png",
+        "emoji_316": "击掌.png",
+        "emoji_317": "口水.png",
+        "emoji_318": "吐.png",
+        "emoji_319": "吐舌.png",
+        "emoji_320": "吐血倒地.png",
+        "emoji_321": "呲牙.png",
+        "emoji_322": "咽气.png",
+        "emoji_323": "哭泣.png",
+        "emoji_324": "喜极而泣.png",
+        "emoji_325": "喷水.png",
+        "emoji_326": "喷血.png",
+        "emoji_327": "坐等.png",
+        "emoji_328": "害羞.png",
+        "emoji_329": "小眼睛.png",
+        "emoji_330": "尴尬.png",
+        "emoji_331": "得意.png",
+        "emoji_332": "惊喜.png",
+        "emoji_333": "想一想.png",
+        "emoji_334": "愤怒.png",
+        "emoji_335": "扇耳光.png",
+        "emoji_336": "投降.png",
+        "emoji_337": "抠鼻.png",
+        "emoji_338": "抽烟.png",
+        "emoji_339": "无奈.png",
+        "emoji_340": "无所谓.png",
+        "emoji_341": "无语.png",
+        "emoji_342": "暗地观察.png",
+        "emoji_343": "期待.png",
+        "emoji_344": "欢呼.png",
+        "emoji_345": "汗.png",
+        "emoji_346": "深思.png",
+        "emoji_347": "狂汗.png",
+        "emoji_348": "献花.png",
+        "emoji_349": "献黄瓜.png",
+        "emoji_350": "皱眉.png",
+        "emoji_351": "看不见.png",
+        "emoji_352": "看热闹.png",
+        "emoji_353": "瞅你.png",
+        "emoji_354": "肿包.png",
+        "emoji_355": "脸红.png",
+        "emoji_356": "蜡烛.png",
+        "emoji_357": "装大款.png",
+        "emoji_358": "观察.png",
+        "emoji_359": "赞一个.png",
+        "emoji_360": "邪恶.png",
+        "emoji_361": "锁眉.png",
+        "emoji_362": "长草.png",
+        "emoji_363": "阴暗.png",
+        "emoji_364": "高兴.png",
+        "emoji_365": "黑线.png",
+        "emoji_366": "鼓掌.png",
+    },
+  });
+  </script>
+
+     
+
+
+<!-- 20201211添加判断 -->
+
+   
+  <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script>
+  <script>
+  //利用 FancyBox 实现点击图片放大
+  $(document).ready(function() {
+    $('article img').not('[hidden]').not('.panel-body img').each(function() {
+      var $image = $(this);
+      var imageCaption = $image.attr('alt');
+      var $imageWrapLink = $image.parent('a');
+      if ($imageWrapLink.length < 1) {
+        var src = this.getAttribute('src');
+        var idx = src.lastIndexOf('?');
+        if (idx != -1) {
+          src = src.substring(0, idx);
+        }
+        $imageWrapLink = $image.wrap('<a href="' + src + '"></a>').parent('a');
+      }
+      $imageWrapLink.attr('data-fancybox', 'images');
+      if (imageCaption) {
+        $imageWrapLink.attr('data-caption', imageCaption);
+      }
+    });
+    $().fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: true,
+    });
+  });
+  </script>
+
+
+
+
+
+
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+      z-index: 2;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+        .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  
+  <script>
+    addLoadEvent(()=>{
+      $('.highlight').each(function (i, e) {
+        var $wrap = $('<div>').addClass('highlight-wrap')
+        $(e).after($wrap)
+        $wrap.append($('<button>').addClass('copy-btn').append('一键复制').on('click', function (e) {
+          var code = $(this).parent().find(".code")[0].innerText
+          
+          var ta = document.createElement('textarea')
+          document.body.appendChild(ta)
+          ta.style.position = 'absolute'
+          ta.style.top = '0px'
+          ta.style.left = '0px'
+          ta.value = code
+          ta.select()
+          ta.focus()
+          var result = document.execCommand('copy')
+          document.body.removeChild(ta)
+          
+            if(result)$(this).text('复制成功')
+            else $(this).text('复制失败')
+          
+          $(this).blur()
+        })).on('mouseleave', function (e) {
+          var $b = $(this).find('.copy-btn')
+          setTimeout(function () {
+            $b.text('一键复制')
+          }, 300)
+        }).append(e)
+      })
+    })
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,1530 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  <!-- 谷歌收录 -->
+  <meta name="google-site-verification" content="-5hl8eC4wfapGZhZouwMVUcKG0iaynijVRJbqVlzXm4" />
+  
+  
+  <title>Hexo博客搭建(3)——优化评论系统 | 鴻塵</title>
+  <meta name="description" content="摘要：博客采用Valine评论系统，其基于LeanCloud，配置较为繁琐，故单独取一篇幅记录其配置过程。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo博客搭建(3)——优化评论系统">
+<meta property="og:url" content="https://hwame.top/20200520/hello-hexo-optimization.html">
+<meta property="og:site_name" content="鴻塵">
+<meta property="og:description" content="摘要：博客采用Valine评论系统，其基于LeanCloud，配置较为繁琐，故单独取一篇幅记录其配置过程。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201013leancloud应用.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201022部署项目1.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201022部署项目2.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201022部署项目3.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201022部署项目4.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/blogimg/picbed@latest/2020/05/16/5fcab394c9f9e2f488b3b60b498bf0e3.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201022评论管理域名.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201022域名白名单.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201022SMTP授权码.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201022评论效果.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201022定时任务1.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201022定时任务2.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201022定时任务3.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201024定时任务4.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201024服务器定时任务.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201025运行效果.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201025评论昵称测试.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201025图标显示对比.png">
+<meta property="article:published_time" content="2020-05-20T05:14:52.000Z">
+<meta property="article:modified_time" content="2020-09-28T02:29:51.000Z">
+<meta property="article:author" content="鴻塵">
+<meta property="article:tag" content="Hexo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201013leancloud应用.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://hwame.top/20200520/hello-hexo-optimization.html">
+  
+    <link rel="alternate" href="true" title="鴻塵" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+    <link href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css" rel="stylesheet">
+  
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<script src="https://cdn.jsdelivr.net/gh/bobcn/hexo_resize_image.js@master/hexo_resize_image.js"></script>
+<body class="main-center theme-purple" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://hwame.top" target="_blank">
+          <img class="img-circle img-rotate" src="https://cdn.jsdelivr.net/gh/hwame/pics@main/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">鴻塵</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Pythoner, Data Analyst</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> 湖北-武汉</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav menu-highlight">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder-open"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">资源</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-gallery">
+          <a href="/gallery">
+            
+            <i class="icon icon-delicious"></i>
+            
+            <span class="menu-title">相册</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/hwame" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/hwamei" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://www.zhihu.com/people/hwame" target="_blank" title="Zhihu" data-toggle=tooltip data-placement=top><i class="icon icon-zhihu"></i></a></li>
+        
+        <li><a href="https://segmentfault.com/u/hwame" target="_blank" title="Segmentfault" data-toggle=tooltip data-placement=top><i class="icon icon-segmentfault"></i></a></li>
+        
+        <li><a href="https://gitee.com/hwame" target="_blank" title="Gitee" data-toggle=tooltip data-placement=top><i class="icon icon-gitee"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title"><i style="color:#9400D3" class="icon icon-stackexchange"></i>公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎来到鴻塵的博客!<br>鴻塵的<u><a target="_blank" rel="noopener" href="https://weibo.com/hwamei" style="color:#E541E5;">微博</a></u>主页，鴻塵的<u><a target="_blank" rel="noopener" href="https://github.com/hwame" style="color:#E541E5;">Github</a></u>主页，如果我可以忘记的<u><a target="_blank" rel="noopener" href="https://www.zhihu.com/people/hwame" style="color:#E541E5;">知乎</a></u>主页。</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title"><i style="color:#9400D3" class="icon icon-tags"></i>标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/CentOS/" style="font-size: 13px; color: #fff">CentOS</a> <a href="/tags/Go/" style="font-size: 13.2px; color: #fff">Go</a> <a href="/tags/Hexo/" style="font-size: 13.8px; color: #fff">Hexo</a> <a href="/tags/Linux/" style="font-size: 14px; color: #fff">Linux</a> <a href="/tags/Linux%E9%83%A8%E7%BD%B2/" style="font-size: 13px; color: #fff">Linux部署</a> <a href="/tags/MongoDB/" style="font-size: 13.4px; color: #fff">MongoDB</a> <a href="/tags/Spark/" style="font-size: 13px; color: #fff">Spark</a> <a href="/tags/matplotlib/" style="font-size: 13.2px; color: #fff">matplotlib</a> <a href="/tags/miscellanea/" style="font-size: 13.6px; color: #fff">miscellanea</a> <a href="/tags/python/" style="font-size: 14px; color: #fff">python</a> <a href="/tags/shell/" style="font-size: 13.6px; color: #fff">shell</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 13px; color: #fff">大数据</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" style="font-size: 13px; color: #fff">数据结构与算法</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 13px; color: #fff">爬虫</a>
+    </div>
+  </div>
+
+<script type="text/javascript">
+    var everytag=document.getElementsByClassName("widget-body tagcloud")[0].children;
+    for (var i = everytag.length - 1; i >= 0; i--) {
+    	var r=Math.floor(Math.random()*255);
+        var g=Math.floor(Math.random()*255);
+        var b=Math.floor(Math.random()*255);
+        everytag[i].style.background = "rgb("+r+","+g+","+b+")";
+    }
+</script>
+    
+      
+  <div class="widget">
+    <h3 class="widget-title"><i style="color:#9400D3" class="icon icon-folder-open"></i>分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Go/">Go</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MongoDB/">MongoDB</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/miscellanea/">miscellanea</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title"><i style="color:#9400D3" class="icon icon-archives-fill"></i>归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">17</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title"><i style="color:#9400D3" class="icon icon-shu-fill"></i>最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled ">
+        
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20220327/channel-and-goroutine-in-go.html" class="thumb">
+    
+    
+        <span style="background-image:url(https://cdn.jsdelivr.net/gh/hwame/pics@main/post-pics/icon-golang.jpeg)" alt="Go语言中的通道" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Go/">Go</a>
+              </p>
+              <p class="item-title">
+                <a href="/20220327/channel-and-goroutine-in-go.html" class="title">Go语言中的通道</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-27T11:06:16.000Z" itemprop="datePublished">2022-03-27</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20220323/when-to-use-pointer-in-go.html" class="thumb">
+    
+    
+        <span style="background-image:url(https://cdn.jsdelivr.net/gh/hwame/pics@main/post-pics/icon-golang.jpeg)" alt="Go语言什么时候使用指针" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Go/">Go</a>
+              </p>
+              <p class="item-title">
+                <a href="/20220323/when-to-use-pointer-in-go.html" class="title">Go语言什么时候使用指针</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-23T12:49:57.000Z" itemprop="datePublished">2022-03-23</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20220228/awesome-images-in-markdown.html" class="thumb">
+    
+    
+        <span style="background-image:url(https://cdn.jsdelivr.net/gh/hwame/pics@main/avatar.jpg)" alt="Markdown中图片的高级用法" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/miscellanea/">miscellanea</a>
+              </p>
+              <p class="item-title">
+                <a href="/20220228/awesome-images-in-markdown.html" class="title">Markdown中图片的高级用法</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-02-28T15:27:50.000Z" itemprop="datePublished">2022-02-28</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20220116/shell-regular-expression.html" class="thumb">
+    
+    
+        <span style="background-image:url(https://cdn.jsdelivr.net/gh/hwame/pics@main/post-pics/linux-icon.png)" alt="Shell正则表达式" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Linux/">Linux</a>
+              </p>
+              <p class="item-title">
+                <a href="/20220116/shell-regular-expression.html" class="title">Shell正则表达式</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-01-16T14:13:05.000Z" itemprop="datePublished">2022-01-16</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20211009/install-linux-on-android-phone.html" class="thumb">
+    
+    
+        <span style="background-image:url(https://cdn.jsdelivr.net/gh/hwame/pics@main/avatar.jpg)" alt="如何在安卓手机上安装Linux发行版" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/miscellanea/">miscellanea</a>
+              </p>
+              <p class="item-title">
+                <a href="/20211009/install-linux-on-android-phone.html" class="title">如何在安卓手机上安装Linux发行版</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-10-09T15:16:37.000Z" itemprop="datePublished">2021-10-09</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">1.前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E9%83%A8%E7%BD%B2valine-admin"><span class="toc-number">2.</span> <span class="toc-text">2.部署valine-admin</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E5%88%9B%E5%BB%BA%E5%BA%94%E7%94%A8"><span class="toc-number">2.1.</span> <span class="toc-text">2.1.创建应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E9%83%A8%E7%BD%B2%E9%A1%B9%E7%9B%AE"><span class="toc-number">2.2.</span> <span class="toc-text">2.2.部署项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E7%BB%91%E5%AE%9A%E8%AF%84%E8%AE%BA%E7%AE%A1%E7%90%86%E7%9A%84%E5%9F%9F%E5%90%8D"><span class="toc-number">2.3.</span> <span class="toc-text">2.3.绑定评论管理的域名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-%E8%AE%BE%E7%BD%AE%E5%9F%9F%E5%90%8D%E7%99%BD%E5%90%8D%E5%8D%95"><span class="toc-number">2.4.</span> <span class="toc-text">2.4.设置域名白名单</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-%E8%AE%BE%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-number">2.5.</span> <span class="toc-text">2.5.设置环境变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-6-%E9%87%8D%E6%96%B0%E9%83%A8%E7%BD%B2"><span class="toc-number">2.6.</span> <span class="toc-text">2.6.重新部署</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-7-%E5%88%9D%E5%A7%8B%E5%8C%96%E5%90%8E%E5%8F%B0%E7%AE%A1%E7%90%86"><span class="toc-number">2.7.</span> <span class="toc-text">2.7.初始化后台管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-8-%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%AE%8C%E6%88%90"><span class="toc-number">2.8.</span> <span class="toc-text">2.8.基本配置完成</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E9%98%B2%E6%AD%A2%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BC%91%E7%9C%A0"><span class="toc-number">3.</span> <span class="toc-text">3.防止服务器休眠</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E5%88%9B%E5%BB%BA%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1"><span class="toc-number">3.1.</span> <span class="toc-text">3.1.创建定时任务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E5%9B%BD%E9%99%85%E7%89%88%E6%97%B6%E5%8C%BA%E9%97%AE%E9%A2%98"><span class="toc-number">3.2.</span> <span class="toc-text">3.2.国际版时区问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%AE%BE%E7%BD%AE%E8%87%AA%E5%8A%A8%E5%94%A4%E9%86%92"><span class="toc-number">3.3.</span> <span class="toc-text">3.3.服务器设置自动唤醒</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E8%BF%90%E8%A1%8C%E6%95%88%E6%9E%9C"><span class="toc-number">3.4.</span> <span class="toc-text">3.4.生产环境运行效果</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F%E8%AE%BE%E7%BD%AE%E5%BF%85%E5%A1%AB%E9%A1%B9"><span class="toc-number">4.</span> <span class="toc-text">4.评论系统设置必填项</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0"><span class="toc-number">4.1.</span> <span class="toc-text">4.1.问题描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90"><span class="toc-number">4.2.</span> <span class="toc-text">4.2.源码分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-%E4%BF%AE%E6%94%B9%E6%BA%90%E7%A0%81%E5%8F%8A%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">4.3.</span> <span class="toc-text">4.3.修改源码及主题配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-%E6%98%B5%E7%A7%B0%E9%95%BF%E5%BA%A6%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">4.4.</span> <span class="toc-text">4.4.昵称长度的问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-5-%E4%BF%AE%E6%94%B9%E5%90%8E%E5%86%85%E5%AE%B9"><span class="toc-number">4.5.</span> <span class="toc-text">4.5.修改后内容</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E6%B7%BB%E5%8A%A0%E8%BA%AB%E4%BB%BD%E6%A0%87%E7%AD%BE"><span class="toc-number">5.</span> <span class="toc-text">5.添加身份标签</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-%E5%89%8D%E8%A8%80"><span class="toc-number">5.1.</span> <span class="toc-text">5.1.前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-%E4%BF%AE%E6%94%B9%E5%92%8C%E9%85%8D%E7%BD%AE"><span class="toc-number">5.2.</span> <span class="toc-text">5.2.修改和配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-%E5%85%B3%E4%BA%8E%E6%98%B5%E7%A7%B0%E9%95%BF%E5%BA%A6%E7%9A%84%E8%AF%B4%E6%98%8E"><span class="toc-number">5.3.</span> <span class="toc-text">5.3.关于昵称长度的说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-fontawesomeV5%E6%94%AF%E6%8C%81"><span class="toc-number">5.4.</span> <span class="toc-text">5.4.fontawesomeV5支持</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E7%BE%8E%E5%8C%96%E8%AF%84%E8%AE%BA%E5%8C%BA%E6%A0%B7%E5%BC%8F"><span class="toc-number">6.</span> <span class="toc-text">6.美化评论区样式</span></a></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-hello-hexo-optimization" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Hexo博客搭建(3)——优化评论系统
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar"></i>
+	<a href="/20200520/hello-hexo-optimization.html" class="article-date">
+	  发布于 <time datetime="2020-05-20T05:14:52.000Z" itemprop="datePublished">2020-05-20</time>
+	</a>
+</span>
+<span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/20200520/hello-hexo-optimization.html" class="article-date">
+	  更新于 <time datetime="2020-09-28T02:29:51.000Z" itemprop="dateUpdated">2020-09-28</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Hexo/">Hexo</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/Hexo/" rel="tag">Hexo</a>
+  </span>
+
+
+        
+
+	<span class="article-read hidden-xs">
+    	<i class="icon icon-eye-fill" aria-hidden="true"></i>
+    	<span id="/20200520/hello-hexo-optimization.html" class="leancloud_visitors"  data-flag-title="Hexo博客搭建(3)——优化评论系统">
+			<span class="leancloud-visitors-count">0</span>
+		</span>
+    </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/20200520/hello-hexo-optimization.html#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 5.7k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 22(分)</span>
+	
+
+      </div>
+      <div style="background-color:#D7BDE2;border:1px solid #D7BDE2;border-radius:10px;padding:5px">
+          <b>温馨提示</b>：点击页面下方<i style="color:red" class="icon icon-anchor"></i>以展开或折叠目录
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>摘要：博客采用<code>Valine</code>评论系统，其基于<code>LeanCloud</code>，配置较为繁琐，故单独取一篇幅记录其配置过程。<span id="more"></span></p>
+<blockquote>
+<p><font size=5><b>Hexo博客搭建</b></font><br><strong>博客系列：</strong><a href="https://hwame.top/20200520/hello-hexo-setup-deploy.html">Hexo博客搭建(1)——建站及部署</a>，环境搭建并部署至Github。<br><strong>博客系列：</strong><a href="https://hwame.top/20200520/hello-hexo-configuration.html">Hexo博客搭建(2)——主题配置</a>，针对<code>pure</code>主题进行个性化配置。<br><strong>博客系列：</strong><a href="https://hwame.top/20200520/hello-hexo-optimization.html">Hexo博客搭建(3)——优化评论系统</a>，主要对<code>Valine</code>评论系统进行优化。<br><strong>博客系列：</strong><a href="https://hwame.top/20200520/hello-hexo-troubleshooting.html">Hexo博客搭建(4)——常见问题</a>，修复了<code>pure</code>主题的系列小bug。<br><strong>文章作者：</strong><a href="https://hwame.top">鴻塵</a></p>
+</blockquote>
+<h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1.前言"></a>1.前言</h2><p><code>Hexo</code>支持<code>disqus</code>、<code>youyan</code>、<code>livere</code>、<code>gitment</code>、<code>gitalk</code>及<code>valine</code>等多种评论系统，此部分仅用于<code>Valine</code>评论系统。<br>原版的配置仅能记录评论，不能实现<strong>邮件提醒</strong>、<strong>QQ头像</strong>等个性化需求。<br>头像倒无所谓，<code>Valine</code>自带的头像样式（<code>monsterid</code>、<code>wavatar</code>、<code>robohash</code>）其实也差不多够用了，但远不如QQ头像的辨识度高。最主要的是<strong>邮件提醒</strong>功能，比如讨论某个问题，当有了答案的时候却无法通知对方，因为别人不可能一直守着你的网站等回复吧，所以「邮件提醒」就显得极其重要且必要了。<br><strong>基础配置</strong>参考前文<a href="https://hwame.top/20200520/hello-hexo-configuration.html#5-%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F">Hexo博客搭建(2)——主题配置之评论系统</a>，下文是<strong>进阶配置</strong>。</p>
+<blockquote>
+<p>进阶配置主要参考：<br>①<a target="_blank" rel="noopener" href="https://www.antmoe.com/posts/2380732b/index.html#%E9%83%A8%E7%BD%B2valine-admin">Valine评论之Valine-admin配置攻略</a><br>②<a target="_blank" rel="noopener" href="https://blog.gobyte.cn/post/e56fdb88.html">pure主题valine留言板添加：昵称、邮箱必填必写功能</a></p>
+</blockquote>
+<hr>
+<h2 id="2-部署valine-admin"><a href="#2-部署valine-admin" class="headerlink" title="2.部署valine-admin"></a>2.部署<code>valine-admin</code></h2><h3 id="2-1-创建应用"><a href="#2-1-创建应用" class="headerlink" title="2.1.创建应用"></a>2.1.创建应用</h3><p>注册登录 LeanCloud 的官网，推荐使用「国际版」，因为附赠了一个「LeanCloud评论管理」的域名<code>https://xxx.avosapps.us</code>。<br>创建应用，选择免费的「开发版」即可，创建完成如图所示。<br><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201013leancloud应用.png" alt="创建LeanCloud应用"></p>
+<h3 id="2-2-部署项目"><a href="#2-2-部署项目" class="headerlink" title="2.2.部署项目"></a>2.2.部署项目</h3><p>⑴进入创建好的应用，依次点击「云引擎」→「部署」→「项目部署」，如图所示。<br><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201022部署项目1.png" alt="部署项目"><br>⑵此时默认是在「命令行工具部署」的教程页面，切换到「Git部署」，点击「配置Git」，在「<code>Git remote URL</code>」填入<strong><code>https://github.com/sviptzk/Valine-Admin-Server</code></strong>，如图所示。<br><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201022部署项目2.png" alt="部署项目"><br>⑶点击「部署项目」，回到「Git部署」选项卡，可以看到「<code>Deploy from</code><strong><code>https://github.com/sviptzk/Valine-Admin-Server</code></strong>」，「手动部署」下点击「部署」即可，如图所示。<br><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201022部署项目3.png" alt="部署项目"><br>⑷等待部署完成即可，控制台打印部署日志如图。<br><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201022部署项目4.png" alt="部署项目"><br>⑸部署过程完整动图如下，<a target="_blank" rel="noopener" href="https://www.antmoe.com/posts/2380732b/index.html#%E9%83%A8%E7%BD%B2valine-admin">图片来源</a><br><img src="https://cdn.jsdelivr.net/gh/blogimg/picbed@latest/2020/05/16/5fcab394c9f9e2f488b3b60b498bf0e3.png" alt="部署项目动图演示"></p>
+<h3 id="2-3-绑定评论管理的域名"><a href="#2-3-绑定评论管理的域名" class="headerlink" title="2.3.绑定评论管理的域名"></a>2.3.绑定评论管理的域名</h3><p><strong>说明：</strong>这一步非必须，评论管理模块可以直接在「存储」→「结构化数据」→「Comment」处操作，但是「国际版域名」对应的评论后台管理系统可以<strong>对发送邮件提醒失败的评论重新发送通知</strong>、可以<strong>标记垃圾邮件</strong>，综上还是有必要配置这一步的。</p>
+<p>由于LeanCloud分为「国区版」和「国际版」，只有「国际版」才分配一个免费的二级域名，上文也推荐使用「国际版」，因此默认已有该域名：<code>https://xxx.avosapps.us</code>。</p>
+<blockquote>
+<p><strong>获取国际版域名：</strong>依次点击「云引擎」→「设置」→「云引擎域名」，设置自己的独立域名，例如：<code>hwame.avosapps.us</code>，如图所示。</p>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201022评论管理域名.png" alt="绑定评论管理的域名"></p>
+<h3 id="2-4-设置域名白名单"><a href="#2-4-设置域名白名单" class="headerlink" title="2.4.设置域名白名单"></a>2.4.设置域名白名单</h3><p>如果没有设置域名白名单，网页就无法加载评论，显示权限错误。<br>每行一个域名，多个域名换行分隔。子域名需每条列出，不支持通配符。协议、域名和端口号都需严格一致（如果使用的是默认端口号可以省略，但协议头一定要写）。例如我的设置如图：<br><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201022域名白名单.png" alt="域名白名单"></p>
+<h3 id="2-5-设置环境变量"><a href="#2-5-设置环境变量" class="headerlink" title="2.5.设置环境变量"></a>2.5.设置环境变量</h3><p>依次点击「云引擎」→「设置」→「自定义环境变量」，添加环境变量，此步骤非常重要，设置时务必弄清楚每一个变量的含义。<br>下表仅为本人所设置的环境变量（按字母排序），根据需要自行增减，其他环境变量参考<a target="_blank" rel="noopener" href="https://www.antmoe.com/posts/2380732b/index.html#%E9%83%A8%E7%BD%B2valine-admin">Valine评论之Valine-admin配置攻略</a>。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">变量名</th>
+<th style="text-align:center">必需</th>
+<th style="text-align:left">说明</th>
+<th style="text-align:left">示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>ADMIN_URL</code></td>
+<td style="text-align:center">可选</td>
+<td style="text-align:left"><code>*</code>评论后台的管理地址（<strong>非博客地址</strong>）</td>
+<td style="text-align:left"><code>https://hwame.avosapps.us/</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>BLOGGER_EMAIL</code></td>
+<td style="text-align:center">可选</td>
+<td style="text-align:left"><code>*</code>评论后台的管理员邮箱，默认使用<code>SMTP_USER</code></td>
+<td style="text-align:left"><code>xxx@qq.com</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>SENDER_NAME</code></td>
+<td style="text-align:center">必填</td>
+<td style="text-align:left">邮件寄件人名称</td>
+<td style="text-align:left">鴻塵</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>SITE_NAME</code></td>
+<td style="text-align:center">必填</td>
+<td style="text-align:left">网站名称</td>
+<td style="text-align:left">鴻塵的博客</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>SITE_URL</code></td>
+<td style="text-align:center">必填</td>
+<td style="text-align:left">网站地址，最后不要加<strong><code>/</code></strong></td>
+<td style="text-align:left"><code>https://hwame.top</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>SMTP_PASS</code></td>
+<td style="text-align:center">必填</td>
+<td style="text-align:left"><code>*</code>SMTP授权码</td>
+<td style="text-align:left"><code>abcdefghijklmnop</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>SMTP_SERVICE</code></td>
+<td style="text-align:center">必填</td>
+<td style="text-align:left"><code>*</code>邮件服务提供商</td>
+<td style="text-align:left"><code>QQ</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>SMTP_USER</code></td>
+<td style="text-align:center">必填</td>
+<td style="text-align:left">SMTP服务用户名，一般为邮箱地址</td>
+<td style="text-align:left"><code>xxx@qq.com</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>TEMPLATE_NAME</code></td>
+<td style="text-align:center">必填</td>
+<td style="text-align:left"><code>*</code>提醒邮件的主题</td>
+<td style="text-align:left"><code>rainbow</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>TO_EMAIL</code></td>
+<td style="text-align:center">可选</td>
+<td style="text-align:left">博主通知收件地址，默认使用<code>SMTP_USER</code></td>
+<td style="text-align:left"><code>xxx@qq.com</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<p><strong>带<code>*</code>号字段的详细说明：</strong></p>
+<ul>
+<li><code>ADMIN_URL</code>：评论后台的管理地址，即上文<a href="#2-3-%E7%BB%91%E5%AE%9A%E8%AF%84%E8%AE%BA%E7%AE%A1%E7%90%86%E7%9A%84%E5%9F%9F%E5%90%8D">2.3.绑定评论管理的域名</a>设置的域名。通过该后台可以<strong>对发送邮件提醒失败的评论重新发送通知</strong>、可以<strong>标记垃圾邮件</strong>，而「结构化数据」中的「<code>Comment</code>」可以<strong>修改评论内容/昵称/时间</strong>、<strong>为评论添加QQ头像</strong>等，两处都可以查看<strong>邮件提醒是否成功</strong>。</li>
+<li><code>BLOGGER_EMAIL</code>：评论后台的管理员邮箱，如果设置则作为后台管理员邮箱（<code>/sign-up</code>页面设置），如果不设置则默认为<code>SMTP_USER</code>。</li>
+<li><code>SMTP_PASS</code>：SMTP授权码，注意<strong>不是邮箱的登陆密码</strong>，QQ以外的请自行查询对应邮件服务商的获取方式，以QQ邮箱为例（需要获取QQ邮箱独立密码）：<ul>
+<li>登陆QQ邮箱，点击「设置」→「账户」，下滑至「POP3/IMAP/SMTP/Exchange/CardDAV/CalDAV服务」，开启「<code>POP3/SMTP</code>」和「<code>IMAP/SMTP</code>」服务，如图所示：<br><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201022SMTP授权码.png" alt="SMTP授权码"></li>
+<li>点击上图中的「生成授权码」，根据提示发送手机短信，完成后将生成16位字符的授权码，出于安全考虑，该授权码仅显示一次。</li>
+<li>将授权码填入环境变量<code>SMTP_PASS</code>字段。</li>
+</ul>
+</li>
+<li><code>SMTP_SERVICE</code>：邮件服务提供商，一般都是使用QQ邮箱，其他常用邮箱类型（如<code>126</code>，<code>163</code>，<code>Gmail</code>，<code>Hotmail</code>，<code>Outlook365</code>及<code>Yahoo</code>等）操作类似，可用选项参考<a target="_blank" rel="noopener" href="https://nodemailer.com/smtp/well-known/#supported-services">Supported services</a>。</li>
+<li><code>TEMPLATE_NAME</code>：评论提醒邮件的主题模板，可选值有<code>default</code>，<code>rainbow</code>（效果如图），<code>custom1</code>，<code>custom2</code>，简洁风可直接使用<code>default</code>或<code>rainbow</code>，若使用后两者，可能还需要设置附加环境变量，具体参考<a target="_blank" rel="noopener" href="https://www.antmoe.com/posts/2380732b/index.html#%E9%83%A8%E7%BD%B2valine-admin">部署valine-admin</a>。<br><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201022评论效果.png" alt="rainbow风格评论提醒效果"></li>
+</ul>
+<h3 id="2-6-重新部署"><a href="#2-6-重新部署" class="headerlink" title="2.6.重新部署"></a>2.6.重新部署</h3><p>环境变量设置完成后需要重新部署实例，使其生效。<br><strong>注意：</strong>由于每个人的需求不同，配置时务必弄清楚各变量的含义。<br><strong>注意：</strong>每次修改或添加环境变量后，都需要重启/重新部署实例，否则配置不生效。</p>
+<h3 id="2-7-初始化后台管理"><a href="#2-7-初始化后台管理" class="headerlink" title="2.7.初始化后台管理"></a>2.7.初始化后台管理</h3><p><strong>注意：</strong>如果你没有设置后台域名（即上文<a href="#2-3-%E7%BB%91%E5%AE%9A%E8%AF%84%E8%AE%BA%E7%AE%A1%E7%90%86%E7%9A%84%E5%9F%9F%E5%90%8D">2.3.绑定评论管理的域名</a>设置的域名），那么也可以跳过这一步。</p>
+<ul>
+<li>初始化<br>设置登陆信息，打开<code>https://domain/sign-up</code>，其中<code>domain</code>为绑定的后台管理的域名，例如使用「国际版」赠送的域名<code>https://hwame.avosapps.us/</code>，那么我访问的地址就是 <code>https://hwame.avosapps.us/sign-up</code>。</li>
+<li>后台登陆<br>设置登陆信息后就可以用登录名登录了，登陆后台直接使用<code>https://hwame.avosapps.us/</code>即可，若使用<code>https://hwame.avosapps.us/sign-up</code><strong>可能</strong>会有bug。</li>
+</ul>
+<h3 id="2-8-基本配置完成"><a href="#2-8-基本配置完成" class="headerlink" title="2.8.基本配置完成"></a>2.8.基本配置完成</h3><p>到这里基本上完成了<code>valine-admin</code>的基本设置。</p>
+<hr>
+<h2 id="3-防止服务器休眠"><a href="#3-防止服务器休眠" class="headerlink" title="3.防止服务器休眠"></a>3.防止服务器休眠</h2><h3 id="3-1-创建定时任务"><a href="#3-1-创建定时任务" class="headerlink" title="3.1.创建定时任务"></a>3.1.创建定时任务</h3><p>经过上述设置，基本上能满足我们的日常要求。</p>
+<blockquote>
+<p><strong>此部分参考：</strong><br>①<a target="_blank" rel="noopener" href="https://lovelijunyi.gitee.io/posts/e52c.html#%E9%98%B2%E6%AD%A2%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BC%91%E7%9C%A0">Valine评论系统详解之防止服务器休眠</a><br>②<a target="_blank" rel="noopener" href="https://www.antmoe.com/posts/2380732b/index.html#%E9%98%B2%E6%AD%A2%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BC%91%E7%9C%A0">Valine-admin配置攻略之防止服务器休眠</a></p>
+</blockquote>
+<p>目前最新版的<code>Valine Admin</code>已经可以实现自唤醒，即在 LeanCloud 云引擎中定时请求 Web 应用地址防止休眠。对于夜间休眠期漏发的邮件通知，自动在次日早上补发。<br><strong>注意：</strong>务必确保配置中设置了<code>ADMIN_URL</code>环境变量，并需要添加以下两个云函数定时任务。</p>
+<p>目前实现了两种云函数定时任务：(1) 自动唤醒，定时访问 Web APP 二级域名防止云引擎休眠；(2) 每天定时检查 24 小时内漏发的邮件通知。</p>
+<p>进入「云引擎」→「定时任务」中，创建定时器，创建两个定时任务。</p>
+<ul>
+<li>选择<code>self-wake</code>云函数，<code>Cron</code>表达式为<code>0 0/20 7-23 * * ?</code>，表示每天早上 7 点到晚上 23:59 点每隔 20 分钟访问云引擎。编辑后会有提示<code>Every 20 minutes, between 07:00 AM and 11:59 PM</code>，如图所示：<br><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201022定时任务1.png" alt="定时任务之唤醒服务器"></li>
+<li>选择<code>resend-mails</code>云函数，<code>Cron</code>表达式为<code>0 59 7 * * *</code>，表示每天早上 8 点检查过去 24 小时内漏发的通知邮件并补发。编辑后会有提示<code>At 07:59 AM</code>，如图所示：<br><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201022定时任务2.png" alt="定时任务之邮件重发检查"></li>
+</ul>
+<p>设置完成后，就是如下两个函数，如图所示：</p>
+<p><font color=purple><b>✉ 注意：我们在创建定时任务时的时间和提示时间（即下图「运行周期」）都是基于「零时区」，而下图的「下次执行时间」才是基于本地时区「东八区」。可以看到，邮件重发检查设置的是「早上8点」但执行时间是「下午16点」。</b></font><br> <img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201022定时任务3.png" alt="定时任务之两种云函数"></p>
+<h3 id="3-2-国际版时区问题"><a href="#3-2-国际版时区问题" class="headerlink" title="3.2.国际版时区问题"></a>3.2.国际版时区问题</h3><p>按<code>LeanCloud</code><a target="_blank" rel="noopener" href="https://leancloud.cn/docs/leanengine_cloudqueue.html#hash-2143744582">官方文档之CRON表达式</a>最后备注的说法：<code>Cron 表达式的时区为东八区（国内版）、UTC 零时区（国际版）</code>。<br>因此，我们使用的「国际版」设置的定时任务和国内时区不匹配，应减去8小时（时区转换参考<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E4%B8%9C%E5%85%AB%E5%8C%BA">百度百科-东八区</a>）。</p>
+<h3 id="3-3-服务器设置自动唤醒"><a href="#3-3-服务器设置自动唤醒" class="headerlink" title="3.3.服务器设置自动唤醒"></a>3.3.服务器设置自动唤醒</h3><p>云函数定时任务时区其实是小问题，因为「唤醒服务器」基本上用不了，而「邮件重发」任何时间都可以。所以上述定时任务的<code>Cron</code>表达式也可以不需要修改，且需停止「唤醒服务器」，如图所示是我停止了自动唤醒且修改了邮件重发：<br><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201024定时任务4.png" alt="定时任务之修改时区和停用唤醒"></p>
+<hr>
+<p>查看日志发现唤醒失败：<code>因流控原因，通过定时任务唤醒体验版实例失败，建议升级至标准版云引擎实例避免休眠</code>，参考《<a target="_blank" rel="noopener" href="https://www.antmoe.com/posts/2380732b/index.html#%E9%98%B2%E6%AD%A2%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BC%91%E7%9C%A0">Valine-admin配置攻略之防止服务器休眠</a>》、《<a target="_blank" rel="noopener" href="https://www.antmoe.com/posts/ff6aef7b/index.html#%E5%85%B6%E4%BB%96%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88">优雅解决LeanCloud流控问题之其他解决方案（方案二）</a>》及《<a target="_blank" rel="noopener" href="http://www.zhaojun.im/hexo-valine-modify/?spm=a2c6h.12873639.0.0.3c2e61c3ncZ8fI#LeanCloud-%E4%BC%91%E7%9C%A0%E7%AD%96%E7%95%A5">Hexo 优化—-支持邮件通知的评论Valine增强版之LeanCloud休眠策略</a>》等文章，在我自己的服务器上利用<a target="_blank" rel="noopener" href="https://man.linuxde.net/crontab">crontab</a>创建了定时任务：<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@aliyun ~]# crontab -<span class="keyword">e</span></span><br><span class="line">0 0/20 7-23 * * ? curl https:<span class="comment">//hwame.avosapps.us</span></span><br><span class="line">~</span><br><span class="line">~</span><br><span class="line"><span class="string">&quot;/tmp/crontab.OOI2Ka&quot;</span> 1L, 49C written</span><br><span class="line">crontab: installing new crontab</span><br><span class="line"><span class="string">&quot;/tmp/crontab.OOI2Ka&quot;</span>:1: bad hour</span><br><span class="line">errors <span class="keyword">in</span> crontab <span class="keyword">file</span>, can&#x27;t install.</span><br><span class="line"><span class="keyword">Do</span> you want to retry the same <span class="keyword">edit</span>? y</span><br><span class="line"><span class="comment">*/20 7-23 * * * curl https://hwame.avosapps.us</span></span><br><span class="line">~</span><br></pre></td></tr></table></figure><br><strong>注意：</strong>此<code>crontab</code>不是LeanCloud后台的定时任务，命令有所区别，如果按云函数的配置<code>0 0/20 7-23 * * ?</code>则会报错：<code>errors in crontab file, can&#39;t install</code>；因此按<a target="_blank" rel="noopener" href="http://www.zhaojun.im/hexo-valine-modify/?spm=a2c6h.12873639.0.0.3c2e61c3ncZ8fI#LeanCloud-%E4%BC%91%E7%9C%A0%E7%AD%96%E7%95%A5">赵俊</a>的配置<code>*/20 7-23 * * * curl https://hwame.avosapps.us</code>，其中URL为评论系统后台管理地址（环境变量中的<code>ADMIN_URL</code>，例如<code>https://hwame.avosapps.us</code>），如图所示：<br><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201024服务器定时任务.png" alt="定时任务之服务器crontab"></p>
+<h3 id="3-4-生产环境运行效果"><a href="#3-4-生产环境运行效果" class="headerlink" title="3.4.生产环境运行效果"></a>3.4.生产环境运行效果</h3><p>生产环境下，「<strong>防止服务器休眠</strong>」及「<strong>定时检查漏发邮件</strong>」的运行效果如图所示：</p>
+<ul>
+<li><code>web1</code>是在阿里云服务器设置的<code>crontab curl</code>，每天早上 7 点到晚上 23:59 点每隔 20 分钟访问云引擎；</li>
+<li><code>system</code>是LeanCloud的定时任务云函数<code>resend-mails</code>，每天早上 8 点检查昨日漏发的通知邮件并补发。</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201025运行效果.png" alt="防止休眠运行效果"></p>
+<hr>
+<h2 id="4-评论系统设置必填项"><a href="#4-评论系统设置必填项" class="headerlink" title="4.评论系统设置必填项"></a>4.评论系统设置必填项</h2><h3 id="4-1-问题描述"><a href="#4-1-问题描述" class="headerlink" title="4.1.问题描述"></a>4.1.问题描述</h3><p>上文花费大量篇幅设置了「邮件提醒」功能，但是如果人家没有添加自己的邮箱呢？那岂不是我辛苦回复了，也无法联系到对方啊！所以需要给评论系统的邮箱字段增加必填的功能。<br>既然添加必填项要涉及到修改源码，干脆一次性改好，包括上文<a href="#1-%E5%89%8D%E8%A8%80">1.前言</a>提到的<strong>拉取QQ头像</strong>功能。<br>所以问题总共有如下几个：</p>
+<ul>
+<li>设置必填项<code>requiredFields</code>；</li>
+<li>自动拉取QQ头像<code>enableQQ</code>；</li>
+<li>昵称长度小于3的问题。</li>
+</ul>
+<h3 id="4-2-源码分析"><a href="#4-2-源码分析" class="headerlink" title="4.2.源码分析"></a>4.2.源码分析</h3><p>文件位于<code>./themes/pure/layout/_script/_comment/valine.ejs</code>，源码文件内容见<a target="_blank" rel="noopener" href="https://github.com/cofess/hexo-theme-pure/blob/master/layout/_script/_comment/valine.ejs">github</a>。<br>可见，在<code>verify</code>和<code>notify</code>已被弃用的情况下，除了必需的<code>appId</code>和<code>appKey</code>以外，<code>pure</code>主题实际只设置了<code>meta</code>、<code>placeholder</code>、<code>avatar</code>、<code>pageSize</code>、<code>visitor</code>这5个自定义字段。<br>然而，<code>Valine</code>实际是提供了这些的，详见<a target="_blank" rel="noopener" href="https://valine.js.org/configuration.html">valine配置项</a>，我们可以仿照<code>valine.ejs</code>中的代码并结合Valine支持的配置项进行添加：</p>
+<ul>
+<li>字符串/<code>true</code>/<code>false</code>类型：直接以<code>theme.comment.valine.FIELD</code>的方式获取；</li>
+<li>列表类型：仿照<code>meta</code>以「<code>,</code>」分割：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="variable constant_">FIELD</span> = <span class="string">&#x27;&lt;%= theme.comment.valine.FIELD %&gt;&#x27;</span>;</span><br><span class="line"><span class="variable constant_">FIELD</span> = <span class="variable constant_">FIELD</span>.<span class="title function_">split</span>(<span class="string">&#x27;,&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Valine</span>(&#123;</span><br><span class="line">	...</span><br><span class="line">	<span class="attr">FIELD</span>: <span class="variable constant_">FIELD</span>,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="4-3-修改源码及主题配置文件"><a href="#4-3-修改源码及主题配置文件" class="headerlink" title="4.3.修改源码及主题配置文件"></a>4.3.修改源码及主题配置文件</h3><p><code>Valine</code>提供了众多<a target="_blank" rel="noopener" href="https://valine.js.org/configuration.html">配置项</a>，但并不都是我们所需要的，除去上文<a href="#4-2-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90">4.2.源码分析</a>提到的已配置的项，我们还需要配置（按<code>./themes/pure/_config.yml</code>文件的配置顺序）：</p>
+<ul>
+<li><code>enableQQ</code>：<code>enableQQ: &#39;&lt;%= theme.comment.valine.enableQQ %&gt;&#39;,</code></li>
+<li><code>recordIP</code>：<code>recordIP: &#39;&lt;%= theme.comment.valine.recordIP %&gt;&#39;,</code></li>
+<li><code>requiredFields</code>：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> requiredFields = <span class="string">&#x27;&lt;%= theme.comment.valine.requiredFields %&gt;&#x27;</span>;</span><br><span class="line">requiredFields = requiredFields.<span class="title function_">split</span>(<span class="string">&#x27;,&#x27;</span>);</span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Valine</span>(&#123;</span><br><span class="line">	<span class="attr">requiredFields</span>: requiredFields,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>上述三项已在前文<a href="https://hwame.top/20200520/hello-hexo-configuration.html#5-%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F">Hexo博客搭建(2)——主题配置之评论系统</a>中配置。<br>另外可能会需要的就是emoji表情了，这里我们不需要这些花里胡哨的，可参考<a target="_blank" rel="noopener" href="https://valine.js.org/emoji.html">valine自定义表情</a>自行配置（<strong>注意：<code>emojiCDN</code>和<code>emojiMaps</code>需要同时设置且需对应</strong>）。</p>
+<h3 id="4-4-昵称长度的问题"><a href="#4-4-昵称长度的问题" class="headerlink" title="4.4.昵称长度的问题"></a>4.4.昵称长度的问题</h3><p>最开始是希望设置必填项为「<code>昵称</code>」和「<code>邮箱</code>」两项，且直接写在<code>ejs</code>文件里，测试时发现昵称长度必须大于3，查看引入的<a target="_blank" rel="noopener" href="https://cdn.jsdelivr.net/npm/valine">js源文件</a>，代码如下（可<code>Ctrl</code>＋<code>F</code>查找定位）：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(e.<span class="property">config</span>.<span class="property">requiredFields</span>.<span class="title function_">indexOf</span>(<span class="string">&quot;nick&quot;</span>) &gt; -<span class="number">1</span>	&amp;&amp; E.<span class="property">nick</span>.<span class="property">length</span> &lt; <span class="number">3</span>)</span><br><span class="line">	<span class="keyword">return</span> v.<span class="property">nick</span>[<span class="number">0</span>].<span class="title function_">focus</span>(), <span class="keyword">void</span> e.<span class="property">$el</span>.<span class="title function_">find</span>(<span class="string">&quot;.status-bar&quot;</span>).<span class="title function_">text</span>(<span class="string">&quot;&quot;</span> + e.<span class="property">i18n</span>.<span class="title function_">t</span>(<span class="string">&quot;nickFail&quot;</span>)).<span class="title function_">empty</span>(<span class="number">3e3</span>);</span><br></pre></td></tr></table></figure><br>逻辑很简单，直接将判断条件中的昵称长度改为<code>E.nick.length &lt; 1</code>即可，亦即昵称非空。但是就还需要将该js文件放到本地，然后引入。<br>所以我这里妥协了一下，只让必填项为「<code>邮箱</code>」，昵称默认是「<code>Anonymous</code>」。<br><strong>主题配置文件</strong>的配置参考前文<a href="https://hwame.top/20200520/hello-hexo-configuration.html#5-%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F">Hexo博客搭建(2)——主题配置之评论系统</a>。</p>
+<h3 id="4-5-修改后内容"><a href="#4-5-修改后内容" class="headerlink" title="4.5.修改后内容"></a>4.5.修改后内容</h3><p>修改后完整内容如下：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&lt;% if (typeof(script) !== &#x27;undefined&#x27; &amp;&amp; script) &#123; %&gt;</span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;//cdn1.lncld.net/static/js/3.0.4/av-min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;//cdn.jsdelivr.net/npm/valine&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">var</span> <span class="variable constant_">GUEST</span> = [<span class="string">&#x27;nick&#x27;</span>, <span class="string">&#x27;mail&#x27;</span>, <span class="string">&#x27;link&#x27;</span>];</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">var</span> meta = <span class="string">&#x27;&lt;%= theme.comment.valine.meta %&gt;&#x27;</span>;</span></span><br><span class="line"><span class="language-javascript">    meta = meta.<span class="title function_">split</span>(<span class="string">&#x27;,&#x27;</span>).<span class="title function_">filter</span>(<span class="keyword">function</span>(<span class="params">item</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">return</span> <span class="variable constant_">GUEST</span>.<span class="title function_">indexOf</span>(item) &gt; -<span class="number">1</span>;</span></span><br><span class="line"><span class="language-javascript">    &#125;);</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">var</span> requiredFields = <span class="string">&#x27;&lt;%= theme.comment.valine.requiredFields %&gt;&#x27;</span>;</span></span><br><span class="line"><span class="language-javascript">    requiredFields = requiredFields.<span class="title function_">split</span>(<span class="string">&#x27;,&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">new</span> <span class="title class_">Valine</span>(&#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">el</span>: <span class="string">&#x27;#vcomments&#x27;</span>,</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">appId</span>: <span class="string">&#x27;&lt;%= theme.comment.valine.appid %&gt;&#x27;</span>,</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">appKey</span>: <span class="string">&#x27;&lt;%= theme.comment.valine.appkey %&gt;&#x27;</span>,</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">verify</span>: &lt;%= theme.<span class="property">comment</span>.<span class="property">valine</span>.<span class="property">verify</span> %&gt;,</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">notify</span>: &lt;%= theme.<span class="property">comment</span>.<span class="property">valine</span>.<span class="property">notify</span> %&gt;,</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">placeholder</span>: <span class="string">&#x27;&lt;%= theme.comment.valine.placeholder %&gt;&#x27;</span>,</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">avatar</span>: <span class="string">&#x27;&lt;%= theme.comment.valine.avatar %&gt;&#x27;</span>,</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">meta</span>: meta,</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">pageSize</span>: <span class="string">&#x27;&lt;%= theme.comment.valine.pageSize %&gt;&#x27;</span> || <span class="number">10</span>,</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">enableQQ</span>: <span class="string">&#x27;&lt;%= theme.comment.valine.enableQQ %&gt;&#x27;</span>,</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">recordIP</span>: <span class="string">&#x27;&lt;%= theme.comment.valine.recordIP %&gt;&#x27;</span>,</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">requiredFields</span>: requiredFields,</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">visitor</span>: &lt;%= theme.<span class="property">comment</span>.<span class="property">valine</span>.<span class="property">visitor</span> %&gt;</span></span><br><span class="line"><span class="language-javascript">    &#125;);</span></span><br><span class="line"><span class="language-javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">&lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="5-添加身份标签"><a href="#5-添加身份标签" class="headerlink" title="5.添加身份标签"></a>5.添加身份标签</h2><h3 id="5-1-前言"><a href="#5-1-前言" class="headerlink" title="5.1.前言"></a>5.1.前言</h3><blockquote>
+<p>此部分主要参考以下文章：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://blog.hclonely.com/posts/409d3090/#%E6%B7%BB%E5%8A%A0%E6%A0%87%E7%AD%BE%E5%8F%8A%E5%9B%BE%E6%A0%87">【HCLonly】Valine添加标签及图标</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.hclonely.com/posts/57bd67ce/#valine%E8%AF%84%E8%AE%BA%E6%B7%BB%E5%8A%A0%E5%8D%9A%E4%B8%BB%E7%AD%89%E6%A0%87%E7%AD%BE(%E4%BB%85Butterfly%E4%B8%BB%E9%A2%98">【HCLonly】Hexo博客美化之valine评论添加博主等标签(仅Butterfly主题)</a>)</li>
+<li><a target="_blank" rel="noopener" href="https://chuchendjs.github.io/posts/valine-comment/#%E6%B7%BB%E5%8A%A0%E6%A0%87%E7%AD%BE%E5%8F%8A%E5%9B%BE%E6%A0%87">【初辰の揽月】Valine添加标签及图标</a></li>
+</ul>
+</blockquote>
+<p><strong>说明：</strong>由于网上关于「添加博主标签」都是基于<code>butterfly</code>主题的，而我使用的是<code>pure</code>主题，因此配置方面有较大差别，并且无法显示<code>操作系统</code>和<code>浏览器</code>图标。</p>
+<h3 id="5-2-修改和配置"><a href="#5-2-修改和配置" class="headerlink" title="5.2.修改和配置"></a>5.2.修改和配置</h3><p>样式文件为<code>./themes/pure/layout/_script/_comment/valine.ejs</code>，<strong>主题配置文件</strong>为<code>./themes/pure/_config.yml</code>。</p>
+<p><code>pure</code>主题关于<code>valine</code>只有上面一个文件，js文件是以<code>&lt;script src=&quot;//xxx.js&quot;&gt;&lt;/script&gt;</code>的形式引入的，原本已引入两个js文件，为了能显示<strong>身份标签</strong>还需引入<a target="_blank" rel="noopener" href="https://cdn.jsdelivr.net/gh/HCLonely/Valine@latest/dist/Valine.min.js">https://cdn.jsdelivr.net/gh/HCLonely/Valine@latest/dist/Valine.min.js</a>：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;//cdn1.lncld.net/static/js/3.0.4/av-min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;//cdn.jsdelivr.net/npm/valine&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;//cdn.jsdelivr.net/gh/HCLonely/Valine@latest/dist/Valine.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure><br>由于<code>Butterfly</code>主题使用<code>.pug</code>格式的<a target="_blank" rel="noopener" href="https://github.com/HCLonely/hexo-demo/blob/master/themes/Butterfly/layout/includes/comments/valine.pug">样式文件</a>，而<code>Pure</code>主题使用<code>.ejs</code>格式的样式文件，两者从<strong>主题配置文件</strong>获取配置参数的方式不一致：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Butterfly主题valine.pug</span></span><br><span class="line"><span class="variable language_">window</span>.<span class="property">valine</span> = <span class="keyword">new</span> <span class="title class_">Valine</span>(&#123;</span><br><span class="line">    <span class="attr">FIELD</span>: <span class="string">&#x27;#&#123;theme.valine.FIELD&#125;&#x27;</span>,</span><br><span class="line"></span><br><span class="line"><span class="comment">// Pure主题valine.ejs</span></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Valine</span>(&#123;</span><br><span class="line">    <span class="attr">FIELD</span>: <span class="string">&#x27;&lt;%= theme.comment.valine.FIELD %&gt;&#x27;</span>,</span><br></pre></td></tr></table></figure><br>因此，我们将这部分需要增加的字段不通过<code>.yml</code>文件而是直接写入<code>.ejs</code>文件中。</p>
+<p>新引入的js文件与原版相比：</p>
+<ul>
+<li>添加<code>博主</code>，<code>小伙伴</code>，<code>访客</code>标签（可自定义）；</li>
+<li>添加浏览器和操作系统图标，需<code>fontawesomeV5</code>支持；</li>
+<li>邮箱检测更严格；</li>
+<li>增强QQ邮箱识别（原版只能通过昵称栏输入QQ号识别）；</li>
+<li><code>meta placeholder</code>可自定义。</li>
+</ul>
+<p><strong>注意：</strong>由于此处有三个js文件共存，参数默认值可能与参考文章里的不一致，这里仅针对我修改的<code>Pure</code>主题。<br>可添加的参数：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">说明</th>
+<th style="text-align:center">默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>master</code></td>
+<td style="text-align:center"><code>List/Str</code></td>
+<td style="text-align:center">加密的博主邮箱</td>
+<td style="text-align:center"><code>[]</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>friends</code></td>
+<td style="text-align:center"><code>List</code></td>
+<td style="text-align:center">加密的小伙伴邮箱</td>
+<td style="text-align:center"><code>[]</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>tagMeta</code></td>
+<td style="text-align:center"><code>List</code></td>
+<td style="text-align:center">身份标签</td>
+<td style="text-align:center"><code>[&quot;博主&quot;,&quot;小伙伴&quot;,&quot;访客&quot;]</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>metaPlaceholder</code></td>
+<td style="text-align:center"><code>Dict</code></td>
+<td style="text-align:center">自定义占位符</td>
+<td style="text-align:center"><code>&#123;&quot;nick&quot;:&quot;昵称/QQ号(必填)&quot;,</code><br><code>&quot;mail&quot;:&quot;邮箱(必填)&quot;,</code><br><code>&quot;link&quot;:&quot;网址(https://)&quot;&#125;</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>verify</code></td>
+<td style="text-align:center"><code>Bool</code></td>
+<td style="text-align:center">评论是否需要验证</td>
+<td style="text-align:center"><code>false</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>参数进一步说明及示例参考：</p>
+<ul>
+<li><code>master</code>：md5加密后的博主邮箱，32位长度的字符，邮箱加密可以点击<a target="_blank" rel="noopener" href="https://md5jiami.51240.com/">MD5在线加密</a>。示例：<code>[&#39;f86269b0b1850cd62ca22b218aea1780&#39;]</code>或<code>&#39;f86269b0b1850cd62ca22b218aea1780&#39;</code>。</li>
+<li><code>friends</code>：md5加密后的小伙伴邮箱，32位长度的字符。示例：<code>[&#39;1725648a3566b8841f19423519e0a36e&#39;, &#39;87b6f0e96e63727d889bb3653fb5867c&#39;]</code>。</li>
+<li><code>tagMeta</code>：显示的身份标签，自定义名称时需要保证数组顺序对应，顺序及颜色依次为「<font color=#FFA51E><b>博主</b></font>」、「<font color=#66CCFF><b>小伙伴</b></font>」和「<font color=#828282><b>访客</b></font>」。示例：<code>[&#39;鴻塵&#39;, &#39;蜜柚&#39;, &#39;访客&#39;]</code>。</li>
+<li><code>metaPlaceholder</code>：原版默认值为<code>&#123;&quot;nick&quot;:&quot;昵称&quot;,&quot;mail&quot;:&quot;邮箱&quot;,&quot;link&quot;:&quot;网址(http://)&quot;&#125;</code>并且不支持自定义，新引入的js文件默认值如上表且支持修改。示例：<code>&#123;&quot;nick&quot;:&quot;昵称/QQ号&quot;,&quot;mail&quot;:&quot;邮箱(必填)&quot;,&quot;link&quot;:&quot;个人主页&quot;&#125;</code>。</li>
+<li><code>verify</code>：此选项在官方文档<a target="_blank" rel="noopener" href="https://valine.js.org/configuration.html#verify">Valine配置项之verify</a>中已废弃，并且用处不大，因此不予配置。</li>
+</ul>
+<hr>
+<p>配置完成后的<code>valine.ejs</code>文件只需要在上文4.5节<a href="#4-5-%E4%BF%AE%E6%94%B9%E5%90%8E%E5%86%85%E5%AE%B9">评论系统设置必填项之修改后内容</a>的基础上添加js应用及参数：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=<span class="string">&quot;//cdn.jsdelivr.net/gh/HCLonely/Valine@latest/dist/Valine.min.js&quot;</span>&gt;&lt;/script&gt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Valine</span>(&#123;</span><br><span class="line">    <span class="attr">master</span>: <span class="string">&#x27;f86269b0b1850cd62ca22b218aea1780&#x27;</span>,</span><br><span class="line">    <span class="attr">friends</span>: [<span class="string">&#x27;1725648a3566b8841f19423519e0a36e&#x27;</span>, <span class="string">&#x27;87b6f0e96e63727d889bb3653fb5867c&#x27;</span>],</span><br><span class="line">    <span class="attr">tagMeta</span>: [<span class="string">&#x27;鴻塵&#x27;</span>, <span class="string">&#x27;蜜柚&#x27;</span>, <span class="string">&#x27;访客&#x27;</span>],</span><br><span class="line">    <span class="attr">metaPlaceholder</span>: &#123;<span class="string">&quot;nick&quot;</span>:<span class="string">&quot;昵称/QQ号&quot;</span>,<span class="string">&quot;mail&quot;</span>:<span class="string">&quot;邮箱(必填)&quot;</span>,<span class="string">&quot;link&quot;</span>:<span class="string">&quot;个人主页&quot;</span>&#125;</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure></p>
+<h3 id="5-3-关于昵称长度的说明"><a href="#5-3-关于昵称长度的说明" class="headerlink" title="5.3.关于昵称长度的说明"></a>5.3.关于昵称长度的说明</h3><p>正如上文提到的：</p>
+<blockquote>
+<p>原版获取QQ头像是需要在昵称栏输入QQ号，然后生成QQ邮箱，以此匹配头像并将输入的QQ号转换为QQ昵称。如果再<strong>修改</strong>了昵称，是不会匹配到正确的<strong>QQ头像</strong>的。<br>新版增强了QQ邮箱识别，QQ头像只根据邮箱匹配，即使修改了昵称也能正确匹配头像。</p>
+</blockquote>
+<p><code>Butterfly</code>主题设置的是「昵称」必填，这会导致其长度必须大于等于3，虽然现在修改昵称长度也不会丢失头像，但我们是有<strong>三种js共存</strong>的！而且上文也取消了<strong>「昵称」必填</strong>的限制，所以这个问题不需要考虑。</p>
+<p>评论测试如下，支持匿名和任意长度，符合我们的预期（因为此邮箱不是QQ邮箱，所以是系统头像）：<br><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201025评论昵称测试.png" alt="测试匿名评论及昵称长度"></p>
+<h3 id="5-4-fontawesomeV5支持"><a href="#5-4-fontawesomeV5支持" class="headerlink" title="5.4.fontawesomeV5支持"></a>5.4.fontawesomeV5支持</h3><p><code>Butterfly</code>主题天然支持<code>fontawesomeV5</code>而<code>Pure</code>主题不支持，因此无法显示「浏览器」和「操作系统」的图标，如图所示：<br><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201025图标显示对比.png" alt="Butterfly和Pure主题图标显示对比"></p>
+<p>图标是否显示并没有太大区别，因此是否对Pure主题添加<code>fontawesomeV5</code>支持都无所谓。如果有需要，可以参考以下内容进行配置：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://molunerfinn.com/hexo-theme-melody-doc/zh-Hans/theme-config.html#%E7%A4%BE%E4%BA%A4%E5%9B%BE%E6%A0%87">Melody主题配置之社交图标</a>，介绍了<code>font-awesome</code>相关知识和<code>Hexo-theme-melody</code>主题的图标配置，可以参考。</li>
+<li><a target="_blank" rel="noopener" href="https://www.jsdelivr.com/package/npm/@fortawesome/fontawesome-free">fontawesome-free CDN Files</a>，这是解决办法需要用到的css链接，感谢<a target="_blank" rel="noopener" href="https://blog.hclonely.com/">HCLonely大佬</a>的<a target="_blank" rel="noopener" href="https://blog.hclonely.com/posts/409d3090/#5f95184fd47c5a4bea9075a9">指点</a>，才使得<code>Pure</code>主题完美支持。</li>
+</ul>
+<p><strong>解决办法：</strong>在样式文件<code>./themes/pure/layout/_script/_comment/valine.ejs</code>中引入<a target="_blank" rel="noopener" href="https://www.jsdelivr.com/package/npm/@fortawesome/fontawesome-free?path=css">外部CSS样式</a>即可，<code>all.css</code>或<code>all.min.css</code>皆可：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span> <span class="attr">href</span>=<span class="string">&quot;//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">PS: 最开始把CSS当做js引入了，结果查错半天，像这种：</span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure><br>但是仍然无法识别<code>Mac OS</code>、<code>QQ浏览器</code>、<code>夸克浏览器</code>、<code>微信</code>等，这个问题是<code>font-awesome</code>自身的问题。</p>
+<p>修改完后的效果见评论区。</p>
+<hr>
+<h2 id="6-美化评论区样式"><a href="#6-美化评论区样式" class="headerlink" title="6.美化评论区样式"></a>6.美化评论区样式</h2><p>此部分内容参考<a target="_blank" rel="noopener" href="https://imzsh.com/">moyu</a>的文章<a target="_blank" rel="noopener" href="https://imzsh.com/2020/10/28/hexo-features/#1-%E7%BE%8E%E5%8C%96%E5%9F%BA%E4%BA%8Evaline%E7%9A%84%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F">为博客添加一些小功能以及美化之美化基于valine的评论系统</a>。</p>
+<p>修改<code>./themes/pure/source/css/style.css</code>，可以添加如下三个部分：</p>
+<ul>
+<li>添加评论框背景，编辑评论时自动隐藏；</li>
+<li>评论及对应的回复采用了卡片式设计，鼠标经过时的阴影；</li>
+<li>鼠标悬停于头像时，添加头像旋转。</li>
+</ul>
+<p>将需要的部分直接在文件末尾加上：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 评论框背景及隐藏 */</span></span><br><span class="line"><span class="selector-id">#veditor</span> &#123;</span><br><span class="line">	<span class="attribute">background-image</span>: <span class="built_in">url</span>(<span class="string">https://cdn.jsdelivr.net/gh/drew233/cdn/20200409110727.webp</span>);</span><br><span class="line">	<span class="attribute">background-size</span>: contain;</span><br><span class="line">	<span class="attribute">background-repeat</span>: no-repeat;</span><br><span class="line">	<span class="attribute">background-position</span>: right;</span><br><span class="line">	<span class="attribute">background-color</span>: <span class="built_in">rgba</span>(<span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>, <span class="number">0</span>);</span><br><span class="line">	<span class="attribute">resize</span>: vertical;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-id">#veditor</span><span class="selector-pseudo">:focus</span>&#123;</span><br><span class="line">	<span class="attribute">background-position</span>-y: <span class="number">200px</span>;</span><br><span class="line">	<span class="attribute">transition</span>: all <span class="number">0.2s</span> ease-in-out <span class="number">0s</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 评论及回复添加边框 */</span></span><br><span class="line"><span class="selector-id">#vcomments</span> <span class="selector-class">.vcards</span> <span class="selector-class">.vcard</span> &#123;</span><br><span class="line">	<span class="attribute">padding</span>: <span class="number">15px</span> <span class="number">20px</span> <span class="number">0</span> <span class="number">20px</span>;</span><br><span class="line">	<span class="attribute">border-radius</span>: <span class="number">10px</span>;</span><br><span class="line">	<span class="attribute">margin-bottom</span>: <span class="number">15px</span>;</span><br><span class="line">	<span class="attribute">box-shadow</span>: <span class="number">0</span> <span class="number">0</span> <span class="number">4px</span> <span class="number">1px</span> <span class="built_in">rgba</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, .<span class="number">12</span>);</span><br><span class="line">	<span class="attribute">transition</span>: all .<span class="number">3s</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-id">#vcomments</span> <span class="selector-class">.vcards</span> <span class="selector-class">.vcard</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">	<span class="attribute">box-shadow</span>: <span class="number">0</span> <span class="number">0</span> <span class="number">8px</span> <span class="number">3px</span> <span class="built_in">rgba</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, .<span class="number">12</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-id">#vcomments</span> <span class="selector-class">.vcards</span> <span class="selector-class">.vcard</span> <span class="selector-class">.vh</span> <span class="selector-class">.vcard</span> &#123;</span><br><span class="line">	<span class="attribute">border</span>: none;</span><br><span class="line">	<span class="attribute">box-shadow</span>: none;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 评论头像旋转 */</span></span><br><span class="line"><span class="selector-tag">img</span><span class="selector-class">.vimg</span> &#123;</span><br><span class="line">	<span class="attribute">transition</span>: all <span class="number">1s</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">img</span><span class="selector-class">.vimg</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">	<span class="attribute">transform</span>: <span class="built_in">rotate</span>(<span class="number">360deg</span>);</span><br><span class="line">	-webkit-<span class="attribute">transform</span>: <span class="built_in">rotate</span>(<span class="number">360deg</span>);</span><br><span class="line">	-moz-<span class="attribute">transform</span>: <span class="built_in">rotate</span>(<span class="number">360deg</span>);</span><br><span class="line">	-o-<span class="attribute">transform</span>: <span class="built_in">rotate</span>(<span class="number">360deg</span>);</span><br><span class="line">	-ms-<span class="attribute">transform</span>: <span class="built_in">rotate</span>(<span class="number">360deg</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>本站采用了后两项，效果见评论区。</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-license">
+      <strong>文章作者： </strong><a href="https://hwame.top" style="color:#E541E5;"> 鴻塵</a>
+    </li>
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://hwame.top/20200520/hello-hexo-optimization.html" title="Hexo博客搭建(3)——优化评论系统" target="_blank" rel="external" style="color:#E541E5;">https://hwame.top/20200520/hello-hexo-optimization.html</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用《<a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external" style="color:#E541E5;"><u>CC BY 4.0 CN协议</u></a>》许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://hwame.top" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://hwame.top" target="_blank"><span class="text-dark">鴻塵</span><small class="ml-1x">Pythoner, Data Analyst</small></a></h3>
+        <div>个人简介：处女座不适合做码农。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/20200520/hello-hexo-troubleshooting.html" title="Hexo博客搭建(4)——常见问题"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/20200520/hello-hexo-configuration.html" title="Hexo博客搭建(2)——主题配置"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">
+        <span style="color:#C71585">[&nbsp;</span><span style="color:#C71585">文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span style="color:#C71585">]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,wechat,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/hwame" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/hwamei" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://www.zhihu.com/people/hwame" target="_blank" title="Zhihu" data-toggle=tooltip data-placement=top><i class="icon icon-zhihu"></i></a></li>
+        
+        <li><a href="https://segmentfault.com/u/hwame" target="_blank" title="Segmentfault" data-toggle=tooltip data-placement=top><i class="icon icon-segmentfault"></i></a></li>
+        
+        <li><a href="https://gitee.com/hwame" target="_blank" title="Gitee" data-toggle=tooltip data-placement=top><i class="icon icon-gitee"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        &copy; 2023 鴻塵
+        
+        
+        <div class="publishby" style="font-family:Courier">
+            <span id="busuanzi_container_site_pv">
+                <i class="icon icon-eye"></i><span id="busuanzi_value_site_pv" style="font-family:Courier"></span>&nbsp;
+                <i class="icon icon-users"></i><span id="busuanzi_value_site_uv" style="font-family:Courier"></span>
+            </span>
+            <!--
+            <br>✯<a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/" style="color:#0FFFAA">鄂ICP备2020019329号</a>
+            -->
+            <br><i class="icon icon-clock" style="transform:rotate(90deg)"></i><span id="sitetime" style="font-family:Courier"></span>
+        </div>
+        
+        <!--
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+        -->
+    </div>
+    
+</footer>
+<script>
+    function siteTime(){
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth()+1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+        var t1 = Date.UTC(2020,05,19,21,20,52); //建站时间
+        var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+        var diff = t2-t1;
+        var diffYears = Math.floor(diff/years);
+        var diffDays = Math.floor((diff/days)-diffYears*365);
+        var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+        var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+        var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+        // 将「数字」转「补零字符串」
+        var y = diffYears.toString()
+        var d = diffDays.toString().padStart(3, '0')
+        var h = diffHours.toString().padStart(2, '0')
+        var m = diffMinutes.toString().padStart(2, '0')
+        var s = diffSeconds.toString().padStart(2, '0')
+        document.getElementById("sitetime").innerHTML=y+":"+d+":"+h+":"+m+":"+s;
+    }
+    siteTime();
+</script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<div id="go-top"></div>
+<style type="text/css">
+#go-top {
+ width:40px;height:40px;
+ background-color:#DDA0DD;
+ position:relative;
+ border-radius:20px;
+ position:fixed;right:20px;bottom:50px;
+ cursor:pointer;display:none;
+}
+#go-top:after {
+ content:" ";
+ position:absolute;left:14px;top:14px;
+ border-top:2px solid #fff;border-right:2px solid #fff;
+ width:12px;height:12px;
+ transform:rotate(-45deg);
+}
+#go-top:hover {
+ background-color:#8A2BE2;
+}
+</style>
+<script>
+$(function () {
+  var top=$("#go-top");
+  $(window).scroll(function () {
+    ($(window).scrollTop() > 300) ? top.show(300) : top.hide(200);
+    $("#go-top").click(function () {
+      $('body,html').animate({scrollTop:0});
+      return false();
+    })
+  });
+});
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//code.bdstatic.com/npm/leancloud-storage@latest/dist/av-min.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css" />
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  var requiredFields = 'mail';
+  requiredFields = requiredFields.split(',');
+  
+  new Valine({
+    el: '#vcomments',
+    appId: 'yLWKiHoPwmx7Izv4YYtC1fW2-MdYXbMMI',
+    appKey: 'h01jve7HXS6MuDLNBF5DeWTz',
+    verify: false,
+    notify: true,
+    placeholder: '🌺🌺留下邮箱才可以收到新消息提醒哦~\n🦚🦚输入QQ号可自动拉取昵称和邮箱~',
+    avatar: 'robohash',
+    meta: meta,
+    pageSize: '10' || 10,
+    enableQQ: 'true',
+    recordIP: 'true',
+    requiredFields: requiredFields,
+    visitor: true,
+    serverURLs: 'https://valine.hwame.top',
+    
+    master: 'f86269b0b1850cd62ca22b218aea1780',
+    friends: ['1725648a3566b8841f19423519e0a36e', '87b6f0e96e63727d889bb3653fb5867c', 'b7c8e70dc5b2bbbdbdeca1fc0e71b919'],
+    tagMeta: ['鴻塵', '蜜柚', '访客'],
+    metaPlaceholder: {"nick":"昵称/QQ号","mail":"邮箱(必填)","link":"个人主页"}, 
+    emojiCDN: "https://cdn.jsdelivr.net/gh/MiniValine/MiniValine@master/imgs/alus/",
+    emojiMaps: {
+        "emoji_001": "0000.png",
+        "emoji_002": "0010.png",
+        "emoji_003": "0020.png",
+        "emoji_004": "0030.png",
+        "emoji_005": "0040.png",
+        "emoji_006": "0050.png",
+        "emoji_007": "0060.png",
+        "emoji_008": "0070.png",
+        "emoji_009": "0080.png",
+        "emoji_010": "0090.png",
+        "emoji_011": "0100.png",
+        "emoji_012": "0110.png",
+        "emoji_013": "0120.png",
+        "emoji_014": "0130.png",
+        "emoji_015": "0140.png",
+        "emoji_016": "0150.png",
+        "emoji_017": "0160.png",
+        "emoji_018": "0170.png",
+        "emoji_019": "0171.png",
+        "emoji_020": "0180.png",
+        "emoji_021": "0181.png",
+        "emoji_022": "0190.png",
+        "emoji_023": "0200.png",
+        "emoji_024": "0210.png",
+        "emoji_025": "0220.png",
+        "emoji_026": "0230.png",
+        "emoji_027": "0240.png",
+        "emoji_028": "0241.png",
+        "emoji_029": "0250.png",
+        "emoji_030": "0260.png",
+        "emoji_031": "0270.png",
+        "emoji_032": "0280.png",
+        "emoji_033": "0290.png",
+        "emoji_034": "0300.png",
+        "emoji_035": "0310.png",
+        "emoji_036": "0320.png",
+        "emoji_037": "0330.png",
+        "emoji_038": "0331.png",
+        "emoji_039": "0340.png",
+        "emoji_040": "0350.png",
+        "emoji_041": "0360.png",
+        "emoji_042": "0370.png",
+        "emoji_043": "0380.png",
+        "emoji_044": "0390.png",
+        "emoji_045": "0391.png",
+        "emoji_046": "0400.png",
+        "emoji_047": "0410.png",
+        "emoji_048": "0420.png",
+        "emoji_049": "0430.png",
+        "emoji_050": "0431.png",
+        "emoji_051": "0440.png",
+        "emoji_052": "0450.png",
+        "emoji_053": "0451.png",
+        "emoji_054": "0460.png",
+        "emoji_055": "0461.png",
+        "emoji_056": "0462.png",
+        "emoji_057": "0470.png",
+        "emoji_058": "0480.png",
+        "emoji_059": "0490.png",
+        "emoji_060": "0500.png",
+        "emoji_061": "0510.png",
+        "emoji_062": "0520.png",
+        "emoji_063": "0530.png",
+        "emoji_064": "0540.png",
+        "emoji_065": "0550.png",
+        "emoji_066": "0560.png",
+        "emoji_067": "0570.png",
+        "emoji_068": "0580.png",
+        "emoji_069": "0590.png",
+        "emoji_070": "0600.png",
+        "emoji_071": "0610.png",
+        "emoji_072": "0620.png",
+        "emoji_073": "1010.png",
+        "emoji_074": "1011.png",
+        "emoji_075": "1020.png",
+        "emoji_076": "1030.png",
+        "emoji_077": "1040.png",
+        "emoji_078": "1050.png",
+        "emoji_079": "1060.png",
+        "emoji_080": "1070.png",
+        "emoji_081": "1080.png",
+        "emoji_082": "2010.png",
+        "emoji_083": "2020.png",
+        "emoji_084": "2030.png",
+        "emoji_085": "2040.png",
+        "emoji_086": "2050.png",
+        "emoji_087": "2060.png",
+        "emoji_088": "2070.png",
+        "emoji_089": "2080.png",
+        "emoji_090": "2090.png",
+        "emoji_091": "2100.png",
+        "emoji_092": "2101.png",
+        "emoji_093": "2110.png",
+        "emoji_094": "2120.png",
+        "emoji_095": "2130.png",
+        "emoji_096": "2140.png",
+        "emoji_097": "2141.png",
+        "emoji_098": "2145.png",
+        "emoji_099": "2150.png",
+        "emoji_100": "2151.png",
+        "emoji_101": "2152.png",
+        "emoji_102": "2160.png",
+        "emoji_103": "2161.png",
+        "emoji_104": "2165.png",
+        "emoji_105": "2170.png",
+        "emoji_106": "2171.png",
+        "emoji_107": "3010.png",
+        "emoji_108": "3011.png",
+        "emoji_109": "3020.png",
+        "emoji_110": "3030.png",
+        "emoji_111": "3040.png",
+        "emoji_112": "3050.png",
+        "emoji_113": "3060.png",
+        "emoji_114": "3061.png",
+        "emoji_115": "4010.png",
+        "emoji_116": "4020.png",
+        "emoji_117": "4021.png",
+        "emoji_118": "4022.png",
+        "emoji_119": "4023.png",
+        "emoji_120": "4024.png",
+        "emoji_121": "4025.png",
+        "emoji_122": "4030.png",
+        "emoji_123": "4031.png",
+        "emoji_124": "4040.png",
+        "emoji_125": "4041.png",
+        "emoji_126": "4042.png",
+        "emoji_127": "4100.png",
+        "emoji_128": "4110.png",
+        "emoji_129": "4111.png",
+        "emoji_130": "4112.png",
+        "emoji_131": "4113.png",
+        "emoji_132": "4114.png",
+        "emoji_133": "4115.png",
+        "emoji_134": "4120.png",
+        "emoji_135": "4121.png",
+        "emoji_136": "4130.png",
+        "emoji_137": "4140.png",
+        "emoji_138": "4200.png",
+        "emoji_139": "4201.png",
+        "emoji_140": "4210.png",
+        "emoji_141": "4211.png",
+        "emoji_142": "4212.png",
+        "emoji_143": "4213.png",
+        "emoji_144": "4220.png",
+        "emoji_145": "4300.png",
+        "emoji_146": "4301.png",
+        "emoji_147": "4302.png",
+        "emoji_148": "4303.png",
+        "emoji_149": "4304.png",
+        "emoji_150": "4310.png",
+        "emoji_151": "5000.png",
+        "emoji_152": "5001.png",
+        "emoji_153": "5002.png",
+        "emoji_154": "5003.png",
+        "emoji_155": "5010.png",
+        "emoji_156": "5020.png",
+        "emoji_157": "5030.png",
+        "emoji_158": "5040.png",
+        "emoji_159": "5050.png",
+        "emoji_160": "5060.png",
+        "emoji_161": "5069.png",
+        "emoji_162": "5070.png",
+        "emoji_163": "5080.png",
+        "emoji_164": "5090.png",
+        "emoji_165": "5091.png",
+        "emoji_166": "5100.png",
+        "emoji_167": "5110.png",
+        "emoji_168": "5120.png",
+        "emoji_169": "5130.png",
+        "emoji_170": "5131.png",
+        "emoji_171": "5140.png",
+        "emoji_172": "5141.png",
+        "emoji_173": "5150.png",
+        "emoji_174": "5151.png",
+        "emoji_175": "5160.png",
+        "emoji_176": "5161.png",
+        "emoji_177": "5170.png",
+        "emoji_178": "5180.png",
+        "emoji_179": "5190.png",
+        "emoji_180": "5200.png",
+        "emoji_181": "5210.png",
+        "emoji_182": "5220.png",
+        "emoji_183": "5230.png",
+        "emoji_184": "6000.png",
+        "emoji_185": "6001.png",
+        "emoji_186": "6010.png",
+        "emoji_187": "6020.png",
+        "emoji_188": "6030.png",
+        "emoji_189": "6040.png",
+        "emoji_190": "6050.png",
+        "emoji_191": "6051.png",
+        "emoji_192": "6060.png",
+        "emoji_193": "6061.png",
+        "emoji_194": "6070.png",
+        "emoji_195": "6080.png",
+        "emoji_196": "6090.png",
+        "emoji_197": "6091.png",
+        "emoji_198": "6092.png",
+        "emoji_199": "6100.png",
+        "emoji_200": "6110.png",
+        "emoji_201": "6120.png",
+        "emoji_202": "6121.png",
+        "emoji_203": "6130.png",
+        "emoji_204": "6131.png",
+        "emoji_205": "6132.png",
+        "emoji_206": "6140.png",
+        "emoji_207": "6150.png",
+        "emoji_208": "6151.png",
+        "emoji_209": "6160.png",
+        "emoji_210": "6500.png",
+        "emoji_211": "6510.png",
+        "emoji_212": "6520.png",
+        "emoji_213": "6530.png",
+        "emoji_214": "7000.png",
+        "emoji_215": "7010.png",
+        "emoji_216": "7011.png",
+        "emoji_217": "7012.png",
+        "emoji_218": "7020.png",
+        "emoji_219": "7021.png",
+        "emoji_220": "7030.png",
+        "emoji_221": "7040.png",
+        "emoji_222": "7045.png",
+        "emoji_223": "7046.png",
+        "emoji_224": "7050.png",
+        "emoji_225": "7051.png",
+        "emoji_226": "7052.png",
+        "emoji_227": "7053.png",
+        "emoji_228": "7054.png",
+        "emoji_229": "7060.png",
+        "emoji_230": "7061.png",
+        "emoji_231": "7062.png",
+        "emoji_232": "7070.png",
+        "emoji_233": "7071.png",
+        "emoji_234": "7080.png",
+        "emoji_235": "7081.png",
+        "emoji_236": "7090.png",
+        "emoji_237": "7100.png",
+        "emoji_238": "7110.png",
+        "emoji_239": "7111.png",
+        "emoji_240": "7112.png",
+        "emoji_241": "7113.png",
+        "emoji_242": "7200.png",
+        "emoji_243": "7201.png",
+        "emoji_244": "7210.png",
+        "emoji_245": "7220.png",
+        "emoji_246": "7230.png",
+        "emoji_247": "8000.png",
+        "emoji_248": "8001.png",
+        "emoji_249": "8010.png",
+        "emoji_250": "8020.png",
+        "emoji_251": "8021.png",
+        "emoji_252": "8030.png",
+        "emoji_253": "8040.png",
+        "emoji_254": "8041.png",
+        "emoji_255": "8042.png",
+        "emoji_256": "8050.png",
+        "emoji_257": "8051.png",
+        "emoji_258": "8060.png",
+        "emoji_259": "8062.png",
+        "emoji_260": "8070.png",
+        "emoji_261": "8071.png",
+        "emoji_262": "8072.png",
+        "emoji_263": "8080.png",
+        "emoji_264": "8081.png",
+        "emoji_265": "8082.png",
+        "emoji_266": "8083.png",
+        "emoji_267": "8084.png",
+        "emoji_268": "8085.png",
+        "emoji_269": "8090.png",
+        "emoji_270": "8091.png",
+        "emoji_271": "8092.png",
+        "emoji_272": "8100.png",
+        "emoji_273": "8101.png",
+        "emoji_274": "8102.png",
+        "emoji_275": "8103.png",
+        "emoji_276": "8110.png",
+        "emoji_277": "8111.png",
+        "emoji_278": "x010.png",
+        "emoji_279": "x011.png",
+        "emoji_280": "x012.png",
+        "emoji_281": "x013.png",
+        "emoji_282": "x014.png",
+        "emoji_283": "x021.png",
+        "emoji_284": "x022.png",
+        "emoji_285": "x031.png",
+        "emoji_286": "x032.png",
+        "emoji_287": "x041.png",
+        "emoji_288": "x042.png",
+        "emoji_289": "x050.png",
+        "emoji_290": "x060.png",
+        "emoji_291": "x061.png",
+        "emoji_292": "x062.png",
+        "emoji_293": "x063.png",
+        "emoji_294": "x069.png",
+        "emoji_295": "x070.png",
+        "emoji_296": "x071.png",
+        "emoji_297": "x080.png",
+        "emoji_298": "x081.png",
+        "emoji_299": "x082.png",
+        "emoji_300": "x083.png",
+        "emoji_301": "x090.png",
+        "emoji_302": "x091.png",
+        "emoji_303": "x092.png",
+        "emoji_304": "x093.png",
+        "emoji_305": "x094.png",
+        "emoji_306": "x099.png",
+        "emoji_307": "不出所料.png",
+        "emoji_308": "不说话.png",
+        "emoji_309": "不高兴.png",
+        "emoji_310": "中刀.png",
+        "emoji_311": "中指.png",
+        "emoji_312": "中枪.png",
+        "emoji_313": "亲亲.png",
+        "emoji_314": "便便.png",
+        "emoji_315": "内伤.png",
+        "emoji_316": "击掌.png",
+        "emoji_317": "口水.png",
+        "emoji_318": "吐.png",
+        "emoji_319": "吐舌.png",
+        "emoji_320": "吐血倒地.png",
+        "emoji_321": "呲牙.png",
+        "emoji_322": "咽气.png",
+        "emoji_323": "哭泣.png",
+        "emoji_324": "喜极而泣.png",
+        "emoji_325": "喷水.png",
+        "emoji_326": "喷血.png",
+        "emoji_327": "坐等.png",
+        "emoji_328": "害羞.png",
+        "emoji_329": "小眼睛.png",
+        "emoji_330": "尴尬.png",
+        "emoji_331": "得意.png",
+        "emoji_332": "惊喜.png",
+        "emoji_333": "想一想.png",
+        "emoji_334": "愤怒.png",
+        "emoji_335": "扇耳光.png",
+        "emoji_336": "投降.png",
+        "emoji_337": "抠鼻.png",
+        "emoji_338": "抽烟.png",
+        "emoji_339": "无奈.png",
+        "emoji_340": "无所谓.png",
+        "emoji_341": "无语.png",
+        "emoji_342": "暗地观察.png",
+        "emoji_343": "期待.png",
+        "emoji_344": "欢呼.png",
+        "emoji_345": "汗.png",
+        "emoji_346": "深思.png",
+        "emoji_347": "狂汗.png",
+        "emoji_348": "献花.png",
+        "emoji_349": "献黄瓜.png",
+        "emoji_350": "皱眉.png",
+        "emoji_351": "看不见.png",
+        "emoji_352": "看热闹.png",
+        "emoji_353": "瞅你.png",
+        "emoji_354": "肿包.png",
+        "emoji_355": "脸红.png",
+        "emoji_356": "蜡烛.png",
+        "emoji_357": "装大款.png",
+        "emoji_358": "观察.png",
+        "emoji_359": "赞一个.png",
+        "emoji_360": "邪恶.png",
+        "emoji_361": "锁眉.png",
+        "emoji_362": "长草.png",
+        "emoji_363": "阴暗.png",
+        "emoji_364": "高兴.png",
+        "emoji_365": "黑线.png",
+        "emoji_366": "鼓掌.png",
+    },
+  });
+  </script>
+
+     
+
+
+<!-- 20201211添加判断 -->
+
+   
+  <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script>
+  <script>
+  //利用 FancyBox 实现点击图片放大
+  $(document).ready(function() {
+    $('article img').not('[hidden]').not('.panel-body img').each(function() {
+      var $image = $(this);
+      var imageCaption = $image.attr('alt');
+      var $imageWrapLink = $image.parent('a');
+      if ($imageWrapLink.length < 1) {
+        var src = this.getAttribute('src');
+        var idx = src.lastIndexOf('?');
+        if (idx != -1) {
+          src = src.substring(0, idx);
+        }
+        $imageWrapLink = $image.wrap('<a href="' + src + '"></a>').parent('a');
+      }
+      $imageWrapLink.attr('data-fancybox', 'images');
+      if (imageCaption) {
+        $imageWrapLink.attr('data-caption', imageCaption);
+      }
+    });
+    $().fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: true,
+    });
+  });
+  </script>
+
+
+
+
+
+
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+      z-index: 2;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+        .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  
+  <script>
+    addLoadEvent(()=>{
+      $('.highlight').each(function (i, e) {
+        var $wrap = $('<div>').addClass('highlight-wrap')
+        $(e).after($wrap)
+        $wrap.append($('<button>').addClass('copy-btn').append('一键复制').on('click', function (e) {
+          var code = $(this).parent().find(".code")[0].innerText
+          
+          var ta = document.createElement('textarea')
+          document.body.appendChild(ta)
+          ta.style.position = 'absolute'
+          ta.style.top = '0px'
+          ta.style.left = '0px'
+          ta.value = code
+          ta.select()
+          ta.focus()
+          var result = document.execCommand('copy')
+          document.body.removeChild(ta)
+          
+            if(result)$(this).text('复制成功')
+            else $(this).text('复制失败')
+          
+          $(this).blur()
+        })).on('mouseleave', function (e) {
+          var $b = $(this).find('.copy-btn')
+          setTimeout(function () {
+            $b.text('一键复制')
+          }, 300)
+        }).append(e)
+      })
+    })
+  </script>
+
+</body>
+</html>

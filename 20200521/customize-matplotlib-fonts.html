@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  <!-- 谷歌收录 -->
+  <meta name="google-site-verification" content="-5hl8eC4wfapGZhZouwMVUcKG0iaynijVRJbqVlzXm4" />
+  
+  
+  <title>如何使matplotlib同时使用宋体和Times New Roman | 鴻塵</title>
+  <meta name="description" content="摘要：一般论文要求中文宋体、西文Times New Roman，因此为了规范排版，有必要解决它。然而对于matplotlib的绘图网上并没有完美的解决方案，所谓的办法都是清一色的「黑体」，因此本文寻求了一种替代方案作为折中。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何使matplotlib同时使用宋体和Times New Roman">
+<meta property="og:url" content="https://hwame.top/20200521/customize-matplotlib-fonts.html">
+<meta property="og:site_name" content="鴻塵">
+<meta property="og:description" content="摘要：一般论文要求中文宋体、西文Times New Roman，因此为了规范排版，有必要解决它。然而对于matplotlib的绘图网上并没有完美的解决方案，所谓的办法都是清一色的「黑体」，因此本文寻求了一种替代方案作为折中。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/few-pics/20201125字体效果STSong.jpg">
+<meta property="article:published_time" content="2020-05-21T02:38:22.000Z">
+<meta property="article:modified_time" content="2020-05-21T12:20:05.000Z">
+<meta property="article:author" content="鴻塵">
+<meta property="article:tag" content="matplotlib">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/few-pics/20201125字体效果STSong.jpg">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://hwame.top/20200521/customize-matplotlib-fonts.html">
+  
+    <link rel="alternate" href="true" title="鴻塵" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+    <link href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css" rel="stylesheet">
+  
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<script src="https://cdn.jsdelivr.net/gh/bobcn/hexo_resize_image.js@master/hexo_resize_image.js"></script>
+<body class="main-center theme-purple" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://hwame.top" target="_blank">
+          <img class="img-circle img-rotate" src="https://cdn.jsdelivr.net/gh/hwame/pics@main/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">鴻塵</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Pythoner, Data Analyst</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> 湖北-武汉</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav menu-highlight">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder-open"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">资源</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-gallery">
+          <a href="/gallery">
+            
+            <i class="icon icon-delicious"></i>
+            
+            <span class="menu-title">相册</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/hwame" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/hwamei" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://www.zhihu.com/people/hwame" target="_blank" title="Zhihu" data-toggle=tooltip data-placement=top><i class="icon icon-zhihu"></i></a></li>
+        
+        <li><a href="https://segmentfault.com/u/hwame" target="_blank" title="Segmentfault" data-toggle=tooltip data-placement=top><i class="icon icon-segmentfault"></i></a></li>
+        
+        <li><a href="https://gitee.com/hwame" target="_blank" title="Gitee" data-toggle=tooltip data-placement=top><i class="icon icon-gitee"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title"><i style="color:#9400D3" class="icon icon-stackexchange"></i>公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎来到鴻塵的博客!<br>鴻塵的<u><a target="_blank" rel="noopener" href="https://weibo.com/hwamei" style="color:#E541E5;">微博</a></u>主页，鴻塵的<u><a target="_blank" rel="noopener" href="https://github.com/hwame" style="color:#E541E5;">Github</a></u>主页，如果我可以忘记的<u><a target="_blank" rel="noopener" href="https://www.zhihu.com/people/hwame" style="color:#E541E5;">知乎</a></u>主页。</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title"><i style="color:#9400D3" class="icon icon-tags"></i>标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/CentOS/" style="font-size: 13px; color: #fff">CentOS</a> <a href="/tags/Go/" style="font-size: 13.2px; color: #fff">Go</a> <a href="/tags/Hexo/" style="font-size: 13.8px; color: #fff">Hexo</a> <a href="/tags/Linux/" style="font-size: 14px; color: #fff">Linux</a> <a href="/tags/Linux%E9%83%A8%E7%BD%B2/" style="font-size: 13px; color: #fff">Linux部署</a> <a href="/tags/MongoDB/" style="font-size: 13.4px; color: #fff">MongoDB</a> <a href="/tags/Spark/" style="font-size: 13px; color: #fff">Spark</a> <a href="/tags/matplotlib/" style="font-size: 13.2px; color: #fff">matplotlib</a> <a href="/tags/miscellanea/" style="font-size: 13.6px; color: #fff">miscellanea</a> <a href="/tags/python/" style="font-size: 14px; color: #fff">python</a> <a href="/tags/shell/" style="font-size: 13.6px; color: #fff">shell</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 13px; color: #fff">大数据</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" style="font-size: 13px; color: #fff">数据结构与算法</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 13px; color: #fff">爬虫</a>
+    </div>
+  </div>
+
+<script type="text/javascript">
+    var everytag=document.getElementsByClassName("widget-body tagcloud")[0].children;
+    for (var i = everytag.length - 1; i >= 0; i--) {
+    	var r=Math.floor(Math.random()*255);
+        var g=Math.floor(Math.random()*255);
+        var b=Math.floor(Math.random()*255);
+        everytag[i].style.background = "rgb("+r+","+g+","+b+")";
+    }
+</script>
+    
+      
+  <div class="widget">
+    <h3 class="widget-title"><i style="color:#9400D3" class="icon icon-folder-open"></i>分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Go/">Go</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MongoDB/">MongoDB</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/miscellanea/">miscellanea</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title"><i style="color:#9400D3" class="icon icon-archives-fill"></i>归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">17</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title"><i style="color:#9400D3" class="icon icon-shu-fill"></i>最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled ">
+        
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20220327/channel-and-goroutine-in-go.html" class="thumb">
+    
+    
+        <span style="background-image:url(https://cdn.jsdelivr.net/gh/hwame/pics@main/post-pics/icon-golang.jpeg)" alt="Go语言中的通道" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Go/">Go</a>
+              </p>
+              <p class="item-title">
+                <a href="/20220327/channel-and-goroutine-in-go.html" class="title">Go语言中的通道</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-27T11:06:16.000Z" itemprop="datePublished">2022-03-27</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20220323/when-to-use-pointer-in-go.html" class="thumb">
+    
+    
+        <span style="background-image:url(https://cdn.jsdelivr.net/gh/hwame/pics@main/post-pics/icon-golang.jpeg)" alt="Go语言什么时候使用指针" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Go/">Go</a>
+              </p>
+              <p class="item-title">
+                <a href="/20220323/when-to-use-pointer-in-go.html" class="title">Go语言什么时候使用指针</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-23T12:49:57.000Z" itemprop="datePublished">2022-03-23</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20220228/awesome-images-in-markdown.html" class="thumb">
+    
+    
+        <span style="background-image:url(https://cdn.jsdelivr.net/gh/hwame/pics@main/avatar.jpg)" alt="Markdown中图片的高级用法" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/miscellanea/">miscellanea</a>
+              </p>
+              <p class="item-title">
+                <a href="/20220228/awesome-images-in-markdown.html" class="title">Markdown中图片的高级用法</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-02-28T15:27:50.000Z" itemprop="datePublished">2022-02-28</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20220116/shell-regular-expression.html" class="thumb">
+    
+    
+        <span style="background-image:url(https://cdn.jsdelivr.net/gh/hwame/pics@main/post-pics/linux-icon.png)" alt="Shell正则表达式" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Linux/">Linux</a>
+              </p>
+              <p class="item-title">
+                <a href="/20220116/shell-regular-expression.html" class="title">Shell正则表达式</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-01-16T14:13:05.000Z" itemprop="datePublished">2022-01-16</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20211009/install-linux-on-android-phone.html" class="thumb">
+    
+    
+        <span style="background-image:url(https://cdn.jsdelivr.net/gh/hwame/pics@main/avatar.jpg)" alt="如何在安卓手机上安装Linux发行版" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/miscellanea/">miscellanea</a>
+              </p>
+              <p class="item-title">
+                <a href="/20211009/install-linux-on-android-phone.html" class="title">如何在安卓手机上安装Linux发行版</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-10-09T15:16:37.000Z" itemprop="datePublished">2021-10-09</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF%E4%B8%80%EF%BC%9A%E6%89%BE%E5%88%B0%E4%B8%80%E7%A7%8D%E5%AD%97%E4%BD%93TimesSong-ttf%EF%BC%88%E9%9A%8F%E6%84%8F%E5%8F%96%E5%90%8D%EF%BC%89"><span class="toc-number">2.</span> <span class="toc-text">思路一：找到一种字体TimesSong.ttf（随意取名）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF%E4%BA%8C%EF%BC%9A%E5%AF%BB%E6%89%BE%E4%B8%80%E7%A7%8D%E6%9B%BF%E4%BB%A3%E5%93%81%EF%BC%9ASTSong"><span class="toc-number">3.</span> <span class="toc-text">思路二：寻找一种替代品：STSong</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%B5%8B%E8%AF%95%E5%AD%97%E4%BD%93%E5%88%97%E8%A1%A8"><span class="toc-number">4.</span> <span class="toc-text">1. 测试字体列表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-LaTex%E5%85%AC%E5%BC%8F"><span class="toc-number">5.</span> <span class="toc-text">2.LaTex公式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%85%B6%E4%BB%96"><span class="toc-number">6.</span> <span class="toc-text">3.其他</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%80%BB%E7%BB%93"><span class="toc-number">7.</span> <span class="toc-text">4.总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%B4%E6%98%8E%EF%BC%9A"><span class="toc-number">8.</span> <span class="toc-text">说明：</span></a></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-customize-matplotlib-fonts" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      如何使matplotlib同时使用宋体和Times New Roman
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar"></i>
+	<a href="/20200521/customize-matplotlib-fonts.html" class="article-date">
+	  发布于 <time datetime="2020-05-21T02:38:22.000Z" itemprop="datePublished">2020-05-21</time>
+	</a>
+</span>
+<span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/20200521/customize-matplotlib-fonts.html" class="article-date">
+	  更新于 <time datetime="2020-05-21T12:20:05.000Z" itemprop="dateUpdated">2020-05-21</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/python/">python</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/matplotlib/" rel="tag">matplotlib</a>, <a class="article-tag-link-link" href="/tags/python/" rel="tag">python</a>
+  </span>
+
+
+        
+
+	<span class="article-read hidden-xs">
+    	<i class="icon icon-eye-fill" aria-hidden="true"></i>
+    	<span id="/20200521/customize-matplotlib-fonts.html" class="leancloud_visitors"  data-flag-title="如何使matplotlib同时使用宋体和Times New Roman">
+			<span class="leancloud-visitors-count">0</span>
+		</span>
+    </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/20200521/customize-matplotlib-fonts.html#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2.8k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 11(分)</span>
+	
+
+      </div>
+      <div style="background-color:#D7BDE2;border:1px solid #D7BDE2;border-radius:10px;padding:5px">
+          <b>温馨提示</b>：点击页面下方<i style="color:red" class="icon icon-anchor"></i>以展开或折叠目录
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>摘要：一般论文要求中文宋体、西文Times New Roman，因此为了规范排版，有必要解决它。然而对于<code>matplotlib</code>的绘图网上并没有完美的解决方案，所谓的办法都是清一色的「黑体」，因此本文寻求了一种替代方案作为折中。<span id="more"></span></p>
+<blockquote>
+<p><font size=5><b>文章说明</b></font><br><strong>文章说明：</strong>本文首发于<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/344490568/answer/936561524">2019-12-15@知乎</a>，更新于<a href="https://hwame.top/20200521/customize-matplotlib-fonts.html">2020-05-21@GitPages</a>。<br><strong>另请参考：</strong><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/344490568/answer/936561524">知乎：用Python的matplotlib画图，怎么保证xlabel中中文用宋体，英文用新罗马？</a><br><strong>另请参考：</strong><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/118601703">知乎：Matplotlib 中英文及公式字体设置</a>——【文章作者：<a target="_blank" rel="noopener" href="https://www.zhihu.com/people/cherichy-chi">cherichy@知乎</a>】<br><strong>文章作者：</strong><a target="_blank" rel="noopener" href="https://www.zhihu.com/people/hwame">如果我可以忘记</a><br><strong>创建时间：</strong>2019-12-15<br><strong>更新时间：</strong>2020-05-21</p>
+</blockquote>
+<h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>写在前面：抱着对自己说话负责的态度：<strong>此题无解</strong>。</p>
+<p>但是，我们真的对他没辙儿了吗？非也。两种思路：①找到一种字体TimesSong.ttf；②寻找一种替代品，退而求其次。</p>
+<p>作为一枚标准处女座，这个问题也困扰了我好久。一般论文中字体中文要求宋体、西文［英文＋数字］要求Times New Roman，因此为了规范排版，有必要解决它。</p>
+<p>说明：下文配置中的步骤尽量简写，默认为大家知道如何修改配置文件matplotlibrc，大家可以看看我在SegmentFault思否提问的帖子：<a target="_blank" rel="noopener" href="https://segmentfault.com/q/1010000021279526">SegmentFault问答：matplotlib字体配置问题</a>。</p>
+<p>以下详谈。</p>
+<p><strong>不想看的直接拉到末尾&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;</strong></p>
+<h2 id="思路一：找到一种字体TimesSong-ttf（随意取名）"><a href="#思路一：找到一种字体TimesSong-ttf（随意取名）" class="headerlink" title="思路一：找到一种字体TimesSong.ttf（随意取名）"></a>思路一：找到一种字体TimesSong.ttf（随意取名）</h2><p>这种思路是有根据的，因为经我测试（见下文），matplotlib<strong>只能</strong>同时支持<strong>一种</strong>字体，而宋体和Times New Roman是“不兼容”（描述不准，意会即可）的，我们能否将宋体和Times New Roman这两种字体合并为新的字体<em>TimesSong.ttf</em>呢？</p>
+<p>获得TimesSong.ttf字体后，将其添加到D:\Python3.7.3\Lib\site-packages\matplotlib\mpl-data\fonts\ttf文件夹、写入matplotlibrc文件，保存后删除缓存C:\Users\鴻塵.matplotlib即可。</p>
+<p>此法理论可行，但是我不知道怎么合并字体（据说违法，版权什么的…），有兴趣的小伙伴可以试试［其实我试过，但那个软件无法激活］。</p>
+<h2 id="思路二：寻找一种替代品：STSong"><a href="#思路二：寻找一种替代品：STSong" class="headerlink" title="思路二：寻找一种替代品：STSong"></a>思路二：寻找一种替代品：<em>STSong</em></h2><p>话不多说，先上图看看：<br><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/few-pics/20201125字体效果STSong.jpg" alt="图片"></p>
+<p>代码如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt  </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>plt.title(<span class="string">u&#x27;今天是2019.12.14，Saturday&#x27;</span>)  </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>plt.xlabel(<span class="string">r&#x27;LaTex公式$+\sum_&#123;n=0&#125;^&#123;\infty&#125;\frac&#123;1&#125;&#123;(2n+1)^2&#125;=\frac&#123;\pi^2&#125;&#123;8&#125;$&#x27;</span>)</span><br></pre></td></tr></table></figure><br>不仅能中英混输，而且连LaTex公式都可以。</p>
+<p>同样，人应该对自己说的话负责：</p>
+<ul>
+<li>①公式显示我修改过配置文件：mathtext.fontset : stix ［备注： Should be ‘dejavusans’ (default), ‘dejavuserif’, ‘cm’ (Computer Modern), ‘stix’, ‘stixsans’ or ‘custom’］；</li>
+<li>②公式中的西文字体可正常显示，因为stix字体集就是适配Times（可能是Times New Roman，记不清）字体的，但是中文不行，所以我在上图里中文是没有包含在美元符号里的，如果置于$$内将报错：Font ‘rm’ does not have a glyph for ‘\u5417’ [U+5417], substituting with a dummy symbol。理论上，可修改字体集为自定义custom然后修改每一个特定字体，但我偷懒直接改的整个字体集。</li>
+</ul>
+<p>回到正文，图中可以看出，STSong字体还是比较符合我们的预期的，所谓“退而求其次”嘛，总比网上清一色的“SimHei”的敷衍式的不负责任的回答要好得多。</p>
+<p><strong>所以推荐大家采用和我相同的配置（见下）。</strong></p>
+<p>回答完毕，下文填坑。</p>
+<h2 id="1-测试字体列表"><a href="#1-测试字体列表" class="headerlink" title="1. 测试字体列表"></a>1. 测试字体列表</h2><p>由于我修改过配置文件matplotlibrc，所以说行数可能不准确，因此以官网A sample matplotlibrc file为准：<a target="_blank" rel="noopener" href="https://matplotlib.org/tutorials/introductory/customizing.html">matplotlib官方教程</a>。</p>
+<p>文件169行说：</p>
+<blockquote>
+<p>The font.family property has five values: xx, xx, xx, xx, and xx. Each of these font families has a default list of font names in <strong>decreasing order of priority</strong> associated with them. When text.usetex is False, font.family may also be one or more concrete font names.  </p>
+<p>翻译：font.family属性有五个值。这些字体系列中的每一个都有一个默认的字体名称列表，<strong>按照与其相关联的优先级的降序排列</strong>。当text.usetex属性为False时，font.family也可以是一个或多个具体的字体名称。</p>
+</blockquote>
+<p>这段话告诉我们，指定font.family的属性值（一般为sans-serif&lt;默认&gt;或serif）后，就可以将209行font.serif或210行font.sans-serif对应的字体名默认列表default list of font names调整顺序（优先级priority），使得优先显示前面的字体。但是这段话也误导了我：是不是意味着当第一个字体失败时自动使用第二种字体呢？</p>
+<blockquote>
+<p>插句题外话，根据<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/Sans-serif/13131623?fr=aladdin">百度百科</a>的解释，Sans-serif是专指西文中没有衬线的字体，与汉字字体中的黑体相对应。</p>
+</blockquote>
+<p>原来如此，这么看就能对应上了。</p>
+<p>首先，将198行的<strong><em>#font.family : sans-serif</em></strong>改为<strong><em>font.family : serif</em></strong>（没有行内代码很难受），根据百科的话中文应为<strong>衬线字体</strong>。</p>
+<p>然后，将209行<strong><em>#font.serif : DejaVu Serif, Bitstream Vera Serif, Computer Modern Roman, New Century Schoolbook, Century Schoolbook L, Utopia, ITC Bookman, Bookman, Nimbus Roman No9 L, Times New Roman, Times, Palatino, Charter, serif</em></strong>（看到没，本来就有Times New Roman的）改为<strong><em>font.serif :</em></strong> STSong, SimSun, Times New Roman, Times,<strong><em>DejaVu Serif, Bitstream Vera Serif, Computer Modern Roman, New Century Schoolbook, Century Schoolbook L, Utopia, ITC Bookman, Bookman, Nimbus Roman No9 L, Palatino, Charter, serif</em></strong>，调整顺序嘛，STSong优先级最高，应为它是唯一能最大程度满足要求的字体。</p>
+<p>注意：修改配置文件是一劳永逸的办法，启动Python即可用，如果在Python里以<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>plt.rcParams[<span class="string">&#x27;font.serif&#x27;</span>] = [<span class="string">&#x27;STSong&#x27;</span>]</span><br></pre></td></tr></table></figure><br>的方式修改，只能影响当前环境，退出Python即失效。</p>
+<p>经我测试，无法使两种字体同时生效，但优先级确实可以解决部分问题。</p>
+<ul>
+<li><p>单个字体：①Times New Roman；②Times；③SimSun；④STSong</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>plt.rcParams[<span class="string">&#x27;font.serif&#x27;</span>] = [<span class="string">&#x27;Times New Roman&#x27;</span>]  </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>plt.title(<span class="string">u&#x27;字体Python2019&#x27;</span>)  </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="comment"># 不报错，但中文显示异常（显示为□□），西文正常且符合要求  </span></span><br><span class="line">  </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>plt.rcParams[<span class="string">&#x27;font.serif&#x27;</span>] = [<span class="string">&#x27;Times&#x27;</span>]  </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>plt.title(<span class="string">u&#x27;字体Python2019&#x27;</span>)  </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="comment"># 报错：findfont: Font family [&#x27;serif&#x27;] not found. Falling back to DejaVu Sans.  </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="comment"># 中英文显示均异常，不属于上述四种之一（Times字体？不认识，有点像加粗的黑体）  </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="comment"># 第二次也没有报错，不知为何  </span></span><br><span class="line">  </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>plt.rcParams[<span class="string">&#x27;font.serif&#x27;</span>] = [<span class="string">&#x27;SimSun&#x27;</span>]  </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>plt.title(<span class="string">u&#x27;字体Python2019&#x27;</span>)  </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="comment"># 不报错，中英文皆为宋体  </span></span><br><span class="line">  </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>plt.rcParams[<span class="string">&#x27;font.serif&#x27;</span>] = [<span class="string">&#x27;STSong&#x27;</span>]  </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>plt.title(<span class="string">u&#x27;字体Python2019&#x27;</span>)  </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="comment"># 不报错，中英文皆为STSong  </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="comment"># 此为最佳方案</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>两种字体：①Times New Roman＋SimSun；②Times New Roman＋STSong；③Times＋SimSun；④Times＋STSong。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>plt.rcParams[<span class="string">&#x27;font.serif&#x27;</span>] = [<span class="string">&#x27;Times New Roman&#x27;</span>,<span class="string">&#x27;SimSun&#x27;</span>]  </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>plt.title(<span class="string">u&#x27;字体Python2019&#x27;</span>)  </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="comment"># 第一次报错：RuntimeWarning: Glyph 20307 missing from current font.  </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="comment"># 第二次没有报错，两次显示效果一样  </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="comment"># 但中文显示异常（显示为□□），西文正常为Times New Roman  </span></span><br><span class="line">  </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>plt.rcParams[<span class="string">&#x27;font.serif&#x27;</span>] = [<span class="string">&#x27;Times New Roman&#x27;</span>,<span class="string">&#x27;STSong&#x27;</span>]  </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>plt.title(<span class="string">u&#x27;字体Python2019&#x27;</span>)  </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="comment"># 不报错，中文异常、西文正常  </span></span><br><span class="line">  </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>plt.rcParams[<span class="string">&#x27;font.serif&#x27;</span>] = [<span class="string">&#x27;Times&#x27;</span>,<span class="string">&#x27;SimSun&#x27;</span>]  </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>plt.title(<span class="string">u&#x27;字体Python2019&#x27;</span>)  </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="comment"># 不报错，中英文皆为宋体  </span></span><br><span class="line">  </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>plt.rcParams[<span class="string">&#x27;font.serif&#x27;</span>] = [<span class="string">&#x27;Times&#x27;</span>,<span class="string">&#x27;STSong&#x27;</span>]  </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>plt.title(<span class="string">u&#x27;字体Python2019&#x27;</span>)  </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="comment"># 不报错，中英文皆为STSong</span></span><br></pre></td></tr></table></figure>
+<p>由上测试可知，不论是两种字体还是一种字体，好像都取决于列表中的第一个。但是上述两种字体的后两种测试又似乎说明了“<strong>优先级</strong>”的问题：单[‘Times’]时报错了一次，双[‘Times’,’SimSun/STSong’]时按第二个。能否理解为Times失效继而采用SimSun/STSong呢？</p>
+</li>
+</ul>
+<h2 id="2-LaTex公式"><a href="#2-LaTex公式" class="headerlink" title="2.LaTex公式"></a>2.LaTex公式</h2><p>文件264行说：</p>
+<blockquote>
+<p>The following settings allow you to select the fonts in math mode. They map from a TeX font name to a fontconfig font pattern. <strong>These settings are only used if mathtext.fontset is ‘custom’.</strong>  </p>
+<p>翻译：以下设置允许你在数学模式中选择字体，它们从TeX字体名称映射到fontconfig字体模式。<strong>这些设置仅在mathtext.fontset为“自定义”时使用</strong>。</p>
+</blockquote>
+<p>这段话告诉我们，最好别乱改以下这几个属性（含义参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/guozhenqiang19921021/article/details/71601094">LaTeX 各种命令，符号</a>）：</p>
+<p>cal＝手写体；rm＝罗马体；tt＝打字机字体；it＝意大利斜体；bf＝正粗体；sf＝无衬线字体。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#mathtext.cal : cursive  </span></span><br><span class="line"><span class="comment">#mathtext.rm  : sans  </span></span><br><span class="line"><span class="comment">#mathtext.tt  : monospace  </span></span><br><span class="line"><span class="comment">#mathtext.it  : sans:italic  </span></span><br><span class="line"><span class="comment">#mathtext.bf  : sans:bold  </span></span><br><span class="line"><span class="comment">#mathtext.sf  : sans</span></span><br></pre></td></tr></table></figure><br>若非必要，请勿更改，直接将fontset改为stix即可。</p>
+<h2 id="3-其他"><a href="#3-其他" class="headerlink" title="3.其他"></a>3.其他</h2><p>上文中的STSong字体即华文宋体，有知友<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/62748381/answer/830407662">有没有一种组合字体，中文是宋体，英文是times new roman？ - 知乎用户的回答</a>说：</p>
+<blockquote>
+<p>华文宋体、方正书宋、方正新书宋、思源宋体、Adobe宋体，这些都是原生搭配好的。</p>
+</blockquote>
+<p>经我在Word里测试，与“宋体＋Times New Roman”最接近的只有华文宋体（注意：由于电脑没有安装方正宋体、方正新书宋和思源宋体，故以黑体代替并填充绿色；另Adobe宋体名称为Adobe宋体StdL）。</p>
+<p>除上述修改外，文件329行的axes.unicode_minus属性应改为False以正常显示符号。</p>
+<h2 id="4-总结"><a href="#4-总结" class="headerlink" title="4.总结"></a>4.总结</h2><ol>
+<li>退出Python，删除用户目录下的缓存文件（<strong>C:\Users\鴻塵.matplotlib</strong>整个文件夹）；</li>
+<li>修改配置文件matplotlibrc（<strong>D:\Python3.7.3\Lib\site-packages\matplotlib\mpl-data\matplotlibrc</strong>）；</li>
+<li>第198行：原文<strong><em>#font.family : sans-serif</em></strong>，修改<strong><em>font.family : serif</em></strong>；</li>
+<li>第209行：原文<strong><em>#font.serif : DejaVu Serif, Bitstream Vera Serif, Computer Modern Roman, New Century Schoolbook, Century Schoolbook L, Utopia, ITC Bookman, Bookman, Nimbus Roman No9 L, Times New Roman, Times, Palatino, Charter, serif</em></strong>，修改<strong><em>font.serif :</em></strong> STSong, SimSun, Times New Roman, Times, <strong><em>DejaVu Serif, Bitstream Vera Serif, Computer Modern Roman, New Century Schoolbook, Century Schoolbook L, Utopia, ITC Bookman, Bookman, Nimbus Roman No9 L, Palatino, Charter, serif</em></strong>；</li>
+<li>第275行：原文<strong><em>#mathtext.fontset : dejavusans</em></strong>，修改<strong><em>mathtext.fontset : stix</em></strong>；</li>
+<li>第329行：原文<strong><em>#axes.unicode_minus : True</em></strong>，修改<strong><em>axes.unicode_minus : False</em></strong>；</li>
+<li>保存退出（上述四个位置修改时切记去掉注释符）。</li>
+</ol>
+<h2 id="说明："><a href="#说明：" class="headerlink" title="说明："></a>说明：</h2><ul>
+<li>此方法修改是基于配置文件matplotlibrc的，一经修改永久生效且影响全局字体，但仍可在具体应用时plt.rcParams[‘xxx’]=[‘xxx’]动态修改；</li>
+<li>公式字体是独立的，不受其他设置影响，公式字体不支持中文（stix集不支持），应用时若有需要可以将中文放在美元号外，若中文必须在$$内，可尝试mathtext.fontset = custom后再修改类似于<em>mathtext.rm : sans</em>的相关属性（根据报错提示修改）；</li>
+<li>除修改matplotlibrc文件外，我还拷了Times New Roman、宋体等好几种字体到<strong>D:\Python3.7.3\Lib\site-packages\matplotlib\mpl-data\fonts\ttf</strong>文件夹下，但似乎这一步不需要（未经考证）；</li>
+<li>matplotlib版本为3.1.0，Python版本为3.7.3，有知友说需要修改D:\Python3.7.3\Lib\site-packages\matplotlib\font_manager.py文件</li>
+<li>上述办法只算是蒙混过关，不算解决方案，后续若有更好的再来更新；</li>
+<li>知乎首答，比较混乱，有很多重复，大家能看懂就行。</li>
+</ul>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-license">
+      <strong>文章作者： </strong><a href="https://hwame.top" style="color:#E541E5;"> 鴻塵</a>
+    </li>
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://hwame.top/20200521/customize-matplotlib-fonts.html" title="如何使matplotlib同时使用宋体和Times New Roman" target="_blank" rel="external" style="color:#E541E5;">https://hwame.top/20200521/customize-matplotlib-fonts.html</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用《<a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external" style="color:#E541E5;"><u>CC BY 4.0 CN协议</u></a>》许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://hwame.top" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://hwame.top" target="_blank"><span class="text-dark">鴻塵</span><small class="ml-1x">Pythoner, Data Analyst</small></a></h3>
+        <div>个人简介：处女座不适合做码农。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/20200522/configuration-of-nginx-and-uwsgi.html" title="Nginx配置与uWSGI配置详解"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/20200520/hello-hexo-troubleshooting.html" title="Hexo博客搭建(4)——常见问题"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">
+        <span style="color:#C71585">[&nbsp;</span><span style="color:#C71585">文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span style="color:#C71585">]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,wechat,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/hwame" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/hwamei" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://www.zhihu.com/people/hwame" target="_blank" title="Zhihu" data-toggle=tooltip data-placement=top><i class="icon icon-zhihu"></i></a></li>
+        
+        <li><a href="https://segmentfault.com/u/hwame" target="_blank" title="Segmentfault" data-toggle=tooltip data-placement=top><i class="icon icon-segmentfault"></i></a></li>
+        
+        <li><a href="https://gitee.com/hwame" target="_blank" title="Gitee" data-toggle=tooltip data-placement=top><i class="icon icon-gitee"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        &copy; 2023 鴻塵
+        
+        
+        <div class="publishby" style="font-family:Courier">
+            <span id="busuanzi_container_site_pv">
+                <i class="icon icon-eye"></i><span id="busuanzi_value_site_pv" style="font-family:Courier"></span>&nbsp;
+                <i class="icon icon-users"></i><span id="busuanzi_value_site_uv" style="font-family:Courier"></span>
+            </span>
+            <!--
+            <br>✯<a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/" style="color:#0FFFAA">鄂ICP备2020019329号</a>
+            -->
+            <br><i class="icon icon-clock" style="transform:rotate(90deg)"></i><span id="sitetime" style="font-family:Courier"></span>
+        </div>
+        
+        <!--
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+        -->
+    </div>
+    
+</footer>
+<script>
+    function siteTime(){
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth()+1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+        var t1 = Date.UTC(2020,05,19,21,20,52); //建站时间
+        var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+        var diff = t2-t1;
+        var diffYears = Math.floor(diff/years);
+        var diffDays = Math.floor((diff/days)-diffYears*365);
+        var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+        var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+        var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+        // 将「数字」转「补零字符串」
+        var y = diffYears.toString()
+        var d = diffDays.toString().padStart(3, '0')
+        var h = diffHours.toString().padStart(2, '0')
+        var m = diffMinutes.toString().padStart(2, '0')
+        var s = diffSeconds.toString().padStart(2, '0')
+        document.getElementById("sitetime").innerHTML=y+":"+d+":"+h+":"+m+":"+s;
+    }
+    siteTime();
+</script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<div id="go-top"></div>
+<style type="text/css">
+#go-top {
+ width:40px;height:40px;
+ background-color:#DDA0DD;
+ position:relative;
+ border-radius:20px;
+ position:fixed;right:20px;bottom:50px;
+ cursor:pointer;display:none;
+}
+#go-top:after {
+ content:" ";
+ position:absolute;left:14px;top:14px;
+ border-top:2px solid #fff;border-right:2px solid #fff;
+ width:12px;height:12px;
+ transform:rotate(-45deg);
+}
+#go-top:hover {
+ background-color:#8A2BE2;
+}
+</style>
+<script>
+$(function () {
+  var top=$("#go-top");
+  $(window).scroll(function () {
+    ($(window).scrollTop() > 300) ? top.show(300) : top.hide(200);
+    $("#go-top").click(function () {
+      $('body,html').animate({scrollTop:0});
+      return false();
+    })
+  });
+});
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//code.bdstatic.com/npm/leancloud-storage@latest/dist/av-min.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css" />
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  var requiredFields = 'mail';
+  requiredFields = requiredFields.split(',');
+  
+  new Valine({
+    el: '#vcomments',
+    appId: 'yLWKiHoPwmx7Izv4YYtC1fW2-MdYXbMMI',
+    appKey: 'h01jve7HXS6MuDLNBF5DeWTz',
+    verify: false,
+    notify: true,
+    placeholder: '🌺🌺留下邮箱才可以收到新消息提醒哦~\n🦚🦚输入QQ号可自动拉取昵称和邮箱~',
+    avatar: 'robohash',
+    meta: meta,
+    pageSize: '10' || 10,
+    enableQQ: 'true',
+    recordIP: 'true',
+    requiredFields: requiredFields,
+    visitor: true,
+    serverURLs: 'https://valine.hwame.top',
+    
+    master: 'f86269b0b1850cd62ca22b218aea1780',
+    friends: ['1725648a3566b8841f19423519e0a36e', '87b6f0e96e63727d889bb3653fb5867c', 'b7c8e70dc5b2bbbdbdeca1fc0e71b919'],
+    tagMeta: ['鴻塵', '蜜柚', '访客'],
+    metaPlaceholder: {"nick":"昵称/QQ号","mail":"邮箱(必填)","link":"个人主页"}, 
+    emojiCDN: "https://cdn.jsdelivr.net/gh/MiniValine/MiniValine@master/imgs/alus/",
+    emojiMaps: {
+        "emoji_001": "0000.png",
+        "emoji_002": "0010.png",
+        "emoji_003": "0020.png",
+        "emoji_004": "0030.png",
+        "emoji_005": "0040.png",
+        "emoji_006": "0050.png",
+        "emoji_007": "0060.png",
+        "emoji_008": "0070.png",
+        "emoji_009": "0080.png",
+        "emoji_010": "0090.png",
+        "emoji_011": "0100.png",
+        "emoji_012": "0110.png",
+        "emoji_013": "0120.png",
+        "emoji_014": "0130.png",
+        "emoji_015": "0140.png",
+        "emoji_016": "0150.png",
+        "emoji_017": "0160.png",
+        "emoji_018": "0170.png",
+        "emoji_019": "0171.png",
+        "emoji_020": "0180.png",
+        "emoji_021": "0181.png",
+        "emoji_022": "0190.png",
+        "emoji_023": "0200.png",
+        "emoji_024": "0210.png",
+        "emoji_025": "0220.png",
+        "emoji_026": "0230.png",
+        "emoji_027": "0240.png",
+        "emoji_028": "0241.png",
+        "emoji_029": "0250.png",
+        "emoji_030": "0260.png",
+        "emoji_031": "0270.png",
+        "emoji_032": "0280.png",
+        "emoji_033": "0290.png",
+        "emoji_034": "0300.png",
+        "emoji_035": "0310.png",
+        "emoji_036": "0320.png",
+        "emoji_037": "0330.png",
+        "emoji_038": "0331.png",
+        "emoji_039": "0340.png",
+        "emoji_040": "0350.png",
+        "emoji_041": "0360.png",
+        "emoji_042": "0370.png",
+        "emoji_043": "0380.png",
+        "emoji_044": "0390.png",
+        "emoji_045": "0391.png",
+        "emoji_046": "0400.png",
+        "emoji_047": "0410.png",
+        "emoji_048": "0420.png",
+        "emoji_049": "0430.png",
+        "emoji_050": "0431.png",
+        "emoji_051": "0440.png",
+        "emoji_052": "0450.png",
+        "emoji_053": "0451.png",
+        "emoji_054": "0460.png",
+        "emoji_055": "0461.png",
+        "emoji_056": "0462.png",
+        "emoji_057": "0470.png",
+        "emoji_058": "0480.png",
+        "emoji_059": "0490.png",
+        "emoji_060": "0500.png",
+        "emoji_061": "0510.png",
+        "emoji_062": "0520.png",
+        "emoji_063": "0530.png",
+        "emoji_064": "0540.png",
+        "emoji_065": "0550.png",
+        "emoji_066": "0560.png",
+        "emoji_067": "0570.png",
+        "emoji_068": "0580.png",
+        "emoji_069": "0590.png",
+        "emoji_070": "0600.png",
+        "emoji_071": "0610.png",
+        "emoji_072": "0620.png",
+        "emoji_073": "1010.png",
+        "emoji_074": "1011.png",
+        "emoji_075": "1020.png",
+        "emoji_076": "1030.png",
+        "emoji_077": "1040.png",
+        "emoji_078": "1050.png",
+        "emoji_079": "1060.png",
+        "emoji_080": "1070.png",
+        "emoji_081": "1080.png",
+        "emoji_082": "2010.png",
+        "emoji_083": "2020.png",
+        "emoji_084": "2030.png",
+        "emoji_085": "2040.png",
+        "emoji_086": "2050.png",
+        "emoji_087": "2060.png",
+        "emoji_088": "2070.png",
+        "emoji_089": "2080.png",
+        "emoji_090": "2090.png",
+        "emoji_091": "2100.png",
+        "emoji_092": "2101.png",
+        "emoji_093": "2110.png",
+        "emoji_094": "2120.png",
+        "emoji_095": "2130.png",
+        "emoji_096": "2140.png",
+        "emoji_097": "2141.png",
+        "emoji_098": "2145.png",
+        "emoji_099": "2150.png",
+        "emoji_100": "2151.png",
+        "emoji_101": "2152.png",
+        "emoji_102": "2160.png",
+        "emoji_103": "2161.png",
+        "emoji_104": "2165.png",
+        "emoji_105": "2170.png",
+        "emoji_106": "2171.png",
+        "emoji_107": "3010.png",
+        "emoji_108": "3011.png",
+        "emoji_109": "3020.png",
+        "emoji_110": "3030.png",
+        "emoji_111": "3040.png",
+        "emoji_112": "3050.png",
+        "emoji_113": "3060.png",
+        "emoji_114": "3061.png",
+        "emoji_115": "4010.png",
+        "emoji_116": "4020.png",
+        "emoji_117": "4021.png",
+        "emoji_118": "4022.png",
+        "emoji_119": "4023.png",
+        "emoji_120": "4024.png",
+        "emoji_121": "4025.png",
+        "emoji_122": "4030.png",
+        "emoji_123": "4031.png",
+        "emoji_124": "4040.png",
+        "emoji_125": "4041.png",
+        "emoji_126": "4042.png",
+        "emoji_127": "4100.png",
+        "emoji_128": "4110.png",
+        "emoji_129": "4111.png",
+        "emoji_130": "4112.png",
+        "emoji_131": "4113.png",
+        "emoji_132": "4114.png",
+        "emoji_133": "4115.png",
+        "emoji_134": "4120.png",
+        "emoji_135": "4121.png",
+        "emoji_136": "4130.png",
+        "emoji_137": "4140.png",
+        "emoji_138": "4200.png",
+        "emoji_139": "4201.png",
+        "emoji_140": "4210.png",
+        "emoji_141": "4211.png",
+        "emoji_142": "4212.png",
+        "emoji_143": "4213.png",
+        "emoji_144": "4220.png",
+        "emoji_145": "4300.png",
+        "emoji_146": "4301.png",
+        "emoji_147": "4302.png",
+        "emoji_148": "4303.png",
+        "emoji_149": "4304.png",
+        "emoji_150": "4310.png",
+        "emoji_151": "5000.png",
+        "emoji_152": "5001.png",
+        "emoji_153": "5002.png",
+        "emoji_154": "5003.png",
+        "emoji_155": "5010.png",
+        "emoji_156": "5020.png",
+        "emoji_157": "5030.png",
+        "emoji_158": "5040.png",
+        "emoji_159": "5050.png",
+        "emoji_160": "5060.png",
+        "emoji_161": "5069.png",
+        "emoji_162": "5070.png",
+        "emoji_163": "5080.png",
+        "emoji_164": "5090.png",
+        "emoji_165": "5091.png",
+        "emoji_166": "5100.png",
+        "emoji_167": "5110.png",
+        "emoji_168": "5120.png",
+        "emoji_169": "5130.png",
+        "emoji_170": "5131.png",
+        "emoji_171": "5140.png",
+        "emoji_172": "5141.png",
+        "emoji_173": "5150.png",
+        "emoji_174": "5151.png",
+        "emoji_175": "5160.png",
+        "emoji_176": "5161.png",
+        "emoji_177": "5170.png",
+        "emoji_178": "5180.png",
+        "emoji_179": "5190.png",
+        "emoji_180": "5200.png",
+        "emoji_181": "5210.png",
+        "emoji_182": "5220.png",
+        "emoji_183": "5230.png",
+        "emoji_184": "6000.png",
+        "emoji_185": "6001.png",
+        "emoji_186": "6010.png",
+        "emoji_187": "6020.png",
+        "emoji_188": "6030.png",
+        "emoji_189": "6040.png",
+        "emoji_190": "6050.png",
+        "emoji_191": "6051.png",
+        "emoji_192": "6060.png",
+        "emoji_193": "6061.png",
+        "emoji_194": "6070.png",
+        "emoji_195": "6080.png",
+        "emoji_196": "6090.png",
+        "emoji_197": "6091.png",
+        "emoji_198": "6092.png",
+        "emoji_199": "6100.png",
+        "emoji_200": "6110.png",
+        "emoji_201": "6120.png",
+        "emoji_202": "6121.png",
+        "emoji_203": "6130.png",
+        "emoji_204": "6131.png",
+        "emoji_205": "6132.png",
+        "emoji_206": "6140.png",
+        "emoji_207": "6150.png",
+        "emoji_208": "6151.png",
+        "emoji_209": "6160.png",
+        "emoji_210": "6500.png",
+        "emoji_211": "6510.png",
+        "emoji_212": "6520.png",
+        "emoji_213": "6530.png",
+        "emoji_214": "7000.png",
+        "emoji_215": "7010.png",
+        "emoji_216": "7011.png",
+        "emoji_217": "7012.png",
+        "emoji_218": "7020.png",
+        "emoji_219": "7021.png",
+        "emoji_220": "7030.png",
+        "emoji_221": "7040.png",
+        "emoji_222": "7045.png",
+        "emoji_223": "7046.png",
+        "emoji_224": "7050.png",
+        "emoji_225": "7051.png",
+        "emoji_226": "7052.png",
+        "emoji_227": "7053.png",
+        "emoji_228": "7054.png",
+        "emoji_229": "7060.png",
+        "emoji_230": "7061.png",
+        "emoji_231": "7062.png",
+        "emoji_232": "7070.png",
+        "emoji_233": "7071.png",
+        "emoji_234": "7080.png",
+        "emoji_235": "7081.png",
+        "emoji_236": "7090.png",
+        "emoji_237": "7100.png",
+        "emoji_238": "7110.png",
+        "emoji_239": "7111.png",
+        "emoji_240": "7112.png",
+        "emoji_241": "7113.png",
+        "emoji_242": "7200.png",
+        "emoji_243": "7201.png",
+        "emoji_244": "7210.png",
+        "emoji_245": "7220.png",
+        "emoji_246": "7230.png",
+        "emoji_247": "8000.png",
+        "emoji_248": "8001.png",
+        "emoji_249": "8010.png",
+        "emoji_250": "8020.png",
+        "emoji_251": "8021.png",
+        "emoji_252": "8030.png",
+        "emoji_253": "8040.png",
+        "emoji_254": "8041.png",
+        "emoji_255": "8042.png",
+        "emoji_256": "8050.png",
+        "emoji_257": "8051.png",
+        "emoji_258": "8060.png",
+        "emoji_259": "8062.png",
+        "emoji_260": "8070.png",
+        "emoji_261": "8071.png",
+        "emoji_262": "8072.png",
+        "emoji_263": "8080.png",
+        "emoji_264": "8081.png",
+        "emoji_265": "8082.png",
+        "emoji_266": "8083.png",
+        "emoji_267": "8084.png",
+        "emoji_268": "8085.png",
+        "emoji_269": "8090.png",
+        "emoji_270": "8091.png",
+        "emoji_271": "8092.png",
+        "emoji_272": "8100.png",
+        "emoji_273": "8101.png",
+        "emoji_274": "8102.png",
+        "emoji_275": "8103.png",
+        "emoji_276": "8110.png",
+        "emoji_277": "8111.png",
+        "emoji_278": "x010.png",
+        "emoji_279": "x011.png",
+        "emoji_280": "x012.png",
+        "emoji_281": "x013.png",
+        "emoji_282": "x014.png",
+        "emoji_283": "x021.png",
+        "emoji_284": "x022.png",
+        "emoji_285": "x031.png",
+        "emoji_286": "x032.png",
+        "emoji_287": "x041.png",
+        "emoji_288": "x042.png",
+        "emoji_289": "x050.png",
+        "emoji_290": "x060.png",
+        "emoji_291": "x061.png",
+        "emoji_292": "x062.png",
+        "emoji_293": "x063.png",
+        "emoji_294": "x069.png",
+        "emoji_295": "x070.png",
+        "emoji_296": "x071.png",
+        "emoji_297": "x080.png",
+        "emoji_298": "x081.png",
+        "emoji_299": "x082.png",
+        "emoji_300": "x083.png",
+        "emoji_301": "x090.png",
+        "emoji_302": "x091.png",
+        "emoji_303": "x092.png",
+        "emoji_304": "x093.png",
+        "emoji_305": "x094.png",
+        "emoji_306": "x099.png",
+        "emoji_307": "不出所料.png",
+        "emoji_308": "不说话.png",
+        "emoji_309": "不高兴.png",
+        "emoji_310": "中刀.png",
+        "emoji_311": "中指.png",
+        "emoji_312": "中枪.png",
+        "emoji_313": "亲亲.png",
+        "emoji_314": "便便.png",
+        "emoji_315": "内伤.png",
+        "emoji_316": "击掌.png",
+        "emoji_317": "口水.png",
+        "emoji_318": "吐.png",
+        "emoji_319": "吐舌.png",
+        "emoji_320": "吐血倒地.png",
+        "emoji_321": "呲牙.png",
+        "emoji_322": "咽气.png",
+        "emoji_323": "哭泣.png",
+        "emoji_324": "喜极而泣.png",
+        "emoji_325": "喷水.png",
+        "emoji_326": "喷血.png",
+        "emoji_327": "坐等.png",
+        "emoji_328": "害羞.png",
+        "emoji_329": "小眼睛.png",
+        "emoji_330": "尴尬.png",
+        "emoji_331": "得意.png",
+        "emoji_332": "惊喜.png",
+        "emoji_333": "想一想.png",
+        "emoji_334": "愤怒.png",
+        "emoji_335": "扇耳光.png",
+        "emoji_336": "投降.png",
+        "emoji_337": "抠鼻.png",
+        "emoji_338": "抽烟.png",
+        "emoji_339": "无奈.png",
+        "emoji_340": "无所谓.png",
+        "emoji_341": "无语.png",
+        "emoji_342": "暗地观察.png",
+        "emoji_343": "期待.png",
+        "emoji_344": "欢呼.png",
+        "emoji_345": "汗.png",
+        "emoji_346": "深思.png",
+        "emoji_347": "狂汗.png",
+        "emoji_348": "献花.png",
+        "emoji_349": "献黄瓜.png",
+        "emoji_350": "皱眉.png",
+        "emoji_351": "看不见.png",
+        "emoji_352": "看热闹.png",
+        "emoji_353": "瞅你.png",
+        "emoji_354": "肿包.png",
+        "emoji_355": "脸红.png",
+        "emoji_356": "蜡烛.png",
+        "emoji_357": "装大款.png",
+        "emoji_358": "观察.png",
+        "emoji_359": "赞一个.png",
+        "emoji_360": "邪恶.png",
+        "emoji_361": "锁眉.png",
+        "emoji_362": "长草.png",
+        "emoji_363": "阴暗.png",
+        "emoji_364": "高兴.png",
+        "emoji_365": "黑线.png",
+        "emoji_366": "鼓掌.png",
+    },
+  });
+  </script>
+
+     
+
+
+<!-- 20201211添加判断 -->
+
+   
+  <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script>
+  <script>
+  //利用 FancyBox 实现点击图片放大
+  $(document).ready(function() {
+    $('article img').not('[hidden]').not('.panel-body img').each(function() {
+      var $image = $(this);
+      var imageCaption = $image.attr('alt');
+      var $imageWrapLink = $image.parent('a');
+      if ($imageWrapLink.length < 1) {
+        var src = this.getAttribute('src');
+        var idx = src.lastIndexOf('?');
+        if (idx != -1) {
+          src = src.substring(0, idx);
+        }
+        $imageWrapLink = $image.wrap('<a href="' + src + '"></a>').parent('a');
+      }
+      $imageWrapLink.attr('data-fancybox', 'images');
+      if (imageCaption) {
+        $imageWrapLink.attr('data-caption', imageCaption);
+      }
+    });
+    $().fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: true,
+    });
+  });
+  </script>
+
+
+
+
+
+
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+      z-index: 2;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+        .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  
+  <script>
+    addLoadEvent(()=>{
+      $('.highlight').each(function (i, e) {
+        var $wrap = $('<div>').addClass('highlight-wrap')
+        $(e).after($wrap)
+        $wrap.append($('<button>').addClass('copy-btn').append('一键复制').on('click', function (e) {
+          var code = $(this).parent().find(".code")[0].innerText
+          
+          var ta = document.createElement('textarea')
+          document.body.appendChild(ta)
+          ta.style.position = 'absolute'
+          ta.style.top = '0px'
+          ta.style.left = '0px'
+          ta.value = code
+          ta.select()
+          ta.focus()
+          var result = document.execCommand('copy')
+          document.body.removeChild(ta)
+          
+            if(result)$(this).text('复制成功')
+            else $(this).text('复制失败')
+          
+          $(this).blur()
+        })).on('mouseleave', function (e) {
+          var $b = $(this).find('.copy-btn')
+          setTimeout(function () {
+            $b.text('一键复制')
+          }, 300)
+        }).append(e)
+      })
+    })
+  </script>
+
+</body>
+</html>

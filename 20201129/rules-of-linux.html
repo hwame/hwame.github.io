@@ -1,0 +1,1549 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  <!-- 谷歌收录 -->
+  <meta name="google-site-verification" content="-5hl8eC4wfapGZhZouwMVUcKG0iaynijVRJbqVlzXm4" />
+  
+  
+  <title>Linux世界的规则 | 鴻塵</title>
+  <meta name="description" content="文章说明文章作者：鴻塵文章说明：学习Linux过程中的记录，参考书籍主要有《Linux命令行与shell脚本编程大全（第3版）》，《鸟哥的Linux私房菜（第三版）》系列和《快乐的 Linux 命令行》，参考资料主要有Linux命令大全等。文章链接：https:&#x2F;&#x2F;hwame.top&#x2F;20201129&#x2F;rules-of-linux.html  1.常见Linux目录名称    目录 用途">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux世界的规则">
+<meta property="og:url" content="https://hwame.top/20201129/rules-of-linux.html">
+<meta property="og:site_name" content="鴻塵">
+<meta property="og:description" content="文章说明文章作者：鴻塵文章说明：学习Linux过程中的记录，参考书籍主要有《Linux命令行与shell脚本编程大全（第3版）》，《鸟哥的Linux私房菜（第三版）》系列和《快乐的 Linux 命令行》，参考资料主要有Linux命令大全等。文章链接：https:&#x2F;&#x2F;hwame.top&#x2F;20201129&#x2F;rules-of-linux.html  1.常见Linux目录名称    目录 用途">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-11-29T05:51:52.000Z">
+<meta property="article:modified_time" content="2020-12-03T13:05:34.000Z">
+<meta property="article:author" content="鴻塵">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="shell">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://hwame.top/20201129/rules-of-linux.html">
+  
+    <link rel="alternate" href="true" title="鴻塵" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    <link href="//cdn.jsdelivr.net/npm/katex@0.9.0/dist/katex.min.css" rel="stylesheet">
+  
+  
+  
+    <link href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css" rel="stylesheet">
+  
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<script src="https://cdn.jsdelivr.net/gh/bobcn/hexo_resize_image.js@master/hexo_resize_image.js"></script>
+<body class="main-center theme-purple" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://hwame.top" target="_blank">
+          <img class="img-circle img-rotate" src="https://cdn.jsdelivr.net/gh/hwame/pics@main/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">鴻塵</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Pythoner, Data Analyst</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> 湖北-武汉</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav menu-highlight">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder-open"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">资源</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-gallery">
+          <a href="/gallery">
+            
+            <i class="icon icon-delicious"></i>
+            
+            <span class="menu-title">相册</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/hwame" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/hwamei" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://www.zhihu.com/people/hwame" target="_blank" title="Zhihu" data-toggle=tooltip data-placement=top><i class="icon icon-zhihu"></i></a></li>
+        
+        <li><a href="https://segmentfault.com/u/hwame" target="_blank" title="Segmentfault" data-toggle=tooltip data-placement=top><i class="icon icon-segmentfault"></i></a></li>
+        
+        <li><a href="https://gitee.com/hwame" target="_blank" title="Gitee" data-toggle=tooltip data-placement=top><i class="icon icon-gitee"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title"><i style="color:#9400D3" class="icon icon-stackexchange"></i>公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎来到鴻塵的博客!<br>鴻塵的<u><a target="_blank" rel="noopener" href="https://weibo.com/hwamei" style="color:#E541E5;">微博</a></u>主页，鴻塵的<u><a target="_blank" rel="noopener" href="https://github.com/hwame" style="color:#E541E5;">Github</a></u>主页，如果我可以忘记的<u><a target="_blank" rel="noopener" href="https://www.zhihu.com/people/hwame" style="color:#E541E5;">知乎</a></u>主页。</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title"><i style="color:#9400D3" class="icon icon-tags"></i>标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/CentOS/" style="font-size: 13px; color: #fff">CentOS</a> <a href="/tags/Go/" style="font-size: 13.2px; color: #fff">Go</a> <a href="/tags/Hexo/" style="font-size: 13.8px; color: #fff">Hexo</a> <a href="/tags/Linux/" style="font-size: 14px; color: #fff">Linux</a> <a href="/tags/Linux%E9%83%A8%E7%BD%B2/" style="font-size: 13px; color: #fff">Linux部署</a> <a href="/tags/MongoDB/" style="font-size: 13.4px; color: #fff">MongoDB</a> <a href="/tags/Spark/" style="font-size: 13px; color: #fff">Spark</a> <a href="/tags/matplotlib/" style="font-size: 13.2px; color: #fff">matplotlib</a> <a href="/tags/miscellanea/" style="font-size: 13.6px; color: #fff">miscellanea</a> <a href="/tags/python/" style="font-size: 14px; color: #fff">python</a> <a href="/tags/shell/" style="font-size: 13.6px; color: #fff">shell</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 13px; color: #fff">大数据</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" style="font-size: 13px; color: #fff">数据结构与算法</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 13px; color: #fff">爬虫</a>
+    </div>
+  </div>
+
+<script type="text/javascript">
+    var everytag=document.getElementsByClassName("widget-body tagcloud")[0].children;
+    for (var i = everytag.length - 1; i >= 0; i--) {
+    	var r=Math.floor(Math.random()*255);
+        var g=Math.floor(Math.random()*255);
+        var b=Math.floor(Math.random()*255);
+        everytag[i].style.background = "rgb("+r+","+g+","+b+")";
+    }
+</script>
+    
+      
+  <div class="widget">
+    <h3 class="widget-title"><i style="color:#9400D3" class="icon icon-folder-open"></i>分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Go/">Go</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MongoDB/">MongoDB</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/miscellanea/">miscellanea</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title"><i style="color:#9400D3" class="icon icon-archives-fill"></i>归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">17</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title"><i style="color:#9400D3" class="icon icon-shu-fill"></i>最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled ">
+        
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20220327/channel-and-goroutine-in-go.html" class="thumb">
+    
+    
+        <span style="background-image:url(https://cdn.jsdelivr.net/gh/hwame/pics@main/post-pics/icon-golang.jpeg)" alt="Go语言中的通道" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Go/">Go</a>
+              </p>
+              <p class="item-title">
+                <a href="/20220327/channel-and-goroutine-in-go.html" class="title">Go语言中的通道</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-27T11:06:16.000Z" itemprop="datePublished">2022-03-27</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20220323/when-to-use-pointer-in-go.html" class="thumb">
+    
+    
+        <span style="background-image:url(https://cdn.jsdelivr.net/gh/hwame/pics@main/post-pics/icon-golang.jpeg)" alt="Go语言什么时候使用指针" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Go/">Go</a>
+              </p>
+              <p class="item-title">
+                <a href="/20220323/when-to-use-pointer-in-go.html" class="title">Go语言什么时候使用指针</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-23T12:49:57.000Z" itemprop="datePublished">2022-03-23</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20220228/awesome-images-in-markdown.html" class="thumb">
+    
+    
+        <span style="background-image:url(https://cdn.jsdelivr.net/gh/hwame/pics@main/avatar.jpg)" alt="Markdown中图片的高级用法" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/miscellanea/">miscellanea</a>
+              </p>
+              <p class="item-title">
+                <a href="/20220228/awesome-images-in-markdown.html" class="title">Markdown中图片的高级用法</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-02-28T15:27:50.000Z" itemprop="datePublished">2022-02-28</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20220116/shell-regular-expression.html" class="thumb">
+    
+    
+        <span style="background-image:url(https://cdn.jsdelivr.net/gh/hwame/pics@main/post-pics/linux-icon.png)" alt="Shell正则表达式" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Linux/">Linux</a>
+              </p>
+              <p class="item-title">
+                <a href="/20220116/shell-regular-expression.html" class="title">Shell正则表达式</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-01-16T14:13:05.000Z" itemprop="datePublished">2022-01-16</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20211009/install-linux-on-android-phone.html" class="thumb">
+    
+    
+        <span style="background-image:url(https://cdn.jsdelivr.net/gh/hwame/pics@main/avatar.jpg)" alt="如何在安卓手机上安装Linux发行版" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/miscellanea/">miscellanea</a>
+              </p>
+              <p class="item-title">
+                <a href="/20211009/install-linux-on-android-phone.html" class="title">如何在安卓手机上安装Linux发行版</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-10-09T15:16:37.000Z" itemprop="datePublished">2021-10-09</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%B8%B8%E8%A7%81Linux%E7%9B%AE%E5%BD%95%E5%90%8D%E7%A7%B0"><span class="toc-number">1.</span> <span class="toc-text">1.常见Linux目录名称</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E9%80%9A%E9%85%8D%E7%AC%A6"><span class="toc-number">2.</span> <span class="toc-text">2.通配符</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E9%80%9A%E9%85%8D%E7%AC%A6"><span class="toc-number">2.1.</span> <span class="toc-text">2.1.通配符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E5%B8%B8%E7%94%A8%E7%9A%84%E5%AD%97%E7%AC%A6%E7%B1%BB"><span class="toc-number">2.2.</span> <span class="toc-text">2.2.常用的字符类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E9%80%9A%E9%85%8D%E7%AC%A6%E8%8C%83%E4%BE%8B"><span class="toc-number">2.3.</span> <span class="toc-text">2.3.通配符范例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%91%BD%E4%BB%A4%E8%A1%A8%E7%A4%BA%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">3.命令表示法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%96%87%E4%BB%B6%E6%8F%8F%E8%BF%B0%E7%AC%A6%E4%B8%8E%E9%87%8D%E5%AE%9A%E5%90%91"><span class="toc-number">4.</span> <span class="toc-text">4.文件描述符与重定向</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E5%BE%85%E7%BB%AD"><span class="toc-number">5.</span> <span class="toc-text">5.待续</span></a></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-rules-of-linux" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Linux世界的规则
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar"></i>
+	<a href="/20201129/rules-of-linux.html" class="article-date">
+	  发布于 <time datetime="2020-11-29T05:51:52.000Z" itemprop="datePublished">2020-11-29</time>
+	</a>
+</span>
+<span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/20201129/rules-of-linux.html" class="article-date">
+	  更新于 <time datetime="2020-12-03T13:05:34.000Z" itemprop="dateUpdated">2020-12-03</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/Linux/" rel="tag">Linux</a>, <a class="article-tag-link-link" href="/tags/shell/" rel="tag">shell</a>
+  </span>
+
+
+        
+
+	<span class="article-read hidden-xs">
+    	<i class="icon icon-eye-fill" aria-hidden="true"></i>
+    	<span id="/20201129/rules-of-linux.html" class="leancloud_visitors"  data-flag-title="Linux世界的规则">
+			<span class="leancloud-visitors-count">0</span>
+		</span>
+    </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/20201129/rules-of-linux.html#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2.9k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 10(分)</span>
+	
+
+      </div>
+      <div style="background-color:#D7BDE2;border:1px solid #D7BDE2;border-radius:10px;padding:5px">
+          <b>温馨提示</b>：点击页面下方<i style="color:red" class="icon icon-anchor"></i>以展开或折叠目录
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <blockquote>
+<p><font size=5><b>文章说明</b></font><br><strong>文章作者：</strong><a href="https://hwame.top">鴻塵</a><br><strong>文章说明：</strong>学习Linux过程中的记录，参考书籍主要有《Linux命令行与shell脚本编程大全（第3版）》，《鸟哥的Linux私房菜（第三版）》系列和《快乐的 Linux 命令行》，参考资料主要有<a target="_blank" rel="noopener" href="https://man.linuxde.net/">Linux命令大全</a>等。<br><strong>文章链接：</strong><a href="https://hwame.top/20201129/rules-of-linux.html">https://hwame.top/20201129/rules-of-linux.html</a></p>
+</blockquote>
+<h2 id="1-常见Linux目录名称"><a href="#1-常见Linux目录名称" class="headerlink" title="1.常见Linux目录名称"></a>1.常见Linux目录名称</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">目录</th>
+<th style="text-align:left">用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>/</code></td>
+<td style="text-align:left">虚拟目录的根目录，万物起源。通常不会在这里存储文件</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>/bin</code></td>
+<td style="text-align:left">二进制目录，存放许多用户级的GNU工具</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>/boot</code></td>
+<td style="text-align:left">启动目录，包含Linux内核，存放启动文件<br><code>/boot/grub/grub.conf</code> or <code>menu.lst</code>，被用来配置启动加载程序<br><code>/boot/vmlinuz</code>，Linux 内核</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>/dev</code></td>
+<td style="text-align:left">设备目录，Linux在这里创建设备节点</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>/etc</code></td>
+<td style="text-align:left">系统配置文件目录，也包含一系列的<code>shell</code>脚本<br><code>/etc/crontab</code>，定义自动运行的任务<br><code>/etc/fstab</code>，包含存储设备的列表，以及与他们相关的挂载点<br><code>/etc/passwd</code>，包含用户帐号列表</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>/home</code></td>
+<td style="text-align:left">主目录，Linux在这 里创建用户目录</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>/lib</code></td>
+<td style="text-align:left">库目录，存放系统和应用程序的库文件</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>/media</code></td>
+<td style="text-align:left">媒体目录，可移动媒体设备的常用挂载点</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>/mnt</code></td>
+<td style="text-align:left">挂载目录，另一个可移动媒体设备的常用挂载点</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>/opt</code></td>
+<td style="text-align:left">可选目录，常用于存放第三方软件包和数据文件</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>/proc</code></td>
+<td style="text-align:left">进程目录，存放现有硬件及当前进程的相关信息</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>/root</code></td>
+<td style="text-align:left"><code>root</code>用户的主目录</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>/sbin</code></td>
+<td style="text-align:left">系统二进制目录，存放许多GNU管理员级工具</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>/run</code></td>
+<td style="text-align:left">运行目录，存放系统运作时的运行时数据</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>/srv</code></td>
+<td style="text-align:left">服务目录，存放本地服务的相关文件</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>/sys</code></td>
+<td style="text-align:left">系统目录，存放系统硬件信息的相关文件</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>/tmp</code></td>
+<td style="text-align:left">临时目录，可以在该目录中创建和删除临时工作文件</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>/usr</code></td>
+<td style="text-align:left">用户二进制目录，大量用户级的GNU工具和数据文件都存储在这里，它可能是Linux系统中最大的一个<br><code>/usr/bin</code>，包含系统安装的可执行程序，通常会包含许多程序<br><code>/usr/lib</code>，包含由<code>/usr/bin</code>目录中的程序所用的共享库<br><code>/usr/local</code>，非系统发行版自带却打算让系统使用的程序的安装目录<br><code>/usr/sbin</code>，包含许多系统管理程序<br><code>/usr/share</code>，包含许多由<code>/usr/bin</code>目录中的程序使用的共享数据，其中包括像默认的配置文件、图标、桌面背景、音频文件等等<br><code>/usr/share/doc</code>，大多数安装在系统中的软件包会包含一些文档</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>/var</code></td>
+<td style="text-align:left">可变目录，用以存放经常变化的文件，比如日志文件</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="2-通配符"><a href="#2-通配符" class="headerlink" title="2.通配符"></a>2.通配符</h2><h3 id="2-1-通配符"><a href="#2-1-通配符" class="headerlink" title="2.1.通配符"></a>2.1.通配符</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">通配符</th>
+<th style="text-align:left">意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>*</code></td>
+<td style="text-align:left">匹配任意<strong>多个</strong>字符（包括零个或一个）</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>?</code></td>
+<td style="text-align:left">匹配任意<strong>一个</strong>字符（不包括零个）</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>[characters]</code></td>
+<td style="text-align:left">匹配任意一个属于字符集中的字符</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>[!characters]</code></td>
+<td style="text-align:left">匹配任意一个不是字符集中的字符</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>[[:class:]]</code></td>
+<td style="text-align:left">匹配任意一个属于指定<strong>字符类</strong>中的字符</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>注意：</strong>不同于正则表达式中的<code>.</code>，此处的<code>.</code>仍表示其自身。</p>
+<blockquote>
+<p>参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/weini1111/article/details/72896874">「通配符」和「正则表达式」的区别</a>：<br><strong>通配符</strong>是系统级的，多用于文件名上，如<code>find</code>、<code>ls</code>、<code>cp</code>等；<br><strong>正则表达式</strong>则需要相关工具的支持，如<code>egrep</code>、<code>awk</code>、<code>vi</code>、<code>perl</code>等，多用于针对文件内容的文本过滤工具，如<code>awk</code>、<code>sed</code>等。</p>
+</blockquote>
+<h3 id="2-2-常用的字符类"><a href="#2-2-常用的字符类" class="headerlink" title="2.2.常用的字符类"></a>2.2.常用的字符类</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">通配符</th>
+<th style="text-align:left">意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>[:alnum:]</code></td>
+<td style="text-align:left">匹配任意一个字母或数字</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>[:alpha:]</code></td>
+<td style="text-align:left">匹配任意一个字母</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>[:digit:]</code></td>
+<td style="text-align:left">匹配任意一个数字</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>[:lower:]</code></td>
+<td style="text-align:left">匹配任意一个小写字母</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>[:upper:]</code></td>
+<td style="text-align:left">匹配任意一个大写字母</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="2-3-通配符范例"><a href="#2-3-通配符范例" class="headerlink" title="2.3.通配符范例"></a>2.3.通配符范例</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">模式</th>
+<th style="text-align:left">匹配对象</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>*</code></td>
+<td style="text-align:left">所有文件</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>g*</code></td>
+<td style="text-align:left">文件名以<code>g</code>开头的文件</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>b*.txt</code></td>
+<td style="text-align:left">以<code>b</code>开头，中间任意多个（$\ge 0$）字符，并以<code>.txt</code>结尾的文件</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>Data???</code></td>
+<td style="text-align:left">以<code>Data</code>开头，其后紧接着 3 个字符的文件</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>[abc]*</code></td>
+<td style="text-align:left">文件名以<code>a</code>或<code>b</code>或<code>c</code>开头的文件</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>BACK.[0-9][0-9]</code></td>
+<td style="text-align:left">以<code>BACK.</code>开头并紧接2个数字的文件</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>[[:upper:]]*</code></td>
+<td style="text-align:left">以大写字母开头的文件</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>[![:digit:]]*</code></td>
+<td style="text-align:left">不以数字开头的文件</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>*[[:lower:]123]</code></td>
+<td style="text-align:left">以小写字母、<code>1</code>、<code>2</code>、<code>3</code>四种之一结尾的文件</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="3-命令表示法"><a href="#3-命令表示法" class="headerlink" title="3.命令表示法"></a>3.命令表示法</h2><p>很多时候我们需要参考某个命令的用法，例如用<code>command --help</code>或<code>man command</code>查看帮助文档，但是选项参数太多，语法规则不知道意义，以下是简单介绍各符号的意义：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">符号</th>
+<th style="text-align:center">意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>[]</code></td>
+<td style="text-align:center">表示可选的项目</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;&gt;</code></td>
+<td style="text-align:center">位置参数</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>()</code></td>
+<td style="text-align:center">必需</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>丨</code></td>
+<td style="text-align:center">表示互斥选项</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>...</code></td>
+<td style="text-align:center">表示参数可重复</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>详细说明请参考：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/wq6ylg08/article/details/88919530">Linux命令行帮助文档命令语法公式格式详解和Git命令语法格式解读</a></li>
+<li><a target="_blank" rel="noopener" href="http://docopt.org/">DOCOPT: Command-line interface description language</a></li>
+<li><a href="https://hwame.top/command-line-description.html">命令行帮助文档语法格式详解</a></li>
+</ul>
+<h2 id="4-文件描述符与重定向"><a href="#4-文件描述符与重定向" class="headerlink" title="4.文件描述符与重定向"></a>4.文件描述符与重定向</h2><p>Linux中万物皆文件，用<strong>文件描述符</strong>（file descriptor）来标识每个文件对象。每个进程一次最多可以有九个文件描述符。出于特殊目的，bash shell保留了前三个文件描述符：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">文件描述符</th>
+<th style="text-align:center">缩写</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>0</code></td>
+<td style="text-align:center"><code>STDIN</code></td>
+<td style="text-align:center">标准输入</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>1</code></td>
+<td style="text-align:center"><code>STDOUT</code></td>
+<td style="text-align:center">标准输出</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>2</code></td>
+<td style="text-align:center"><code>STDERR</code></td>
+<td style="text-align:center">标准错误</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>默认情况下，<code>STDERR</code>文件描述符会和<code>STDOUT</code>文件描述符指向同样的地方（尽管分配给它们的文件描述符值不同）。也就是说，默认情况下，错误消息也会输出到显示器输出中。但<code>STDERR</code>并不会随着<code>STDOUT</code>的重定向而发生改变，例如将<code>STDOUT</code>重定向到某文件但是<code>STDERR</code>依然会打印到屏幕。</p>
+<ul>
+<li><strong>只重定向错误：</strong>只重定向错误消息需要将该文件描述符值放在重定向符号前，该值必须紧紧地放在重定向符号前，否则不会工作：<code>command 2&gt; error.txt</code>。注意，shell会只重定向错误消息，正常输出仍会显示在屏幕上。</li>
+<li><strong>重定向错误和数据：</strong>如果想重定向错误和正常输出，必须用两个重定向符号。需要在符号前面放上待重定向数据所对应的文件描述符，然后指向用于保存数据的输出文件：<code>command 2&gt; error.txt 1&gt; output.txt</code>。可以用这种方法将脚本的正常输出和脚本生成的错误消息分离开来。如果想将错误和正常输出重定向到同一个输出文件，则需使用特殊的重定向符号<code>&amp;&gt;</code>，即<code>command &amp;&gt; allinfo.txt</code>。注意，当使用<code>&amp;&gt;</code>符时命令生成的所有输出都会发送到同一位置，包括数据和错误，但是错误消息具有更高的优先级。</li>
+</ul>
+<p><br></p>
+<hr>
+<ul>
+<li><strong>在脚本中重定向输出：</strong>包括「临时重定向行输出」和「永久重定向脚本中的所有命令」。<ul>
+<li><strong>①</strong>使用输出重定向符来将输出信息重定向到<code>STDERR</code>文件描述符，在重定向到文件描述符时必须在文件描述符数字之前加一个<code>&amp;</code>：<code>command &gt;&amp;2</code>。因为Linux默认会将<code>STDERR</code>导向<code>STDOUT</code>，因此直接运行没有区别，必须使用<code>./mz.sh 2&gt; stderr.txt</code>才能将脚本中所有导向<code>STDERR</code>的文本重定向到txt文件。见下例：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;This is an error&quot;</span> &gt;&amp;2</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;This is normal output&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行将输出两句：./mz.sh</span></span><br><span class="line"><span class="comment"># 执行将输出一句：./mz.sh 2&gt; stderr.txt</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>②</strong>如果脚本中有大量数据需要重定向，那么每句都重定向会很烦琐，因此可以用<code>exec</code>命令告诉shell在脚本执行期间重定向某个特定文件描述符，见下例：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">exec</span> 2&gt;testerror</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;This is the start of the script&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;now redirecting all output to another location&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">exec</span> 1&gt;testout</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;This output should go to the testout file&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;but this should go to the testerror file&quot;</span> &gt;&amp;2</span><br></pre></td></tr></table></figure>
+运行该脚本，四个<code>echo</code>语句中的一二句会打印到屏幕，第三句重定向到<code>testout</code>，第四句重定向到<code>testerror</code>。<br><strong>注意：</strong>一旦重定向了<code>STDOUT</code>或<code>STDERR</code>，就很难再将它们重定向回原来的位置。如果你需要在重定向中来回切换的话，见下文。</li>
+</ul>
+</li>
+<li><strong>在脚本中重定向输入：</strong><code>exec</code>命令允许你将<code>STDIN</code>重定向到Linux系统上的文件中：<code>exec 0&lt; stdin.txt</code>。这个命令会告诉shell它应该从<strong>文件<code>stdin.txt</code></strong>中获得输入，而不是<strong><code>STDIN</code></strong>。这个重定向<strong>只要在脚本需要输入时就会作用</strong>。见下例：<br><code>read</code>命令读取用户在键盘上输入的数据。将<code>STDIN</code>重定向到文件后，当<code>read</code>命令试图从<code>STDIN</code>读入数据时，它会到文件去取数据，而不是键盘。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">exec</span> 0&lt; testfile</span><br><span class="line">count=1</span><br><span class="line"><span class="keyword">while</span> <span class="built_in">read</span> line</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;Line #<span class="variable">$count</span>: <span class="variable">$line</span>&quot;</span></span><br><span class="line">    count=$[ <span class="variable">$count</span> + 1 ]</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>在shell中最多可以有9个打开的文件描述符。其他6个从3~8的文件描述符均可用作输入或输出重定向。你可以将这些文件描述符中的任意一个分配给文件，然后在脚本中使用它们。<br>你可以分配另外一个文件描述符给标准文件描述符，反之亦然。这意味着你可以将<code>STDOUT</code>的原来位置重定向到另一个文件描述符，然后再利用该文件描述符重定向回<code>STDOUT</code>。见下例：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">exec</span> 3&gt;&amp;1</span><br><span class="line"><span class="built_in">exec</span> 1&gt;testout</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;This should store in the output file&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;along with this line.&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">exec</span> 1&gt;&amp;3</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Now things should be back to normal&quot;</span></span><br></pre></td></tr></table></figure><br>首先，脚本将<strong>文件描述符3</strong>重定向到<strong>文件描述符1</strong>(<code>STDOUT</code>)的当前位置，这意味着任何发送给文件描述符3的输出都将出现在显示器上。第二个<code>exec</code>命令将<code>STDOUT</code>重定向到文件， shell现在会将发送给<code>STDOUT</code>的输出直接重定向到输出文件中。但是，文件描述符3仍然指向<code>STDOUT</code>原来的位置，也就是显示器。如果此时将输出数据发送给文件描述符3，它仍然会出现在显示器上，尽管<code>STDOUT</code>已经被重定向了。在向<code>STDOUT</code>（现在指向一个文件）发送一些输出之后，脚本将<code>STDOUT</code>重定向到文件描述符3的当前位置（现在仍然是显示器）。这意味着现在<code>STDOUT</code>又指向了它原来的位置：显示器。<br>这个方法可能有点叫人困惑，但这是一种在脚本中临时重定向输出，然后恢复默认输出设置的常用方法。</p>
+<p>同样，在重定向到文件之前，先将<code>STDIN</code>文件描述符保存到另外一个文件描述符，然后在读取完文件之后再将<code>STDIN</code>恢复到它原来的位置。见下例：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">exec</span> 6&lt;&amp;0</span><br><span class="line"><span class="built_in">exec</span> 0&lt; testfile</span><br><span class="line">count=1</span><br><span class="line"><span class="keyword">while</span> <span class="built_in">read</span> line; <span class="keyword">do</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;Line #<span class="variable">$count</span>: <span class="variable">$line</span>&quot;</span></span><br><span class="line">    count=$[ <span class="variable">$count</span> + 1 ]</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="built_in">exec</span> 0&lt;&amp;6</span><br><span class="line"><span class="built_in">read</span> -p <span class="string">&quot;Are you done now? &quot;</span> answer</span><br><span class="line"><span class="keyword">case</span> <span class="variable">$answer</span> <span class="keyword">in</span></span><br><span class="line">    Y|y) <span class="built_in">echo</span> <span class="string">&quot;Goodbye&quot;</span>;;</span><br><span class="line">    N|n) <span class="built_in">echo</span> <span class="string">&quot;Sorry, this is the end.&quot;</span>;;</span><br><span class="line"><span class="keyword">esac</span></span><br></pre></td></tr></table></figure><br>文件描述符6用来保存<code>STDIN</code>的位置，然后脚本将<code>STDIN</code>重定向到一个文件<code>testfile</code>。<code>read</code>命令的所有输入都来自重定向后的<code>STDIN</code>（也就是输入文件）。在读取了所有行之后，脚本会将<code>STDIN</code>重定向到文件描述符6，从而将<code>STDIN</code>恢复到原先的位置。该脚本用了另外一个<code>read</code>命令来测试<code>STDIN</code>是否恢复正常了，这次它会等待键盘的输入。</p>
+<h2 id="5-待续"><a href="#5-待续" class="headerlink" title="5.待续"></a>5.待续</h2>
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-license">
+      <strong>文章作者： </strong><a href="https://hwame.top" style="color:#E541E5;"> 鴻塵</a>
+    </li>
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://hwame.top/20201129/rules-of-linux.html" title="Linux世界的规则" target="_blank" rel="external" style="color:#E541E5;">https://hwame.top/20201129/rules-of-linux.html</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用《<a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external" style="color:#E541E5;"><u>CC BY 4.0 CN协议</u></a>》许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://hwame.top" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://hwame.top" target="_blank"><span class="text-dark">鴻塵</span><small class="ml-1x">Pythoner, Data Analyst</small></a></h3>
+        <div>个人简介：处女座不适合做码农。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/20201129/confusing-concepts-in-linux.html" title="Linux中易混淆的概念"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/20201127/learning-linux-shell-script.html" title="Linux下shell脚本编程学习"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">
+        <span style="color:#C71585">[&nbsp;</span><span style="color:#C71585">文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span style="color:#C71585">]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,wechat,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/hwame" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/hwamei" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://www.zhihu.com/people/hwame" target="_blank" title="Zhihu" data-toggle=tooltip data-placement=top><i class="icon icon-zhihu"></i></a></li>
+        
+        <li><a href="https://segmentfault.com/u/hwame" target="_blank" title="Segmentfault" data-toggle=tooltip data-placement=top><i class="icon icon-segmentfault"></i></a></li>
+        
+        <li><a href="https://gitee.com/hwame" target="_blank" title="Gitee" data-toggle=tooltip data-placement=top><i class="icon icon-gitee"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        &copy; 2023 鴻塵
+        
+        
+        <div class="publishby" style="font-family:Courier">
+            <span id="busuanzi_container_site_pv">
+                <i class="icon icon-eye"></i><span id="busuanzi_value_site_pv" style="font-family:Courier"></span>&nbsp;
+                <i class="icon icon-users"></i><span id="busuanzi_value_site_uv" style="font-family:Courier"></span>
+            </span>
+            <!--
+            <br>✯<a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/" style="color:#0FFFAA">鄂ICP备2020019329号</a>
+            -->
+            <br><i class="icon icon-clock" style="transform:rotate(90deg)"></i><span id="sitetime" style="font-family:Courier"></span>
+        </div>
+        
+        <!--
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+        -->
+    </div>
+    
+</footer>
+<script>
+    function siteTime(){
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth()+1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+        var t1 = Date.UTC(2020,05,19,21,20,52); //建站时间
+        var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+        var diff = t2-t1;
+        var diffYears = Math.floor(diff/years);
+        var diffDays = Math.floor((diff/days)-diffYears*365);
+        var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+        var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+        var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+        // 将「数字」转「补零字符串」
+        var y = diffYears.toString()
+        var d = diffDays.toString().padStart(3, '0')
+        var h = diffHours.toString().padStart(2, '0')
+        var m = diffMinutes.toString().padStart(2, '0')
+        var s = diffSeconds.toString().padStart(2, '0')
+        document.getElementById("sitetime").innerHTML=y+":"+d+":"+h+":"+m+":"+s;
+    }
+    siteTime();
+</script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<div id="go-top"></div>
+<style type="text/css">
+#go-top {
+ width:40px;height:40px;
+ background-color:#DDA0DD;
+ position:relative;
+ border-radius:20px;
+ position:fixed;right:20px;bottom:50px;
+ cursor:pointer;display:none;
+}
+#go-top:after {
+ content:" ";
+ position:absolute;left:14px;top:14px;
+ border-top:2px solid #fff;border-right:2px solid #fff;
+ width:12px;height:12px;
+ transform:rotate(-45deg);
+}
+#go-top:hover {
+ background-color:#8A2BE2;
+}
+</style>
+<script>
+$(function () {
+  var top=$("#go-top");
+  $(window).scroll(function () {
+    ($(window).scrollTop() > 300) ? top.show(300) : top.hide(200);
+    $("#go-top").click(function () {
+      $('body,html').animate({scrollTop:0});
+      return false();
+    })
+  });
+});
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//code.bdstatic.com/npm/leancloud-storage@latest/dist/av-min.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css" />
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  var requiredFields = 'mail';
+  requiredFields = requiredFields.split(',');
+  
+  new Valine({
+    el: '#vcomments',
+    appId: 'yLWKiHoPwmx7Izv4YYtC1fW2-MdYXbMMI',
+    appKey: 'h01jve7HXS6MuDLNBF5DeWTz',
+    verify: false,
+    notify: true,
+    placeholder: '🌺🌺留下邮箱才可以收到新消息提醒哦~\n🦚🦚输入QQ号可自动拉取昵称和邮箱~',
+    avatar: 'robohash',
+    meta: meta,
+    pageSize: '10' || 10,
+    enableQQ: 'true',
+    recordIP: 'true',
+    requiredFields: requiredFields,
+    visitor: true,
+    serverURLs: 'https://valine.hwame.top',
+    
+    master: 'f86269b0b1850cd62ca22b218aea1780',
+    friends: ['1725648a3566b8841f19423519e0a36e', '87b6f0e96e63727d889bb3653fb5867c', 'b7c8e70dc5b2bbbdbdeca1fc0e71b919'],
+    tagMeta: ['鴻塵', '蜜柚', '访客'],
+    metaPlaceholder: {"nick":"昵称/QQ号","mail":"邮箱(必填)","link":"个人主页"}, 
+    emojiCDN: "https://cdn.jsdelivr.net/gh/MiniValine/MiniValine@master/imgs/alus/",
+    emojiMaps: {
+        "emoji_001": "0000.png",
+        "emoji_002": "0010.png",
+        "emoji_003": "0020.png",
+        "emoji_004": "0030.png",
+        "emoji_005": "0040.png",
+        "emoji_006": "0050.png",
+        "emoji_007": "0060.png",
+        "emoji_008": "0070.png",
+        "emoji_009": "0080.png",
+        "emoji_010": "0090.png",
+        "emoji_011": "0100.png",
+        "emoji_012": "0110.png",
+        "emoji_013": "0120.png",
+        "emoji_014": "0130.png",
+        "emoji_015": "0140.png",
+        "emoji_016": "0150.png",
+        "emoji_017": "0160.png",
+        "emoji_018": "0170.png",
+        "emoji_019": "0171.png",
+        "emoji_020": "0180.png",
+        "emoji_021": "0181.png",
+        "emoji_022": "0190.png",
+        "emoji_023": "0200.png",
+        "emoji_024": "0210.png",
+        "emoji_025": "0220.png",
+        "emoji_026": "0230.png",
+        "emoji_027": "0240.png",
+        "emoji_028": "0241.png",
+        "emoji_029": "0250.png",
+        "emoji_030": "0260.png",
+        "emoji_031": "0270.png",
+        "emoji_032": "0280.png",
+        "emoji_033": "0290.png",
+        "emoji_034": "0300.png",
+        "emoji_035": "0310.png",
+        "emoji_036": "0320.png",
+        "emoji_037": "0330.png",
+        "emoji_038": "0331.png",
+        "emoji_039": "0340.png",
+        "emoji_040": "0350.png",
+        "emoji_041": "0360.png",
+        "emoji_042": "0370.png",
+        "emoji_043": "0380.png",
+        "emoji_044": "0390.png",
+        "emoji_045": "0391.png",
+        "emoji_046": "0400.png",
+        "emoji_047": "0410.png",
+        "emoji_048": "0420.png",
+        "emoji_049": "0430.png",
+        "emoji_050": "0431.png",
+        "emoji_051": "0440.png",
+        "emoji_052": "0450.png",
+        "emoji_053": "0451.png",
+        "emoji_054": "0460.png",
+        "emoji_055": "0461.png",
+        "emoji_056": "0462.png",
+        "emoji_057": "0470.png",
+        "emoji_058": "0480.png",
+        "emoji_059": "0490.png",
+        "emoji_060": "0500.png",
+        "emoji_061": "0510.png",
+        "emoji_062": "0520.png",
+        "emoji_063": "0530.png",
+        "emoji_064": "0540.png",
+        "emoji_065": "0550.png",
+        "emoji_066": "0560.png",
+        "emoji_067": "0570.png",
+        "emoji_068": "0580.png",
+        "emoji_069": "0590.png",
+        "emoji_070": "0600.png",
+        "emoji_071": "0610.png",
+        "emoji_072": "0620.png",
+        "emoji_073": "1010.png",
+        "emoji_074": "1011.png",
+        "emoji_075": "1020.png",
+        "emoji_076": "1030.png",
+        "emoji_077": "1040.png",
+        "emoji_078": "1050.png",
+        "emoji_079": "1060.png",
+        "emoji_080": "1070.png",
+        "emoji_081": "1080.png",
+        "emoji_082": "2010.png",
+        "emoji_083": "2020.png",
+        "emoji_084": "2030.png",
+        "emoji_085": "2040.png",
+        "emoji_086": "2050.png",
+        "emoji_087": "2060.png",
+        "emoji_088": "2070.png",
+        "emoji_089": "2080.png",
+        "emoji_090": "2090.png",
+        "emoji_091": "2100.png",
+        "emoji_092": "2101.png",
+        "emoji_093": "2110.png",
+        "emoji_094": "2120.png",
+        "emoji_095": "2130.png",
+        "emoji_096": "2140.png",
+        "emoji_097": "2141.png",
+        "emoji_098": "2145.png",
+        "emoji_099": "2150.png",
+        "emoji_100": "2151.png",
+        "emoji_101": "2152.png",
+        "emoji_102": "2160.png",
+        "emoji_103": "2161.png",
+        "emoji_104": "2165.png",
+        "emoji_105": "2170.png",
+        "emoji_106": "2171.png",
+        "emoji_107": "3010.png",
+        "emoji_108": "3011.png",
+        "emoji_109": "3020.png",
+        "emoji_110": "3030.png",
+        "emoji_111": "3040.png",
+        "emoji_112": "3050.png",
+        "emoji_113": "3060.png",
+        "emoji_114": "3061.png",
+        "emoji_115": "4010.png",
+        "emoji_116": "4020.png",
+        "emoji_117": "4021.png",
+        "emoji_118": "4022.png",
+        "emoji_119": "4023.png",
+        "emoji_120": "4024.png",
+        "emoji_121": "4025.png",
+        "emoji_122": "4030.png",
+        "emoji_123": "4031.png",
+        "emoji_124": "4040.png",
+        "emoji_125": "4041.png",
+        "emoji_126": "4042.png",
+        "emoji_127": "4100.png",
+        "emoji_128": "4110.png",
+        "emoji_129": "4111.png",
+        "emoji_130": "4112.png",
+        "emoji_131": "4113.png",
+        "emoji_132": "4114.png",
+        "emoji_133": "4115.png",
+        "emoji_134": "4120.png",
+        "emoji_135": "4121.png",
+        "emoji_136": "4130.png",
+        "emoji_137": "4140.png",
+        "emoji_138": "4200.png",
+        "emoji_139": "4201.png",
+        "emoji_140": "4210.png",
+        "emoji_141": "4211.png",
+        "emoji_142": "4212.png",
+        "emoji_143": "4213.png",
+        "emoji_144": "4220.png",
+        "emoji_145": "4300.png",
+        "emoji_146": "4301.png",
+        "emoji_147": "4302.png",
+        "emoji_148": "4303.png",
+        "emoji_149": "4304.png",
+        "emoji_150": "4310.png",
+        "emoji_151": "5000.png",
+        "emoji_152": "5001.png",
+        "emoji_153": "5002.png",
+        "emoji_154": "5003.png",
+        "emoji_155": "5010.png",
+        "emoji_156": "5020.png",
+        "emoji_157": "5030.png",
+        "emoji_158": "5040.png",
+        "emoji_159": "5050.png",
+        "emoji_160": "5060.png",
+        "emoji_161": "5069.png",
+        "emoji_162": "5070.png",
+        "emoji_163": "5080.png",
+        "emoji_164": "5090.png",
+        "emoji_165": "5091.png",
+        "emoji_166": "5100.png",
+        "emoji_167": "5110.png",
+        "emoji_168": "5120.png",
+        "emoji_169": "5130.png",
+        "emoji_170": "5131.png",
+        "emoji_171": "5140.png",
+        "emoji_172": "5141.png",
+        "emoji_173": "5150.png",
+        "emoji_174": "5151.png",
+        "emoji_175": "5160.png",
+        "emoji_176": "5161.png",
+        "emoji_177": "5170.png",
+        "emoji_178": "5180.png",
+        "emoji_179": "5190.png",
+        "emoji_180": "5200.png",
+        "emoji_181": "5210.png",
+        "emoji_182": "5220.png",
+        "emoji_183": "5230.png",
+        "emoji_184": "6000.png",
+        "emoji_185": "6001.png",
+        "emoji_186": "6010.png",
+        "emoji_187": "6020.png",
+        "emoji_188": "6030.png",
+        "emoji_189": "6040.png",
+        "emoji_190": "6050.png",
+        "emoji_191": "6051.png",
+        "emoji_192": "6060.png",
+        "emoji_193": "6061.png",
+        "emoji_194": "6070.png",
+        "emoji_195": "6080.png",
+        "emoji_196": "6090.png",
+        "emoji_197": "6091.png",
+        "emoji_198": "6092.png",
+        "emoji_199": "6100.png",
+        "emoji_200": "6110.png",
+        "emoji_201": "6120.png",
+        "emoji_202": "6121.png",
+        "emoji_203": "6130.png",
+        "emoji_204": "6131.png",
+        "emoji_205": "6132.png",
+        "emoji_206": "6140.png",
+        "emoji_207": "6150.png",
+        "emoji_208": "6151.png",
+        "emoji_209": "6160.png",
+        "emoji_210": "6500.png",
+        "emoji_211": "6510.png",
+        "emoji_212": "6520.png",
+        "emoji_213": "6530.png",
+        "emoji_214": "7000.png",
+        "emoji_215": "7010.png",
+        "emoji_216": "7011.png",
+        "emoji_217": "7012.png",
+        "emoji_218": "7020.png",
+        "emoji_219": "7021.png",
+        "emoji_220": "7030.png",
+        "emoji_221": "7040.png",
+        "emoji_222": "7045.png",
+        "emoji_223": "7046.png",
+        "emoji_224": "7050.png",
+        "emoji_225": "7051.png",
+        "emoji_226": "7052.png",
+        "emoji_227": "7053.png",
+        "emoji_228": "7054.png",
+        "emoji_229": "7060.png",
+        "emoji_230": "7061.png",
+        "emoji_231": "7062.png",
+        "emoji_232": "7070.png",
+        "emoji_233": "7071.png",
+        "emoji_234": "7080.png",
+        "emoji_235": "7081.png",
+        "emoji_236": "7090.png",
+        "emoji_237": "7100.png",
+        "emoji_238": "7110.png",
+        "emoji_239": "7111.png",
+        "emoji_240": "7112.png",
+        "emoji_241": "7113.png",
+        "emoji_242": "7200.png",
+        "emoji_243": "7201.png",
+        "emoji_244": "7210.png",
+        "emoji_245": "7220.png",
+        "emoji_246": "7230.png",
+        "emoji_247": "8000.png",
+        "emoji_248": "8001.png",
+        "emoji_249": "8010.png",
+        "emoji_250": "8020.png",
+        "emoji_251": "8021.png",
+        "emoji_252": "8030.png",
+        "emoji_253": "8040.png",
+        "emoji_254": "8041.png",
+        "emoji_255": "8042.png",
+        "emoji_256": "8050.png",
+        "emoji_257": "8051.png",
+        "emoji_258": "8060.png",
+        "emoji_259": "8062.png",
+        "emoji_260": "8070.png",
+        "emoji_261": "8071.png",
+        "emoji_262": "8072.png",
+        "emoji_263": "8080.png",
+        "emoji_264": "8081.png",
+        "emoji_265": "8082.png",
+        "emoji_266": "8083.png",
+        "emoji_267": "8084.png",
+        "emoji_268": "8085.png",
+        "emoji_269": "8090.png",
+        "emoji_270": "8091.png",
+        "emoji_271": "8092.png",
+        "emoji_272": "8100.png",
+        "emoji_273": "8101.png",
+        "emoji_274": "8102.png",
+        "emoji_275": "8103.png",
+        "emoji_276": "8110.png",
+        "emoji_277": "8111.png",
+        "emoji_278": "x010.png",
+        "emoji_279": "x011.png",
+        "emoji_280": "x012.png",
+        "emoji_281": "x013.png",
+        "emoji_282": "x014.png",
+        "emoji_283": "x021.png",
+        "emoji_284": "x022.png",
+        "emoji_285": "x031.png",
+        "emoji_286": "x032.png",
+        "emoji_287": "x041.png",
+        "emoji_288": "x042.png",
+        "emoji_289": "x050.png",
+        "emoji_290": "x060.png",
+        "emoji_291": "x061.png",
+        "emoji_292": "x062.png",
+        "emoji_293": "x063.png",
+        "emoji_294": "x069.png",
+        "emoji_295": "x070.png",
+        "emoji_296": "x071.png",
+        "emoji_297": "x080.png",
+        "emoji_298": "x081.png",
+        "emoji_299": "x082.png",
+        "emoji_300": "x083.png",
+        "emoji_301": "x090.png",
+        "emoji_302": "x091.png",
+        "emoji_303": "x092.png",
+        "emoji_304": "x093.png",
+        "emoji_305": "x094.png",
+        "emoji_306": "x099.png",
+        "emoji_307": "不出所料.png",
+        "emoji_308": "不说话.png",
+        "emoji_309": "不高兴.png",
+        "emoji_310": "中刀.png",
+        "emoji_311": "中指.png",
+        "emoji_312": "中枪.png",
+        "emoji_313": "亲亲.png",
+        "emoji_314": "便便.png",
+        "emoji_315": "内伤.png",
+        "emoji_316": "击掌.png",
+        "emoji_317": "口水.png",
+        "emoji_318": "吐.png",
+        "emoji_319": "吐舌.png",
+        "emoji_320": "吐血倒地.png",
+        "emoji_321": "呲牙.png",
+        "emoji_322": "咽气.png",
+        "emoji_323": "哭泣.png",
+        "emoji_324": "喜极而泣.png",
+        "emoji_325": "喷水.png",
+        "emoji_326": "喷血.png",
+        "emoji_327": "坐等.png",
+        "emoji_328": "害羞.png",
+        "emoji_329": "小眼睛.png",
+        "emoji_330": "尴尬.png",
+        "emoji_331": "得意.png",
+        "emoji_332": "惊喜.png",
+        "emoji_333": "想一想.png",
+        "emoji_334": "愤怒.png",
+        "emoji_335": "扇耳光.png",
+        "emoji_336": "投降.png",
+        "emoji_337": "抠鼻.png",
+        "emoji_338": "抽烟.png",
+        "emoji_339": "无奈.png",
+        "emoji_340": "无所谓.png",
+        "emoji_341": "无语.png",
+        "emoji_342": "暗地观察.png",
+        "emoji_343": "期待.png",
+        "emoji_344": "欢呼.png",
+        "emoji_345": "汗.png",
+        "emoji_346": "深思.png",
+        "emoji_347": "狂汗.png",
+        "emoji_348": "献花.png",
+        "emoji_349": "献黄瓜.png",
+        "emoji_350": "皱眉.png",
+        "emoji_351": "看不见.png",
+        "emoji_352": "看热闹.png",
+        "emoji_353": "瞅你.png",
+        "emoji_354": "肿包.png",
+        "emoji_355": "脸红.png",
+        "emoji_356": "蜡烛.png",
+        "emoji_357": "装大款.png",
+        "emoji_358": "观察.png",
+        "emoji_359": "赞一个.png",
+        "emoji_360": "邪恶.png",
+        "emoji_361": "锁眉.png",
+        "emoji_362": "长草.png",
+        "emoji_363": "阴暗.png",
+        "emoji_364": "高兴.png",
+        "emoji_365": "黑线.png",
+        "emoji_366": "鼓掌.png",
+    },
+  });
+  </script>
+
+     
+
+
+<!-- 20201211添加判断 -->
+
+   
+  <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script>
+  <script>
+  //利用 FancyBox 实现点击图片放大
+  $(document).ready(function() {
+    $('article img').not('[hidden]').not('.panel-body img').each(function() {
+      var $image = $(this);
+      var imageCaption = $image.attr('alt');
+      var $imageWrapLink = $image.parent('a');
+      if ($imageWrapLink.length < 1) {
+        var src = this.getAttribute('src');
+        var idx = src.lastIndexOf('?');
+        if (idx != -1) {
+          src = src.substring(0, idx);
+        }
+        $imageWrapLink = $image.wrap('<a href="' + src + '"></a>').parent('a');
+      }
+      $imageWrapLink.attr('data-fancybox', 'images');
+      if (imageCaption) {
+        $imageWrapLink.attr('data-caption', imageCaption);
+      }
+    });
+    $().fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: true,
+    });
+  });
+  </script>
+
+
+
+
+
+
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+      z-index: 2;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+        .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  
+  <script>
+    addLoadEvent(()=>{
+      $('.highlight').each(function (i, e) {
+        var $wrap = $('<div>').addClass('highlight-wrap')
+        $(e).after($wrap)
+        $wrap.append($('<button>').addClass('copy-btn').append('一键复制').on('click', function (e) {
+          var code = $(this).parent().find(".code")[0].innerText
+          
+          var ta = document.createElement('textarea')
+          document.body.appendChild(ta)
+          ta.style.position = 'absolute'
+          ta.style.top = '0px'
+          ta.style.left = '0px'
+          ta.value = code
+          ta.select()
+          ta.focus()
+          var result = document.execCommand('copy')
+          document.body.removeChild(ta)
+          
+            if(result)$(this).text('复制成功')
+            else $(this).text('复制失败')
+          
+          $(this).blur()
+        })).on('mouseleave', function (e) {
+          var $b = $(this).find('.copy-btn')
+          setTimeout(function () {
+            $b.text('一键复制')
+          }, 300)
+        }).append(e)
+      })
+    })
+  </script>
+
+</body>
+</html>

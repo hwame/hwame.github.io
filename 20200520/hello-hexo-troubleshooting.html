@@ -1,0 +1,1609 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  <!-- 谷歌收录 -->
+  <meta name="google-site-verification" content="-5hl8eC4wfapGZhZouwMVUcKG0iaynijVRJbqVlzXm4" />
+  
+  
+  <title>Hexo博客搭建(4)——常见问题 | 鴻塵</title>
+  <meta name="description" content="摘要：这部分内容主要对博客做最后的完善，包括魔改部分页面和拯救强迫症。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo博客搭建(4)——常见问题">
+<meta property="og:url" content="https://hwame.top/20200520/hello-hexo-troubleshooting.html">
+<meta property="og:site_name" content="鴻塵">
+<meta property="og:description" content="摘要：这部分内容主要对博客做最后的完善，包括魔改部分页面和拯救强迫症。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201014左侧IconFont图标.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201101开启文章目录.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201125首页效果图.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201101gallery相关文件.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201101注册谷歌账号.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201101选择资源类型.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201101验证所有权.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201126HTML文件.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201126HTML标记.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201126剩余三种验证方式.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201101验证完成.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201101效果预览.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201126效果展示.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201126添加站点.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201101网站验证.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201126API提交.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201126自动推送.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201126sitemap.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201126手动提交.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201126执行效果.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201127执行过程.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201126谷歌收录效果.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201126百度收录效果.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201126谷歌精确搜索.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201126百度精确搜索.png">
+<meta property="article:published_time" content="2020-05-20T12:20:05.000Z">
+<meta property="article:modified_time" content="2020-11-30T05:22:28.000Z">
+<meta property="article:author" content="鴻塵">
+<meta property="article:tag" content="Hexo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201014左侧IconFont图标.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://hwame.top/20200520/hello-hexo-troubleshooting.html">
+  
+    <link rel="alternate" href="true" title="鴻塵" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+    <link href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css" rel="stylesheet">
+  
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<script src="https://cdn.jsdelivr.net/gh/bobcn/hexo_resize_image.js@master/hexo_resize_image.js"></script>
+<body class="main-center theme-purple" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://hwame.top" target="_blank">
+          <img class="img-circle img-rotate" src="https://cdn.jsdelivr.net/gh/hwame/pics@main/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">鴻塵</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Pythoner, Data Analyst</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> 湖北-武汉</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav menu-highlight">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder-open"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">资源</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-gallery">
+          <a href="/gallery">
+            
+            <i class="icon icon-delicious"></i>
+            
+            <span class="menu-title">相册</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/hwame" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/hwamei" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://www.zhihu.com/people/hwame" target="_blank" title="Zhihu" data-toggle=tooltip data-placement=top><i class="icon icon-zhihu"></i></a></li>
+        
+        <li><a href="https://segmentfault.com/u/hwame" target="_blank" title="Segmentfault" data-toggle=tooltip data-placement=top><i class="icon icon-segmentfault"></i></a></li>
+        
+        <li><a href="https://gitee.com/hwame" target="_blank" title="Gitee" data-toggle=tooltip data-placement=top><i class="icon icon-gitee"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title"><i style="color:#9400D3" class="icon icon-stackexchange"></i>公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎来到鴻塵的博客!<br>鴻塵的<u><a target="_blank" rel="noopener" href="https://weibo.com/hwamei" style="color:#E541E5;">微博</a></u>主页，鴻塵的<u><a target="_blank" rel="noopener" href="https://github.com/hwame" style="color:#E541E5;">Github</a></u>主页，如果我可以忘记的<u><a target="_blank" rel="noopener" href="https://www.zhihu.com/people/hwame" style="color:#E541E5;">知乎</a></u>主页。</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title"><i style="color:#9400D3" class="icon icon-tags"></i>标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/CentOS/" style="font-size: 13px; color: #fff">CentOS</a> <a href="/tags/Go/" style="font-size: 13.2px; color: #fff">Go</a> <a href="/tags/Hexo/" style="font-size: 13.8px; color: #fff">Hexo</a> <a href="/tags/Linux/" style="font-size: 14px; color: #fff">Linux</a> <a href="/tags/Linux%E9%83%A8%E7%BD%B2/" style="font-size: 13px; color: #fff">Linux部署</a> <a href="/tags/MongoDB/" style="font-size: 13.4px; color: #fff">MongoDB</a> <a href="/tags/Spark/" style="font-size: 13px; color: #fff">Spark</a> <a href="/tags/matplotlib/" style="font-size: 13.2px; color: #fff">matplotlib</a> <a href="/tags/miscellanea/" style="font-size: 13.6px; color: #fff">miscellanea</a> <a href="/tags/python/" style="font-size: 14px; color: #fff">python</a> <a href="/tags/shell/" style="font-size: 13.6px; color: #fff">shell</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 13px; color: #fff">大数据</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" style="font-size: 13px; color: #fff">数据结构与算法</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 13px; color: #fff">爬虫</a>
+    </div>
+  </div>
+
+<script type="text/javascript">
+    var everytag=document.getElementsByClassName("widget-body tagcloud")[0].children;
+    for (var i = everytag.length - 1; i >= 0; i--) {
+    	var r=Math.floor(Math.random()*255);
+        var g=Math.floor(Math.random()*255);
+        var b=Math.floor(Math.random()*255);
+        everytag[i].style.background = "rgb("+r+","+g+","+b+")";
+    }
+</script>
+    
+      
+  <div class="widget">
+    <h3 class="widget-title"><i style="color:#9400D3" class="icon icon-folder-open"></i>分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Go/">Go</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MongoDB/">MongoDB</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/miscellanea/">miscellanea</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title"><i style="color:#9400D3" class="icon icon-archives-fill"></i>归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">17</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title"><i style="color:#9400D3" class="icon icon-shu-fill"></i>最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled ">
+        
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20220327/channel-and-goroutine-in-go.html" class="thumb">
+    
+    
+        <span style="background-image:url(https://cdn.jsdelivr.net/gh/hwame/pics@main/post-pics/icon-golang.jpeg)" alt="Go语言中的通道" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Go/">Go</a>
+              </p>
+              <p class="item-title">
+                <a href="/20220327/channel-and-goroutine-in-go.html" class="title">Go语言中的通道</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-27T11:06:16.000Z" itemprop="datePublished">2022-03-27</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20220323/when-to-use-pointer-in-go.html" class="thumb">
+    
+    
+        <span style="background-image:url(https://cdn.jsdelivr.net/gh/hwame/pics@main/post-pics/icon-golang.jpeg)" alt="Go语言什么时候使用指针" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Go/">Go</a>
+              </p>
+              <p class="item-title">
+                <a href="/20220323/when-to-use-pointer-in-go.html" class="title">Go语言什么时候使用指针</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-23T12:49:57.000Z" itemprop="datePublished">2022-03-23</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20220228/awesome-images-in-markdown.html" class="thumb">
+    
+    
+        <span style="background-image:url(https://cdn.jsdelivr.net/gh/hwame/pics@main/avatar.jpg)" alt="Markdown中图片的高级用法" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/miscellanea/">miscellanea</a>
+              </p>
+              <p class="item-title">
+                <a href="/20220228/awesome-images-in-markdown.html" class="title">Markdown中图片的高级用法</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-02-28T15:27:50.000Z" itemprop="datePublished">2022-02-28</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20220116/shell-regular-expression.html" class="thumb">
+    
+    
+        <span style="background-image:url(https://cdn.jsdelivr.net/gh/hwame/pics@main/post-pics/linux-icon.png)" alt="Shell正则表达式" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Linux/">Linux</a>
+              </p>
+              <p class="item-title">
+                <a href="/20220116/shell-regular-expression.html" class="title">Shell正则表达式</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-01-16T14:13:05.000Z" itemprop="datePublished">2022-01-16</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/20211009/install-linux-on-android-phone.html" class="thumb">
+    
+    
+        <span style="background-image:url(https://cdn.jsdelivr.net/gh/hwame/pics@main/avatar.jpg)" alt="如何在安卓手机上安装Linux发行版" class="thumb-image"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/miscellanea/">miscellanea</a>
+              </p>
+              <p class="item-title">
+                <a href="/20211009/install-linux-on-android-phone.html" class="title">如何在安卓手机上安装Linux发行版</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-10-09T15:16:37.000Z" itemprop="datePublished">2021-10-09</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%A6%82%E4%BD%95%E4%BD%BF%E5%85%B6%E6%94%AF%E6%8C%81Mathjax"><span class="toc-number">1.</span> <span class="toc-text">1.如何使其支持Mathjax</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%A6%82%E4%BD%95%E6%9B%B4%E6%94%B9%E5%B7%A6%E4%BE%A7IconFont-%E5%9B%BE%E6%A0%87"><span class="toc-number">2.</span> <span class="toc-text">2.如何更改左侧IconFont 图标</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%A6%82%E4%BD%95%E5%8F%96%E6%B6%88%E6%96%87%E7%AB%A0%E7%9B%AE%E5%BD%95%E7%9A%84%E8%87%AA%E5%8A%A8%E7%BC%96%E5%8F%B7"><span class="toc-number">3.</span> <span class="toc-text">3.如何取消文章目录的自动编号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9%E4%BB%A3%E7%A0%81%E5%AD%97%E4%BD%93%E5%8F%8A%E5%9B%BE%E7%89%87%E5%B1%85%E4%B8%AD"><span class="toc-number">4.</span> <span class="toc-text">4.如何修改代码字体及图片居中</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E8%A1%8C%E5%86%85%E4%BB%A3%E7%A0%81%E9%A2%9C%E8%89%B2"><span class="toc-number">4.1.</span> <span class="toc-text">4.1.行内代码颜色</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E4%BB%A3%E7%A0%81%E5%AD%97%E4%BD%93"><span class="toc-number">4.2.</span> <span class="toc-text">4.2.代码字体</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-%E5%A6%82%E4%BD%95%E4%BD%BF%E6%96%87%E7%AB%A0%E5%9B%BE%E7%89%87%E5%B1%85%E4%B8%AD"><span class="toc-number">4.3.</span> <span class="toc-text">4.3.如何使文章图片居中</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E5%A6%82%E4%BD%95%E6%B7%BB%E5%8A%A0%E6%96%87%E7%AB%A0%E6%8F%8F%E8%BF%B0"><span class="toc-number">5.</span> <span class="toc-text">5.如何添加文章描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E7%82%B9%E5%87%BB%E5%9B%BE%E7%89%87%E6%94%BE%E5%A4%A7"><span class="toc-number">6.</span> <span class="toc-text">6.如何实现点击图片放大</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E6%B7%BB%E5%8A%A0%E3%80%8C%E7%9B%B8%E5%86%8C%E3%80%8D%E9%A1%B5%E9%9D%A2"><span class="toc-number">7.</span> <span class="toc-text">7.添加「相册」页面</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-%E9%87%8D%E5%91%BD%E5%90%8D%E7%9B%B8%E5%85%B3%E6%96%87%E4%BB%B6"><span class="toc-number">7.1.</span> <span class="toc-text">7.1.重命名相关文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-2-%E4%BF%AE%E6%94%B9%E6%BA%90%E4%BB%A3%E7%A0%81"><span class="toc-number">7.2.</span> <span class="toc-text">7.2.修改源代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3-%E9%85%8D%E7%BD%AE%E7%9B%B8%E5%86%8C"><span class="toc-number">7.3.</span> <span class="toc-text">7.3.配置相册</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-4-%E4%BF%AE%E6%94%B9%E4%B8%BB%E9%A2%98%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE"><span class="toc-number">7.4.</span> <span class="toc-text">7.4.修改主题相关配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-5-%E7%94%9F%E6%88%90%E9%A1%B5%E9%9D%A2%E5%8F%8A%E8%AF%B4%E6%98%8E"><span class="toc-number">7.5.</span> <span class="toc-text">7.5.生成页面及说明</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-%E5%A6%82%E4%BD%95%E6%98%BE%E7%A4%BA%E3%80%8C%E6%9C%80%E8%BF%91%E6%96%87%E7%AB%A0%E3%80%8D%E7%BC%A9%E7%95%A5%E5%9B%BE"><span class="toc-number">8.</span> <span class="toc-text">8.如何显示「最近文章」缩略图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-%E9%83%A8%E5%88%86%E5%9C%B0%E6%96%B9%E4%B8%AD%E6%96%87%E9%80%82%E9%85%8D"><span class="toc-number">9.</span> <span class="toc-text">9.部分地方中文适配</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-%E5%85%8D%E5%AF%86%E9%83%A8%E7%BD%B2%E9%97%AE%E9%A2%98"><span class="toc-number">10.</span> <span class="toc-text">10.免密部署问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%B7%A6%E4%B8%8B%E8%A7%92%E4%BF%A1%E6%81%AF"><span class="toc-number">11.</span> <span class="toc-text">11.自定义左下角信息</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#11-1-%E6%B7%BB%E5%8A%A0%E8%AE%BF%E9%97%AE%E9%87%8F%E5%92%8C%E8%AE%BF%E5%AE%A2%E6%95%B0"><span class="toc-number">11.1.</span> <span class="toc-text">11.1.添加访问量和访客数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-2-%E6%B7%BB%E5%8A%A0%E7%BD%91%E7%AB%99%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4"><span class="toc-number">11.2.</span> <span class="toc-text">11.2.添加网站运行时间</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12-%E4%BB%A3%E7%A0%81%E5%9D%97%E6%B7%BB%E5%8A%A0%E4%B8%80%E9%94%AE%E5%A4%8D%E5%88%B6"><span class="toc-number">12.</span> <span class="toc-text">12.代码块添加一键复制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#13-%E8%B0%83%E6%95%B4%E8%8F%9C%E5%8D%95%E6%A0%8F%E9%AB%98%E5%BA%A6"><span class="toc-number">13.</span> <span class="toc-text">13.调整菜单栏高度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#14-%E5%A6%82%E4%BD%95%E9%9A%90%E8%97%8Fvaline%E7%89%88%E6%9D%83%E4%BF%A1%E6%81%AF"><span class="toc-number">14.</span> <span class="toc-text">14.如何隐藏valine版权信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#15-%E6%B7%BB%E5%8A%A0%E5%9B%9E%E5%88%B0%E9%A1%B6%E9%83%A8"><span class="toc-number">15.</span> <span class="toc-text">15.添加回到顶部</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#16-%E6%B7%BB%E5%8A%A0RSS%E8%AE%A2%E9%98%85%E5%8A%9F%E8%83%BD"><span class="toc-number">16.</span> <span class="toc-text">16.添加RSS订阅功能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#17-%E8%AE%BE%E7%BD%AE%E6%96%87%E7%AB%A0%E7%BD%AE%E9%A1%B6"><span class="toc-number">17.</span> <span class="toc-text">17.设置文章置顶</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#18-%E6%B7%BB%E5%8A%A0%E6%96%87%E7%AB%A0%E6%9B%B4%E6%96%B0%E6%97%B6%E9%97%B4"><span class="toc-number">18.</span> <span class="toc-text">18.添加文章更新时间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#19-%E6%B7%BB%E5%8A%A0%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%94%B6%E5%BD%95"><span class="toc-number">19.</span> <span class="toc-text">19.添加搜索引擎收录</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#19-1-%E8%B0%B7%E6%AD%8C%E6%94%B6%E5%BD%95"><span class="toc-number">19.1.</span> <span class="toc-text">19.1.谷歌收录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#19-2-%E7%99%BE%E5%BA%A6%E6%94%B6%E5%BD%95"><span class="toc-number">19.2.</span> <span class="toc-text">19.2.百度收录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#19-3-API%E6%8F%90%E4%BA%A4"><span class="toc-number">19.3.</span> <span class="toc-text">19.3.API提交</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#19-4-%E6%94%B6%E5%BD%95%E6%95%88%E6%9E%9C"><span class="toc-number">19.4.</span> <span class="toc-text">19.4.收录效果</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#20-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9B%BE%E7%89%87%E5%A4%A7%E5%B0%8F"><span class="toc-number">20.</span> <span class="toc-text">20.自定义图片大小</span></a></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-hello-hexo-troubleshooting" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Hexo博客搭建(4)——常见问题
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar"></i>
+	<a href="/20200520/hello-hexo-troubleshooting.html" class="article-date">
+	  发布于 <time datetime="2020-05-20T12:20:05.000Z" itemprop="datePublished">2020-05-20</time>
+	</a>
+</span>
+<span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/20200520/hello-hexo-troubleshooting.html" class="article-date">
+	  更新于 <time datetime="2020-11-30T05:22:28.000Z" itemprop="dateUpdated">2020-11-30</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Hexo/">Hexo</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/Hexo/" rel="tag">Hexo</a>
+  </span>
+
+
+        
+
+	<span class="article-read hidden-xs">
+    	<i class="icon icon-eye-fill" aria-hidden="true"></i>
+    	<span id="/20200520/hello-hexo-troubleshooting.html" class="leancloud_visitors"  data-flag-title="Hexo博客搭建(4)——常见问题">
+			<span class="leancloud-visitors-count">0</span>
+		</span>
+    </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/20200520/hello-hexo-troubleshooting.html#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 9.5k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 41(分)</span>
+	
+
+      </div>
+      <div style="background-color:#D7BDE2;border:1px solid #D7BDE2;border-radius:10px;padding:5px">
+          <b>温馨提示</b>：点击页面下方<i style="color:red" class="icon icon-anchor"></i>以展开或折叠目录
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>摘要：这部分内容主要对博客做最后的完善，包括魔改部分页面和拯救强迫症。<span id="more"></span></p>
+<blockquote>
+<p><font size=5><b>Hexo博客搭建</b></font><br><strong>博客系列：</strong><a href="https://hwame.top/20200520/hello-hexo-setup-deploy.html">Hexo博客搭建(1)——建站及部署</a>，环境搭建并部署至Github。<br><strong>博客系列：</strong><a href="https://hwame.top/20200520/hello-hexo-configuration.html">Hexo博客搭建(2)——主题配置</a>，针对<code>pure</code>主题进行个性化配置。<br><strong>博客系列：</strong><a href="https://hwame.top/20200520/hello-hexo-optimization.html">Hexo博客搭建(3)——优化评论系统</a>，主要对<code>Valine</code>评论系统进行优化。<br><strong>博客系列：</strong><a href="https://hwame.top/20200520/hello-hexo-troubleshooting.html">Hexo博客搭建(4)——常见问题</a>，修复了<code>pure</code>主题的系列小bug。<br><strong>文章作者：</strong><a href="https://hwame.top">鴻塵</a></p>
+</blockquote>
+<h2 id="1-如何使其支持Mathjax"><a href="#1-如何使其支持Mathjax" class="headerlink" title="1.如何使其支持Mathjax"></a>1.如何使其支持<code>Mathjax</code></h2><p>参考文章：<a target="_blank" rel="noopener" href="https://ranmaosong.github.io/2017/11/29/hexo-support-mathjax/">如何在 hexo 中支持 Mathjax？</a><br><strong>注：</strong> Mathjax公式中<code>*</code>号表示斜体，<code>\times</code>才表示乘号<code>×</code></p>
+<ul>
+<li><p>1.使用<code>Kramed</code>代替<code>Marked</code><br><code>Hexo</code>默认的渲染引擎是<code>marked</code>，但是<code>marked</code>不支持<code>mathjax</code>公式，<code>kramed</code>是在<code>marked</code>的基础上进行修改。执行以下命令卸载<code>marked</code>、安装<code>kramed</code>：</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm uninstall hexo-renderer-marked <span class="comment">--save</span></span><br><span class="line">npm install hexo-renderer-kramed <span class="comment">--save</span></span><br></pre></td></tr></table></figure>
+<p>然后修改<code>./node_modules/hexo-renderer-kramed/lib/renderer.js</code>第65行函数的<code>return</code>部分：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Change inline math rule</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">formatText</span>(<span class="params">text</span>) &#123;</span><br><span class="line">  <span class="comment">// Fit kramed&#x27;s rule: $$ + \1 + $$</span></span><br><span class="line">  <span class="comment">// return text.replace(/`\$(.*?)\$`/g, &#x27;$$$$$1$$$$&#x27;);</span></span><br><span class="line">  <span class="keyword">return</span> text;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>2.停用<code>hexo-math</code><br>卸载<code>hexo-math</code>，安装<code>hexo-renderer-mathjax</code>【<a target="_blank" rel="noopener" href="https://github.com/phoenixcw/hexo-renderer-mathjax">GitHub地址</a>】：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm uninstall hexo-<span class="built_in">math</span> <span class="comment">--save</span></span><br><span class="line">npm install hexo-renderer-mathjax <span class="comment">--save</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>3.更新<code>Mathjax</code>的 CDN 链接<br>修改<code>./node_modules/hexo-renderer-mathjax/mathjax.html</code>最后一行的<code>&lt;script&gt;</code>标签的<code>src</code>属性：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>4.更改默认转义规则<br>因为<code>Hexo</code>默认的转义规则会将一些字符进行转义，比如<code>_</code>转为<code>&lt;em&gt;</code>，所以我们需要对默认的规则进行修改，文件路径为<code>./node_modules/kramed/lib/rules/inline.js</code>：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 第11行（上为原文，下为修改）</span></span><br><span class="line"><span class="attr">escape:</span> <span class="string">/^\\([\\`*&#123;&#125;\[\]()#$+\-.!_&gt;])/,</span></span><br><span class="line"><span class="attr">escape:</span> <span class="string">/^\\([`*\[\]()#</span> <span class="string">+\-.!_&gt;])/,</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 第20行（上为原文，下为修改）</span></span><br><span class="line"><span class="attr">em:</span> <span class="string">/^\b_((?:__|[\s\S])+?)_\b|^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,</span></span><br><span class="line"><span class="attr">em:</span> <span class="string">/^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>5.开启Mathjax</p>
+<ul>
+<li>在<strong>站点配置文件</strong><code>_config.yml</code>中开启Mathjax，在文件末尾添加如下代码：<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">mathjax:</span></span><br><span class="line">    <span class="attr">enable:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure></li>
+<li>在已发布的文章<code>*.md</code>文件的<code>Front-matter</code>中开启<code>mathjax</code>：<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">xxx</span></span><br><span class="line"><span class="attr">category:</span> <span class="string">xxx</span></span><br><span class="line"><span class="attr">date:</span> <span class="number">2020-10-14 21:24:15</span></span><br><span class="line"><span class="attr">mathjax:</span> <span class="literal">true</span></span><br><span class="line"><span class="meta">---</span></span><br></pre></td></tr></table></figure></li>
+<li>可修改<code>./scaffolds/post.md</code>模板文件，在<code>Front-matter</code>中开启Mathjax：<code>mathjax: true</code>。</li>
+</ul>
+</li>
+<li><p>6.重新生成页面<br>修改完成后清除缓存、重新生成页面、部署，「一键三连」即可。</p>
+</li>
+</ul>
+<hr>
+<h2 id="2-如何更改左侧IconFont-图标"><a href="#2-如何更改左侧IconFont-图标" class="headerlink" title="2.如何更改左侧IconFont 图标"></a>2.如何更改左侧IconFont 图标</h2><blockquote>
+<p>主题配置文件默认的有github，微博，twitter，facebook等，但可能与自己需求不同，故需定制<br>需要就加上，不需要就注释，4~6个为宜<br>可用参考：<a target="_blank" rel="noopener" href="http://blog.cofess.com/hexo-theme-pure/iconfont/demo_fontclass.html">适配IconFont 图标</a></p>
+</blockquote>
+<p>第一步：<code>vi ./themes/pure/_config.yml</code><br>第二步：<code>profile</code> → <code>social</code> → <code>links</code>层级下对应修改：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># profile</span></span><br><span class="line"><span class="attr">profile:</span></span><br><span class="line">  <span class="string">......</span></span><br><span class="line">  <span class="attr">social:</span></span><br><span class="line">    <span class="attr">links:</span></span><br><span class="line">      <span class="attr">github:</span> <span class="string">https://github.com/hwame</span></span><br><span class="line">      <span class="attr">weibo:</span> <span class="string">https://weibo.com/hwamei</span></span><br><span class="line">      <span class="comment"># twitter: https://twitter.com</span></span><br><span class="line">      <span class="comment"># facebook: https://facebook.com</span></span><br><span class="line">      <span class="attr">zhihu:</span> <span class="string">https://www.zhihu.com/people/hwame</span></span><br><span class="line">      <span class="comment"># dribbble: /</span></span><br><span class="line">      <span class="comment"># behance: https://www.behance.net</span></span><br><span class="line">      <span class="comment"># rss: atom.xml</span></span><br><span class="line">      <span class="attr">segmentfault:</span> <span class="string">https://segmentfault.com/u/hwame</span></span><br><span class="line">      <span class="attr">gitee:</span> <span class="string">https://gitee.com/hwame</span></span><br><span class="line">      <span class="comment"># qzone: https://qzone.qq.com/</span></span><br><span class="line">      <span class="comment"># email: mailto:user@qq.com</span></span><br><span class="line">      <span class="comment"># qq: https://im.qq.com/</span></span><br><span class="line">      <span class="comment"># wechat: https://wx.qq.com/</span></span><br><span class="line">      <span class="comment"># alipay: https://www.alipay.com/</span></span><br><span class="line">      <span class="comment"># juejin: https://juejin.im/</span></span><br><span class="line">      <span class="attr">stackoverflow:</span> <span class="string">https://stackoverflow.com/questions</span></span><br><span class="line">      <span class="comment"># friendship: https://  </span></span><br><span class="line">    <span class="string">......</span></span><br></pre></td></tr></table></figure><br>例如，我开启了「<code>github</code>」、「<code>weibo</code>」、「<code>zhihu</code>」、「<code>segmentfault</code>」、「<code>gitee</code>」、「<code>stackoverflow</code>」六个，效果如图：<br><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201014左侧IconFont图标.png" alt="左侧IconFont 图标"></p>
+<hr>
+<h2 id="3-如何取消文章目录的自动编号"><a href="#3-如何取消文章目录的自动编号" class="headerlink" title="3.如何取消文章目录的自动编号"></a>3.如何取消文章目录的自动编号</h2><blockquote>
+<p>有时我们文章的展开目录不需要自动编号，而是希望和<code>*.md</code>保持一致<br>但是<code>Hexo</code>默认会加上编号，这会导致①在有编号的地方重复编号；②在不需要编号（譬如某些三级目录）的地方也会编号<br>所以需要修改源码：<code>./node_modules/hexo/lib/plugins/helper/toc.js</code></p>
+</blockquote>
+<p>第一步：<code>vi ./node_modules/hexo/lib/plugins/helper/toc.js</code><br>第二步：修改其中<code>list_number: true</code>的属性值，默认<code>true</code>为使用自动编号，如下第六行</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">tocHelper</span>(<span class="params">str, options = &#123;&#125;</span>) &#123;</span><br><span class="line">  options = <span class="title class_">Object</span>.<span class="title function_">assign</span>(&#123;</span><br><span class="line">    <span class="attr">min_depth</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="attr">max_depth</span>: <span class="number">6</span>,</span><br><span class="line">    <span class="attr">class</span>: <span class="string">&#x27;toc&#x27;</span>,</span><br><span class="line">    <span class="attr">list_number</span>: <span class="literal">true</span>  <span class="comment">// 自行修改，true/false</span></span><br><span class="line">  &#125;, options);</span><br></pre></td></tr></table></figure>
+<p><strong>注意：</strong>在主题配置文件修改无效：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 原文：</span></span><br><span class="line"><span class="attr">config:</span></span><br><span class="line">  <span class="attr">toc:</span> <span class="literal">true</span> <span class="comment"># 是否开启文章章节目录导航</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 无效的修改：</span></span><br><span class="line"><span class="attr">config:</span></span><br><span class="line">  <span class="attr">toc:</span> </span><br><span class="line">    <span class="attr">enable:</span> <span class="literal">true</span> <span class="comment"># 是否开启文章章节目录导航</span></span><br><span class="line">    <span class="attr">number:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p><strong>关于目录的特别说明</strong><br>有的小伙伴不知道怎样开启目录，在这里一并说明：</p>
+<blockquote>
+<p>此部分是「如何取消文章目录的自动编号」，是对于「已经开启了目录显示」而言的。那如何开启目录显示呢？</p>
+<ul>
+<li><strong>①主题配置文件</strong><code>./themes/pure/_config.yml</code>里开启目录功能：<code>config: toc: true</code>;</li>
+<li><strong>②</strong>文章里<strong>必须有目录</strong>（一级目录<code>#</code>，二级目录<code>##</code>等等），然后在文章的<code>Front-matter</code>（就是<code>.md</code>文件顶部的两个<code>---</code>之间的部分）中添加<code>toc: true</code>，如图；<br><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201101开启文章目录.png" alt="开启文章目录"></li>
+<li><strong>③</strong>上述条件<strong>缺一不可</strong>。</li>
+</ul>
+<p>因为「目录的展开/折叠」是主题自带的，只需自行开启不涉及魔改，所以没有特意写。</p>
+</blockquote>
+<p>另外在手机上浏览时，只显示一个「<i class="icon icon-anchor" style="color:red"></i>」图标，所以加一个「温馨提示」。直接在<code>&lt;div class=&quot;article-meta&quot;&gt;···&lt;/div&gt;</code>后添加即可，样式自行修改，文件位置<code>./themes/pure/layout/_partial/article.ejs</code>：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;article-header&quot;</span>&gt;</span>***省略***<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;background-color:#D7BDE2;border:1px solid #D7BDE2;border-radius:10px;padding:5px&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">b</span>&gt;</span>温馨提示<span class="tag">&lt;/<span class="name">b</span>&gt;</span>：点击页面下方<span class="tag">&lt;<span class="name">i</span> <span class="attr">style</span>=<span class="string">&quot;color:red&quot;</span> <span class="attr">class</span>=<span class="string">&quot;icon icon-anchor&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span>以展开或折叠目录~</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="4-如何修改代码字体及图片居中"><a href="#4-如何修改代码字体及图片居中" class="headerlink" title="4.如何修改代码字体及图片居中"></a>4.如何修改代码字体及图片居中</h2><p>此部分参考<a target="_blank" rel="noopener" href="https://inkss.cn/blog/196d2ba7/#3-1-CSS-%E6%A0%B7%E5%BC%8F%E4%BF%AE%E6%94%B9">Hexo博客搭建——CSS样式修改</a>，文件位置为<code>./themes/pure/source/css/style.css</code>，修改了三个部分（可能由于添加过注释，代码行数会有所偏差）：</p>
+<ul>
+<li><strong>行内代码颜色</strong>，原始颜色和正文接近，对比度区分不够明显，修改为<code>橙黄色</code>；</li>
+<li><strong>代码字体</strong>，原始代码字体为「宋体」，修改经典的「<code>Consolas</code>」；</li>
+<li><strong>文章图片居中</strong>，文章图片默认为左对齐，修改为居中。</li>
+</ul>
+<h3 id="4-1-行内代码颜色"><a href="#4-1-行内代码颜色" class="headerlink" title="4.1.行内代码颜色"></a>4.1.行内代码颜色</h3><p>第一步：<code>vi ./themes/pure/source/css/style.css</code><br>第二步：5549行<code>code</code>修改<code>color</code>和<code>background</code>：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">code</span> &#123;</span><br><span class="line">  <span class="attribute">text-shadow</span>: <span class="number">0</span> <span class="number">1px</span> <span class="number">#fff</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">0.2em</span> <span class="number">0.4em</span>;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span> <span class="number">0.3em</span>;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#FF4500</span>;</span><br><span class="line">  <span class="comment">/* 行内代码颜色及背景 */</span></span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#F0FFFF</span>;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">3px</span>;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">85%</span>;</span><br></pre></td></tr></table></figure></p>
+<h3 id="4-2-代码字体"><a href="#4-2-代码字体" class="headerlink" title="4.2.代码字体"></a>4.2.代码字体</h3><p>第一步：<code>vi ./themes/pure/source/css/style.css</code><br>第二步：155行<code>samp</code>添加<code>Consolas</code>字体：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">samp</span> &#123;</span><br><span class="line">  <span class="attribute">font-family</span>: consolas,monospace;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">1em</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h3 id="4-3-如何使文章图片居中"><a href="#4-3-如何使文章图片居中" class="headerlink" title="4.3.如何使文章图片居中"></a>4.3.如何使文章图片居中</h3><p>第一步：<code>vi ./themes/pure/source/css/style.css</code><br>第二步：125行<code>img</code>修改：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">img</span> &#123;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">box-sizing</span>: border-box;</span><br><span class="line">  <span class="attribute">margin</span>: auto;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">3px</span>;</span><br><span class="line">  <span class="attribute">text-align</span>: center;</span><br><span class="line">  <span class="attribute">display</span>: block;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="5-如何添加文章描述"><a href="#5-如何添加文章描述" class="headerlink" title="5.如何添加文章描述"></a>5.如何添加文章描述</h2><p>参考文章：<a target="_blank" rel="noopener" href="https://www.qtmuniao.com/2019/10/16/hexo-theme-landscaping/#%E9%A6%96%E9%A1%B5%E6%88%AA%E6%96%AD%E8%AE%BE%E7%BD%AE">如何添加文章描述-首页截断设置</a><br>在<code>md</code>文章写一个摘要，结尾加上<code>&lt;!-- more --&gt;</code>即可。例如<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">Hexo博客搭建(2)——优化及完善</span></span><br><span class="line"><span class="attr">date:</span> <span class="number">2020-05-20 13:14:52</span></span><br><span class="line"><span class="attr">tags:</span></span><br><span class="line">	<span class="bullet">-</span> <span class="string">Hexo</span></span><br><span class="line"><span class="attr">categories:</span></span><br><span class="line">	<span class="bullet">-</span> <span class="string">Hexo</span></span><br><span class="line"><span class="attr">toc:</span> <span class="literal">true</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="string">文章描述测试&lt;!--</span> <span class="string">more</span> <span class="string">--&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="string">以下是正文……</span></span><br></pre></td></tr></table></figure></p>
+<p>首页效果如图<br><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201125首页效果图.png" alt="首页效果图"></p>
+<hr>
+<h2 id="6-如何实现点击图片放大"><a href="#6-如何实现点击图片放大" class="headerlink" title="6.如何实现点击图片放大"></a>6.如何实现点击图片放大</h2><blockquote>
+<p>主题配置文件<code>./themes/pure/_config.yml</code>自带了一个选项<code>fancybox: false</code>，其默认是关闭的，打开之后即可实现<strong>「点击图片查看大图」</strong>的功能。<br>然而，在我们不需要的地方也会这样，比如，「友情链接」板块，<code>fancybox: true</code>时点击头像并没有跳转，而是当做图片打开，并且也并没有打开图片。因为图片（头像）对应的超链接是「小伙伴个人主页」，头像本身的链接是「图床上的图片」。<br>所以要修改源码：<code>./themes/pure/layout/_partial/archive-link.ejs</code>。</p>
+</blockquote>
+<p>其核心部分为<code>for (var link in site.data.links) &#123;&#125;</code>这个循环，获取每一个友链<code>name</code>，对应的<code>item</code>为每个友链的三个值<code>item.link</code>、<code>item.avatar</code>、<code>item.desc</code>，分别渲染。<br><br><br><strong>第一步</strong>，<code>href=&quot;&lt;%= item.link %&gt;&quot;</code>改为<code>href=&quot;&lt;%= item.avatar %&gt;&quot;</code>。既然点击头像既不能查看大图，也不能跳转，那我们修改为查看大图吧。只需要将图片的超链接还给头像自己即可，如下第<code>7</code>行，将<code>&lt;a href=&quot;&lt;%= item.link %&gt;&quot; target=&quot;_blank&quot; class=&quot;img-burn thumb-md media-middle&quot;&gt;</code>修改为<code>&lt;a href=&quot;&lt;%= item.avatar %&gt;&quot; target=&quot;_blank&quot; class=&quot;img-burn thumb-md media-middle&quot;&gt;</code>。<br><strong>第二步</strong>，<code>alt=&quot;&quot;</code>改为<code>alt=&quot;&lt;%= item.desc %&gt;&quot;</code>。现在只让他变图片了，好人做到底，加个图片描述吧，就用那个<code>desc</code>：第<code>8</code>行，将<code>&lt;img src=&quot;&lt;%= item.avatar %&gt;&quot; class=&quot;w-full&quot; alt=&quot;&quot;&gt;</code>修改为<code>&lt;img src=&quot;&lt;%= item.avatar %&gt;&quot; class=&quot;w-full&quot; alt=&quot;&lt;%= item.desc %&gt;&quot;&gt;</code>。<br><strong>第三步</strong>，其实就已经好了，但是友链跳转是点击那个「名字」，默认是黑色（<code>class=&quot;text-dark&quot;</code>），不够明显，希望换个颜色表示超链接。将<code>h4</code>下的<code>&lt;span&gt;</code>修改为<code>&lt;span style=&quot;color:#9932CC&quot; title=&quot;点击跳转&quot;&gt;&lt;%= name %&gt;&lt;/span&gt;</code>。</p>
+<p>修改完成后的核心循环部分如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;% for (var name in site.data.links) &#123; %&gt;</span><br><span class="line">  &lt;% var item = site.data.links[name]; %&gt;</span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;col-sm-6 col-md-4&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;panel panel-default hover-shadow hover-grow&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">figure</span> <span class="attr">class</span>=<span class="string">&quot;media media-middle&quot;</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;media-left pr-no&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;&lt;%= item.avatar %&gt;&quot;</span> <span class="attr">target</span>=<span class="string">&quot;_blank&quot;</span> <span class="attr">class</span>=<span class="string">&quot;img-burn thumb-md media-middle&quot;</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;&lt;%= item.avatar %&gt;&quot;</span> <span class="attr">class</span>=<span class="string">&quot;w-full&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&lt;%= item.desc %&gt;&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;media-body p-0x&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">h4</span> <span class="attr">class</span>=<span class="string">&quot;media-heading&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;&lt;%= item.link %&gt;&quot;</span> <span class="attr">target</span>=<span class="string">&quot;_blank&quot;</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">span</span> <span class="attr">style</span>=<span class="string">&quot;color:#9932CC&quot;</span> <span class="attr">title</span>=<span class="string">&quot;点击跳转&quot;</span>&gt;</span>&lt;%= name %&gt;<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">h4</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;text-muted&quot;</span>&gt;</span></span><br><span class="line">              &lt;%= item.desc %&gt;</span><br><span class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">figure</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    &lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="7-添加「相册」页面"><a href="#7-添加「相册」页面" class="headerlink" title="7.添加「相册」页面"></a>7.添加「相册」页面</h2><p>由于博主没有豆瓣账号，主题自带的「豆瓣书单」页面一直用不上，因此想着改成其他实用的。<br>最初修改为「留言板」，奈何无人回应😂😂（尴尬.jpg），受第6部分【<a href="#6-%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E7%82%B9%E5%87%BB%E5%9B%BE%E7%89%87%E6%94%BE%E5%A4%A7">6.如何实现点击图片放大</a>】的启发，最终决定修改为分享摄影作品的「相册」页面。</p>
+<h3 id="7-1-重命名相关文件"><a href="#7-1-重命名相关文件" class="headerlink" title="7.1.重命名相关文件"></a>7.1.重命名相关文件</h3><p>此部分是魔改相册，代码及文件（夹）原本是以<code>book(s)</code>命名的，既然现在是「相册」了，就得改名叫「<code>gallery</code>」了。<br>将<code>./themes/pure/</code>下的文件或文件内容中所有的<code>book(s)</code>改为<code>gallery</code>：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">序号</th>
+<th style="text-align:center">类型</th>
+<th style="text-align:left">原文件名</th>
+<th style="text-align:left">修改后文件名</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">文件夹</td>
+<td style="text-align:left"><code>./themes/pure/_source/books/</code></td>
+<td style="text-align:left"><code>./themes/pure/_source/gallery/</code></td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">文件</td>
+<td style="text-align:left"><code>./themes/pure/layout/books.ejs</code></td>
+<td style="text-align:left"><code>./themes/pure/layout/gallery.ejs</code></td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">文件</td>
+<td style="text-align:left"><code>./themes/pure/layout/_partial/archive-book.ejs</code></td>
+<td style="text-align:left"><code>./themes/pure/layout/_partial/archive-gallery.ejs</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="7-2-修改源代码"><a href="#7-2-修改源代码" class="headerlink" title="7.2.修改源代码"></a>7.2.修改源代码</h3><ul>
+<li><code>./themes/pure/layout/gallery.ejs</code>，文件路径改为<code>&#39;_partial/archive-gallery&#39;</code>即可。</li>
+<li><code>./themes/pure/layout/_partial/archive-gallery.ejs</code>，代码参考第6部分【<a href="#6-%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E7%82%B9%E5%87%BB%E5%9B%BE%E7%89%87%E6%94%BE%E5%A4%A7">6.如何实现点击图片放大</a>】，修改后完整内容如下：<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">article</span> <span class="attr">class</span>=<span class="string">&quot;article article-links article-type-list&quot;</span> <span class="attr">itemscope</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">header</span> <span class="attr">class</span>=<span class="string">&quot;article-header&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span> <span class="attr">itemprop</span>=<span class="string">&quot;title&quot;</span>&gt;</span>&lt;%= page.title %&gt;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;text-muted&quot;</span>&gt;</span></span><br><span class="line">      &lt;%= __(&#x27;page.gallery-desc&#x27;) %&gt;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;article-body&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;row&quot;</span>&gt;</span></span><br><span class="line">      &lt;% for (var link in site.data.gallery) &#123; %&gt;</span><br><span class="line">        &lt;% var item = site.data.gallery[link]; %&gt;</span><br><span class="line">          <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;col-sm-6 col-md-4&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;panel panel-default hover-shadow hover-grow&quot;</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">figure</span> <span class="attr">class</span>=<span class="string">&quot;media media-middle&quot;</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;media-left pr-no&quot;</span>&gt;</span></span><br><span class="line">                  <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;&lt;%= item.full_link %&gt;&quot;</span> <span class="attr">target</span>=<span class="string">&quot;_blank&quot;</span> <span class="attr">class</span>=<span class="string">&quot;img-burn thumb-md media-middle&quot;</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;&lt;%= item.thumb_link %&gt;&quot;</span> <span class="attr">class</span>=<span class="string">&quot;w-full&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">                  <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;media-body p-0x&quot;</span>&gt;</span></span><br><span class="line">                  <span class="tag">&lt;<span class="name">h4</span> <span class="attr">class</span>=<span class="string">&quot;media-heading&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;&lt;%= item.full_link %&gt;&quot;</span> <span class="attr">target</span>=<span class="string">&quot;_blank&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;text-dark&quot;</span>&gt;</span>&lt;%= link %&gt;<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">h4</span>&gt;</span></span><br><span class="line">                  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;text-muted&quot;</span>&gt;</span></span><br><span class="line">                    &lt;%= item.desc %&gt;</span><br><span class="line">                  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;/<span class="name">figure</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">          &lt;% &#125; %&gt;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">article</span>&gt;</span></span><br><span class="line">&lt;% if (theme.comment.type &amp;&amp; !is_home()) &#123; %&gt;</span><br><span class="line">  &lt;%- partial(&#x27;post/comment&#x27;, &#123;post: page&#125;) %&gt;</span><br><span class="line">&lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="7-3-配置相册"><a href="#7-3-配置相册" class="headerlink" title="7.3.配置相册"></a>7.3.配置相册</h3><p>在<code>./source/_data/</code>目录下新建一个<code>gallery.yml</code>文件，格式如下：</p>
+<ul>
+<li><code>Name</code>：相片名称，多张照片保证不要重名</li>
+<li><code>full_link</code>、<code>thumb_link</code>：原图和缩略图链接，图床上的图片直接以地址引用，<code>./themes/pure/source/images/</code>文件夹下的图片以<code>/images/subdir/img.jpg</code>的格式引用</li>
+<li><code>desc</code>：相片描述</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">Name:</span></span><br><span class="line">    <span class="attr">full_link:</span> <span class="string">/path/to/img.jpg</span></span><br><span class="line">    <span class="attr">thumb_link:</span> <span class="string">/path/to/thumb_img.jpg</span></span><br><span class="line">    <span class="attr">desc:</span> <span class="string">&quot;photo description&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="7-4-修改主题相关配置"><a href="#7-4-修改主题相关配置" class="headerlink" title="7.4.修改主题相关配置"></a>7.4.修改主题相关配置</h3><ul>
+<li>主题配置文件<code>./themes/pure/_config.yml</code>的菜单选项：<ul>
+<li><code>Books: books</code>修改为<code>Gallery: gallery</code></li>
+<li><code>books: icon-book-fill</code>修改为<code>gallery: icon-delicious</code>，图标名参考<a target="_blank" rel="noopener" href="http://blog.cofess.com/hexo-theme-pure/iconfont/demo_fontclass.html">【这里】</a></li>
+</ul>
+</li>
+<li>语言配置文件<code>./themes/pure/languages/zh-CN.yml</code>，如果使用其他语言只需对应修改：<ul>
+<li><code>menu</code>：<code>Books: 书单</code>修改为<code>Gallery: 相册</code></li>
+<li><code>page</code>：<code>books: 书单</code>修改为<code>gallery: 相册</code>，<code>books-desc: 个人收藏的书单推荐给大家</code>修改为<code>gallery-desc: 摄影爱好者的个人拍摄作品</code></li>
+</ul>
+</li>
+<li>样式表文件<code>./themes/pure/source/css/gallery.css</code>，整理这部分内容时发现多出了这个CSS文件，但是应该不是必需的</li>
+</ul>
+<h3 id="7-5-生成页面及说明"><a href="#7-5-生成页面及说明" class="headerlink" title="7.5.生成页面及说明"></a>7.5.生成页面及说明</h3><p>如果没有<code>./source/gallery/</code>或<code>./source/gallery/index.md</code>，则执行<code>hexo new page &quot;gallery&quot;</code>生成新的页面，修改<code>./source/gallery/index.md</code>文件的<code>type</code>和<code>layout</code>：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">相册</span></span><br><span class="line"><span class="attr">copyright:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">comments:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">date:</span> <span class="number">2020-05-27 11:25:35</span></span><br><span class="line"><span class="attr">type:</span> <span class="string">gallery</span></span><br><span class="line"><span class="attr">layout:</span> <span class="string">gallery</span></span><br><span class="line"><span class="meta">---</span></span><br></pre></td></tr></table></figure><br><strong>说明：</strong></p>
+<blockquote>
+<p>评论区有小伙伴提到原版<code>gallery</code>的问题，我在主题文件夹下查找与<code>gallery</code>相关的文件，如下图所示：<br><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201101gallery相关文件.png" alt="与gallery相关的文件"></p>
+<ul>
+<li><strong>文件名</strong>含有<code>gallery</code>的文件：<ul>
+<li><code>.themes/pure/_source/_data/gallery.yml</code></li>
+<li><code>.themes/pure/layout/_partial/post/gallery.ejs</code></li>
+</ul>
+</li>
+<li><strong>文件内容</strong>含有<code>gallery</code>的文件：<ul>
+<li><code>.themes/pure/layout/_partial/post/gallery.ejs</code></li>
+<li><code>.themes/pure/layout/_partial/article.ejs</code></li>
+</ul>
+</li>
+</ul>
+<p>其中<code>gallery.yml</code>位于<code>_source</code>文件夹内，暂时不用考虑；<br>看看剩下两个<code>.ejs</code>文件的代码，在<code>article.ejs</code>里引用了<code>gallery.ejs</code>，所以可以看到这是「博文配图」的样式（即<code>fancybox</code>效果），跟「相册」没有关系。<br>但是我们可以借鉴这个样式，来定制「相册」浏览的页面，布局呢可以借鉴「友情链接」的布局。于是就有了来自于第6部分【<a href="#6-%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E7%82%B9%E5%87%BB%E5%9B%BE%E7%89%87%E6%94%BE%E5%A4%A7">6.如何实现点击图片放大</a>】的灵感。<br>另一方面，看看<code>gallery.yml</code>的文件结构，是不是简直和<code>links.yml</code>一模一样，所以我们的照片没有必要写到<code>HTML</code>或<code>.ejs</code>里，仿照友链用循环处理多张照片，然后把照片信息添加在<code>gallery.yml</code>里。<br>至此，是不是就豁然开朗了呢？</p>
+</blockquote>
+<hr>
+<h2 id="8-如何显示「最近文章」缩略图"><a href="#8-如何显示「最近文章」缩略图" class="headerlink" title="8.如何显示「最近文章」缩略图"></a>8.如何显示「最近文章」缩略图</h2><p>第一步：在<strong>主题配置文件</strong><code>./themes/pure/_config.yml</code>中开启：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">config:</span></span><br><span class="line">	<span class="attr">thumbnail:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure></p>
+<p>第二步：在文章Front-matter中添加文章缩略图链接地址（图片地址可以是图床上的图片，也可以放在<code>./themes/pure/source/images/</code>文件夹下，引用方式如下）：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">xxx</span></span><br><span class="line"><span class="attr">toc:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">date:</span> <span class="number">2020-10-15 11:18:23</span></span><br><span class="line"><span class="attr">thumbnail:</span> <span class="string">/images/avatar.jpg</span></span><br><span class="line"><span class="meta">---</span></span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="9-部分地方中文适配"><a href="#9-部分地方中文适配" class="headerlink" title="9.部分地方中文适配"></a>9.部分地方中文适配</h2><p>由于<code>languages</code>中的中文配置问题，部分地方没有完全改为中文：「分类」「归档」页面的「全部」、「共xxx篇文章」、「第x页，共x页」等，只需要修改<code>./themes/pure/languages/zh-CN.yml</code>即可：</p>
+<ul>
+<li>导航<code>nav</code>的<code>all: All</code>修改为<code>all: 全部</code></li>
+<li>分页<code>pagination</code>的<code>pageof: Page %d of %s</code>修改为<code>pageof: 第 %d 页，共 %s 页</code></li>
+</ul>
+<hr>
+<h2 id="10-免密部署问题"><a href="#10-免密部署问题" class="headerlink" title="10.免密部署问题"></a>10.免密部署问题</h2><p>前文<a href="https://hwame.top/20200520/hello-hexo-setup-deploy.html#5-5-%E9%83%A8%E7%BD%B2Hexo">Hexo博客搭建(1)——建站及部署之部署Hexo</a>原本部署部分设置的是<code>repository: https://github.com/username/username.github.io.git</code>，这种方式有时候会需要手动输入用户名和密码，有时候还会出现<code>Error: Spawn failed</code>的错误，参考文章《<a target="_blank" rel="noopener" href="https://1187100546.github.io/2019/11/24/spawn-failed/">hexo发生error：spawn failed错误的解决方法</a>》，直接修改为<code>repository: git@github.com:username/username.github.io.git</code>即可。</p>
+<hr>
+<h2 id="11-自定义左下角信息"><a href="#11-自定义左下角信息" class="headerlink" title="11.自定义左下角信息"></a>11.自定义左下角信息</h2><h3 id="11-1-添加访问量和访客数"><a href="#11-1-添加访问量和访客数" class="headerlink" title="11.1.添加访问量和访客数"></a>11.1.添加访问量和访客数</h3><p>原版左下角是<code>Theme by cofess base on pure.</code>过于单调，考虑加入「站点访问量」和「访客数」，至于文章阅读量可以通过LeanCloud并且已经实现。文件位置：<code>./themes/pure/layout/_common/footer.ejs</code>。</p>
+<p>「访问量」和「访客数」可以使用「<a target="_blank" rel="noopener" href="https://busuanzi.ibruce.info/">不蒜子-极简网页计数器</a>」，该网站也提供了「网站总访问量」的示例：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">async</span> <span class="attr">src</span>=<span class="string">&quot;//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;busuanzi_container_site_pv&quot;</span>&gt;</span>本站总访问量<span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;busuanzi_value_site_pv&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>次<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>通过<code>F12</code>可以发现设置的方法：</p>
+<ul>
+<li>文章阅读量：<code>&lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;</code></li>
+<li>站点访问量：<code>&lt;span id=&quot;busuanzi_value_site_pv&quot;&gt;&lt;/span&gt;</code></li>
+<li>站点访客数：<code>&lt;span id=&quot;busuanzi_value_site_uv&quot;&gt;&lt;/span&gt;</code></li>
+</ul>
+<p>结合网站示例，将<code>Theme by cofess base on pure.</code>注释掉，并加入「访问量」和「访客数」，还可以通过<code>&lt;div class=&quot;publishby&quot;&gt;</code>标签加入「网站备案信息」，修改后如下：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">async</span> <span class="attr">src</span>=<span class="string">&quot;//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">footer</span> <span class="attr">class</span>=<span class="string">&quot;footer&quot;</span> <span class="attr">itemscope</span> <span class="attr">itemtype</span>=<span class="string">&quot;http://schema.org/WPFooter&quot;</span>&gt;</span></span><br><span class="line">	&lt;%- partial(&#x27;_common/social&#x27;, null, &#123;cache: !config.relative_link&#125;) %&gt;</span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;copyright&quot;</span>&gt;</span></span><br><span class="line">    	&lt;% if(theme.site.copyright) &#123; %&gt;</span><br><span class="line">        <span class="symbol">&amp;copy;</span> &lt;%= date(new Date(), &#x27;YYYY&#x27;) %&gt; &lt;%= config.author || config.title %&gt;</span><br><span class="line">        &lt;% &#125; %&gt;</span><br><span class="line">        </span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;publishby&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;busuanzi_container_site_pv&quot;</span>&gt;</span></span><br><span class="line">                点击<span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;busuanzi_value_site_pv&quot;</span> <span class="attr">style</span>=<span class="string">&quot;font-family:Courier&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>次，</span><br><span class="line">                访客<span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;busuanzi_value_site_uv&quot;</span> <span class="attr">style</span>=<span class="string">&quot;font-family:Courier&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>人</span><br><span class="line">            <span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">        &lt;div class=&quot;publishby&quot;&gt;</span></span><br><span class="line"><span class="comment">        	&lt;%= __(&#x27;copyright.theme_by&#x27;) %&gt;</span></span><br><span class="line"><span class="comment">        	&lt;a href=&quot;https://github.com/cofess&quot; target=&quot;_blank&quot;&gt; cofess &lt;/a&gt;</span></span><br><span class="line"><span class="comment">        	&lt;%= __(&#x27;copyright.base_on&#x27;) %&gt;</span></span><br><span class="line"><span class="comment">        	&lt;a href=&quot;https://github.com/cofess/hexo-theme-pure&quot; target=&quot;_blank&quot;&gt;pure&lt;/a&gt;.</span></span><br><span class="line"><span class="comment">        &lt;/div&gt;</span></span><br><span class="line"><span class="comment">        --&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="11-2-添加网站运行时间"><a href="#11-2-添加网站运行时间" class="headerlink" title="11.2.添加网站运行时间"></a>11.2.添加网站运行时间</h3><p>此部分内容参考<a target="_blank" rel="noopener" href="https://imzsh.com/">moyu</a>的文章<a target="_blank" rel="noopener" href="https://imzsh.com/2020/10/28/hexo-features/#2-%E5%BB%BA%E7%AB%99%E6%97%B6%E9%97%B4%E5%80%92%E8%AE%A1%E6%97%B6">为博客添加一些小功能以及美化之建站时间时间</a>。</p>
+<p>文件位置：<code>./themes/pure/layout/_common/footer.ejs</code>。其实现逻辑如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;<span class="keyword">function</span> <span class="title function_">siteTime</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="variable language_">window</span>.<span class="built_in">setTimeout</span>(<span class="string">&quot;siteTime()&quot;</span>, <span class="number">1000</span>);</span><br><span class="line">    <span class="keyword">var</span> seconds = <span class="number">1000</span>;</span><br><span class="line">    <span class="keyword">var</span> minutes = seconds * <span class="number">60</span>;</span><br><span class="line">    <span class="keyword">var</span> hours = minutes * <span class="number">60</span>;</span><br><span class="line">    <span class="keyword">var</span> days = hours * <span class="number">24</span>;</span><br><span class="line">    <span class="keyword">var</span> years = days * <span class="number">365</span>;</span><br><span class="line">    <span class="keyword">var</span> today = <span class="keyword">new</span> <span class="title class_">Date</span>();</span><br><span class="line">    <span class="keyword">var</span> todayYear = today.<span class="title function_">getFullYear</span>();</span><br><span class="line">    <span class="keyword">var</span> todayMonth = today.<span class="title function_">getMonth</span>()+<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">var</span> todayDate = today.<span class="title function_">getDate</span>();</span><br><span class="line">    <span class="keyword">var</span> todayHour = today.<span class="title function_">getHours</span>();</span><br><span class="line">    <span class="keyword">var</span> todayMinute = today.<span class="title function_">getMinutes</span>();</span><br><span class="line">    <span class="keyword">var</span> todaySecond = today.<span class="title function_">getSeconds</span>();</span><br><span class="line">    <span class="comment">/* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)</span></span><br><span class="line"><span class="comment">       year - 作为date对象的年份，为4位年份值</span></span><br><span class="line"><span class="comment">       month - 0-11之间的整数，做为date对象的月份</span></span><br><span class="line"><span class="comment">       day - 1-31之间的整数，做为date对象的天数</span></span><br><span class="line"><span class="comment">       hours - 0(午夜24点)-23之间的整数，做为date对象的小时数</span></span><br><span class="line"><span class="comment">       minutes - 0-59之间的整数，做为date对象的分钟数</span></span><br><span class="line"><span class="comment">       seconds - 0-59之间的整数，做为date对象的秒数</span></span><br><span class="line"><span class="comment">       microseconds - 0-999之间的整数，做为date对象的毫秒数</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="keyword">var</span> t1 = <span class="title class_">Date</span>.<span class="title function_">UTC</span>(<span class="number">2020</span>,<span class="number">05</span>,<span class="number">19</span>,<span class="number">21</span>,<span class="number">20</span>,<span class="number">52</span>); <span class="comment">//t1为建站时间</span></span><br><span class="line">    <span class="keyword">var</span> t2 = <span class="title class_">Date</span>.<span class="title function_">UTC</span>(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);</span><br><span class="line">    <span class="keyword">var</span> diff = t2-t1;</span><br><span class="line">    <span class="keyword">var</span> diffYears = <span class="title class_">Math</span>.<span class="title function_">floor</span>(diff/years);</span><br><span class="line">    <span class="keyword">var</span> diffDays = <span class="title class_">Math</span>.<span class="title function_">floor</span>((diff/days)-diffYears*<span class="number">365</span>);</span><br><span class="line">    <span class="keyword">var</span> diffHours = <span class="title class_">Math</span>.<span class="title function_">floor</span>((diff-(diffYears*<span class="number">365</span>+diffDays)*days)/hours);</span><br><span class="line">    <span class="keyword">var</span> diffMinutes = <span class="title class_">Math</span>.<span class="title function_">floor</span>((diff-(diffYears*<span class="number">365</span>+diffDays)*days-diffHours*hours)/minutes);</span><br><span class="line">    <span class="keyword">var</span> diffSeconds = <span class="title class_">Math</span>.<span class="title function_">floor</span>((diff-(diffYears*<span class="number">365</span>+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);</span><br><span class="line">    <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;sitetime&quot;</span>).<span class="property">innerHTML</span>=<span class="string">&quot;已运行&quot;</span>+<span class="comment">/*diffYears+&quot; 年 &quot;+*/</span>diffDays+<span class="string">&quot;天&quot;</span>+diffHours+<span class="string">&quot;小时&quot;</span>+diffMinutes+<span class="string">&quot;分钟&quot;</span>+diffSeconds+<span class="string">&quot;秒&quot;</span>;</span><br><span class="line">    <span class="comment">// 因为建站时间还没有一年，就将之注释掉了。需要的可以取消</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">siteTime</span>();</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure><br>最后将标签<code>&lt;span id=&quot;sitetime&quot;&gt;&lt;/span&gt;</code>添加到合适的位置，例如上文11.1节<a href="#11-1-%E6%B7%BB%E5%8A%A0%E8%AE%BF%E9%97%AE%E9%87%8F%E5%92%8C%E8%AE%BF%E5%AE%A2%E6%95%B0">添加访问量和访客数</a>的「访问量」和「访客数」后。</p>
+<p>可<code>number.toString().padStart(n, &#39;0&#39;)</code>将数字转换为「补零字符串」，效果为<code>m:nnn:xx:yy:zz</code>，表示运行时间为<code>m年nnn天xx时yy分zz秒</code>：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 将「数字」转「补零字符串」</span></span><br><span class="line"><span class="keyword">var</span> y = diffYears.<span class="title function_">toString</span>()</span><br><span class="line"><span class="keyword">var</span> d = diffDays.<span class="title function_">toString</span>().<span class="title function_">padStart</span>(<span class="number">3</span>, <span class="string">&#x27;0&#x27;</span>)</span><br><span class="line"><span class="keyword">var</span> h = diffHours.<span class="title function_">toString</span>().<span class="title function_">padStart</span>(<span class="number">2</span>, <span class="string">&#x27;0&#x27;</span>)</span><br><span class="line"><span class="keyword">var</span> m = diffMinutes.<span class="title function_">toString</span>().<span class="title function_">padStart</span>(<span class="number">2</span>, <span class="string">&#x27;0&#x27;</span>)</span><br><span class="line"><span class="keyword">var</span> s = diffSeconds.<span class="title function_">toString</span>().<span class="title function_">padStart</span>(<span class="number">2</span>, <span class="string">&#x27;0&#x27;</span>)</span><br><span class="line"><span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;sitetime&quot;</span>).<span class="property">innerHTML</span> = y + <span class="string">&quot;:&quot;</span> + d + <span class="string">&quot;:&quot;</span> + h + <span class="string">&quot;:&quot;</span> + m + <span class="string">&quot;:&quot;</span> + s;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="12-代码块添加一键复制"><a href="#12-代码块添加一键复制" class="headerlink" title="12.代码块添加一键复制"></a>12.代码块添加一键复制</h2><p>此部分参考<a target="_blank" rel="noopener" href="https://blog.iwwee.com">kajweb大佬</a>的文章<a target="_blank" rel="noopener" href="https://blog.iwwee.com/posts/hexo-optimize.html#%E4%B8%BA%E4%BB%A3%E7%A0%81%E5%9D%97%E5%A2%9E%E5%8A%A0%E5%A4%8D%E5%88%B6%E6%8C%89%E9%92%AE">Hexo优化记录之为代码块增加复制按钮</a>。</p>
+<p>由于<a target="_blank" rel="noopener" href="https://blog.iwwee.com">kajweb大佬</a>已写得很清楚，此处就不再赘述，主要步骤如下：</p>
+<ul>
+<li>1.增加全局函数<code>addLoadEvent</code>，注意是在文件<strong>末尾</strong>，而不是在<code>&#125;);</code>内；</li>
+<li>2.新增复制按钮；</li>
+<li>3.插入到页面，主题代码<code>&lt;%- partial(&#39;_partial/article-copy-code&#39;)%&gt;</code>插入的位置；</li>
+<li>4.增加语言文件，例如<code>copy_button</code>设置为<code>一键复制</code>；</li>
+<li>5.修改<strong>主题配置文件</strong>，如果开启<code>copyright</code>则当一键复制代码后会加上<code>content</code>版权声明内容，个人不喜欢所以禁用了。</li>
+</ul>
+<hr>
+<h2 id="13-调整菜单栏高度"><a href="#13-调整菜单栏高度" class="headerlink" title="13.调整菜单栏高度"></a>13.调整菜单栏高度</h2><p>由于页面较多，有时候在不同的浏览器或不同分辨率电脑上会和左下角<code>footer</code>重叠，因此考虑调整菜单栏的高度。</p>
+<p>此部分及下部分<a href="#14-%E5%A6%82%E4%BD%95%E9%9A%90%E8%97%8Fvaline%E7%89%88%E6%9D%83%E4%BF%A1%E6%81%AF">如何隐藏valine版权信息</a>都需要在CSS文件添加自定义样式，特别感谢<a target="_blank" rel="noopener" href="https://www.chen-yuan-yuan.icu/">陈园园</a>提供的帮助。</p>
+<p>添加后有一个小bug，<code>menu-item</code>的高度为<code>35px</code>而<code>a</code>标签的高度为默认值<code>41px</code>，即会出现重叠部分，参考文章<a target="_blank" rel="noopener" href="https://blog.csdn.net/fn0723/article/details/81293695">CSS设置超链接A标签宽度和高度</a>的第一种方案，使用<code>display: block</code>实现自定义<code>a</code>标签的高度。</p>
+<p>文件位置：<code>./themes/pure/source/css/style.css</code>，直接在末尾添加如下代码：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 调整左侧菜单栏高度 */</span></span><br><span class="line"><span class="selector-class">.menu-item</span>&#123;</span><br><span class="line">	<span class="attribute">height</span>: <span class="number">35px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 调整a标签的高度 */</span></span><br><span class="line"><span class="selector-class">.menu-item</span> <span class="selector-tag">a</span>&#123;</span><br><span class="line">	<span class="attribute">display</span>: block;</span><br><span class="line">	<span class="attribute">height</span>: <span class="number">35px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="14-如何隐藏valine版权信息"><a href="#14-如何隐藏valine版权信息" class="headerlink" title="14.如何隐藏valine版权信息"></a>14.如何隐藏valine版权信息</h2><p>采用Valine评论系统会在评论区右下角显示<code>Powered By Valine v1.4.14</code>的字样，其实是否显示都无所谓，纯粹是修改上节时的举手之劳。</p>
+<p>同上，需要在CSS文件添加自定义样式。文件位置：<code>./themes/pure/source/css/style.css</code>，直接在末尾添加如下代码：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 隐藏valine版权信息 */</span></span><br><span class="line"><span class="selector-class">.txt-right</span>&#123;</span><br><span class="line">	<span class="attribute">display</span>: none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="15-添加回到顶部"><a href="#15-添加回到顶部" class="headerlink" title="15.添加回到顶部"></a>15.添加回到顶部</h2><p>由于博文经常会有好几千字，尽管有目录能够快速跳转，但是对于长文来说「回到顶部」的功能还是很实用的。<br>然而<code>Pure</code>主题恰巧没有，因此添加一个「回到顶部」的按钮，参考文章<a target="_blank" rel="noopener" href="https://inkss.cn/blog/196d2ba7/#3-4-%E5%9B%9E%E5%88%B0%E9%A1%B6%E9%83%A8">Hexo博客搭建之回到顶部</a>。</p>
+<p>文件位置：<code>./themes/pure/layout/_common/script.ejs</code>，在合适位置添加如下代码：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;go-top&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css"><span class="selector-id">#go-top</span> &#123;</span></span><br><span class="line"><span class="language-css"> <span class="attribute">width</span>:<span class="number">40px</span>;<span class="attribute">height</span>:<span class="number">36px</span>;</span></span><br><span class="line"><span class="language-css"> <span class="attribute">background-color</span>:<span class="number">#DDA0DD</span>;</span></span><br><span class="line"><span class="language-css"> <span class="attribute">position</span>:relative;</span></span><br><span class="line"><span class="language-css"> <span class="attribute">border-radius</span>:<span class="number">2px</span>;</span></span><br><span class="line"><span class="language-css"> <span class="attribute">position</span>:fixed;<span class="attribute">right</span>:<span class="number">10px</span>;<span class="attribute">bottom</span>:<span class="number">60px</span>;</span></span><br><span class="line"><span class="language-css"> <span class="attribute">cursor</span>:pointer;<span class="attribute">display</span>:none;</span></span><br><span class="line"><span class="language-css">&#125;</span></span><br><span class="line"><span class="language-css"><span class="selector-id">#go-top</span><span class="selector-pseudo">:after</span> &#123;</span></span><br><span class="line"><span class="language-css"> <span class="attribute">content</span>:<span class="string">&quot; &quot;</span>;</span></span><br><span class="line"><span class="language-css"> <span class="attribute">position</span>:absolute;<span class="attribute">left</span>:<span class="number">14px</span>;<span class="attribute">top</span>:<span class="number">14px</span>;</span></span><br><span class="line"><span class="language-css"> <span class="attribute">border-top</span>:<span class="number">2px</span> solid <span class="number">#fff</span>;<span class="attribute">border-right</span>:<span class="number">2px</span> solid <span class="number">#fff</span>;</span></span><br><span class="line"><span class="language-css"> <span class="attribute">width</span>:<span class="number">12px</span>;<span class="attribute">height</span>:<span class="number">12px</span>;</span></span><br><span class="line"><span class="language-css"> <span class="attribute">transform</span>:<span class="built_in">rotate</span>(-<span class="number">45deg</span>);</span></span><br><span class="line"><span class="language-css">&#125;</span></span><br><span class="line"><span class="language-css"><span class="selector-id">#go-top</span><span class="selector-pseudo">:hover</span> &#123;</span></span><br><span class="line"><span class="language-css"> <span class="attribute">background-color</span>:<span class="number">#8A2BE2</span>;</span></span><br><span class="line"><span class="language-css">&#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">$(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">var</span> top=$(<span class="string">&quot;#go-top&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">  $(<span class="variable language_">window</span>).<span class="title function_">scroll</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">    ($(<span class="variable language_">window</span>).<span class="title function_">scrollTop</span>() &gt; <span class="number">300</span>) ? top.<span class="title function_">show</span>(<span class="number">300</span>) : top.<span class="title function_">hide</span>(<span class="number">200</span>);</span></span><br><span class="line"><span class="language-javascript">    $(<span class="string">&quot;#go-top&quot;</span>).<span class="title function_">click</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">      $(<span class="string">&#x27;body,html&#x27;</span>).<span class="title function_">animate</span>(&#123;<span class="attr">scrollTop</span>:<span class="number">0</span>&#125;);</span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">return</span> <span class="title function_">false</span>();</span></span><br><span class="line"><span class="language-javascript">    &#125;)</span></span><br><span class="line"><span class="language-javascript">  &#125;);</span></span><br><span class="line"><span class="language-javascript">&#125;);</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="16-添加RSS订阅功能"><a href="#16-添加RSS订阅功能" class="headerlink" title="16.添加RSS订阅功能"></a>16.添加RSS订阅功能</h2><p><code>RSS</code>简介（摘自<a target="_blank" rel="noopener" href="https://segmentfault.com/">Segmentfault</a>用户<a target="_blank" rel="noopener" href="https://segmentfault.com/u/yibuyou">一步</a>的文章<a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000012647294">为hexo博客添加RSS订阅功能</a>）：</p>
+<blockquote>
+<p><code>RSS</code>(<code>Really Simple Syndication</code>) ，即「简易信息聚合」，在互联网上被广泛采用的内容包装和投递协。<br>是一种描述同步网站内容的格式，使用<code>xml</code>格式. 当网站内容更新时，可以通过订阅RSS源在RSS阅读器上获取更新的信息。<br>大多数内容提供的网站都会提供<code>RSS</code>订阅的功能，方便用户去获取最新的内容。</p>
+</blockquote>
+<p>之前觉得现在这个时代<code>RSS</code>订阅就是一个鸡肋，所以在前面的配置中都是直接关闭了该功能，但是见过的别人的博客都有，还是觉得少了这一个功能不太好，因此重新开启。</p>
+<p>第一步，<strong>安装插件</strong>：站点根目录执行：<br><figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-generator-feed <span class="comment">--save</span></span><br></pre></td></tr></table></figure></p>
+<p>第二步，<strong>修改配置</strong>：在<strong>主题配置文件</strong>中开启<code>rss</code>、配置<code>rss</code>文件路径：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># rss</span></span><br><span class="line"><span class="attr">rss:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># profile</span></span><br><span class="line"><span class="attr">profile:</span></span><br><span class="line">	<span class="attr">social:</span></span><br><span class="line">		<span class="attr">links:</span></span><br><span class="line">			<span class="attr">rss:</span> <span class="string">atom.xml</span></span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="17-设置文章置顶"><a href="#17-设置文章置顶" class="headerlink" title="17.设置文章置顶"></a>17.设置文章置顶</h2><p>「博文置顶」的功能算是刚需了，但是在网上找了很多教程，都没有基于<code>Pure</code>主题的，尽管如此还是找到了一些思路。</p>
+<p>此部分主要参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/qwerty200696/article/details/79010629">hexo博客优化之文章置顶+置顶标签</a>。</p>
+<p>第一步，<strong>安装插件</strong>：站点根目录执行：<br><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm uninstall hexo-generator-<span class="built_in">index</span> --<span class="keyword">save</span></span><br><span class="line">npm install hexo-generator-<span class="built_in">index</span>-pin-top --<span class="keyword">save</span></span><br></pre></td></tr></table></figure><br>第二步，<strong>修改标题文件</strong>：其实在安装了插件之后就已经可以实现「文章置顶」功能了，但是即使文章位于顶部，如果没有<strong>置顶标志</strong>的话会比较莫名其妙就很尴尬（别问我怎么知道）。</p>
+<p>网上文章都是定位到<code>&lt;div class=&quot;post-meta&quot;&gt;</code>标签，但是我们的<code>Pure</code>主题没有啊，它是<code>&lt;div class=&quot;article-header&quot;&gt;</code>，找到对应的文件是<code>./themes/pure/layout/_partial/post/title.ejs</code>，而不是<code>post.xxx</code>。分析了一下，在<strong><code>&lt;h1 itemprop=&quot;name&quot;&gt;</code></strong>后直接添加判断即可：如果设置了置顶，则显示一个「📌置顶」：<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;h1 <span class="attribute">itemprop</span>=<span class="string">&quot;name&quot;</span>&gt;</span><br><span class="line">    &lt;% <span class="keyword">if</span> (post.top) &#123; %&gt;</span><br><span class="line">        &lt;span <span class="attribute">class</span>=<span class="string">&quot;&lt;%= class_name %&gt;&quot;</span> <span class="attribute">style</span>=<span class="string">&quot;color:#7D26CD&quot;</span>&gt;📌置顶&lt;/span&gt;</span><br><span class="line">    &lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure><br><strong>说明：</strong>我使用的是📌<a target="_blank" rel="noopener" href="https://emojipedia.org/pushpin/">emoji</a>作为图标，如果按参考文章写的，因为不同主题使用的图标不一样，需要自行修改（详见<a target="_blank" rel="noopener" href="http://blog.cofess.com/hexo-theme-pure/iconfont/demo_fontclass.html">Pure主题图标样式</a>），<del>不过好像没什么合适的</del>，例如可以改成下面这样：<br><strong>注意：</strong>按参考文章写的会还有一个问题，<strong>置顶标志</strong>和标题字号不一致比较突兀，所以可以使用与标题相同的<code>class</code>，如上<code>class=&quot;&lt;%= class_name %&gt;&quot;</code>；判断语句用<code>&lt;% clause %&gt;</code>而非<code>&#123;% clause %&#125;</code>。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">itemprop</span>=<span class="string">&quot;name&quot;</span>&gt;</span></span><br><span class="line">&lt;% if (post.top) &#123; %&gt;</span><br><span class="line">    <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">&quot;icon icon-map-marker&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">font</span> <span class="attr">color</span>=<span class="string">#7D26CD</span>&gt;</span>置顶<span class="tag">&lt;/<span class="name">font</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;post-meta-divider&quot;</span>&gt;</span>|<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">&lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure><br>至于进一步美化置顶，那就需要各位自己去调了~</p>
+<p>第三步，<strong>使用置顶</strong>：在需要被置顶的文章<code>Front-matter</code>中添加<code>top: true</code>或<code>top: 999</code>即可，置顶排序规则为：数值越大越靠上（相同则按时间）。</p>
+<hr>
+<h2 id="18-添加文章更新时间"><a href="#18-添加文章更新时间" class="headerlink" title="18.添加文章更新时间"></a>18.添加文章更新时间</h2><p>有时候一篇文章写完后，可能会多次修改反复更新，因此需要将「博文更新时间」也显示在文章上，然而小众主题可供参考的文章几乎没有。</p>
+<p>找了一圈，发现<code>Hiker</code>主题和<code>Pure</code>主题几乎一模一样，于是参考了<a target="_blank" rel="noopener" href="https://blog.vanxnf.top/2018/09/03/Hexo-%E5%8D%9A%E5%AE%A2-Hiker-%E4%B8%BB%E9%A2%98%E5%A2%9E%E5%8A%A0%E6%96%87%E7%AB%A0%E6%9C%80%E5%90%8E%E7%BC%96%E8%BE%91%E6%97%B6%E9%97%B4%EF%BC%8C%E5%B9%B6%E6%8C%89%E7%85%A7%E6%9C%80%E5%90%8E%E7%BC%96%E8%BE%91%E6%97%B6%E9%97%B4%E6%8E%92%E5%BA%8F/">Hexo博客Hiker主题增加文章最后编辑时间并按照最后编辑时间排序</a>。在此非常感谢<a target="_blank" rel="noopener" href="https://blog.vanxnf.top/">Vientiane</a>详细而清晰的修改教程，本文仅针对于自己的需求进行修改，若需更多配置，烦请移步原文。</p>
+<p><code>Hiker</code>主题和<code>Pure</code>主题<code>layout</code>结构是一致的，根据Vientiane的分析和网页HTML结构，需要修改的文件为<code>./themes/pure/layout/_partial/post/date.ejs</code>。</p>
+<blockquote>
+<p><code>data.ejs</code>这个文件在很多地方会被引用到，可谓是牵一发而动全身啊，如果你改在这个文件上，就会发现所有原本出现发布时间的地方同时还会有更新时间，看上去真的是有点丑啊。<br>我不需要它在文章正文以外的部分出现更新时间，所以选择新建一个<code>updated.ejs</code>文件，就放在与<code>date.ejs</code>同级的<code>post</code>文件夹。</p>
+</blockquote>
+<p>实际上，<code>data.ejs</code>只在「文章页」和「首页」出现，也没有出现在不该出现的地方，因此我们直接修改该文件，从而不需要新建<code>updated.ejs</code>文件，也不需要修改<code>./themes/pure/layout/_partial/article.ejs</code>。</p>
+<p>直接复制一份，对应修改为<code>post.updated</code>和<code>itemprop=&quot;dateUpdated&quot;</code>，并选择合适的图标。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;article-date&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">&quot;icon icon-calendar&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;&lt;%- url_for(post.path) %&gt;&quot;</span> <span class="attr">class</span>=<span class="string">&quot;&lt;%= class_name %&gt;&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">time</span> <span class="attr">datetime</span>=<span class="string">&quot;&lt;%= date_xml(post.date) %&gt;&quot;</span> <span class="attr">itemprop</span>=<span class="string">&quot;datePublished&quot;</span>&gt;</span></span><br><span class="line">            &lt;%= date(post.date, date_format) %&gt;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">time</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;article-date&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">&quot;icon icon-calendar-check&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;&lt;%- url_for(post.path) %&gt;&quot;</span> <span class="attr">class</span>=<span class="string">&quot;&lt;%= class_name %&gt;&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">time</span> <span class="attr">datetime</span>=<span class="string">&quot;&lt;%= date_xml(post.updated) %&gt;&quot;</span> <span class="attr">itemprop</span>=<span class="string">&quot;dateUpdated&quot;</span>&gt;</span></span><br><span class="line">            &lt;%= date(post.updated, date_format) %&gt;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">time</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br></pre></td></tr></table></figure><br>到这里就已经改好了，重新生成页面就可以看到效果。以下是几点说明，自行取舍：</p>
+<ul>
+<li><strong>⑴</strong>如果在<code>Front-matter</code>中定义了<code>updated</code>，那么更新时间就是定义的那个值，否则就是<code>.md</code>文件的修改时间；</li>
+<li><strong>⑵</strong>首页文章排序规则和时间格式需要分别修改<strong>站点配置文件</strong><code>./_config.yml</code>的<code>index_generator: order_by: -date</code>和<code>date_format: YYYY-MM-DD</code>；</li>
+<li><strong>⑶</strong>文章的「发布时间」和「更新时间」如果不加区别地放在一起，可能会让人迷惑，因此需要：<ul>
+<li>通过一个有辨识度的图标来区分；</li>
+<li>在两处<code>&lt;time&gt;</code>标签前通过字段显式地区分：<ul>
+<li>直接写死，例如<code>更新于&lt;time&gt;···</code>；</li>
+<li>也可以<code>&lt;%= __(&#39;updated&#39;) %&gt; &lt;time&gt;···</code>，这种方式适应多种语言环境，因此还需到语言配置文件中增加对应字段<code>updated: 更新于</code>（如果没有设置则显示为标签中的值<code>updated</code>）；</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>⑷</strong>如果<code>article-meta</code>内容过多或其他原因，只希望在「文章页」显示，则需要新建<code>updated.ejs</code>文件。</li>
+<li><p><strong>⑸</strong>关于「首页」和「文章页」时间格式不一致的问题：「首页」时间格式是由<code>archive-post.ejs</code>（默认值为<code>date_format: &#39;MMM D&#39;</code>）决定，「文章页」时间格式是由<code>article.ejs</code>（默认值为<code>date_format: null</code>）决定，这两个文件都在<code>&lt;xx class=&quot;article-meta&quot;&gt;</code>中引入了<code>date.ejs</code>，在<code>date.ejs</code>接受配置文件<code>_config.yml</code>中的时间格式。分析可知：</p>
+<ul>
+<li><code>_config.yml</code>中设置的时间格式仅能影响<code>date.ejs</code>，再传给另外两者解析；</li>
+<li><code>archive-post.ejs</code>和<code>article.ejs</code>各自有时间解析的格式，因此导致了不同。如果在这两者中指定了<code>date_format</code>则按它来解析，否则用已有的值。</li>
+</ul>
+<p>由此解决方案便显而易见了：<strong>将<code>archive-post.ejs</code>中的<code>date_format: &#39;MMM D&#39;</code>修改为<code>date_format: null</code>即可。</strong></p>
+</li>
+<li><strong>⑹</strong>没了。</li>
+</ul>
+<hr>
+<h2 id="19-添加搜索引擎收录"><a href="#19-添加搜索引擎收录" class="headerlink" title="19.添加搜索引擎收录"></a>19.添加搜索引擎收录</h2><h3 id="19-1-谷歌收录"><a href="#19-1-谷歌收录" class="headerlink" title="19.1.谷歌收录"></a>19.1.谷歌收录</h3><blockquote>
+<p>谷歌收录的操作很简单，唯一的问题就是你能否打开这串神奇的字符：<br><a target="_blank" rel="noopener" href="https://search.google.com/search-console">https://search.google.com/search-console</a></p>
+</blockquote>
+<p>操作方法：</p>
+<ul>
+<li>1.<strong>登陆或注册谷歌账号</strong>，如图所示：<br><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201101注册谷歌账号.png" alt="注册谷歌账号"></li>
+<li>2.<strong>添加资源：</strong>资源类型选择「<strong>网址前缀</strong>」【<u>如果选择「<strong>网域</strong>」，则需要进行<code>DNS</code>验证，可能比较麻烦</u>】，输入包含协议头的网址，例如<code>https://hwame.top</code>如图所示：<br><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201101选择资源类型.png" alt="选择资源类型"></li>
+<li>3.<strong>验证所有权：</strong>可使用的方法有以下几种，如图所示：<br><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201101验证所有权.png" alt="验证所有权"><ul>
+<li><strong><code>HTML文件</code>——将HTML文件上传至您的网站</strong>，如图所示，这是谷歌推荐使用的验证方法，需要将<code>googlexxx.html</code>文件上传到网址上，对于Hexo博客而言，直接将其放在<code>./source/</code>文件夹下（与<code>CNAME</code>文件同级）即可；<br><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201126HTML文件.png" alt="HTML文件"></li>
+<li><strong><code>HTML标记</code>——向您网站的首页添加元标记</strong>，如图所示，这是我使用的方法，在网页中添加元标记。<br><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201126HTML标记.png" alt="HTML标记"><br>需要将Google提供的元标记粘贴至网页<code>&lt;head&gt;</code>部分。对于Hexo博客而言，可以将其添加到<code>./themes/pure/layout/_common/head.ejs</code>中，可以使每个页面都能被收录而不仅是首页：<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;xxx&quot;</span> <span class="attr">content</span>=<span class="string">&quot;xxx&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;xxx&quot;</span> <span class="attr">content</span>=<span class="string">&quot;xxx&quot;</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 谷歌收录 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;google-site-verification&quot;</span> <span class="attr">content</span>=<span class="string">&quot;xxxxxx&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>剩余三种可根据自身情况，如图所示：<ul>
+<li><strong><code>Google Analytics（分析）</code>——使用您的Google Analytics（分析）帐号</strong>；</li>
+<li><strong><code>Google Tag Manager</code>——使用您的Google跟踪代码管理器帐号</strong>；</li>
+<li><strong><code>域名提供商</code>——将<code>DNS</code>记录与Google关联</strong>。<br><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201126剩余三种验证方式.png" alt="剩余三种验证方法"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>4.<strong>验证完成：</strong>所有权验证完成后，如图所示：<br><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201101验证完成.png" alt="所有权验证完成"><blockquote>
+<p><strong>说明：</strong>上述验证方式可以同时采用，以添加多种验证方法，从而避免验证状态丢失。</p>
+</blockquote>
+</li>
+<li>5.<strong>效果预览：</strong>由于谷歌抓取内容需要一定的时间，所以暂时还看不到内容：<br><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201101效果预览.png" alt="效果预览"><br>等一段时间即可看到效果，如图所示：<br><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201126效果展示.png" alt="效果展示"></li>
+</ul>
+<h3 id="19-2-百度收录"><a href="#19-2-百度收录" class="headerlink" title="19.2.百度收录"></a>19.2.百度收录</h3><p>与谷歌收录相比，百度收录就麻烦多了。<br>第一步，<strong>注册或登陆</strong>「百度搜索资源平台」：<a target="_blank" rel="noopener" href="https://ziyuan.baidu.com/login/index?u=/crawl/">https://ziyuan.baidu.com/login/index?u=/crawl/</a></p>
+<p>第二步，<strong>添加站点</strong>，将自己博客网址添加，可设置成默认站点，如图所示：<br><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201126添加站点.png" alt="添加站点"></p>
+<p>第三步，<strong>网站验证</strong>，站点添加以后完成验证，如图所示：<br><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201101网站验证.png" alt="完成网站验证"></p>
+<p>第四步，<strong>资源提交</strong>，在左侧导航栏找到「资源提交」→「普通收录」进行资源的推送，推送方式包括以下四种：</p>
+<ul>
+<li>「<strong>API提交</strong>」，利用推送接口<code>http://data.zz.baidu.com/urls?site=&lt;yoursite&gt;&amp;token=&lt;yourtoken&gt;</code>，结合推送示例进行结构化数据的提交，可根据自己的情况使用擅长的语言编写代码。这也是我所使用的方式，下文将详细展开。<br><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201126API提交.png" alt="API提交"></li>
+<li>「<strong>自动推送</strong>」，自动推送<strong>仅对关联过主体的站点开放</strong>，需要在左侧导航栏依次展开「搜索展现」→「站点属性」→「基础信息」→「关联主体」，由于未使用这种方式因此不再叙述，参考【<a target="_blank" rel="noopener" href="https://ziyuan.baidu.com/college/articleinfo?id=2897">关联主体使用说明</a>】。<br><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201126自动推送.png" alt="自动推送"><br>自动推送的<code>js</code>代码需要在每个HTML页面中都包含，因此可以写入到<code>./themes/pure/layout/_common/head.ejs</code>中：<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">var</span> bp = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;script&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">var</span> curProtocol = <span class="variable language_">window</span>.<span class="property">location</span>.<span class="property">protocol</span>.<span class="title function_">split</span>(<span class="string">&#x27;:&#x27;</span>)[<span class="number">0</span>];</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">if</span> (curProtocol === <span class="string">&#x27;https&#x27;</span>)&#123;</span></span><br><span class="line"><span class="language-javascript">        bp.<span class="property">src</span> = <span class="string">&#x27;https://zz.bdstatic.com/linksubmit/push.js&#x27;</span>;</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">else</span>&#123;</span></span><br><span class="line"><span class="language-javascript">        bp.<span class="property">src</span> = <span class="string">&#x27;http://push.zhanzhang.baidu.com/push.js&#x27;</span>;</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">var</span> s = <span class="variable language_">document</span>.<span class="title function_">getElementsByTagName</span>(<span class="string">&quot;script&quot;</span>)[<span class="number">0</span>];</span></span><br><span class="line"><span class="language-javascript">    s.<span class="property">parentNode</span>.<span class="title function_">insertBefore</span>(bp, s);</span></span><br><span class="line"><span class="language-javascript">&#125;)();</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>「<strong><code>sitemap</code></strong>」，根据<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/sitemap">百度百科</a>的解释，站点地图可方便网站管理员通知搜索引擎他们网站上有哪些可供抓取的网页，一般为<code>XML</code>文件，例如<code>atom.xml</code>。直接将<code>XML</code>文件地址添加提交即可。<strong>注意图中的提示信息</strong><br><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201126sitemap.png" alt="sitemap"></li>
+<li>「<strong>手动提交</strong>」，顾名思义即将文章链接地址手动填写并提交。<strong>注意图中的提示信息</strong><br><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201126手动提交.png" alt="手动提交"></li>
+</ul>
+<h3 id="19-3-API提交"><a href="#19-3-API提交" class="headerlink" title="19.3.API提交"></a>19.3.API提交</h3><p>主动推送的API提交可以简单借助Hexo插件，可以参考<a target="_blank" rel="noopener" href="https://hui-wang.info/2016/10/23/Hexo%E6%8F%92%E4%BB%B6%E4%B9%8B%E7%99%BE%E5%BA%A6%E4%B8%BB%E5%8A%A8%E6%8F%90%E4%BA%A4%E9%93%BE%E6%8E%A5/">Hexo插件之百度主动提交链接</a>，以下是自己写的。</p>
+<p>百度提供了<code>php</code>和<code>ruby</code>的推送示例，参考<code>curl</code>推送示例编写<code>python</code>代码。<br>整个的思路就是先用Python提取网站所有文章的链接，然后将其写入<code>urls.txt</code>，再写一个<code>shell</code>脚本执行<code>curl</code>命令，推送完成后删除txt文件。<br>Python主逻辑如下，利用爬虫抓取「归档」页面所有的文章链接放入列表，然后打印。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_article_links</span>(<span class="params">site_url</span>):</span><br><span class="line">	<span class="comment"># 「归档」页提取所有文章链接</span></span><br><span class="line">	archive_url = site_url.rstrip(<span class="string">&quot;/&quot;</span>) + <span class="string">&quot;/archives/&quot;</span></span><br><span class="line">    articles = []</span><br><span class="line">    <span class="comment"># 第一页，若直接&quot;/archives/page/1/&quot;则报错404</span></span><br><span class="line">    text = requests.get(archive_url).text</span><br><span class="line">    html = etree.HTML(text)</span><br><span class="line">    data = html.xpath(<span class="string">&#x27;/html/body/main/article/div/section/div[2]/div/div/a/@href&#x27;</span>)</span><br><span class="line">    articles.extend(data)</span><br><span class="line">    <span class="comment"># 第二页至末尾</span></span><br><span class="line">    page = html.xpath(<span class="string">&#x27;/html/body/main/nav/div/div&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(page):</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="built_in">int</span>(page[<span class="number">0</span>].text.split(<span class="string">&#x27;/&#x27;</span>)[-<span class="number">1</span>])):</span><br><span class="line">            page_url = archive_url + <span class="string">&quot;page/&#123;&#125;/&quot;</span>.<span class="built_in">format</span>(i + <span class="number">1</span>)</span><br><span class="line">            text = requests.get(page_url).text</span><br><span class="line">            html = etree.HTML(text)</span><br><span class="line">            data = html.xpath(<span class="string">&#x27;/html/body/main/article/div/section/div[2]/div/div/a/@href&#x27;</span>)</span><br><span class="line">            articles.extend(data)</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">list</span>(<span class="built_in">map</span>(<span class="keyword">lambda</span> item: site_url + item, articles))</span><br></pre></td></tr></table></figure><br>将打印的内容重定向到<code>urls.txt</code>，然后执行<code>curl</code>命令，主要命令如下：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">python submit.py &gt; urls.txt</span><br><span class="line">curl -H &#x27;Content-<span class="built_in">Type</span>:text/plain&#x27; --data-binary @urls.txt &quot;http://data.zz.baidu.com/urls?site=&lt;yoursite&gt;&amp;token=&lt;yourtoken&gt;&quot;</span><br><span class="line"><span class="built_in">erase</span> urls.txt</span><br></pre></td></tr></table></figure><br>执行效果如图：<br><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201126执行效果.png" alt="执行效果"></p>
+<p><font size=4><b>说明：</b></font></p>
+<blockquote>
+<p><strong>①</strong>此脚本适用于Windows系统，Unix系统只需将<code>cmd</code>的删除命令<code>erase</code>替换为<code>rm -f</code>；<br><strong>②</strong>更简单简洁的办法是从站点地图里提取链接，去重后进行推送，这种方式不仅能推送文章，还可以推送页面；<br><strong>③</strong><code>cmd</code>或<code>shell</code>脚本是基于<code>curl</code>推送的，参考百度的<code>post</code>推送示例，可以只需要一个Python脚本，利用<code>requests.post()</code>方法，主要逻辑如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">submit_to_baidu</span>(<span class="params">articles, site, token</span>):</span><br><span class="line">	<span class="comment"># articles列表为上文get_article_links()函数的返回值</span></span><br><span class="line">    baidu_url = <span class="string">f&quot;http://data.zz.baidu.com/urls?site=<span class="subst">&#123;site&#125;</span>&amp;token=<span class="subst">&#123;token&#125;</span>&quot;</span></span><br><span class="line">    headers = &#123;<span class="string">&quot;User-Agent&quot;</span>: <span class="string">&quot;curl/7.12.1&quot;</span>,</span><br><span class="line">               <span class="string">&quot;Host&quot;</span>: <span class="string">&quot;data.zz.baidu.com&quot;</span>,</span><br><span class="line">               <span class="string">&quot;Content-Type&quot;</span>: <span class="string">&quot;text/plain&quot;</span>,</span><br><span class="line">               <span class="string">&quot;Content-Length&quot;</span>: <span class="string">&quot;83&quot;</span></span><br><span class="line">              &#125;</span><br><span class="line">    post_url = <span class="string">&quot;\n&quot;</span>.join(articles)</span><br><span class="line">    res = requests.post(url=baidu_url, headers=headers, data=post_url)</span><br><span class="line">    <span class="keyword">return</span> res.text</span><br></pre></td></tr></table></figure><br><strong>④</strong>通用Python脚本<a target="_blank" rel="noopener" href="https://cdn.jsdelivr.net/gh/hwame/pics@main/download/submit.py">点我下载</a>来了，命令行执行<code>python submit.py</code>，输入参数、主站网址、token即可，如图所示：<br><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201127执行过程.png" alt="Python脚本执行过程"></p>
+</blockquote>
+<h3 id="19-4-收录效果"><a href="#19-4-收录效果" class="headerlink" title="19.4.收录效果"></a>19.4.收录效果</h3><p>谷歌收录相对较快，大概一两天就能看到：<br><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201126谷歌收录效果.png" alt="谷歌收录效果"></p>
+<p>百度收录就很慢了，大概需要一周的时间：<br><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201126百度收录效果.png" alt="百度收录效果"></p>
+<hr>
+<p>上面搜索是使用关键字，所以排名比较靠后；如果精确搜索，则霸占头版，且搜索内容全部相关：<br><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201126谷歌精确搜索.png" alt="谷歌精确搜索"><br><img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/hexo/20201126百度精确搜索.png" alt="百度精确搜索"></p>
+<hr>
+<h2 id="20-自定义图片大小"><a href="#20-自定义图片大小" class="headerlink" title="20.自定义图片大小"></a>20.自定义图片大小</h2><p>Hexo博客中原生的Markdown语法不支持设置图片大小，如果需要指定图片大小只能通过<code>HTML</code>语法来设置，这未免有点麻烦。那么有没有简单的办法呢？答案是肯定的：</p>
+<p>可以通过额外的js来对<code>![图片描述](图片地址)</code>进行解析， 此回答参考：<a target="_blank" rel="noopener" href="https://bobcn.github.io/2018/03/24/hexo_reset_image_size/">Hexo中扩展Markdown语法设置图片的大小</a>。<br>​<br>只需要在布局文件<code>./themes/xxx/layout/layout.ejs</code>中引入js文件即可：<a target="_blank" rel="noopener" href="https://cdn.jsdelivr.net/gh/bobcn/hexo_resize_image.js@master/hexo_resize_image.js">https://cdn.jsdelivr.net/gh/bobcn/hexo_resize_image.js@master/hexo_resize_image.js</a></p>
+<p>引入位置在<code>&lt;body&gt;</code>前即可，如下所示：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.jsdelivr.net/gh/bobcn/hexo_resize_image.js@master/hexo_resize_image.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">class</span>=<span class="string">&quot;&lt;%= bodyClass %&gt;&quot;</span> <span class="attr">xxx</span>&gt;</span></span><br></pre></td></tr></table></figure><br>使用时在<code>.md</code>文件中插入图片时，只需要在<strong>图片地址</strong>后添加<code>?&lt;width&gt;x&lt;height&gt;</code>即可，具体有以下几种方式：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">格式</th>
+<th style="text-align:center">示例</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>?widthxheight</code></td>
+<td style="text-align:center"><code>?400x300</code></td>
+<td style="text-align:center">同时指定宽度和高度</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>?widthx</code></td>
+<td style="text-align:center"><code>?400x</code></td>
+<td style="text-align:center">指定宽度400</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>?xheight</code></td>
+<td style="text-align:center"><code>?x300</code></td>
+<td style="text-align:center">指定高度300</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>?scale</code></td>
+<td style="text-align:center"><code>?50</code></td>
+<td style="text-align:center">按比例缩放，示例表示50%</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>例如：</p>
+<ul>
+<li><code>![avatar](https://cdn.jsdelivr.net/gh/hwame/pics@main/avatar.jpg?200x200)</code></li>
+<li><code>![avatar](https://cdn.jsdelivr.net/gh/hwame/pics@main/avatar.jpg?200x)</code></li>
+<li><code>![avatar](https://cdn.jsdelivr.net/gh/hwame/pics@main/avatar.jpg?x200)</code></li>
+<li><code>![avatar](https://cdn.jsdelivr.net/gh/hwame/pics@main/avatar.jpg?80)</code></li>
+</ul>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-license">
+      <strong>文章作者： </strong><a href="https://hwame.top" style="color:#E541E5;"> 鴻塵</a>
+    </li>
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://hwame.top/20200520/hello-hexo-troubleshooting.html" title="Hexo博客搭建(4)——常见问题" target="_blank" rel="external" style="color:#E541E5;">https://hwame.top/20200520/hello-hexo-troubleshooting.html</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用《<a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external" style="color:#E541E5;"><u>CC BY 4.0 CN协议</u></a>》许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://hwame.top" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://cdn.jsdelivr.net/gh/hwame/pics@main/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://hwame.top" target="_blank"><span class="text-dark">鴻塵</span><small class="ml-1x">Pythoner, Data Analyst</small></a></h3>
+        <div>个人简介：处女座不适合做码农。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/20200521/customize-matplotlib-fonts.html" title="如何使matplotlib同时使用宋体和Times New Roman"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/20200520/hello-hexo-optimization.html" title="Hexo博客搭建(3)——优化评论系统"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">
+        <span style="color:#C71585">[&nbsp;</span><span style="color:#C71585">文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span style="color:#C71585">]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,wechat,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/hwame" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/hwamei" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://www.zhihu.com/people/hwame" target="_blank" title="Zhihu" data-toggle=tooltip data-placement=top><i class="icon icon-zhihu"></i></a></li>
+        
+        <li><a href="https://segmentfault.com/u/hwame" target="_blank" title="Segmentfault" data-toggle=tooltip data-placement=top><i class="icon icon-segmentfault"></i></a></li>
+        
+        <li><a href="https://gitee.com/hwame" target="_blank" title="Gitee" data-toggle=tooltip data-placement=top><i class="icon icon-gitee"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        &copy; 2023 鴻塵
+        
+        
+        <div class="publishby" style="font-family:Courier">
+            <span id="busuanzi_container_site_pv">
+                <i class="icon icon-eye"></i><span id="busuanzi_value_site_pv" style="font-family:Courier"></span>&nbsp;
+                <i class="icon icon-users"></i><span id="busuanzi_value_site_uv" style="font-family:Courier"></span>
+            </span>
+            <!--
+            <br>✯<a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/" style="color:#0FFFAA">鄂ICP备2020019329号</a>
+            -->
+            <br><i class="icon icon-clock" style="transform:rotate(90deg)"></i><span id="sitetime" style="font-family:Courier"></span>
+        </div>
+        
+        <!--
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+        -->
+    </div>
+    
+</footer>
+<script>
+    function siteTime(){
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth()+1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+        var t1 = Date.UTC(2020,05,19,21,20,52); //建站时间
+        var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+        var diff = t2-t1;
+        var diffYears = Math.floor(diff/years);
+        var diffDays = Math.floor((diff/days)-diffYears*365);
+        var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+        var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+        var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+        // 将「数字」转「补零字符串」
+        var y = diffYears.toString()
+        var d = diffDays.toString().padStart(3, '0')
+        var h = diffHours.toString().padStart(2, '0')
+        var m = diffMinutes.toString().padStart(2, '0')
+        var s = diffSeconds.toString().padStart(2, '0')
+        document.getElementById("sitetime").innerHTML=y+":"+d+":"+h+":"+m+":"+s;
+    }
+    siteTime();
+</script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<div id="go-top"></div>
+<style type="text/css">
+#go-top {
+ width:40px;height:40px;
+ background-color:#DDA0DD;
+ position:relative;
+ border-radius:20px;
+ position:fixed;right:20px;bottom:50px;
+ cursor:pointer;display:none;
+}
+#go-top:after {
+ content:" ";
+ position:absolute;left:14px;top:14px;
+ border-top:2px solid #fff;border-right:2px solid #fff;
+ width:12px;height:12px;
+ transform:rotate(-45deg);
+}
+#go-top:hover {
+ background-color:#8A2BE2;
+}
+</style>
+<script>
+$(function () {
+  var top=$("#go-top");
+  $(window).scroll(function () {
+    ($(window).scrollTop() > 300) ? top.show(300) : top.hide(200);
+    $("#go-top").click(function () {
+      $('body,html').animate({scrollTop:0});
+      return false();
+    })
+  });
+});
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//code.bdstatic.com/npm/leancloud-storage@latest/dist/av-min.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css" />
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  var requiredFields = 'mail';
+  requiredFields = requiredFields.split(',');
+  
+  new Valine({
+    el: '#vcomments',
+    appId: 'yLWKiHoPwmx7Izv4YYtC1fW2-MdYXbMMI',
+    appKey: 'h01jve7HXS6MuDLNBF5DeWTz',
+    verify: false,
+    notify: true,
+    placeholder: '🌺🌺留下邮箱才可以收到新消息提醒哦~\n🦚🦚输入QQ号可自动拉取昵称和邮箱~',
+    avatar: 'robohash',
+    meta: meta,
+    pageSize: '10' || 10,
+    enableQQ: 'true',
+    recordIP: 'true',
+    requiredFields: requiredFields,
+    visitor: true,
+    serverURLs: 'https://valine.hwame.top',
+    
+    master: 'f86269b0b1850cd62ca22b218aea1780',
+    friends: ['1725648a3566b8841f19423519e0a36e', '87b6f0e96e63727d889bb3653fb5867c', 'b7c8e70dc5b2bbbdbdeca1fc0e71b919'],
+    tagMeta: ['鴻塵', '蜜柚', '访客'],
+    metaPlaceholder: {"nick":"昵称/QQ号","mail":"邮箱(必填)","link":"个人主页"}, 
+    emojiCDN: "https://cdn.jsdelivr.net/gh/MiniValine/MiniValine@master/imgs/alus/",
+    emojiMaps: {
+        "emoji_001": "0000.png",
+        "emoji_002": "0010.png",
+        "emoji_003": "0020.png",
+        "emoji_004": "0030.png",
+        "emoji_005": "0040.png",
+        "emoji_006": "0050.png",
+        "emoji_007": "0060.png",
+        "emoji_008": "0070.png",
+        "emoji_009": "0080.png",
+        "emoji_010": "0090.png",
+        "emoji_011": "0100.png",
+        "emoji_012": "0110.png",
+        "emoji_013": "0120.png",
+        "emoji_014": "0130.png",
+        "emoji_015": "0140.png",
+        "emoji_016": "0150.png",
+        "emoji_017": "0160.png",
+        "emoji_018": "0170.png",
+        "emoji_019": "0171.png",
+        "emoji_020": "0180.png",
+        "emoji_021": "0181.png",
+        "emoji_022": "0190.png",
+        "emoji_023": "0200.png",
+        "emoji_024": "0210.png",
+        "emoji_025": "0220.png",
+        "emoji_026": "0230.png",
+        "emoji_027": "0240.png",
+        "emoji_028": "0241.png",
+        "emoji_029": "0250.png",
+        "emoji_030": "0260.png",
+        "emoji_031": "0270.png",
+        "emoji_032": "0280.png",
+        "emoji_033": "0290.png",
+        "emoji_034": "0300.png",
+        "emoji_035": "0310.png",
+        "emoji_036": "0320.png",
+        "emoji_037": "0330.png",
+        "emoji_038": "0331.png",
+        "emoji_039": "0340.png",
+        "emoji_040": "0350.png",
+        "emoji_041": "0360.png",
+        "emoji_042": "0370.png",
+        "emoji_043": "0380.png",
+        "emoji_044": "0390.png",
+        "emoji_045": "0391.png",
+        "emoji_046": "0400.png",
+        "emoji_047": "0410.png",
+        "emoji_048": "0420.png",
+        "emoji_049": "0430.png",
+        "emoji_050": "0431.png",
+        "emoji_051": "0440.png",
+        "emoji_052": "0450.png",
+        "emoji_053": "0451.png",
+        "emoji_054": "0460.png",
+        "emoji_055": "0461.png",
+        "emoji_056": "0462.png",
+        "emoji_057": "0470.png",
+        "emoji_058": "0480.png",
+        "emoji_059": "0490.png",
+        "emoji_060": "0500.png",
+        "emoji_061": "0510.png",
+        "emoji_062": "0520.png",
+        "emoji_063": "0530.png",
+        "emoji_064": "0540.png",
+        "emoji_065": "0550.png",
+        "emoji_066": "0560.png",
+        "emoji_067": "0570.png",
+        "emoji_068": "0580.png",
+        "emoji_069": "0590.png",
+        "emoji_070": "0600.png",
+        "emoji_071": "0610.png",
+        "emoji_072": "0620.png",
+        "emoji_073": "1010.png",
+        "emoji_074": "1011.png",
+        "emoji_075": "1020.png",
+        "emoji_076": "1030.png",
+        "emoji_077": "1040.png",
+        "emoji_078": "1050.png",
+        "emoji_079": "1060.png",
+        "emoji_080": "1070.png",
+        "emoji_081": "1080.png",
+        "emoji_082": "2010.png",
+        "emoji_083": "2020.png",
+        "emoji_084": "2030.png",
+        "emoji_085": "2040.png",
+        "emoji_086": "2050.png",
+        "emoji_087": "2060.png",
+        "emoji_088": "2070.png",
+        "emoji_089": "2080.png",
+        "emoji_090": "2090.png",
+        "emoji_091": "2100.png",
+        "emoji_092": "2101.png",
+        "emoji_093": "2110.png",
+        "emoji_094": "2120.png",
+        "emoji_095": "2130.png",
+        "emoji_096": "2140.png",
+        "emoji_097": "2141.png",
+        "emoji_098": "2145.png",
+        "emoji_099": "2150.png",
+        "emoji_100": "2151.png",
+        "emoji_101": "2152.png",
+        "emoji_102": "2160.png",
+        "emoji_103": "2161.png",
+        "emoji_104": "2165.png",
+        "emoji_105": "2170.png",
+        "emoji_106": "2171.png",
+        "emoji_107": "3010.png",
+        "emoji_108": "3011.png",
+        "emoji_109": "3020.png",
+        "emoji_110": "3030.png",
+        "emoji_111": "3040.png",
+        "emoji_112": "3050.png",
+        "emoji_113": "3060.png",
+        "emoji_114": "3061.png",
+        "emoji_115": "4010.png",
+        "emoji_116": "4020.png",
+        "emoji_117": "4021.png",
+        "emoji_118": "4022.png",
+        "emoji_119": "4023.png",
+        "emoji_120": "4024.png",
+        "emoji_121": "4025.png",
+        "emoji_122": "4030.png",
+        "emoji_123": "4031.png",
+        "emoji_124": "4040.png",
+        "emoji_125": "4041.png",
+        "emoji_126": "4042.png",
+        "emoji_127": "4100.png",
+        "emoji_128": "4110.png",
+        "emoji_129": "4111.png",
+        "emoji_130": "4112.png",
+        "emoji_131": "4113.png",
+        "emoji_132": "4114.png",
+        "emoji_133": "4115.png",
+        "emoji_134": "4120.png",
+        "emoji_135": "4121.png",
+        "emoji_136": "4130.png",
+        "emoji_137": "4140.png",
+        "emoji_138": "4200.png",
+        "emoji_139": "4201.png",
+        "emoji_140": "4210.png",
+        "emoji_141": "4211.png",
+        "emoji_142": "4212.png",
+        "emoji_143": "4213.png",
+        "emoji_144": "4220.png",
+        "emoji_145": "4300.png",
+        "emoji_146": "4301.png",
+        "emoji_147": "4302.png",
+        "emoji_148": "4303.png",
+        "emoji_149": "4304.png",
+        "emoji_150": "4310.png",
+        "emoji_151": "5000.png",
+        "emoji_152": "5001.png",
+        "emoji_153": "5002.png",
+        "emoji_154": "5003.png",
+        "emoji_155": "5010.png",
+        "emoji_156": "5020.png",
+        "emoji_157": "5030.png",
+        "emoji_158": "5040.png",
+        "emoji_159": "5050.png",
+        "emoji_160": "5060.png",
+        "emoji_161": "5069.png",
+        "emoji_162": "5070.png",
+        "emoji_163": "5080.png",
+        "emoji_164": "5090.png",
+        "emoji_165": "5091.png",
+        "emoji_166": "5100.png",
+        "emoji_167": "5110.png",
+        "emoji_168": "5120.png",
+        "emoji_169": "5130.png",
+        "emoji_170": "5131.png",
+        "emoji_171": "5140.png",
+        "emoji_172": "5141.png",
+        "emoji_173": "5150.png",
+        "emoji_174": "5151.png",
+        "emoji_175": "5160.png",
+        "emoji_176": "5161.png",
+        "emoji_177": "5170.png",
+        "emoji_178": "5180.png",
+        "emoji_179": "5190.png",
+        "emoji_180": "5200.png",
+        "emoji_181": "5210.png",
+        "emoji_182": "5220.png",
+        "emoji_183": "5230.png",
+        "emoji_184": "6000.png",
+        "emoji_185": "6001.png",
+        "emoji_186": "6010.png",
+        "emoji_187": "6020.png",
+        "emoji_188": "6030.png",
+        "emoji_189": "6040.png",
+        "emoji_190": "6050.png",
+        "emoji_191": "6051.png",
+        "emoji_192": "6060.png",
+        "emoji_193": "6061.png",
+        "emoji_194": "6070.png",
+        "emoji_195": "6080.png",
+        "emoji_196": "6090.png",
+        "emoji_197": "6091.png",
+        "emoji_198": "6092.png",
+        "emoji_199": "6100.png",
+        "emoji_200": "6110.png",
+        "emoji_201": "6120.png",
+        "emoji_202": "6121.png",
+        "emoji_203": "6130.png",
+        "emoji_204": "6131.png",
+        "emoji_205": "6132.png",
+        "emoji_206": "6140.png",
+        "emoji_207": "6150.png",
+        "emoji_208": "6151.png",
+        "emoji_209": "6160.png",
+        "emoji_210": "6500.png",
+        "emoji_211": "6510.png",
+        "emoji_212": "6520.png",
+        "emoji_213": "6530.png",
+        "emoji_214": "7000.png",
+        "emoji_215": "7010.png",
+        "emoji_216": "7011.png",
+        "emoji_217": "7012.png",
+        "emoji_218": "7020.png",
+        "emoji_219": "7021.png",
+        "emoji_220": "7030.png",
+        "emoji_221": "7040.png",
+        "emoji_222": "7045.png",
+        "emoji_223": "7046.png",
+        "emoji_224": "7050.png",
+        "emoji_225": "7051.png",
+        "emoji_226": "7052.png",
+        "emoji_227": "7053.png",
+        "emoji_228": "7054.png",
+        "emoji_229": "7060.png",
+        "emoji_230": "7061.png",
+        "emoji_231": "7062.png",
+        "emoji_232": "7070.png",
+        "emoji_233": "7071.png",
+        "emoji_234": "7080.png",
+        "emoji_235": "7081.png",
+        "emoji_236": "7090.png",
+        "emoji_237": "7100.png",
+        "emoji_238": "7110.png",
+        "emoji_239": "7111.png",
+        "emoji_240": "7112.png",
+        "emoji_241": "7113.png",
+        "emoji_242": "7200.png",
+        "emoji_243": "7201.png",
+        "emoji_244": "7210.png",
+        "emoji_245": "7220.png",
+        "emoji_246": "7230.png",
+        "emoji_247": "8000.png",
+        "emoji_248": "8001.png",
+        "emoji_249": "8010.png",
+        "emoji_250": "8020.png",
+        "emoji_251": "8021.png",
+        "emoji_252": "8030.png",
+        "emoji_253": "8040.png",
+        "emoji_254": "8041.png",
+        "emoji_255": "8042.png",
+        "emoji_256": "8050.png",
+        "emoji_257": "8051.png",
+        "emoji_258": "8060.png",
+        "emoji_259": "8062.png",
+        "emoji_260": "8070.png",
+        "emoji_261": "8071.png",
+        "emoji_262": "8072.png",
+        "emoji_263": "8080.png",
+        "emoji_264": "8081.png",
+        "emoji_265": "8082.png",
+        "emoji_266": "8083.png",
+        "emoji_267": "8084.png",
+        "emoji_268": "8085.png",
+        "emoji_269": "8090.png",
+        "emoji_270": "8091.png",
+        "emoji_271": "8092.png",
+        "emoji_272": "8100.png",
+        "emoji_273": "8101.png",
+        "emoji_274": "8102.png",
+        "emoji_275": "8103.png",
+        "emoji_276": "8110.png",
+        "emoji_277": "8111.png",
+        "emoji_278": "x010.png",
+        "emoji_279": "x011.png",
+        "emoji_280": "x012.png",
+        "emoji_281": "x013.png",
+        "emoji_282": "x014.png",
+        "emoji_283": "x021.png",
+        "emoji_284": "x022.png",
+        "emoji_285": "x031.png",
+        "emoji_286": "x032.png",
+        "emoji_287": "x041.png",
+        "emoji_288": "x042.png",
+        "emoji_289": "x050.png",
+        "emoji_290": "x060.png",
+        "emoji_291": "x061.png",
+        "emoji_292": "x062.png",
+        "emoji_293": "x063.png",
+        "emoji_294": "x069.png",
+        "emoji_295": "x070.png",
+        "emoji_296": "x071.png",
+        "emoji_297": "x080.png",
+        "emoji_298": "x081.png",
+        "emoji_299": "x082.png",
+        "emoji_300": "x083.png",
+        "emoji_301": "x090.png",
+        "emoji_302": "x091.png",
+        "emoji_303": "x092.png",
+        "emoji_304": "x093.png",
+        "emoji_305": "x094.png",
+        "emoji_306": "x099.png",
+        "emoji_307": "不出所料.png",
+        "emoji_308": "不说话.png",
+        "emoji_309": "不高兴.png",
+        "emoji_310": "中刀.png",
+        "emoji_311": "中指.png",
+        "emoji_312": "中枪.png",
+        "emoji_313": "亲亲.png",
+        "emoji_314": "便便.png",
+        "emoji_315": "内伤.png",
+        "emoji_316": "击掌.png",
+        "emoji_317": "口水.png",
+        "emoji_318": "吐.png",
+        "emoji_319": "吐舌.png",
+        "emoji_320": "吐血倒地.png",
+        "emoji_321": "呲牙.png",
+        "emoji_322": "咽气.png",
+        "emoji_323": "哭泣.png",
+        "emoji_324": "喜极而泣.png",
+        "emoji_325": "喷水.png",
+        "emoji_326": "喷血.png",
+        "emoji_327": "坐等.png",
+        "emoji_328": "害羞.png",
+        "emoji_329": "小眼睛.png",
+        "emoji_330": "尴尬.png",
+        "emoji_331": "得意.png",
+        "emoji_332": "惊喜.png",
+        "emoji_333": "想一想.png",
+        "emoji_334": "愤怒.png",
+        "emoji_335": "扇耳光.png",
+        "emoji_336": "投降.png",
+        "emoji_337": "抠鼻.png",
+        "emoji_338": "抽烟.png",
+        "emoji_339": "无奈.png",
+        "emoji_340": "无所谓.png",
+        "emoji_341": "无语.png",
+        "emoji_342": "暗地观察.png",
+        "emoji_343": "期待.png",
+        "emoji_344": "欢呼.png",
+        "emoji_345": "汗.png",
+        "emoji_346": "深思.png",
+        "emoji_347": "狂汗.png",
+        "emoji_348": "献花.png",
+        "emoji_349": "献黄瓜.png",
+        "emoji_350": "皱眉.png",
+        "emoji_351": "看不见.png",
+        "emoji_352": "看热闹.png",
+        "emoji_353": "瞅你.png",
+        "emoji_354": "肿包.png",
+        "emoji_355": "脸红.png",
+        "emoji_356": "蜡烛.png",
+        "emoji_357": "装大款.png",
+        "emoji_358": "观察.png",
+        "emoji_359": "赞一个.png",
+        "emoji_360": "邪恶.png",
+        "emoji_361": "锁眉.png",
+        "emoji_362": "长草.png",
+        "emoji_363": "阴暗.png",
+        "emoji_364": "高兴.png",
+        "emoji_365": "黑线.png",
+        "emoji_366": "鼓掌.png",
+    },
+  });
+  </script>
+
+     
+
+
+<!-- 20201211添加判断 -->
+
+   
+  <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script>
+  <script>
+  //利用 FancyBox 实现点击图片放大
+  $(document).ready(function() {
+    $('article img').not('[hidden]').not('.panel-body img').each(function() {
+      var $image = $(this);
+      var imageCaption = $image.attr('alt');
+      var $imageWrapLink = $image.parent('a');
+      if ($imageWrapLink.length < 1) {
+        var src = this.getAttribute('src');
+        var idx = src.lastIndexOf('?');
+        if (idx != -1) {
+          src = src.substring(0, idx);
+        }
+        $imageWrapLink = $image.wrap('<a href="' + src + '"></a>').parent('a');
+      }
+      $imageWrapLink.attr('data-fancybox', 'images');
+      if (imageCaption) {
+        $imageWrapLink.attr('data-caption', imageCaption);
+      }
+    });
+    $().fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: true,
+    });
+  });
+  </script>
+
+
+
+
+
+
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+      z-index: 2;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+        .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  
+  <script>
+    addLoadEvent(()=>{
+      $('.highlight').each(function (i, e) {
+        var $wrap = $('<div>').addClass('highlight-wrap')
+        $(e).after($wrap)
+        $wrap.append($('<button>').addClass('copy-btn').append('一键复制').on('click', function (e) {
+          var code = $(this).parent().find(".code")[0].innerText
+          
+          var ta = document.createElement('textarea')
+          document.body.appendChild(ta)
+          ta.style.position = 'absolute'
+          ta.style.top = '0px'
+          ta.style.left = '0px'
+          ta.value = code
+          ta.select()
+          ta.focus()
+          var result = document.execCommand('copy')
+          document.body.removeChild(ta)
+          
+            if(result)$(this).text('复制成功')
+            else $(this).text('复制失败')
+          
+          $(this).blur()
+        })).on('mouseleave', function (e) {
+          var $b = $(this).find('.copy-btn')
+          setTimeout(function () {
+            $b.text('一键复制')
+          }, 300)
+        }).append(e)
+      })
+    })
+  </script>
+
+</body>
+</html>
