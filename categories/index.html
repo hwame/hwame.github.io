@@ -528,17 +528,17 @@
             <div class="collection">
               
                 
-<a href="/20210610/flatten-a-nested-list.html" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2021-06-10T11:56:05.000Z" itemprop="datePublished">2021-06-10</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> 如何将嵌套列表展开为一维
+<a href="/20200521/customize-matplotlib-fonts.html" class="collection-item" target="_blank" itemprop="url">
+  <time datetime="2020-05-21T02:38:22.000Z" itemprop="datePublished">2020-05-21</time>
+  <span>&nbsp;&nbsp;&nbsp;</span> 如何使matplotlib同时使用宋体和Times New Roman
 </a>
 
 
               
                 
-<a href="/20200521/customize-matplotlib-fonts.html" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2020-05-21T02:38:22.000Z" itemprop="datePublished">2020-05-21</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> 如何使matplotlib同时使用宋体和Times New Roman
+<a href="/20210610/flatten-a-nested-list.html" class="collection-item" target="_blank" itemprop="url">
+  <time datetime="2021-06-10T11:56:05.000Z" itemprop="datePublished">2021-06-10</time>
+  <span>&nbsp;&nbsp;&nbsp;</span> 如何将嵌套列表展开为一维
 </a>
 
 
@@ -560,17 +560,17 @@
 
               
                 
-<a href="/20200527/retry-from-try-clause-when-catch-error-in-python.html" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2020-05-27T02:11:54.000Z" itemprop="datePublished">2020-05-27</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> Python捕获异常后如何对try语句重试
+<a href="/20201008/render-matplotlib-figure-to-flaskweb.html" class="collection-item" target="_blank" itemprop="url">
+  <time datetime="2020-10-08T01:06:32.000Z" itemprop="datePublished">2020-10-08</time>
+  <span>&nbsp;&nbsp;&nbsp;</span> 如何将matplotlib图像渲染到前端
 </a>
 
 
               
                 
-<a href="/20201008/render-matplotlib-figure-to-flaskweb.html" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2020-10-08T01:06:32.000Z" itemprop="datePublished">2020-10-08</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> 如何将matplotlib图像渲染到前端
+<a href="/20200527/retry-from-try-clause-when-catch-error-in-python.html" class="collection-item" target="_blank" itemprop="url">
+  <time datetime="2020-05-27T02:11:54.000Z" itemprop="datePublished">2020-05-27</time>
+  <span>&nbsp;&nbsp;&nbsp;</span> Python捕获异常后如何对try语句重试
 </a>
 
 
@@ -662,17 +662,17 @@
             <div class="collection">
               
                 
-<a href="/20210904/make-your-windows-productive.html" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2021-09-04T15:45:56.000Z" itemprop="datePublished">2021-09-04</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> 让你的Windows更具生产力
+<a href="/20211009/install-linux-on-android-phone.html" class="collection-item" target="_blank" itemprop="url">
+  <time datetime="2021-10-09T15:16:37.000Z" itemprop="datePublished">2021-10-09</time>
+  <span>&nbsp;&nbsp;&nbsp;</span> 如何在安卓手机上安装Linux发行版
 </a>
 
 
               
                 
-<a href="/20211009/install-linux-on-android-phone.html" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2021-10-09T15:16:37.000Z" itemprop="datePublished">2021-10-09</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> 如何在安卓手机上安装Linux发行版
+<a href="/20210904/make-your-windows-productive.html" class="collection-item" target="_blank" itemprop="url">
+  <time datetime="2021-09-04T15:45:56.000Z" itemprop="datePublished">2021-09-04</time>
+  <span>&nbsp;&nbsp;&nbsp;</span> 让你的Windows更具生产力
 </a>
 
 
@@ -1038,5 +1038,20 @@ $(function () {
     })
   </script>
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>
