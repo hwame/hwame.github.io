@@ -751,7 +751,7 @@
 <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/20211009/install-linux-on-android-phone.html" class="article-date">
-	  更新于 <time datetime="2021-10-15T17:39:09.733Z" itemprop="dateUpdated">2021-10-16</time>
+	  更新于 <time datetime="2021-10-15T17:39:10.000Z" itemprop="dateUpdated">2021-10-16</time>
 	</a>
 </span>
     
@@ -1208,5 +1208,20 @@ $(function () {
     })
   </script>
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>
