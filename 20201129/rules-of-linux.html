@@ -1025,104 +1025,17 @@ $(function () {
 
    
     
-  <script src="//code.bdstatic.com/npm/leancloud-storage@latest/dist/av-min.js"></script>
 
-
-  <script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css" />
-  <script type="text/javascript">
-  var GUEST = ['nick', 'mail', 'link'];
-  var meta = 'nick,mail,link';
-  meta = meta.split(',').filter(function(item) {
-    return GUEST.indexOf(item) > -1;
-  });
-  var requiredFields = 'mail';
-  requiredFields = requiredFields.split(',');
+  <script src='/waline.js'></script>
+  <link rel="stylesheet" type="text/css" href="/waline.css" />
   
-  new Valine({
-    el: '#vcomments',
-    appId: 'yLWKiHoPwmx7Izv4YYtC1fW2-MdYXbMMI',
-    appKey: 'h01jve7HXS6MuDLNBF5DeWTz',
-    verify: false,
-    notify: true,
-    placeholder: '🌺🌺留下邮箱才可以收到新消息提醒哦~\n🦚🦚输入QQ号可自动拉取昵称和邮箱~',
-    avatar: 'robohash',
-    meta: meta,
-    pageSize: '10' || 10,
-    enableQQ: 'true',
-    recordIP: 'true',
-    requiredFields: requiredFields,
-    visitor: true,
-    serverURLs: 'https://valine.hwame.top',
-    
-    master: 'f86269b0b1850cd62ca22b218aea1780',
-    friends: ['1725648a3566b8841f19423519e0a36e', '87b6f0e96e63727d889bb3653fb5867c', 'b7c8e70dc5b2bbbdbdeca1fc0e71b919'],
-    tagMeta: ['鴻塵', '蜜柚', '访客'],
-    metaPlaceholder: {"nick":"昵称/QQ号","mail":"邮箱(必填)","link":"个人主页"}, 
-    emojiCDN: "https://cdn.jsdelivr.net/gh/MiniValine/MiniValine@master/imgs/alus/",
-    emojiMaps: {
-        "emoji_307": "不出所料.png",
-        "emoji_308": "不说话.png",
-        "emoji_309": "不高兴.png",
-        "emoji_310": "中刀.png",
-        "emoji_311": "中指.png",
-        "emoji_312": "中枪.png",
-        "emoji_313": "亲亲.png",
-        "emoji_314": "便便.png",
-        "emoji_315": "内伤.png",
-        "emoji_316": "击掌.png",
-        "emoji_317": "口水.png",
-        "emoji_318": "吐.png",
-        "emoji_319": "吐舌.png",
-        "emoji_320": "吐血倒地.png",
-        "emoji_321": "呲牙.png",
-        "emoji_322": "咽气.png",
-        "emoji_323": "哭泣.png",
-        "emoji_324": "喜极而泣.png",
-        "emoji_325": "喷水.png",
-        "emoji_326": "喷血.png",
-        "emoji_327": "坐等.png",
-        "emoji_328": "害羞.png",
-        "emoji_329": "小眼睛.png",
-        "emoji_330": "尴尬.png",
-        "emoji_331": "得意.png",
-        "emoji_332": "惊喜.png",
-        "emoji_333": "想一想.png",
-        "emoji_334": "愤怒.png",
-        "emoji_335": "扇耳光.png",
-        "emoji_336": "投降.png",
-        "emoji_337": "抠鼻.png",
-        "emoji_338": "抽烟.png",
-        "emoji_339": "无奈.png",
-        "emoji_340": "无所谓.png",
-        "emoji_341": "无语.png",
-        "emoji_342": "暗地观察.png",
-        "emoji_343": "期待.png",
-        "emoji_344": "欢呼.png",
-        "emoji_345": "汗.png",
-        "emoji_346": "深思.png",
-        "emoji_347": "狂汗.png",
-        "emoji_348": "献花.png",
-        "emoji_349": "献黄瓜.png",
-        "emoji_350": "皱眉.png",
-        "emoji_351": "看不见.png",
-        "emoji_352": "看热闹.png",
-        "emoji_353": "瞅你.png",
-        "emoji_354": "肿包.png",
-        "emoji_355": "脸红.png",
-        "emoji_356": "蜡烛.png",
-        "emoji_357": "装大款.png",
-        "emoji_358": "观察.png",
-        "emoji_359": "赞一个.png",
-        "emoji_360": "邪恶.png",
-        "emoji_361": "锁眉.png",
-        "emoji_362": "长草.png",
-        "emoji_363": "阴暗.png",
-        "emoji_364": "高兴.png",
-        "emoji_365": "黑线.png",
-        "emoji_366": "鼓掌.png",
-    },
-  });
+  <script type="text/javascript">
+ 
+  
+Waline.init({
+      el: '#vcomments',
+      serverURL: 'https://waline.hwame.top',
+});
   </script>
 
      
@@ -1239,5 +1152,20 @@ $(function () {
     })
   </script>
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

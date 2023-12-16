@@ -414,13 +414,13 @@
           
           <li><a href="/tags/CentOS/">CentOS</a></li>
           
+          <li><a href="/tags/Linux部署/">Linux部署</a></li>
+          
           <li><a href="/tags/shell/">shell</a></li>
           
           <li><a href="/tags/matplotlib/">matplotlib</a></li>
           
           <li><a href="/tags/python/">python</a></li>
-          
-          <li><a href="/tags/Linux部署/">Linux部署</a></li>
           
           <li><a href="/tags/Hexo/">Hexo</a></li>
           
@@ -669,6 +669,38 @@
       </div>
       
       <h3 class="panel-title mb-1x">
+        <a href="/tags/Linux%E9%83%A8%E7%BD%B2/" title="#Linux部署"># Linux部署</a>
+        <small class="text-muted">(共 1 篇文章)</small>
+      </h3>
+      <div class="row">
+        
+        <div class="col-md-4">
+          
+<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="panel-body">
+     <div class="article-meta">
+       <time datetime="2020-05-22T00:18:48.000Z" itemprop="datePublished">2020-05-22</time>
+     </div>
+     <h3 class="article-title" itemprop="name">
+       <a class="article-link" href="/20200522/configuration-of-nginx-and-uwsgi.html">Nginx配置与uWSGI配置详解</a>
+     </h3>
+   </div>
+   
+   <div class="panel-footer">
+     
+      <a href="/tags/Linux%E9%83%A8%E7%BD%B2/" class="label label-default mb">Linux部署</a>
+     
+     
+   </div>
+   
+</article>
+
+
+        </div>
+        
+      </div>
+      
+      <h3 class="panel-title mb-1x">
         <a href="/tags/shell/" title="#shell"># shell</a>
         <small class="text-muted">(共 4 篇文章)</small>
       </h3>
@@ -901,14 +933,16 @@
 <article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
   <div class="panel-body">
      <div class="article-meta">
-       <time datetime="2020-10-20T08:45:08.000Z" itemprop="datePublished">2020-10-20</time>
+       <time datetime="2020-05-25T05:22:14.000Z" itemprop="datePublished">2020-05-25</time>
      </div>
      <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/20201020/python-lambda-in-a-for-loop.html">循环中的lambda函数产生的作用域及闭包问题</a>
+       <a class="article-link" href="/20200525/pycharm-connect-linux-from-windows.html">Windows使用PyCharm远程连接Linux的python环境</a>
      </h3>
    </div>
    
    <div class="panel-footer">
+     
+      <a href="/tags/Linux/" class="label label-default mb">Linux</a>
      
       <a href="/tags/python/" class="label label-default mb">python</a>
      
@@ -925,16 +959,14 @@
 <article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
   <div class="panel-body">
      <div class="article-meta">
-       <time datetime="2020-05-25T05:22:14.000Z" itemprop="datePublished">2020-05-25</time>
+       <time datetime="2020-10-20T08:45:08.000Z" itemprop="datePublished">2020-10-20</time>
      </div>
      <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/20200525/pycharm-connect-linux-from-windows.html">Windows使用PyCharm远程连接Linux的python环境</a>
+       <a class="article-link" href="/20201020/python-lambda-in-a-for-loop.html">循环中的lambda函数产生的作用域及闭包问题</a>
      </h3>
    </div>
    
    <div class="panel-footer">
-     
-      <a href="/tags/Linux/" class="label label-default mb">Linux</a>
      
       <a href="/tags/python/" class="label label-default mb">python</a>
      
@@ -1015,38 +1047,6 @@
    <div class="panel-footer">
      
       <a href="/tags/python/" class="label label-default mb">python</a>
-     
-     
-   </div>
-   
-</article>
-
-
-        </div>
-        
-      </div>
-      
-      <h3 class="panel-title mb-1x">
-        <a href="/tags/Linux%E9%83%A8%E7%BD%B2/" title="#Linux部署"># Linux部署</a>
-        <small class="text-muted">(共 1 篇文章)</small>
-      </h3>
-      <div class="row">
-        
-        <div class="col-md-4">
-          
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2020-05-22T00:18:48.000Z" itemprop="datePublished">2020-05-22</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/20200522/configuration-of-nginx-and-uwsgi.html">Nginx配置与uWSGI配置详解</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/Linux%E9%83%A8%E7%BD%B2/" class="label label-default mb">Linux部署</a>
      
      
    </div>
@@ -1796,5 +1796,20 @@ $(function () {
     })
   </script>
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

@@ -9220,6 +9220,7 @@ body.okayNav-loaded {
 }
 
 /* valine评论系统美化 */
+/*
 #vcomments .vcards .vcard,#vcomments .vpanel .vwrap {
 	background-color: #f9f9f9;
 	padding: 15px 20px 0 20px;
@@ -9240,8 +9241,8 @@ body.okayNav-loaded {
 }
 #vcomments .vsubmit.vbtn:hover {
 	background:#e941e5;
-}
-/* 以下为nick,mail,link的样式 */
+}*/
+/* 以下为nick,mail,link的样式
 #vcomments .vheader .vnick,#vcomments .vheader .vmail,#vcomments .vheader .vlink {
       width: 33%;
       background-color: #F0FFFF;
@@ -9249,7 +9250,7 @@ body.okayNav-loaded {
       padding-left: 10px;
       padding-right: 10px;
       border-radius: 5px
-}
+}*/
 img.vimg {
   transition: all 1s   /* 旋转时间为 1s */
 }
